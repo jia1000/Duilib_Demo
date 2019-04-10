@@ -24,7 +24,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 {
 	CPaintManagerUI::SetInstance(hInstance);
 	 // 设置资源的默认路径（此处设置为和exe在同一目录）
-	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("..\\Bin\\Skin\\"));  
+	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("..\\..\\Bin\\Skin\\"));  
 
 	//CFirstFrameWnd duiFrame;
 	CSecondFrameWnd duiFrame;

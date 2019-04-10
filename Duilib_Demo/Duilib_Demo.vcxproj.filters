@@ -16,6 +16,9 @@
     <Filter Include="FrameWndDemo">
       <UniqueIdentifier>{6b807c7d-040e-4efc-9e2f-30ec111dcc7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cef">
+      <UniqueIdentifier>{2b9e355d-9d92-4cc1-b090-f04c76f1b78d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,6 +30,12 @@
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="cef\simple_app.cpp">
+      <Filter>cef</Filter>
+    </ClCompile>
+    <ClCompile Include="cef\simple_handler.cpp">
+      <Filter>cef</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -34,6 +43,12 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="cef\simple_app.h">
+      <Filter>cef</Filter>
+    </ClInclude>
+    <ClInclude Include="cef\simple_handler.h">
+      <Filter>cef</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
