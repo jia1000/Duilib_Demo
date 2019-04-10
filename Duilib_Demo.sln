@@ -5,6 +5,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Duilib_Demo", "Duilib_Demo\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DuiLib", "DuiLib\DuiLib.vcxproj", "{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rdparty", "3rdparty", "{A5D4BF43-1462-40CC-8F5D-D2EBF13E5158}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcef_dll_wrapper_69_3497", "3rdparty\libcef_dll_69_3497\libcef_dll\libcef_dll_wrapper_69_3497.vcxproj", "{B1D076F1-BD6A-4B02-A831-5CB609565FC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -81,8 +85,35 @@ Global
 		{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}.SReleaseA|Win32.Build.0 = SReleaseA|Win32
 		{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}.SReleaseA|x64.ActiveCfg = SReleaseA|x64
 		{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}.SReleaseA|x64.Build.0 = SReleaseA|x64
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.Debug|Win32.Build.0 = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.Debug|x64.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.DebugA|Win32.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.DebugA|Win32.Build.0 = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.DebugA|x64.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.Release|Win32.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.Release|Win32.Build.0 = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.Release|x64.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.ReleaseA|Win32.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.ReleaseA|Win32.Build.0 = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.ReleaseA|x64.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SDebug|Win32.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SDebug|Win32.Build.0 = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SDebug|x64.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SDebugA|Win32.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SDebugA|Win32.Build.0 = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SDebugA|x64.ActiveCfg = Debug|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SRelease|Win32.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SRelease|Win32.Build.0 = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SRelease|x64.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SReleaseA|Win32.ActiveCfg = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SReleaseA|Win32.Build.0 = Release|Win32
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0}.SReleaseA|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1D076F1-BD6A-4B02-A831-5CB609565FC0} = {A5D4BF43-1462-40CC-8F5D-D2EBF13E5158}
 	EndGlobalSection
 EndGlobal
