@@ -80,11 +80,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FirstFrameWnd\FirstFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FirstFrameWnd\FirstFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

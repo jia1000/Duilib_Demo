@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="FirstFrameWnd">
+    <Filter Include="FrameWndDemo">
       <UniqueIdentifier>{6b807c7d-040e-4efc-9e2f-30ec111dcc7f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -21,13 +21,19 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FirstFrameWnd\FirstFrameWnd.cpp">
-      <Filter>FirstFrameWnd</Filter>
+    <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FirstFrameWnd\FirstFrameWnd.h">
-      <Filter>FirstFrameWnd</Filter>
+    <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\SecondFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

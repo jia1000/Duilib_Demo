@@ -2,7 +2,8 @@ Duilib_Demo.opensdf
 Duilib_Demo.sdf
 Duilib_Demo/Debug/
 Temp/
-Bin/
 Debug/
 Lib/
 Duilib_Demo.v11.suo
+Bin/DuiLib_ud.pdb
+Bin/DuiLib_ud.dll
