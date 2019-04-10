@@ -19,7 +19,7 @@ typora-root-url: readme_img
 
 **截图**
 
-![](/first_demo.png)
+![](../readme_img/first_demo.png)
 
 
 
@@ -31,7 +31,7 @@ typora-root-url: readme_img
 
 **截图**
 
-![](/second_demo.png)
+![](../readme_img/second_demo.png)
 
 
 
