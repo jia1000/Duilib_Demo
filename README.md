@@ -23,7 +23,15 @@ typora-root-url: readme_img
 
 
 
+# 创建另一个主窗口
 
+使用xml文件，创建主窗口。
+
+代码中，使用CDialogBuilder类创建。
+
+**截图**
+
+![](/second_demo.png)
 
 
 
