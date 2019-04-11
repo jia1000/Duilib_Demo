@@ -84,16 +84,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cef\simple_app.cpp" />
-    <ClCompile Include="cef\simple_handler.cpp" />
+    <ClCompile Include="cef_simple\simple_app.cpp" />
+    <ClCompile Include="cef_simple\simple_handler.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cef\simple_app.h" />
-    <ClInclude Include="cef\simple_handler.h" />
+    <ClInclude Include="cef_simple\simple_app.h" />
+    <ClInclude Include="cef_simple\simple_handler.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />

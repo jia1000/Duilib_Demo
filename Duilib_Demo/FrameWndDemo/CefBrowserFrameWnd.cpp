@@ -1,7 +1,7 @@
 #include "CefBrowserFrameWnd.h"
 
-#include "cef/simple_app.h"
-#include "cef/simple_handler.h"
+#include "cef_simple/simple_app.h"
+#include "cef_simple/simple_handler.h"
 
 // cef 全局变量
 CefRefPtr<SimpleHandler> g_handler(new SimpleHandler());

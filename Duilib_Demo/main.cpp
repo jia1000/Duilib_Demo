@@ -6,7 +6,7 @@ using namespace DuiLib;
 #include "FrameWndDemo/SecondFrameWnd.h"
 #include "FrameWndDemo/CefBrowserFrameWnd.h"
 
-#include "cef\simple_app.h"
+#include "cef_simple\simple_app.h"
 
 
 #ifdef _DEBUG
