@@ -89,6 +89,7 @@
     <ClCompile Include="FrameWndDemo\CefBrowserFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\ListControSimplelFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -98,6 +99,7 @@
     <ClInclude Include="FrameWndDemo\CefBrowserFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\ListControSimplelFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

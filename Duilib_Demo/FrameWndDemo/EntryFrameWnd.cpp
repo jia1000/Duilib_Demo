@@ -3,6 +3,7 @@
 #include "FrameWndDemo/FirstFrameWnd.h"
 #include "FrameWndDemo/SecondFrameWnd.h"
 #include "FrameWndDemo/CefBrowserFrameWnd.h"
+#include "FrameWndDemo/ListControSimplelFrameWnd.h"
 
 CEntryFrameWnd::CEntryFrameWnd(void)
 {
@@ -90,6 +91,10 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button4")) == 0) {
+			CListControlSimpleFrameWnd* duiFrame = new CListControlSimpleFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
 		}
 
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {

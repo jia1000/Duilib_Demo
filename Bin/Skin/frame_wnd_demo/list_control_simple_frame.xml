@@ -11,13 +11,16 @@
 		</HorizontalLayout>
 		
 		<!-- 主窗口 -->
-		<TileLayout bkcolor="#FFE6E7E8" columns="4" inset="(2,2,2,2)" childpadding="5" >			
-			<Button name="Button1" text="FirstFrameWnd" 	 height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button2" text="SecondFrameWnd" 	 height="60"  bkcolor="#FFFFF0D0" />				
-			<Button name="Button3" text="CefBrowserFrameWnd" height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button4" text="ListControlSimple"  height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button5" text="Button测试5"        height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button6" text="Button测试6"        height="60"  bkcolor="#FFFFF0D0" />
-		</TileLayout>
+		<List name="ListDemo1"  width="139" height="218" bkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true" itemtextcolor="#FF000000" itembkcolor="#FFE2DDDF" itemselectedtextcolor="#FF000000" itemselectedbkcolor="#FFC1E3FF" itemhottextcolor="#FF000000" itemhotbkcolor="#FFE9F5FF" itemdisabledtextcolor="#FFCCCCCC" itemdisabledbkcolor="#FFFFFFFF" >
+			<ListHeader name="domain" >
+				<ListHeaderItem text="序号" width="40" height="23" minwidth="16"  sepwidth="1" align="center"  />
+				<ListHeaderItem text="文件名称" width="84" height="23" minwidth="16"  sepwidth="1" align="center"  />
+			</ListHeader>
+			<!-- 
+			<ListLabelElement text="张三" selected="true" />
+			<ListLabelElement text="李四" />
+			<ListLabelElement text="王五" />
+			-->
+		</List>
 	</VerticalLayout>
 </Window>

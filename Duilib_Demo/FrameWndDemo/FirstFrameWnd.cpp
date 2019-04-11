@@ -38,15 +38,15 @@ LRESULT CFirstFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 		return lRes;
 	}  
 	// 以下3个消息WM_NCACTIVATE、WM_NCCALCSIZE、WM_NCPAINT用于屏蔽系统标题栏
-	else if (uMsg == WM_NCACTIVATE) {
-		if (!::IsIconic(m_hWnd)) {
-			return (wParam == 0) ? true :false;
-		}
-	} else if (uMsg == WM_NCCALCSIZE) {
-		return 0;
-	} else if (uMsg == WM_NCPAINT) {
-		return 0;
-	}
+	//else if (uMsg == WM_NCACTIVATE) {
+	//	if (!::IsIconic(m_hWnd)) {
+	//		return (wParam == 0) ? true :false;
+	//	}
+	//} else if (uMsg == WM_NCCALCSIZE) {
+	//	return 0;
+	//} else if (uMsg == WM_NCPAINT) {
+	//	return 0;
+	//}
 
 	if( m_PaintManager.MessageHandler(uMsg, wParam, lParam, lRes) ) {
 		return lRes;
