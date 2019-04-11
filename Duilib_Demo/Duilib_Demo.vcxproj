@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\DuiLib;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Duilib_Demo;..\DuiLib;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\release</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="cef\simple_app.cpp" />
     <ClCompile Include="cef\simple_handler.cpp" />
+    <ClCompile Include="FrameWndDemo\CefBrowserFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
@@ -93,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="cef\simple_app.h" />
     <ClInclude Include="cef\simple_handler.h" />
+    <ClInclude Include="FrameWndDemo\CefBrowserFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />
   </ItemGroup>

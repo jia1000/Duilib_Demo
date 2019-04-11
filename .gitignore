@@ -7,3 +7,9 @@ Lib/
 Duilib_Demo.v11.suo
 Bin/DuiLib_ud.pdb
 Bin/DuiLib_ud.dll
+Bin/release/Duilib_Demod.pdb
+Bin/release/Duilib_Demod.ilk
+Bin/release/Duilib_Demod.exe
+Bin/release/debug.log
+Duilib_Demo/GPUCache/
+ipch/
