@@ -39,6 +39,9 @@
     <ClCompile Include="cef_simple\simple_handler.cpp">
       <Filter>cef_simple</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="cef_simple\simple_handler.h">
       <Filter>cef_simple</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\EntryFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

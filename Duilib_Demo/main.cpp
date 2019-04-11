@@ -2,9 +2,7 @@
 #include <UIlib.h>
 using namespace DuiLib;
 
-#include "FrameWndDemo/FirstFrameWnd.h"
-#include "FrameWndDemo/SecondFrameWnd.h"
-#include "FrameWndDemo/CefBrowserFrameWnd.h"
+#include "FrameWndDemo/EntryFrameWnd.h"
 
 #include "cef_simple\simple_app.h"
 
@@ -54,7 +52,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
 	//CFirstFrameWnd duiFrame;
 	//CSecondFrameWnd duiFrame;
-	CCefBrowserFrameWnd duiFrame;
+	//CCefBrowserFrameWnd duiFrame;
+	CEntryFrameWnd duiFrame;
 	duiFrame.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 	duiFrame.CenterWindow();
 	duiFrame.ShowWindow();
