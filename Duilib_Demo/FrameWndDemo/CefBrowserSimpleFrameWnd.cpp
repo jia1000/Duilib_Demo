@@ -1,4 +1,4 @@
-#include "CefBrowserFrameWnd.h"
+#include "CefBrowserSimpleFrameWnd.h"
 
 #include "cef_simple/simple_app.h"
 #include "cef_simple/simple_handler.h"
@@ -6,57 +6,57 @@
 // cef 全局变量
 CefRefPtr<SimpleHandler> g_handler(new SimpleHandler());
 
-CCefBrowserFrameWnd::CCefBrowserFrameWnd(void)
+CCefBrowserSimpleFrameWnd::CCefBrowserSimpleFrameWnd(void)
 	: m_bIsInit(false)
 {
 }
 
-CCefBrowserFrameWnd::~CCefBrowserFrameWnd(void)
+CCefBrowserSimpleFrameWnd::~CCefBrowserSimpleFrameWnd(void)
 {
 	PostQuitMessage(0);
 }
 
-LPCTSTR CCefBrowserFrameWnd::GetWindowClassName() const 
+LPCTSTR CCefBrowserSimpleFrameWnd::GetWindowClassName() const 
 { 
 	return _T("CefBrowserFrameWnd"); 
 }
 
-void CCefBrowserFrameWnd::OnFinalMessage(HWND hWnd)
+void CCefBrowserSimpleFrameWnd::OnFinalMessage(HWND hWnd)
 {
 	WindowImplBase::OnFinalMessage(hWnd);
 	//delete this; //退出时，会有异常
 }
 
-void CCefBrowserFrameWnd::InitWindow()
+void CCefBrowserSimpleFrameWnd::InitWindow()
 {
 	m_bIsInit = TRUE;
 	FirstLoadCef();
 }
 
-CControlUI* CCefBrowserFrameWnd::CreateControl(LPCTSTR pstrClass)
+CControlUI* CCefBrowserSimpleFrameWnd::CreateControl(LPCTSTR pstrClass)
 {
 	return NULL;
 }
 
-CDuiString CCefBrowserFrameWnd::GetSkinFile()
+CDuiString CCefBrowserSimpleFrameWnd::GetSkinFile()
 {
 	return _T("frame_wnd_demo\\cef_browser_frame.xml");
 }
 
-CDuiString CCefBrowserFrameWnd::GetSkinFolder()
+CDuiString CCefBrowserSimpleFrameWnd::GetSkinFolder()
 {
 	return CDuiString(CPaintManagerUI::GetInstancePath()) + _T("skin\\");
 
 }
 
-LRESULT CCefBrowserFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+LRESULT CCefBrowserSimpleFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	AdjustCefWindow();
 	__super::OnSize(uMsg, wParam, lParam, bHandled);
 	return 0;
 }
 
-void    CCefBrowserFrameWnd::Notify(TNotifyUI& msg) 
+void    CCefBrowserSimpleFrameWnd::Notify(TNotifyUI& msg) 
 {
 	if (msg.sType == _T("click")) {
 		LPCTSTR pszCtrlName = msg.pSender->GetName().GetData();
@@ -84,7 +84,7 @@ void    CCefBrowserFrameWnd::Notify(TNotifyUI& msg)
 	}
 }
 
-LRESULT CCefBrowserFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CCefBrowserSimpleFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT lRes = 0;
 
@@ -103,7 +103,7 @@ LRESULT CCefBrowserFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lPar
 	return __super::HandleMessage(uMsg, wParam, lParam);
 }
 
-void CCefBrowserFrameWnd::FirstLoadCef()
+void CCefBrowserSimpleFrameWnd::FirstLoadCef()
 {
 	CTabLayoutUI* pTabTest = static_cast <CTabLayoutUI*>(m_pm.FindControl(_T("tabTest")));
 	COptionUI *pCefControlTest = static_cast<COptionUI*>(m_pm.FindControl(_T("CEF_Control_Test")));
@@ -136,7 +136,7 @@ void CCefBrowserFrameWnd::FirstLoadCef()
 	pCefControlTest->Selected(TRUE);
 }
 
-void CCefBrowserFrameWnd::AdjustCefWindow()
+void CCefBrowserSimpleFrameWnd::AdjustCefWindow()
 {
 	if (m_bIsInit)
 	{
@@ -156,7 +156,7 @@ void CCefBrowserFrameWnd::AdjustCefWindow()
 	}
 }
 
-void CCefBrowserFrameWnd::HideCefWindow()
+void CCefBrowserSimpleFrameWnd::HideCefWindow()
 {
 	CefRefPtr<CefBrowser> browser = g_handler->GetCurrentBrowser();
 	if (browser != NULL)
@@ -169,7 +169,7 @@ void CCefBrowserFrameWnd::HideCefWindow()
 	}
 }
 
-void CCefBrowserFrameWnd::OnSelChanged(CControlUI* pSender)
+void CCefBrowserSimpleFrameWnd::OnSelChanged(CControlUI* pSender)
 {
 	CTabLayoutUI* pTabTest = static_cast <CTabLayoutUI*>(m_pm.FindControl(_T("tabTest")));
 	COptionUI *pCefControlTest = static_cast<COptionUI*>(m_pm.FindControl(_T("CEF_Control_Test")));

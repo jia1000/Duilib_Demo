@@ -6,11 +6,11 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口,其中，有cef浏览器控件
 //////////////////////////////////////////////////////////////////////////
 
-class CCefBrowserFrameWnd : public WindowImplBase
+class CCefBrowserSimpleFrameWnd : public WindowImplBase
 {
 public:
-	CCefBrowserFrameWnd(void);
-	virtual ~CCefBrowserFrameWnd(void);
+	CCefBrowserSimpleFrameWnd(void);
+	virtual ~CCefBrowserSimpleFrameWnd(void);
 
 	virtual LPCTSTR GetWindowClassName() const ;
 	virtual void OnFinalMessage(HWND hWnd);

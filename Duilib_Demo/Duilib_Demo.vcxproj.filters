@@ -33,9 +33,6 @@
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
-    <ClCompile Include="FrameWndDemo\CefBrowserFrameWnd.cpp">
-      <Filter>FrameWndDemo</Filter>
-    </ClCompile>
     <ClCompile Include="cef_simple\simple_app.cpp">
       <Filter>cef_simple</Filter>
     </ClCompile>
@@ -54,15 +51,15 @@
     <ClCompile Include="extended_control\list_pro_ui.cpp">
       <Filter>extended_control</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h">
-      <Filter>FrameWndDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWndDemo\CefBrowserFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
     <ClInclude Include="cef_simple\simple_app.h">
@@ -82,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="extended_control\list_pro_ui.h">
       <Filter>extended_control</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

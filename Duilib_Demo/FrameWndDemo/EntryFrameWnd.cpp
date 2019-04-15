@@ -2,7 +2,7 @@
 
 #include "FrameWndDemo/FirstFrameWnd.h"
 #include "FrameWndDemo/SecondFrameWnd.h"
-#include "FrameWndDemo/CefBrowserFrameWnd.h"
+#include "FrameWndDemo/CefBrowserSimpleFrameWnd.h"
 #include "FrameWndDemo/ListControSimplelFrameWnd.h"
 #include "FrameWndDemo/ListControlVirtualContainerFrameWnd.h"
 
@@ -87,7 +87,7 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button3")) == 0) {
-			CCefBrowserFrameWnd* duiFrame = new CCefBrowserFrameWnd();
+			CCefBrowserSimpleFrameWnd* duiFrame = new CCefBrowserSimpleFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
