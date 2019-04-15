@@ -8,12 +8,10 @@ using namespace DuiLib;
 class CCefBrowserUI;
 
 //////////////////////////////////////////////////////////////////////////
-// 该类使用xml文件创建窗口,其中，有cef浏览器控件
+// 该类使用xml文件创建窗口,其中，有cef浏览器控件(参考了官方cefclient示例）
 //////////////////////////////////////////////////////////////////////////
 
 #define KEY_MAINWINDOW "main"
-#define KEY_CHILDWINDOW "child"
-#define KEY_PRINTWINDOW "print"
 
 #include <algorithm>
 
@@ -43,7 +41,7 @@ public:
 	virtual ~CCefBrowserClientFrameWnd(void);
 
 	virtual CDuiString GetSkinFile() ;
-	virtual LPCTSTR GetWindowClassName(void) const { return  L"{A5F70D30-7F37-4567-A829-7F1F9E4F659E}"; }
+	virtual LPCTSTR GetWindowClassName(void) const { return  L"{1101EC6A-570B-4983-96AC-3956AC093F16}"; }
 	virtual void Notify(TNotifyUI &msg);
 	virtual void InitWindow();
 	//消息集成处理函数
@@ -92,8 +90,6 @@ public:
 	virtual void NotifyWindowDestroyed();
 	wstring GetUrl();
 	wstring GetTitle();
-	// 打印预览接口
-	void OpenPrintWindow(const wstring& url);
 
 	void SetBrowserZoomLevel(double level);
 
@@ -117,6 +113,4 @@ private:
 	CButtonUI* m_pStopBtn;
 	// 定义导航和地址栏控件结束
 	CLabelUI* m_title_label;
-	// 打印预览子窗口
-	CWindowWnd* print_wnd_;
 };
