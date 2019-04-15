@@ -40,7 +40,7 @@
 				<HorizontalLayout>
 					<!-- CEF浏览器控件 预留位置 -->
 					
-						<Cef url="http://mail.163.com" padding="2,1,2,1" />
+						<Cef url="" padding="2,1,2,1" />
 				</HorizontalLayout>
 				<HorizontalLayout>
 					<Button name="OptionDemo2" text="OptionDemo2" bkcolor="#FFF44C4C"  />					

@@ -139,7 +139,7 @@ void CCefBrowserClientFrameWnd::OnSelChanged(CControlUI* pSender)
 CControlUI* CCefBrowserClientFrameWnd::CreateControl(LPCTSTR pstrClass/*, CPaintManagerUI *pManager*/)
 {
 	if( _tcsicmp(pstrClass, _T("Cef")) == 0){
-		m_pBrowserUI = new CCefBrowserUI(this, _T("www.baidu.com"));
+		m_pBrowserUI = new CCefBrowserUI(this, _T(""));
 		return m_pBrowserUI;
 	}
 
@@ -230,9 +230,6 @@ void CCefBrowserClientFrameWnd::InitWindow()
 	m_pRefreshBtnNew = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_refresh_new")));
 	m_pStopBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_stop")));
 	m_title_label = static_cast<CLabelUI*>(m_pm.FindControl(L"title_label"));
-
-	//RegisterHotKey(this->m_hWnd, g_hot_key_zoom_add,   MOD_CONTROL, VK_ADD);
-	//RegisterHotKey(this->m_hWnd, g_hot_key_zoom_minus, MOD_CONTROL, VK_SUBTRACT );
 }
 
 LRESULT CCefBrowserClientFrameWnd::OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -345,7 +342,9 @@ void CCefBrowserClientFrameWnd::OnExit()
 
 void CCefBrowserClientFrameWnd::OnZoomValueChanged(int step)
 {
-
+	double value = m_pBrowserUI->GetZoomLevel(); 
+	//value = value + step * 0.2;
+	m_pBrowserUI->SetZoomLevel(value);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -354,11 +353,6 @@ void CCefBrowserClientFrameWnd::NotifyWindowDestroyed()
 {
 	if (m_pDelegate)
 		m_pDelegate->OnRootWindowDestroyed(this);
-}
-
-void CCefBrowserClientFrameWnd::OpenPrintWindow(const wstring& url)
-{
-	
 }
 
 void CCefBrowserClientFrameWnd::SetBrowserZoomLevel(double level)
