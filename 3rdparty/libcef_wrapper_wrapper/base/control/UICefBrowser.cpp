@@ -92,6 +92,16 @@ void CCefBrowserUI::SetInternVisible(bool bVisible)
 	{
 #ifndef _USED_CHROME_69_3497
 		m_pBrowser->GetHost()->SetWindowVisibility(bVisible);
+#else
+		CefWindowHandle hwnd = m_pBrowser->GetHost()->GetWindowHandle();
+		if (hwnd) {
+			if (bVisible) {
+				::ShowWindow(hwnd, SW_SHOW);
+			} 
+			else {
+				::ShowWindow(hwnd, SW_HIDE);
+			}
+		}
 #endif
 	}
 	else
