@@ -1,3 +1,5 @@
+#pragma once
+
 #include "cef_client_handler.h"
 #include "include/cef_base.h"
 #include "include/cef_load_handler.h"

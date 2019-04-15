@@ -54,6 +54,9 @@
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -81,6 +84,9 @@
       <Filter>extended_control</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>

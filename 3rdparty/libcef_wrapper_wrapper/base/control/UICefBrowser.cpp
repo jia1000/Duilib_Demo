@@ -53,11 +53,11 @@ void CCefBrowserUI::DoInit()
 	m_pClientHandler->CreateBrowser(m_pManager->GetPaintWindow(), m_rcItem, m_sStartupUrl);
 }
 
-void CCefBrowserUI::DoPaint(HDC hDC, const RECT& rcPaint)
+bool CCefBrowserUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl)
 {
 	resize();
 
-	//return CControlUI::DoPaint(hDC, rcPaint);
+	return CControlUI::DoPaint(hDC, rcPaint, pStopControl);
 }
 
 void CCefBrowserUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)

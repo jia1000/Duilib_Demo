@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\release</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
@@ -55,7 +55,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -87,6 +87,7 @@
     <ClCompile Include="cef_simple\simple_app.cpp" />
     <ClCompile Include="cef_simple\simple_handler.cpp" />
     <ClCompile Include="extended_control\list_pro_ui.cpp" />
+    <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="cef_simple\simple_app.h" />
     <ClInclude Include="cef_simple\simple_handler.h" />
     <ClInclude Include="extended_control\list_pro_ui.h" />
+    <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />

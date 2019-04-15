@@ -26,7 +26,7 @@ public:
 	LPCTSTR GetClass() const;
 	LPVOID GetInterface(LPCTSTR pstrName);
 	void DoInit();
-	void DoPaint(HDC hDC, const RECT& rcPaint);
+	virtual bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 	void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
 	void SetVisible(bool bVisible);
 	void SetInternVisible(bool bVisible);
@@ -82,7 +82,7 @@ public:
 	void SetProcessMessageHandler(CefRefPtr<CProcessMessageHandler> pHandler);
 
 	// 实现自定义控件的创建
-	CControlUI* CreateControl(LPCTSTR pstrClass, CPaintManagerUI *pm) /*override*/
+	CControlUI* CreateControl(LPCTSTR pstrClass) override
 	{
 		//if (_tcscmp(pstrClass, _T("Cef")) == 0) return new CCefUI();
 		if (_tcscmp(pstrClass, _T("Cef")) == 0) return this;
