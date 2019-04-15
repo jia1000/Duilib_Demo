@@ -4,6 +4,7 @@
 #include "FrameWndDemo/SecondFrameWnd.h"
 #include "FrameWndDemo/CefBrowserFrameWnd.h"
 #include "FrameWndDemo/ListControSimplelFrameWnd.h"
+#include "FrameWndDemo/ListControlVirtualContainerFrameWnd.h"
 
 CEntryFrameWnd::CEntryFrameWnd(void)
 {
@@ -92,6 +93,11 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button4")) == 0) {
 			CListControlSimpleFrameWnd* duiFrame = new CListControlSimpleFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
+		} else if (_tcscmp(pszCtrlName, _T("Button5")) == 0) {
+			CListControlVirtualContainerFrameWnd* duiFrame = new CListControlVirtualContainerFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();

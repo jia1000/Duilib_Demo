@@ -19,6 +19,9 @@
     <Filter Include="cef_simple">
       <UniqueIdentifier>{2b9e355d-9d92-4cc1-b090-f04c76f1b78d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="extended_control">
+      <UniqueIdentifier>{3f75d4af-c9f7-418a-af2e-7e69faf19c2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +48,12 @@
     <ClCompile Include="FrameWndDemo\ListControSimplelFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="extended_control\list_pro_ui.cpp">
+      <Filter>extended_control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -67,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\ListControSimplelFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="extended_control\list_pro_ui.h">
+      <Filter>extended_control</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

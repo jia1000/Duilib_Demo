@@ -86,9 +86,11 @@
   <ItemGroup>
     <ClCompile Include="cef_simple\simple_app.cpp" />
     <ClCompile Include="cef_simple\simple_handler.cpp" />
+    <ClCompile Include="extended_control\list_pro_ui.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\ListControSimplelFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
@@ -96,9 +98,11 @@
   <ItemGroup>
     <ClInclude Include="cef_simple\simple_app.h" />
     <ClInclude Include="cef_simple\simple_handler.h" />
+    <ClInclude Include="extended_control\list_pro_ui.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\ListControSimplelFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />
   </ItemGroup>
