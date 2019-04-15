@@ -126,7 +126,7 @@ void CCefBrowserClientFrameWnd::OnSelChanged(CControlUI* pSender)
 	if (strSelName == _T("CEF_Control_Test")) 
 	{
 		if (m_pBrowserUI) {
-			m_pBrowserUI->Navigate2(_T("http://mail.163.com"));
+			m_pBrowserUI->Navigate2(_T("http://192.168.1.251/main"));
 		}
 		ShowCefWindow();
 		pTabTest->SelectItem(0);
@@ -194,9 +194,7 @@ void CCefBrowserClientFrameWnd::LoadUrl(wstring url)
 			std::wstring text = _T("address invalid");
 			return;
 		}
-		// 关闭上一次打开的打印窗口
-		ClosePrintWindow();
-
+		
 		m_pBrowserUI->Navigate2(url);
 	}
 }
@@ -361,16 +359,6 @@ void CCefBrowserClientFrameWnd::NotifyWindowDestroyed()
 void CCefBrowserClientFrameWnd::OpenPrintWindow(const wstring& url)
 {
 	
-}
-
-void CCefBrowserClientFrameWnd::ClosePrintWindow()
-{
-	if (print_wnd_){
-		// 禁用浏览器窗口
-		::EnableWindow(this->GetHWND(), TRUE);
-		print_wnd_->Close();
-		print_wnd_ = NULL;
-	}
 }
 
 void CCefBrowserClientFrameWnd::SetBrowserZoomLevel(double level)

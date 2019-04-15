@@ -107,9 +107,6 @@ protected:
 	CCefBrowserUI* m_pBrowserUI;
 
 private:
-	void ClosePrintWindow();
-
-private:
 	// 定义导航和地址栏控件
 	CButtonUI* m_pOkBtn;
 	CEditUI* m_pAddressEdit;
