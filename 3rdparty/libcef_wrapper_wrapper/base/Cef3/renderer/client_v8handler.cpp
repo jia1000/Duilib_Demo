@@ -56,6 +56,10 @@ bool V8Handler::Execute( const CefString& name, CefRefPtr<CefV8Value> object, \
 		/*_size = arguments.size();		
 		CefRefPtr<CefDOMVisitor> visitor = new SimpleDomVisitor();
 		context->GetBrowser()->GetMainFrame()->VisitDOM(visitor);*/
+	} else if(msg->GetName() == "my_test_js_func"){  //接收JS函数
+		// Return my string value.
+		retval = CefV8Value::CreateString("This is JS function!");
+		return true;
 	}
 	// 浏览器会分发侦听到的事件，如果是JS有关的，则交由V8Handler处理
 	context->GetBrowser()->SendProcessMessage(PID_BROWSER, msg);

@@ -34,6 +34,12 @@ void ClientAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<
 		// Add the "myfunc" function to the "window" object.
 		object->SetValue("RestoreWnd", func2, V8_PROPERTY_ATTRIBUTE_NONE);
 	}
+	// C++ 和 JS 交互 方式之 JS函数
+	{
+		// 创建JS函数
+		CefRefPtr<CefV8Value> func = CefV8Value::CreateFunction("my_test_js_func", handler);
+		object->SetValue("my_test_js_func", func, V8_PROPERTY_ATTRIBUTE_NONE);
+	}
 	// C++ 和 JS 交互 方式之：窗体绑定
 	// 官方 窗体绑定 demo
 	{

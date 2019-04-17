@@ -11,11 +11,16 @@
         }
     }
     function test_window_binding_extension() {
-        alert(test1.myval);
+        alert(test.myval);
+    }
+    function test_js_func() {
+        var ret = window.my_test_js_func();
+        alert(ret);
     }
 </script>
 <body>
 <input type="button" value="min1" onclick="maximize();" />
 <input type="button" value="min2" onclick="test_window_binding_extension();" />
+<input type="button" value="min3" onclick="test_js_func();" />
 </body>
 </html>
