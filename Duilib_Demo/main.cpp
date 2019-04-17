@@ -52,6 +52,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	//CefRefPtr<SimpleApp> app(new SimpleApp);
 	CefRefPtr<ClientApp> app(new ClientApp);
 
+	// 获取进程类型
+	ClientApp::ProcessType processType = ClientApp::GetProcessType();
+#if 0 //def RENDERER_DEBUG
+	if (processType == ClientApp::ProcessType::RendererProcess){
+		MessageBox(NULL, _T("To attach renderer process!"), _T("test"), 0);
+	}
+#endif
+
 	// 这个函数的执行在browser进程时会立即返回，
 	// 在子进程时会堵塞直到退出时返回。
 	int exitCode = CefExecuteProcess(args, app, NULL);
