@@ -79,7 +79,8 @@ bool CCefClientHandler::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser
 	}
 
 	CefRefPtr<CefProcessMessage> msg = message->Copy();
-	
+
+	//需要重写CefClient子类的OnProcessMessageReceived函数
 	exec_on_main_thread([this, msg]
 	{
 		if (m_pOwner != nullptr)

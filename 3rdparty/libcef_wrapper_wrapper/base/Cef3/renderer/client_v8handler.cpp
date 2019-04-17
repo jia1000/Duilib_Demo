@@ -57,7 +57,7 @@ bool V8Handler::Execute( const CefString& name, CefRefPtr<CefV8Value> object, \
 		CefRefPtr<CefDOMVisitor> visitor = new SimpleDomVisitor();
 		context->GetBrowser()->GetMainFrame()->VisitDOM(visitor);*/
 	}
-
+	// 浏览器会分发侦听到的事件，如果是JS有关的，则交由V8Handler处理
 	context->GetBrowser()->SendProcessMessage(PID_BROWSER, msg);
 
 	return true;

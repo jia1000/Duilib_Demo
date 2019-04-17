@@ -22,6 +22,18 @@ void ClientAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<
 		object->SetValue(funName, func, V8_PROPERTY_ATTRIBUTE_NONE);
 	}
 
+	{
+		// 需要向JS引擎，注册函数。目的，JS在执行某函数时，Browser进程的OnProcessMessageReceived函数，能正确解析
+		// Create the "myfunc" function.
+		CefRefPtr<CefV8Value> func = CefV8Value::CreateFunction("MaximizeWnd", handler);
+		// Add the "myfunc" function to the "window" object.
+		object->SetValue("MaximizeWnd", func, V8_PROPERTY_ATTRIBUTE_NONE);
+
+		// Create the "myfunc" function.
+		CefRefPtr<CefV8Value> func2 = CefV8Value::CreateFunction("RestoreWnd", handler);
+		// Add the "myfunc" function to the "window" object.
+		object->SetValue("RestoreWnd", func2, V8_PROPERTY_ATTRIBUTE_NONE);
+	}
 	// C++ 和 JS 交互 方式之：窗体绑定
 	// 官方 窗体绑定 demo
 	{

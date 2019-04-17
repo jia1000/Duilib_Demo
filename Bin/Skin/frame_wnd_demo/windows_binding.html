@@ -1,11 +1,17 @@
 
 <html>
 <script language="JavaScript">
+    var isFullscreen = false;
     function maximize() {
-        alert(window.myval);
+        isFullscreen = !isFullscreen;
+        if (isFullscreen) {
+            window.MaximizeWnd();
+        } else {
+            window.RestoreWnd();
+        }
     }
     function test_window_binding_extension() {
-        alert(test.myval);
+        alert(test1.myval);
     }
 </script>
 <body>
