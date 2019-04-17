@@ -83,6 +83,11 @@ void CCefBrowserClientFrameWnd::Notify(TNotifyUI& msg)
 			if (m_pBrowserUI)
 				m_pBrowserUI->StopLoad();
 		}
+		else if (_tcscmp(pszCtrlName, _T("btn_run_js")) == 0)
+		{
+			if (m_pBrowserUI)
+				m_pBrowserUI->RunJs(_T("alert('ExecuteJavaScript works!  This is test');"));
+		}
 	}
 	else if (msg.sType == _T("return"))
 	{

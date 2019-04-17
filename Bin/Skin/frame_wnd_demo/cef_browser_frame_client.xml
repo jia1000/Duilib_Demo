@@ -24,6 +24,8 @@
 			<Control width="2"/>
 			<Button name="btn_ok" text="确定" width="88" height="28" visible="false" tooltip="确定" textcolor="#FF454545" hottextcolor="#FF111111" bordersize="1" bordercolor="#FF969696" borderround="1"/>
 			<Control width="2"/>
+			<Button name="btn_run_js" text="Run JS" width="88" height="28" visible="true" tooltip="运行JS脚本" textcolor="#FF454545" hottextcolor="#FF111111" bordersize="1" bordercolor="#FF969696" borderround="1"/>
+			<Control width="2"/>
 		</HorizontalLayout>
 			
 		<!-- 主窗口 -->
