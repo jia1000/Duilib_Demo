@@ -21,6 +21,19 @@ void ClientAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<
 		// Add the "myfunc" function to the "window" object.
 		object->SetValue(funName, func, V8_PROPERTY_ATTRIBUTE_NONE);
 	}
+
+	// C++ 和 JS 交互 方式之：窗体绑定
+	// 官方 窗体绑定 demo
+	{
+		// Retrieve the context's window object.
+		CefRefPtr<CefV8Value> object = context->GetGlobal();
+	
+		// Create a new V8 string value. See the "Basic JS Types" section below.
+		CefRefPtr<CefV8Value> str = CefV8Value::CreateString("My Value! this is test.");
+	
+		// Add the string to the window object as "window.myval". See the "JS Objects" section below.
+		object->SetValue("myval", str, V8_PROPERTY_ATTRIBUTE_NONE);
+	}
 }
 
 bool ClientAppRender::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,

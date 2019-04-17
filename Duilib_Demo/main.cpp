@@ -7,6 +7,8 @@ using namespace DuiLib;
 
 #include "cef_simple/simple_app.h"
 #include "base/Cef3/common/client_app.h"
+#include "base/Cef3/browser/client_browser_app.h"
+#include "base/Cef3/renderer/client_renderer_app.h"
 
 #ifdef _DEBUG
 #   ifdef _UNICODE
@@ -50,10 +52,30 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	CefMainArgs args(hInstance);
 	//创建CefApp实例
 	//CefRefPtr<SimpleApp> app(new SimpleApp);
-	CefRefPtr<ClientApp> app(new ClientApp);
+	// 根据进程来创建不同的CefApp实例
+	CefRefPtr<ClientApp> app;
 
 	// 获取进程类型
 	ClientApp::ProcessType processType = ClientApp::GetProcessType();
+
+	// 建立Render进程，尝试Render进程和Browser进程进行数据交互，即，JS和C++交互
+	// browser进程：创建ClientAppBrowser实例
+	if (processType == ClientApp::ProcessType::BrowserProcess)
+	{
+		app = new ClientAppBrowser;
+	}
+	// render进程：创建ClientAppRender实例
+	else if (processType == ClientApp::ProcessType::RendererProcess)
+	{
+		app = new ClientAppRender;
+	}
+	// 其他进程：创建ClientApp实例
+	else
+	{
+		app = new ClientApp;
+	}
+
+
 #if 0 //def RENDERER_DEBUG
 	if (processType == ClientApp::ProcessType::RendererProcess){
 		MessageBox(NULL, _T("To attach renderer process!"), _T("test"), 0);
