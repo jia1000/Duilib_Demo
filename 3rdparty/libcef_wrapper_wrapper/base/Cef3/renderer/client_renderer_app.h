@@ -26,12 +26,7 @@ public:
 		message_router_->OnContextReleased(browser,  frame, context);
 	}
 
-	virtual void OnWebKitInitialized() OVERRIDE 
-	{
-		// Create the renderer-side router for query handling.
-		CefMessageRouterConfig config;
-		message_router_ = CefMessageRouterRendererSide::Create(config);
-	}
+	virtual void OnWebKitInitialized() OVERRIDE ;
 
 private:
 	// Handles the renderer side of query routing.

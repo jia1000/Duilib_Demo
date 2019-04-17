@@ -29,10 +29,32 @@ void ClientAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<
 		CefRefPtr<CefV8Value> object = context->GetGlobal();
 	
 		// Create a new V8 string value. See the "Basic JS Types" section below.
-		CefRefPtr<CefV8Value> str = CefV8Value::CreateString("My Value! this is test.");
+		CefRefPtr<CefV8Value> str = CefV8Value::CreateString("This is window binding 1.");
 	
 		// Add the string to the window object as "window.myval". See the "JS Objects" section below.
 		object->SetValue("myval", str, V8_PROPERTY_ATTRIBUTE_NONE);
+	}
+}
+
+void ClientAppRender::OnWebKitInitialized()  
+{
+	// Create the renderer-side router for query handling.
+	CefMessageRouterConfig config;
+	message_router_ = CefMessageRouterRendererSide::Create(config);
+
+	{
+		// C++ 和 JS 交互 方式之：窗体绑定 扩展
+		// Define the extension contents.
+		std::string extensionCode =
+			"var test;"
+			"if (!test)"
+			"  test = {};"
+			"(function() {"
+			"  test.myval = 'This is window binding extension!';"
+			"})();";
+
+		// Register the extension.
+		CefRegisterExtension("v8/test", extensionCode, NULL);
 	}
 }
 
