@@ -71,7 +71,8 @@ bool CCefClientHandler::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser
 												 , CefRefPtr<CefProcessMessage> message)
 {
 	CEF_REQUIRE_UI_THREAD();
-
+	// JS和C++异步通信：第03.3步
+	// 调用MessageRoute的同名方法
 	// message router处理完成之后直接返回
 	if (message_router_->OnProcessMessageReceived(browser, source_process,
 		message)) {
@@ -98,6 +99,9 @@ void CCefClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)
 
  	if (!message_router_) {
  		// Create the browser-side router for query handling.
+
+		// JS和C++异步通信：第01步：
+		// 利用默认名称的CefMessageRouterConfig，创建Browser侧的MessageRouter
  		CefMessageRouterConfig config;
  		// 以下使用默认的名称
  		//config.js_query_function
@@ -106,6 +110,9 @@ void CCefClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)
  
  		//// Register handlers with the router.
  		//test_runner::CreateMessageHandlers(message_handler_set_);
+
+		// JS和C++异步通信：第03步：
+		// 给Browser侧的MessageRouter，添加Browser侧的MessageRouter内部类Handler的对象 
 		message_handler_set_.insert(new WindowStateHandler());
 		message_handler_set_.insert(new PrintToPdfHandler());
  		auto it = message_handler_set_.begin();
@@ -337,7 +344,8 @@ void CCefClientHandler::OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,
 											  TerminationStatus status) 
 {
 	CEF_REQUIRE_UI_THREAD();
-
+	// JS和C++异步通信：第03.1步
+	// 调用MessageRoute的同名方法
 	message_router_->OnRenderProcessTerminated(browser);
 
 	//// Don't reload if there's no start URL, or if the crash URL was specified.
@@ -423,6 +431,9 @@ void CCefClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
 	CEF_REQUIRE_UI_THREAD();
 	
 	// Remove and delete message router handlers.
+	// JS和C++异步通信：第03.2步
+	// 调用MessageRoute的同名方法.但是这里没做。
+
 	auto it = message_handler_set_.begin();
 	for (; it != message_handler_set_.end(); ++it) {
 		message_router_->RemoveHandler(*(it));

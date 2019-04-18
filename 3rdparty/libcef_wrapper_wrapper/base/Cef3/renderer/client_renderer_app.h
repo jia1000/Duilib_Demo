@@ -23,6 +23,8 @@ public:
 		CefRefPtr<CefFrame> frame,
 		CefRefPtr<CefV8Context> context) OVERRIDE 
 	{
+		// JS和C++异步通信：第04.2步
+		// 调用MessageRoute的同名方法
 		message_router_->OnContextReleased(browser,  frame, context);
 	}
 

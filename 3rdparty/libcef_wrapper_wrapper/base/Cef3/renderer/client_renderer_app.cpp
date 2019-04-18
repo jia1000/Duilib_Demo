@@ -7,6 +7,8 @@
 void ClientAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context)
 {
 	// Asynchronous JavaScript Bindings
+	// JS和C++异步通信：第04.1步
+	// 调用MessageRoute的同名方法
 	message_router_->OnContextCreated(browser, frame, context);
 
 	// Retrieve the context's window object.
@@ -57,6 +59,8 @@ void ClientAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<
 void ClientAppRender::OnWebKitInitialized()  
 {
 	// Create the renderer-side router for query handling.
+	// JS和C++异步通信：第04步
+	// 创建Render侧的MessageRouter
 	CefMessageRouterConfig config;
 	message_router_ = CefMessageRouterRendererSide::Create(config);
 
@@ -77,9 +81,11 @@ void ClientAppRender::OnWebKitInitialized()
 }
 
 bool ClientAppRender::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
-		CefProcessId source_process,
-		CefRefPtr<CefProcessMessage> message) {
-
+	CefProcessId source_process,
+	CefRefPtr<CefProcessMessage> message) 
+{
+	// JS和C++异步通信：第04.3步
+	// 调用MessageRoute的同名方法
 	if (message_router_->OnProcessMessageReceived(
 		browser, source_process, message))
 		return true;

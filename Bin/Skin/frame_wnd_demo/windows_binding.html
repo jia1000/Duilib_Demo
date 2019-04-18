@@ -17,10 +17,22 @@
         var ret = window.my_test_js_func();
         alert(ret);
     }
+    function doQuery() {
+        window.cefQuery({
+                request: document.getElementById("query").value,
+                persistent: false,
+                onSuccess: function(response) { alert(response); },
+                onFailure: function(code, msg) { alert(code + " - " + msg); }
+            }
+        );
+    }
 </script>
 <body>
 <input type="button" value="min1" onclick="maximize();" />
 <input type="button" value="min2" onclick="test_window_binding_extension();" />
 <input type="button" value="min3" onclick="test_js_func();" />
+<form>
+    Query String: <input type="text" id="query" value="GiveMeMoney"/>&nbsp;&nbsp;<input  type="button" value="SendQuery" onclick="doQuery()"/>
+</form>
 </body>
 </html>
