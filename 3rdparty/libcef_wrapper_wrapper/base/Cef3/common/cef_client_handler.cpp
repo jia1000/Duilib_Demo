@@ -577,6 +577,7 @@ bool CCefClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 				{
 					m_pOwner->SetNextChangeZoomValue(1);
 				});	
+				return true;
 			} else if (event.windows_key_code == VK_SUBTRACT	// Êý×Ö¼üÅÌµÄ '-'
 				|| event.windows_key_code == VK_OEM_MINUS		// '='
 				) {
@@ -584,10 +585,11 @@ bool CCefClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 				{
 					m_pOwner->SetNextChangeZoomValue(-1);
 				});	
+				return true;
 			}
 		}
 	}
 
-	return true;
+	return false;
 }
 //////////////////////////////////////////////////////////////////////////

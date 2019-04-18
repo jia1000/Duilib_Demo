@@ -292,20 +292,33 @@ void CCefBrowserUI::SetFocus(bool enable)
 	}
 }
 //获取缩放比例
+// Scale = 1.2 ^ ZoomLevel;
+// refer to https://www.magpcss.org/ceforum/viewtopic.php?f=6&t=11491 for more detail
 double CCefBrowserUI::GetZoomLevel() 
 {
 	if (m_pBrowser != nullptr)
 	{
-		return m_pBrowser->GetHost()->GetZoomLevel();
+		double zoom_level = m_pBrowser->GetHost()->GetZoomLevel();
+		return pow(1.2, zoom_level);
 	}
 	return -1;
 }
 //设置缩放比例
-void CCefBrowserUI::SetZoomLevel(double zoomLevel) 
+// 由于Chrome的设计规则，zoomlevel值需要经过转换后再设置。转换规则如下：
+// ZoomLevel = LogN(1.2, Scale);
+// the actual scale factor is 1.2 on the grade of the zoom level as follows:
+//  1.2^(-2.0) = 1.0/1.44 = 69.4%
+//	1.2^2.0 = 1.44 = 144%
+//	1.2^1.0 = 1.2 = 120%
+//	1.2^0 = 1.0 = 100%
+//	I tried this assumption with the CEF framework and the Chrome browser side by side and it seems to work flawlessly!
+// refer to https://www.magpcss.org/ceforum/viewtopic.php?f=6&t=11491 for more detail
+void CCefBrowserUI::SetZoomLevel(double scale) 
 {
 	if (m_pBrowser != nullptr)
 	{
-		m_pBrowser->GetHost()->SetZoomLevel(zoomLevel);
+		double zoom_level = log(scale) / log(1.2);
+		m_pBrowser->GetHost()->SetZoomLevel(zoom_level);
 	}
 }
 

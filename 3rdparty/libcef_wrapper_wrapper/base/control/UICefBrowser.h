@@ -56,7 +56,7 @@ public:
 	//执行JS
 	void RunJs(CefString JsCode);
 	//设置缩放比例
-	void SetZoomLevel(double zoomLevel);
+	void SetZoomLevel(double scale);
 	void SetNextChangeZoomValue(int step);
 	//调用系统打印对话框
 	void Print();

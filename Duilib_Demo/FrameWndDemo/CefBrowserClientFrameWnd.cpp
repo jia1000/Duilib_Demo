@@ -347,9 +347,9 @@ void CCefBrowserClientFrameWnd::OnExit()
 
 void CCefBrowserClientFrameWnd::OnZoomValueChanged(int step)
 {
-	double value = m_pBrowserUI->GetZoomLevel(); 
-	//value = value + step * 0.2;
-	m_pBrowserUI->SetZoomLevel(value);
+	double scale = m_pBrowserUI->GetZoomLevel(); 
+	scale = scale + step * 0.2;
+	m_pBrowserUI->SetZoomLevel(scale);
 }
 
 //////////////////////////////////////////////////////////////////////////
