@@ -26,13 +26,25 @@
             }
         );
     }
+    function test_xmlhttprequest_func() {
+        //假设data是你需要发送的arraybuffer
+        var data = 5;
+        var url = 'http://resources/';
+        var int8View = new window.Uint8Array(data);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.send(int8View);
+
+
+    }
 </script>
 <body>
 <input type="button" value="min1" onclick="maximize();" />
 <input type="button" value="min2" onclick="test_window_binding_extension();" />
-<input type="button" value="min3" onclick="test_js_func();" />
+<input type="button" value="min34" onclick="test_js_func();" />
 <form>
     Query String: <input type="text" id="query" value="GiveMeMoney"/>&nbsp;&nbsp;<input  type="button" value="SendQuery" onclick="doQuery()"/>
 </form>
+<input type="button" value="min4" onclick="test_xmlhttprequest_func();" />
 </body>
 </html>

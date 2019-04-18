@@ -9,6 +9,7 @@ using namespace DuiLib;
 #include "base/Cef3/common/client_app.h"
 #include "base/Cef3/browser/client_browser_app.h"
 #include "base/Cef3/renderer/client_renderer_app.h"
+#include "base/Cef3/browser/ClientSchemeHandler.h"
 
 #ifdef _DEBUG
 #   ifdef _UNICODE
@@ -76,7 +77,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	}
 
 
-#if 0 //def RENDERER_DEBUG
+#if 1 //def RENDERER_DEBUG
 	if (processType == ClientApp::ProcessType::RendererProcess){
 		MessageBox(NULL, _T("To attach renderer process!"), _T("test"), 0);
 	}
@@ -94,9 +95,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	CefSettingsTraits::init(&settings);
 	CefString(&settings.locale).FromString("zh-CN");
 	//初始化CEF
-	CefInitialize(args, settings, app, NULL);
+	bool ret = CefInitialize(args, settings, app, NULL);
 
-
+	if (ret){
+		// 注册ClientSchemeHandler
+		// 格式：client://resources/
+		//CefRegisterSchemeHandlerFactory(HANDLER_SCHEME_NAME, HANDLER_DOMAIN_NAME,
+		//	new ClientSchemeHandlerFactory());
+		// 使用XMLHttpRequest进行交互：第1步：注册Scheme
+		CefRegisterSchemeHandlerFactory("http", HANDLER_DOMAIN_NAME, new ClientSchemeHandlerFactory);
+	};
 
 	//CFirstFrameWnd duiFrame;
 	//CSecondFrameWnd duiFrame;

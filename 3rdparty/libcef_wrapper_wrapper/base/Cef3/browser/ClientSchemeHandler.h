@@ -19,14 +19,39 @@ class ClientSchemeHandler : public CefResourceHandler {
 public:
 	ClientSchemeHandler() : offset_(0) {}
 
+	// 使用XMLHttpRequest进行交互：第3步：重写该函数，用于接收JS的post请求
 	virtual bool ProcessRequest(CefRefPtr<CefRequest> request,
 		CefRefPtr<CefCallback> callback)
 		OVERRIDE {
 			CEF_REQUIRE_IO_THREAD();
 
 			bool handled = false;
+			char *buf = NULL;
+			std::string strPostData;
 
 			std::string url = request->GetURL();
+			CefRefPtr<CefPostData> postData = request->GetPostData();
+			if (postData) {
+				CefPostData::ElementVector elements;
+				postData->GetElements(elements);
+				if (elements.size() > 0) {
+					std::wstring queryString;
+					CefRefPtr<CefPostDataElement> query = elements[0];
+					if (query->GetType() == PDE_TYPE_BYTES) {
+						const unsigned int buffsize = query->GetBytesCount();
+						if (buffsize > 0) {
+							buf = new char[buffsize];
+							if (buf) {
+								memset(buf, 0, buffsize);
+								query->GetBytes(buffsize, buf);
+								strPostData = buf;
+							}
+						}
+					}
+				}
+			}
+
+
 			//// 转换为小写
 			//for (int i = 0; i < url.size(); i++)
 			//	url[i] = std::tolower(url[i]);
@@ -124,6 +149,7 @@ public:
 		OVERRIDE 
 	{
 		CEF_REQUIRE_IO_THREAD();
+		// 使用XMLHttpRequest进行交互：第2步：需要实现一个CefResourceHandler派生类
 		return new ClientSchemeHandler();
 	}
 
