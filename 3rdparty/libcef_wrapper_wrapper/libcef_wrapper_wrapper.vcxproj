@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)3rdparty;$(SolutionDir)3rdparty/libcef_dll_69_3497/libcef_dll;$(SolutionDir)3rdparty/libcef_dll_69_3497/libcef_dll/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

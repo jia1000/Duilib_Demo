@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\VTK-5.10.1\bin\Debug;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\release</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
@@ -51,19 +51,18 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\VTK-5.10.1\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper_d.lib;opengl32.lib;glu32.lib;Wldap32.lib;Ws2_32.lib;vtkCommon.lib;vtkDICOMParser.lib;vtkRendering.lib;vtkexpat.lib;vtkFiltering.lib;vtkfreetype.lib;vtkftgl.lib;vtkGenericFiltering.lib;vtkGraphics.lib;vtkHybrid.lib;vtkImaging.lib;vtkIO.lib;vtkjpeg.lib;vtklibxml2.lib;vtkmetaio.lib;vtkNetCDF.lib;vtkpng.lib;vtktiff.lib;vtksys.lib;vtkzlib.lib;vtkVolumeRendering.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,6 +112,7 @@
     <ClInclude Include="FrameWndDemo\DuilibFrameDemoWnd.h" />
     <ClInclude Include="FrameWndDemo\ImageDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDemoFrameWnd.h" />
+    <ClInclude Include="global_include.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

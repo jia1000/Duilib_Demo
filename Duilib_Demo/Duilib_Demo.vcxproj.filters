@@ -107,5 +107,8 @@
     <ClInclude Include="FrameWndDemo\VtkDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
+    <ClInclude Include="global_include.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
