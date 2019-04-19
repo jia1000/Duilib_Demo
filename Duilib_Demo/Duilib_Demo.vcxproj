@@ -94,6 +94,7 @@
     <ClCompile Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\ListControSimplelFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\DuilibFrameDemoWnd.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +108,7 @@
     <ClInclude Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\ListControSimplelFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\DuilibFrameDemoWnd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
