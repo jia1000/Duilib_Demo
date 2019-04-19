@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Window size="800,600" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="600,480" >
+<Window size="800,600" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="600,480" showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
 	<VerticalLayout bkcolor="#FF272B2E" bordersize="1" bordercolor="#FF222222" borderround="0">
 		<!-- 标题栏区 -->
 	    <HorizontalLayout height="32" bkcolor="#FF1C2237" bordersize="0,0,0,1" bordercolor="#59000000">		        
@@ -11,18 +11,8 @@
 		</HorizontalLayout>
 		
 		<!-- 主窗口 -->
-		<TileLayout bkcolor="#FFE6E7E8" columns="4" inset="8,8,8,8" childpadding="8" >			
-			<Button name="Button1"  text="FirstFrameWnd" 	 			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button2"  text="SecondFrameWnd" 	 			height="60"  bkcolor="#FFFFF0D0" />				
-			<Button name="Button3"  text="CefBrowserSimpleFrameWnd" 	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button4"  text="ListControlSimple"  			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button5"  text="ListControlVirtualContainer" 	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button6"  text="CefBrowserClilentFrameWnd"    height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button7"  text="opencv test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button8"  text="Duilib Frame Demo"        	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button9"  text="Image test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button10" text="VTK TEST"        				height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button11" text="Button测试10"        			height="60"  bkcolor="#FFFFF0D0" />
-		</TileLayout>
+		<HorizontalLayout bkcolor="#FFE6E7E8"> 
+			<Button name="btn_test" text="This is vtk demo!"/> 
+		</HorizontalLayout>
 	</VerticalLayout>
 </Window>

@@ -8,6 +8,7 @@
 #include "FrameWndDemo/CefBrowserClientFrameWnd.h"
 #include "FrameWndDemo/DuilibFrameDemoWnd.h"
 #include "FrameWndDemo/ImageDemoFrameWnd.h"
+#include "FrameWndDemo/VtkDemoFrameWnd.h"
 
 CEntryFrameWnd::CEntryFrameWnd(void)
 {
@@ -118,6 +119,11 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button9")) == 0) {
 			CImageDemoFrameWnd* duiFrame = new CImageDemoFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
+		} else if (_tcscmp(pszCtrlName, _T("Button10")) == 0) {
+			CVtkDemoFrameWnd* duiFrame = new CVtkDemoFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();

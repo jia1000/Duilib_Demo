@@ -96,6 +96,7 @@
     <ClCompile Include="FrameWndDemo\SecondFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DuilibFrameDemoWnd.cpp" />
     <ClCompile Include="FrameWndDemo\ImageDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\VtkDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +112,7 @@
     <ClInclude Include="FrameWndDemo\SecondFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DuilibFrameDemoWnd.h" />
     <ClInclude Include="FrameWndDemo\ImageDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\VtkDemoFrameWnd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
