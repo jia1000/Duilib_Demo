@@ -60,6 +60,9 @@
     <ClCompile Include="FrameWndDemo\DuilibFrameDemoWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\ImageDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -93,6 +96,9 @@
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\DuilibFrameDemoWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\ImageDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
