@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="200,150" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" 2 showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
+	<VerticalLayout bkcolor="#FF272B2E" bordersize="1" bordercolor="#FF222222" borderround="0">
+		<Button name="btn_1" text="11111" bkcolor="#FFFF0000" />
+	</VerticalLayout>
+</Window>

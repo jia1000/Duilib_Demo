@@ -2,9 +2,12 @@
 #include <UIlib.h>
 using namespace DuiLib;
 
+
 //////////////////////////////////////////////////////////////////////////
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
+
+class TileLayoutExtended;
 
 class CVtkDemoFrameWnd : public WindowImplBase
 {
@@ -23,6 +26,8 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 private:
-	void test_vtk_show();
+	
+	TileLayoutExtended* m_pTileLayoutExtended;
+
 };
 

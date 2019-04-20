@@ -22,6 +22,9 @@
     <Filter Include="extended_control">
       <UniqueIdentifier>{3f75d4af-c9f7-418a-af2e-7e69faf19c2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vtk">
+      <UniqueIdentifier>{023b96b3-7109-4f9c-ae24-e72af24ee0cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,6 +69,15 @@
     <ClCompile Include="FrameWndDemo\VtkDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="extended_control\tile_layout_extended.cpp">
+      <Filter>extended_control</Filter>
+    </ClCompile>
+    <ClCompile Include="vtk\vtk_window.cpp">
+      <Filter>vtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vtk\dui_vistasimple.cpp">
+      <Filter>vtk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -109,6 +121,15 @@
     </ClInclude>
     <ClInclude Include="global_include.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="extended_control\tile_layout_extended.h">
+      <Filter>extended_control</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk\vtk_window.h">
+      <Filter>vtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk\dui_vistasimple.h">
+      <Filter>vtk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

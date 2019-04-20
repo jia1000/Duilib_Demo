@@ -86,6 +86,7 @@
     <ClCompile Include="cef_simple\simple_app.cpp" />
     <ClCompile Include="cef_simple\simple_handler.cpp" />
     <ClCompile Include="extended_control\list_pro_ui.cpp" />
+    <ClCompile Include="extended_control\tile_layout_extended.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
@@ -97,11 +98,14 @@
     <ClCompile Include="FrameWndDemo\ImageDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="vtk\dui_vistasimple.cpp" />
+    <ClCompile Include="vtk\vtk_window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cef_simple\simple_app.h" />
     <ClInclude Include="cef_simple\simple_handler.h" />
     <ClInclude Include="extended_control\list_pro_ui.h" />
+    <ClInclude Include="extended_control\tile_layout_extended.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
@@ -113,6 +117,8 @@
     <ClInclude Include="FrameWndDemo\ImageDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDemoFrameWnd.h" />
     <ClInclude Include="global_include.h" />
+    <ClInclude Include="vtk\dui_vistasimple.h" />
+    <ClInclude Include="vtk\vtk_window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

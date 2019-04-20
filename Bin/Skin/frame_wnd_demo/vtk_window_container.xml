@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Window size="800,600" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="600,480" showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
+<Window size="200,150" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="200,150" showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
 	<VerticalLayout bkcolor="#FF272B2E" bordersize="1" bordercolor="#FF222222" borderround="0">
 		<!-- 标题栏区 -->
 	    <HorizontalLayout height="32" bkcolor="#FF1C2237" bordersize="0,0,0,1" bordercolor="#59000000">		        
@@ -11,10 +11,10 @@
 		</HorizontalLayout>
 		
 		<!-- 主窗口 -->
-		<HorizontalLayout bkcolor="#FFE6E7E8" height="30"> 
-			<Button name="btn_test"  text="This is vtk demo!"/> 			
+		<HorizontalLayout bkcolor="#FFE6E7E8" height="30" > 
+			<Button name="btn_test" text=""/> 
 		</HorizontalLayout>
-		<TileLayoutExtended name="vtk_window_container" bkcolor="#FFE6E7E8" columns="2" inset="8,8,8,8" childpadding="8" >	
-		</TileLayoutExtended>
+		<!--<Button name="vtkWindow" text="vtk win" bkcolor="#FFE6E7E8" /> -->
+		<DuiVistaSimple name="vtkWindow" />
 	</VerticalLayout>
 </Window>
