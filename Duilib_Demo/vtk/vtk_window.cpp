@@ -175,6 +175,9 @@ void DuiVtkWindow::test_vtk_show()
 	RECT rect;
 	::GetClientRect(this->m_hWnd, &rect);
 	renderWindow->SetSize(rect.right - rect.left, rect.bottom - rect.top);
+	int title_height = 32;
+	int button_test_height = 30;
+	renderWindow->SetPosition(rect.left, rect.top + title_height + button_test_height);
 	renderWindow->Render();
 	//renderWindow->SetWindowName("ImageShrink3DExample");
 
