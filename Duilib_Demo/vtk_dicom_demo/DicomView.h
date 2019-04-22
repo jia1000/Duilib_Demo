@@ -7,7 +7,7 @@
 class CDicomView
 {
 public:
-    CDicomView(HWND parent);
+    CDicomView(HWND parent, int orientation, RECT rc);
     ~CDicomView(void);
 
     void ShowDicomFile(std::string folder);
@@ -30,5 +30,7 @@ private:
 
 private:
 	HWND m_parentWnd;
+	int use_orientation;
+	RECT m_rc;
 };
 

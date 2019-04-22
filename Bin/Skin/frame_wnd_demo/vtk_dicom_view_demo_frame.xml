@@ -12,7 +12,7 @@
 		
 		<Button name="Button1"  text="this is vtk dicom view test " 	height="20"  bkcolor="#FFE6E7E8" />
 		<!-- 主窗口 -->
-		<Button name="Button2"  text="" 	bkcolor="#FFE6E7E8" />
+		<Button name="Button2" height="547"  bkcolor="#FF888888" />
 		
 	</VerticalLayout>
 </Window>

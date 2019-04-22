@@ -78,7 +78,12 @@ void    CVtkDicomViewDemoFramWnd::Notify(TNotifyUI& msg)
 			Close(IDOK);
 		} else if (_tcscmp(pszCtrlName, _T("Button1")) == 0) {
 			if (!m_view) {
-				m_view = new CDicomView(this->m_hWnd);
+				RECT rc;
+				CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button2")));
+				if (pControl) {
+					rc = pControl->GetClientPos();
+				}
+				m_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XY, rc);
 			}
 			m_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
 		}

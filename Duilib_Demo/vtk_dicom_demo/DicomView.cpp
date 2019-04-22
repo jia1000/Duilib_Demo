@@ -114,8 +114,10 @@ protected:
 
 vtkStandardNewMacro(myvtkInteractorStyleImage);
 //////////////////////////////////////////////////////////////////////////
-CDicomView::CDicomView(HWND parent)
+CDicomView::CDicomView(HWND parent, int orientation, RECT rc)
 	: m_parentWnd(parent)
+	, use_orientation(orientation)
+	, m_rc(rc)
 {
     m_imageViewer = vtkSmartPointer<vtkImageViewer2>::New();
 }
@@ -247,6 +249,9 @@ void CDicomView::ShowDicomFile(std::string folder)
     vtkSmartPointer<myvtkInteractorStyleImage> myInteractorStyle =
         vtkSmartPointer<myvtkInteractorStyleImage>::New();
 
+	
+	
+
     myInteractorStyle->SetImageViewer(m_imageViewer);
     myInteractorStyle->SetStatusMapper(sliceTextMapper);
     myInteractorStyle->SetDicomImageReader(m_reader);
@@ -262,8 +267,15 @@ void CDicomView::ShowDicomFile(std::string folder)
     m_imageViewer->SetColorLevel(30);
 
     //////////////////////////////////////////////////////////////////////////
-    m_imageViewer->SetSlice(4);
-    m_imageViewer->SetSliceOrientationToXY();
+    m_imageViewer->SetSlice(0);
+
+	if (vtkImageViewer2::SLICE_ORIENTATION_XY == use_orientation) {
+		m_imageViewer->SetSliceOrientationToXY();	    
+	} else if(vtkImageViewer2::SLICE_ORIENTATION_XZ == use_orientation){
+		m_imageViewer->SetSliceOrientationToXZ();
+	} else if(vtkImageViewer2::SLICE_ORIENTATION_YZ == use_orientation){
+		m_imageViewer->SetSliceOrientationToYZ();
+	}
 
 
     m_imageViewer->Render();
@@ -276,10 +288,11 @@ void CDicomView::ResizeAndPosition()
 {
 	if (m_parentWnd) {
 		m_imageViewer->GetRenderWindow()->SetParentId(m_parentWnd);
-		int title_height = 32;
-		int button_test_height = 30;
+		int title_height = 0;//32;
+		int button_test_height = 0;//30;
 		RECT rect;
 		::GetClientRect(m_parentWnd, &rect);
+		rect = m_rc;
 		m_imageViewer->GetRenderWindow()->SetSize(rect.right - rect.left, rect.bottom - rect.top - title_height - button_test_height);
 		m_imageViewer->GetRenderWindow()->SetPosition(rect.left, rect.top + title_height + button_test_height);
 	}
