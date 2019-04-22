@@ -10,18 +10,25 @@
 			<Button name="btn_sysclose" virtualwnd="mainpage" tooltip="关闭" width="48" height="32" hotbkcolor="#FF2C356A" pushedbkcolor="#FF2C356A" normalimage="file='window_title/close_nor.png' dest='16,8,32,24'" hotimage="file='window_title/close_hov.png' dest='16,8,32,24'" pushedimage="file='window_title/close_push.png' dest='16,8,32,24'" />
 		</HorizontalLayout>
 		
-		<Button name="Button1"  text="from vtk_demo in github" 	height="40"  bkcolor="#FFE6E7E8" />
+		<Button name="Button1"  text="from vtk_demo in github" 	height="30"  bkcolor="#FFE6E7E8" />
 		<!-- 主窗口 -->
-		<TileLayout bkcolor="#FFE6E7E8" columns="3" inset="8,8,8,8" childpadding="8" >			
-			<Button name="Button1"  text="1" 	height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button2"  text="2" 	height="60"  bkcolor="#FFA9D18E" />				
-			<Button name="Button3"  text="3" 	height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button4"  text="4"  	height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button5"  text="5" 	height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button6"  text="6"    height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button7"  text="7"    height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button8"  text="8"    height="60"  bkcolor="#FFA9D18E" />
-			<Button name="Button9"  text="9"    height="60"  bkcolor="#FFA9D18E" />
-		</TileLayout>
+		<Control height="2" bkcolor="#FF35B09C" />	
+		<HorizontalLayout  bkcolor="#FF1C2136" >   
+			<Control width="10" />
+			<TreeView width="100" itemtextcolor="#FFABBCDC" itemhottextcolor="#FFC8C6CB" selitemtextcolor="FFC8C6CB" itemhotbkcolor="#FF2C356A" itemselectedbkcolor="#FF2C356A" bordercolor="#FF10162A" bordersize="1"	>
+				<TreeNode name="vtk_function_test" text="VTK功能测试"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
+					<TreeNode name="function_1" text="功能1"  height="32"/>
+					<TreeNode name="function_2" text="功能2"  height="32"/>
+				</TreeNode>
+				<!--  <TreeNode name="vtk_function_help" text="功能帮助"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;"  >
+					<TreeNode name="chrome_core_about" text="帮助1"  height="32"/> 	
+				</TreeNode> -->				
+			</TreeView>
+			<Control width="2" bkcolor="#FF35B09C" />			
+			
+				<Button name="Button1"  text="vtk  single view"   bkcolor="#FFE6E7E8" />
+			<Control width="2" bkcolor="#FF35B09C" />	
+		</HorizontalLayout>
+		<Control height="2" bkcolor="#FF35B09C" />	
 	</VerticalLayout>
 </Window>
