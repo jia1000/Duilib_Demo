@@ -197,7 +197,9 @@ void CDicomView::AddRightDownSliceTextActor(vtkSmartPointer<vtkTextMapper> slice
 {
     vtkSmartPointer<vtkActor2D> sliceTextActor = vtkSmartPointer<vtkActor2D>::New();
     sliceTextActor->SetMapper(sliceTextMapper);
-    sliceTextActor->SetPosition(785, 10);
+    //sliceTextActor->SetPosition(785, 10);
+	sliceTextActor->GetPositionCoordinate()->SetCoordinateSystemToNormalizedDisplay();
+	sliceTextActor->GetPositionCoordinate()->SetValue(0.95, 0.05);
 
     m_imageViewer->GetRenderer()->AddActor2D(sliceTextActor);
 }
