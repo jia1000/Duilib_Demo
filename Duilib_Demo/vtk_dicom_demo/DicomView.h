@@ -11,7 +11,7 @@ public:
     ~CDicomView(void);
 
     void ShowDicomFile(std::string folder);
-	void UpdateView();
+	void UpdateView(RECT rc);
 
 private:
     vtkSmartPointer<vtkTextMapper> SetLeftDownTextAnonationMapper(vtkSmartPointer<vtkImageViewer2> imageViewer);
@@ -26,7 +26,7 @@ private:
     vtkSmartPointer< vtkImageViewer2 >           m_imageViewer;
     vtkSmartPointer<vtkDICOMImageReader> m_reader;
 
-	void ResizeAndPosition();
+	void ResizeAndPosition(RECT rc);
 
 private:
 	HWND m_parentWnd;

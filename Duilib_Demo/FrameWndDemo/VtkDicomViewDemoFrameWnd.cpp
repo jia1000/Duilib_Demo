@@ -1,9 +1,12 @@
 #include "VtkDicomViewDemoFrameWnd.h"
 
 #include "vtk_dicom_demo/DicomView.h"
+#include "vtk_dicom_demo/DicomSplitView.h"
 
 CVtkDicomViewDemoFramWnd::CVtkDicomViewDemoFramWnd(void)
 	: m_view(NULL)
+	, m_split_view(NULL)
+	, m_pbtn_vtk_show(NULL)
 {
 }
 
@@ -41,14 +44,29 @@ CControlUI* CVtkDicomViewDemoFramWnd::CreateControl(LPCTSTR pstrClass)
 
 void CVtkDicomViewDemoFramWnd::InitWindow()
 {
-	
+	m_pbtn_vtk_show = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button_vtk_show")));
 }
 
 LRESULT CVtkDicomViewDemoFramWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	__super::OnSize(uMsg, wParam, lParam, bHandled);
+
+	RECT wnd_rc;
+	GetClientRect(m_hWnd, &wnd_rc);
+
+	RECT rc;
+	
+	if (m_pbtn_vtk_show) {
+		rc = m_pbtn_vtk_show->GetClientPos();
+		rc.right = wnd_rc.right;
+		rc.bottom = wnd_rc.bottom;
+	}
 	if (m_view) {
-		m_view->UpdateView();
+		m_view->UpdateView(rc);
+	}
+	if (m_split_view) {
+		// 目前，多view的VTK，不能运行到这里。？
+		m_split_view->ResizeAndPosition(rc);
 	}
 	return 0;
 }
@@ -79,13 +97,21 @@ void    CVtkDicomViewDemoFramWnd::Notify(TNotifyUI& msg)
 		} else if (_tcscmp(pszCtrlName, _T("Button1")) == 0) {
 			if (!m_view) {
 				RECT rc;
-				CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button2")));
+				CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button_vtk_show")));
 				if (pControl) {
 					rc = pControl->GetClientPos();
 				}
 				m_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XY, rc);
 			}
 			m_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
+		}
+		else if (_tcscmp(pszCtrlName, _T("Button2")) == 0) {
+			RECT rc;
+			CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button_vtk_show")));
+			if (pControl) {
+				rc = pControl->GetClientPos();
+			}
+			m_split_view = new CDicomSplitView(m_hWnd, rc) ;
 		}
 	}
 }

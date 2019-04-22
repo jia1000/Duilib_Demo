@@ -215,9 +215,9 @@ void CDicomView::AddLeftUpTextActor(vtkSmartPointer<vtkTextMapper> usageTextMapp
     m_imageViewer->GetRenderer()->AddActor2D(usageTextActor);
 }
 
-void CDicomView::UpdateView()
+void CDicomView::UpdateView(RECT rc)
 {
-	ResizeAndPosition();	
+	ResizeAndPosition(rc);	
 }
 
 void CDicomView::ShowDicomFile(std::string folder)
@@ -261,7 +261,7 @@ void CDicomView::ShowDicomFile(std::string folder)
 
     
     //m_imageViewer->GetRenderWindow()->SetSize(800, 600);
-	ResizeAndPosition();	
+	ResizeAndPosition(m_rc);	
 	
     m_imageViewer->SetColorWindow(380);
     m_imageViewer->SetColorLevel(30);
@@ -284,7 +284,7 @@ void CDicomView::ShowDicomFile(std::string folder)
     renderWindowInteractor->Start();
 }
 
-void CDicomView::ResizeAndPosition()
+void CDicomView::ResizeAndPosition(RECT rc)
 {
 	if (m_parentWnd) {
 		m_imageViewer->GetRenderWindow()->SetParentId(m_parentWnd);
@@ -292,7 +292,7 @@ void CDicomView::ResizeAndPosition()
 		int button_test_height = 0;//30;
 		RECT rect;
 		::GetClientRect(m_parentWnd, &rect);
-		rect = m_rc;
+		rect = rc;
 		m_imageViewer->GetRenderWindow()->SetSize(rect.right - rect.left, rect.bottom - rect.top - title_height - button_test_height);
 		m_imageViewer->GetRenderWindow()->SetPosition(rect.left, rect.top + title_height + button_test_height);
 	}

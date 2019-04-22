@@ -10,9 +10,15 @@
 			<Button name="btn_sysclose" virtualwnd="mainpage" tooltip="关闭" width="48" height="32" hotbkcolor="#FF2C356A" pushedbkcolor="#FF2C356A" normalimage="file='window_title/close_nor.png' dest='16,8,32,24'" hotimage="file='window_title/close_hov.png' dest='16,8,32,24'" pushedimage="file='window_title/close_push.png' dest='16,8,32,24'" />
 		</HorizontalLayout>
 		
-		<Button name="Button1"  text="this is vtk dicom view test " 	height="20"  bkcolor="#FFE6E7E8" />
-		<!-- 主窗口 -->
-		<Button name="Button2" height="547"  bkcolor="#FF888888" />
+		<HorizontalLayout  height="20" >
+			<Button name="Button1"  text="vtk  single view"   bkcolor="#FFE6E7E8" />
+			<Control width="5" bkcolor="#FF222222" />
+			<Button name="Button2"  text="vtk split view" 	  bkcolor="#FFE6E7E8" />
+		</HorizontalLayout>
 		
+		<!-- 主窗口 -->
+		<HorizontalLayout  >
+			<Button name="Button_vtk_show" bkcolor="#FF888888" />
+		</HorizontalLayout>		
 	</VerticalLayout>
 </Window>

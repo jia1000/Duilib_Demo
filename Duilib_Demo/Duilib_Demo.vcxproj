@@ -102,6 +102,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vtk\dui_vistasimple.cpp" />
     <ClCompile Include="vtk\vtk_window.cpp" />
+    <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +125,7 @@
     <ClInclude Include="global_include.h" />
     <ClInclude Include="vtk\dui_vistasimple.h" />
     <ClInclude Include="vtk\vtk_window.h" />
+    <ClInclude Include="vtk_dicom_demo\DicomSplitView.h" />
     <ClInclude Include="vtk_dicom_demo\DicomView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

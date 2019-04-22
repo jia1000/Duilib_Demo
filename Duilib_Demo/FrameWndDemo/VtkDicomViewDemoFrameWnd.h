@@ -7,6 +7,7 @@ using namespace DuiLib;
 //////////////////////////////////////////////////////////////////////////
 
 class CDicomView;
+class CDicomSplitView;
 
 class CVtkDicomViewDemoFramWnd : public WindowImplBase
 {
@@ -25,6 +26,8 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 private:
+	CButtonUI* m_pbtn_vtk_show;
 	CDicomView* m_view;
+	CDicomSplitView* m_split_view;
 };
 

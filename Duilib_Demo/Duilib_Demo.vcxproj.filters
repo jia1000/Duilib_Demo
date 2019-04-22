@@ -90,6 +90,9 @@
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp">
+      <Filter>vtk_dicom_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_dicom_demo\DicomSplitView.h">
+      <Filter>vtk_dicom_demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
