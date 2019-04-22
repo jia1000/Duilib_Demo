@@ -10,21 +10,18 @@
 			<Button name="btn_sysclose" virtualwnd="mainpage" tooltip="关闭" width="48" height="32" hotbkcolor="#FF2C356A" pushedbkcolor="#FF2C356A" normalimage="file='window_title/close_nor.png' dest='16,8,32,24'" hotimage="file='window_title/close_hov.png' dest='16,8,32,24'" pushedimage="file='window_title/close_push.png' dest='16,8,32,24'" />
 		</HorizontalLayout>
 		
+		<Button name="Button1"  text="from vtk_demo in github" 	height="40"  bkcolor="#FFE6E7E8" />
 		<!-- 主窗口 -->
-		<TileLayout bkcolor="#FFE6E7E8" columns="4" inset="8,8,8,8" childpadding="8" >			
-			<Button name="Button1"  text="FirstFrameWnd" 	 			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button2"  text="SecondFrameWnd" 	 			height="60"  bkcolor="#FFFFF0D0" />				
-			<Button name="Button3"  text="CefBrowserSimpleFrameWnd" 	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button4"  text="ListControlSimple"  			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button5"  text="ListControlVirtualContainer" 	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button6"  text="CefBrowserClilentFrameWnd"    height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button7"  text="opencv test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button8"  text="Duilib Frame Demo"        	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button9"  text="Image test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button10" text="VTK TEST"        				height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button11" text="VTK Function Test"        	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button12" text="VTK Dicom Test"        		height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button13" text="Button测试13"        			height="60"  bkcolor="#FFFFF0D0" />
+		<TileLayout bkcolor="#FFE6E7E8" columns="3" inset="8,8,8,8" childpadding="8" >			
+			<Button name="Button1"  text="1" 	height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button2"  text="2" 	height="60"  bkcolor="#FFA9D18E" />				
+			<Button name="Button3"  text="3" 	height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button4"  text="4"  	height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button5"  text="5" 	height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button6"  text="6"    height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button7"  text="7"    height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button8"  text="8"    height="60"  bkcolor="#FFA9D18E" />
+			<Button name="Button9"  text="9"    height="60"  bkcolor="#FFA9D18E" />
 		</TileLayout>
 	</VerticalLayout>
 </Window>

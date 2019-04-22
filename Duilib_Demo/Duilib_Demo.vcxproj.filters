@@ -78,6 +78,9 @@
     <ClCompile Include="vtk\dui_vistasimple.cpp">
       <Filter>vtk</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\VtkFunctionDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="vtk\dui_vistasimple.h">
       <Filter>vtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\VtkFunctionDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
