@@ -28,6 +28,9 @@
     <Filter Include="vtk_dicom_demo">
       <UniqueIdentifier>{734d4bb7-a8e6-41f9-b8f4-5c93b5a1201a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vtk_function_demo">
+      <UniqueIdentifier>{b4683aba-461e-4ee0-b1f4-fbd067a6301a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,6 +96,9 @@
     <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp">
       <Filter>vtk_dicom_demo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_function_demo\VtkFunctionDemo.cpp">
+      <Filter>vtk_function_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -157,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="vtk_dicom_demo\DicomSplitView.h">
       <Filter>vtk_dicom_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_function_demo\VtkFunctionDemo.h">
+      <Filter>vtk_function_demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

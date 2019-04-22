@@ -24,9 +24,8 @@
 					<TreeNode name="chrome_core_about" text="帮助1"  height="32"/> 	
 				</TreeNode> -->				
 			</TreeView>
-			<Control width="2" bkcolor="#FF35B09C" />			
-			
-				<Button name="Button1"  text="vtk  single view"   bkcolor="#FFE6E7E8" />
+			<Control width="2" bkcolor="#FF35B09C" />
+			<Button name="Button_vtk_function_show"  text="vtk  single view"   bkcolor="#FFE6E7E8" />
 			<Control width="2" bkcolor="#FF35B09C" />	
 		</HorizontalLayout>
 		<Control height="2" bkcolor="#FF35B09C" />	

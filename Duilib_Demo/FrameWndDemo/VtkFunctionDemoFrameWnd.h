@@ -6,6 +6,8 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
+class CVtkFunctionDemo;
+
 class CVtkFunctionDemoFrameWnd : public WindowImplBase
 {
 public:
@@ -22,6 +24,8 @@ public:
 	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
+private:
+	CVtkFunctionDemo* m_vtk_function_demo;
 
 };
 

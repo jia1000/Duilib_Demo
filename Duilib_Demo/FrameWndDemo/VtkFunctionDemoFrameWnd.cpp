@@ -1,7 +1,9 @@
 #include "VtkFunctionDemoFrameWnd.h"
 
+#include "vtk_function_demo/VtkFunctionDemo.h"
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
+	: m_vtk_function_demo(NULL)
 {
 }
 
@@ -71,6 +73,47 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 			if( pControl ) pControl->SetVisible(false);
 		} else if (_tcscmp(pszCtrlName, _T("btn_sysclose")) == 0) {
 			Close(IDOK);
+		} 
+	}else if (msg.sType == _T("itemclick")){        
+		// 改双击收缩为单击收缩
+		CTreeNodeUI * pTreeNode = static_cast<CTreeNodeUI*>(msg.pSender);
+		CDuiString item_name = msg.pSender->GetName();
+		if (pTreeNode && _tcsicmp(pTreeNode->GetClass(), _T("TreeNodeUI")) == 0) {
+			if (pTreeNode->IsHasChild()) {
+				// 如果是一级菜单
+				CTreeViewUI	* pTreeView = pTreeNode->GetTreeView();
+				if (pTreeView) {
+					CCheckBoxUI* pFolder = pTreeNode->GetFolderButton();
+					pFolder->Selected(!pFolder->IsSelected());
+					pTreeNode->SetVisibleTag(!pFolder->GetCheck());
+					pTreeView->SetItemExpand(!pFolder->GetCheck(), pTreeNode);
+				}
+				// 点击第一级菜单，会选择第二级菜单的第一个
+				if (item_name.CompareNoCase(L"vtk_function_test") == 0) {
+					CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button1")));
+					if (pControl) {
+						pControl->SetText(_T("Group click."));
+					}
+				}
+			} else {
+				// 如果是二级菜单
+				RECT rc;
+				CButtonUI* pVtkShowBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button_vtk_function_show")));
+				if (pVtkShowBtn) {
+					rc = pVtkShowBtn->GetClientPos();
+				}
+				CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button1")));
+				if (item_name.CompareNoCase(L"function_1") == 0) {
+					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
+					m_vtk_function_demo->Function1();
+				} else if (item_name.CompareNoCase(L"function_2") == 0) {
+					if (pControl) {
+						//pControl->SetBkColor(0xFF00FF00);
+						pControl->SetText(_T("btn 2 click."));
+					}
+				} 
+				// 其它二级菜单
+			}
 		}
 	}
 }
