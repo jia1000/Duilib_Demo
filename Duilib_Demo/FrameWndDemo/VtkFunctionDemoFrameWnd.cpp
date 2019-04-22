@@ -2,6 +2,8 @@
 
 #include "vtk_function_demo/VtkFunctionDemo.h"
 
+#include "vtk_dicom_demo/DicomSplitView.h"
+
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
 {
@@ -14,7 +16,7 @@ CVtkFunctionDemoFrameWnd::~CVtkFunctionDemoFrameWnd(void)
 
 LPCTSTR CVtkFunctionDemoFrameWnd::GetWindowClassName() const 
 { 
-	return _T("VtkDemoFrameWnd"); 
+	return _T("VtkFunctionDemoFrameWnd"); 
 }
 
 void CVtkFunctionDemoFrameWnd::OnFinalMessage(HWND hWnd)
@@ -107,8 +109,9 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
 					m_vtk_function_demo->Function1();
 				} else if (item_name.CompareNoCase(L"function_2") == 0) {
+					CDicomSplitView* split_view = new CDicomSplitView(this->m_hWnd, rc);
+				} else if (item_name.CompareNoCase(L"function_3") == 0) {
 					if (pControl) {
-						//pControl->SetBkColor(0xFF00FF00);
 						pControl->SetText(_T("btn 2 click."));
 					}
 				} 
