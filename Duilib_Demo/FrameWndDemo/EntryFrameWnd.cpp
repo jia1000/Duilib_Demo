@@ -10,6 +10,8 @@
 #include "FrameWndDemo/ImageDemoFrameWnd.h"
 #include "FrameWndDemo/VtkDemoFrameWnd.h"
 #include "FrameWndDemo/VtkFunctionDemoFrameWnd.h"
+#include "FrameWndDemo/VtkDicomViewDemoFrameWnd.h"
+
 
 CEntryFrameWnd::CEntryFrameWnd(void)
 {
@@ -130,6 +132,11 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button11")) == 0) {
 			CVtkFunctionDemoFrameWnd* duiFrame = new CVtkFunctionDemoFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
+		} else if (_tcscmp(pszCtrlName, _T("Button12")) == 0) {
+			CVtkDicomViewDemoFramWnd* duiFrame = new CVtkDicomViewDemoFramWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();

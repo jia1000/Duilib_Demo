@@ -89,6 +89,7 @@
     <ClCompile Include="extended_control\tile_layout_extended.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vtk\dui_vistasimple.cpp" />
     <ClCompile Include="vtk\vtk_window.cpp" />
+    <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cef_simple\simple_app.h" />
@@ -109,6 +111,7 @@
     <ClInclude Include="extended_control\tile_layout_extended.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\ListControlVirtualContainerFrameWnd.h" />
@@ -121,6 +124,7 @@
     <ClInclude Include="global_include.h" />
     <ClInclude Include="vtk\dui_vistasimple.h" />
     <ClInclude Include="vtk\vtk_window.h" />
+    <ClInclude Include="vtk_dicom_demo\DicomView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

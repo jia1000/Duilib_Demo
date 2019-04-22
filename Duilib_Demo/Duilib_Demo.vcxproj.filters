@@ -25,6 +25,9 @@
     <Filter Include="vtk">
       <UniqueIdentifier>{023b96b3-7109-4f9c-ae24-e72af24ee0cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vtk_dicom_demo">
+      <UniqueIdentifier>{734d4bb7-a8e6-41f9-b8f4-5c93b5a1201a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,6 +84,12 @@
     <ClCompile Include="FrameWndDemo\VtkFunctionDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_dicom_demo\DicomView.cpp">
+      <Filter>vtk_dicom_demo</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -135,6 +144,12 @@
       <Filter>vtk</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\VtkFunctionDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_dicom_demo\DicomView.h">
+      <Filter>vtk_dicom_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
