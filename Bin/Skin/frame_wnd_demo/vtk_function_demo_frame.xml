@@ -17,14 +17,16 @@
 			<Control width="10" />
 			<TreeView width="100" itemtextcolor="#FFABBCDC" itemhottextcolor="#FFC8C6CB" selitemtextcolor="FFC8C6CB" itemhotbkcolor="#FF2C356A" itemselectedbkcolor="#FF2C356A" bordercolor="#FF10162A" bordersize="1"	>
 				<TreeNode name="vtk_function_test" text="VTK功能测试"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
-					<TreeNode name="function_1" text="蒙皮"  height="32"/>
-					<TreeNode name="function_2" text="拆分"  height="32"/>					
-					<TreeNode name="function_3" text="横状面"  height="32"/>
-					<TreeNode name="function_4" text="矢状面"  height="32"/>
-					<TreeNode name="function_5" text="冠状面"  height="32"/>
-					<TreeNode name="function_6" text="功能6"  height="32"/>
-					<TreeNode name="function_7" text="功能7"  height="32"/>
-					<TreeNode name="function_8" text="功能8"  height="32"/>
+					<TreeNode name="function_1" 	text="蒙皮"  	height="32"/>
+					<TreeNode name="function_2" 	text="拆分"  	height="32"/>					
+					<TreeNode name="function_3" 	text="横状面"  	height="32"/>
+					<TreeNode name="function_4" 	text="矢状面"  	height="32"/>
+					<TreeNode name="function_5" 	text="冠状面"  	height="32"/>
+					<TreeNode name="function_6" 	text="功能6"  	height="32"/>
+					<TreeNode name="function_7" 	text="长度测量"  	height="32"/>
+					<TreeNode name="function_8" 	text="角度测量"  	height="32"/>
+					<TreeNode name="function_9" 	text="BiDimensional测量"  	height="32"/>
+					<TreeNode name="function_10" 	text="功能10"  	height="32"/>
 				</TreeNode>
 				<!--  <TreeNode name="vtk_function_help" text="功能帮助"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;"  >
 					<TreeNode name="chrome_core_about" text="帮助1"  height="32"/> 	

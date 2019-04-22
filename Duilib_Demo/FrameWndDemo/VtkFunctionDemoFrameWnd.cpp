@@ -116,10 +116,19 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"function_4") == 0) {
 					CDicomView* dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_YZ, rc);
 					dicom_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
-				}else if (item_name.CompareNoCase(L"function_5") == 0) {
+				} else if (item_name.CompareNoCase(L"function_5") == 0) {
 					CDicomView* dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XZ, rc);
 					dicom_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
-				}else if (item_name.CompareNoCase(L"function_6") == 0) {
+				} else if (item_name.CompareNoCase(L"function_6") == 0) {
+					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
+					m_vtk_function_demo->Function2(0);
+				} else if (item_name.CompareNoCase(L"function_7") == 0) {
+					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
+					m_vtk_function_demo->Function2(1);
+				} else if (item_name.CompareNoCase(L"function_8") == 0) {
+					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
+					m_vtk_function_demo->Function2(2);
+				} else if (item_name.CompareNoCase(L"function_9") == 0) {
 					if (pControl) {
 						pControl->SetText(_T("btn 4 click."));
 					}

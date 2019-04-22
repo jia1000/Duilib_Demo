@@ -75,3 +75,89 @@ void CVtkFunctionDemo::Function1()
 	iren->Initialize();
 	iren->Start();
 }
+
+void CVtkFunctionDemo::Function2(int WidgetType)
+{
+	vtkSmartPointer<vtkJPEGReader> reader = vtkSmartPointer<vtkJPEGReader>::New();
+	reader->SetFileName("..\\Bin\\Skin\\image\\ct.jpg");
+	reader->Update();
+
+	vtkSmartPointer<vtkImageActor> imgActor = vtkSmartPointer<vtkImageActor>::New();
+	imgActor->SetInput(reader->GetOutput());
+
+	vtkSmartPointer<vtkRenderer> render = vtkSmartPointer<vtkRenderer>::New();
+	render->AddActor(imgActor);
+	render->SetBackground(0, 0, 0);
+	render->ResetCamera();
+
+	renWin = vtkSmartPointer<vtkRenderWindow>::New();
+	renWin->AddRenderer(render);
+	renWin->SetWindowName("MeasurementDistanceApp");
+	//rw->SetSize(320, 320);
+	ResizeAndPosition(m_rc);
+
+	vtkSmartPointer<vtkRenderWindowInteractor> rwi =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	rwi->SetRenderWindow(renWin);
+
+	vtkSmartPointer<vtkInteractorStyleImage> style = 
+		vtkSmartPointer<vtkInteractorStyleImage>::New();
+	rwi->SetInteractorStyle(style);
+	/****************************************************************/	
+	//vtkDistanceWidget
+	if (WidgetType == 0)
+	{
+		//实例化Widget
+		vtkSmartPointer<vtkDistanceWidget> distanceWidget =
+			vtkSmartPointer<vtkDistanceWidget>::New();
+		//指定渲染窗口交互器,来监听用户事件
+		distanceWidget->SetInteractor(rwi);
+		//必要时使用观察者/命令模式创建回调函数(此处没用)
+		//创建几何表达实体。用SetRepresentation()把事件与Widget关联起来
+		//或者使用Widget默认的几何表达实体
+		distanceWidget->CreateDefaultRepresentation();
+		static_cast<vtkDistanceRepresentation*> (distanceWidget->GetRepresentation())
+			->SetLabelFormat("%-#6.3g px");
+		//激活Widget
+		distanceWidget->On();
+
+		renWin->Render();
+		rwi->Initialize();
+		rwi->Start();
+	}
+	//vtkAngleWidget
+	if (WidgetType == 1)
+	{
+		vtkSmartPointer<vtkAngleWidget> angleWiget = vtkSmartPointer<vtkAngleWidget>::New();
+		angleWiget->SetInteractor(rwi);
+		//创建个性化的实体图标
+		vtkSmartPointer<vtkAngleRepresentation2D> angleRep =
+			vtkSmartPointer<vtkAngleRepresentation2D>::New();
+		angleRep->GetRay1()->GetProperty()->SetColor(0, 1, 0);
+		angleRep->GetRay1()->GetProperty()->SetLineWidth(3);
+		angleRep->GetRay2()->GetProperty()->SetColor(0, 1, 0);
+		angleRep->GetRay1()->GetProperty()->SetLineWidth(3);
+		angleRep->GetArc()->GetProperty()->SetColor(0, 1, 0);
+		angleRep->GetArc()->GetProperty()->SetLineWidth(3);
+		angleWiget->SetRepresentation(angleRep);
+		angleWiget->On();
+
+		renWin->Render();
+		rwi->Initialize();
+		rwi->Start();
+	}
+	//vtkBiDimensionalWidget
+	if (WidgetType == 2)
+	{
+		vtkSmartPointer<vtkBiDimensionalWidget> bidimensionalWidget =
+			vtkSmartPointer<vtkBiDimensionalWidget>::New();
+		bidimensionalWidget->SetInteractor(rwi);
+		//采用默认的图标
+		bidimensionalWidget->CreateDefaultRepresentation();
+		bidimensionalWidget->On();
+
+		renWin->Render();
+		rwi->Initialize();
+		rwi->Start();
+	}
+}

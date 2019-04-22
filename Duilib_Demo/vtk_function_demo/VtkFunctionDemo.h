@@ -10,7 +10,7 @@ public:
 
 	void ResizeAndPosition(RECT rc);
 	void Function1();
-
+	void Function2(int WidgetType);
 
 private:
 	vtkSmartPointer<vtkRenderWindow> renWin;
