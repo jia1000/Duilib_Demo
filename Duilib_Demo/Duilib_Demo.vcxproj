@@ -106,6 +106,7 @@
     <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
     <ClCompile Include="vtk_function_demo\BoxWidgetsTest.cpp" />
     <ClCompile Include="vtk_function_demo\CaptionWidgetsDemo.cpp" />
+    <ClCompile Include="vtk_function_demo\ContourWidgetsTest.cpp" />
     <ClCompile Include="vtk_function_demo\TextWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\VtkFunctionDemo.cpp" />
   </ItemGroup>
@@ -133,6 +134,7 @@
     <ClInclude Include="vtk_dicom_demo\DicomView.h" />
     <ClInclude Include="vtk_function_demo\BoxWidgetsTest.h" />
     <ClInclude Include="vtk_function_demo\CaptionWidgetsDemo.h" />
+    <ClInclude Include="vtk_function_demo\ContourWidgetsTest.h" />
     <ClInclude Include="vtk_function_demo\TextWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\VtkFunctionDemo.h" />
   </ItemGroup>

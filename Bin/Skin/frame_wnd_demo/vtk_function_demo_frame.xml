@@ -28,7 +28,8 @@
 					<TreeNode name="function_9" 	text="Text_Widgets"  	height="32"/>
 					<TreeNode name="function_10" 	text="Caption_Widgets"  	height="32"/>
 					<TreeNode name="function_11" 	text="Box_Widgets"  	height="32"/>
-					<TreeNode name="function_12" 	text="功能"  	height="32"/>
+					<TreeNode name="function_12" 	text="Contour_Widgets"  	height="32"/>
+					<TreeNode name="function_13" 	text="功能"  	height="32"/>
 				</TreeNode>
 				<!--  <TreeNode name="vtk_function_help" text="功能帮助"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;"  >
 					<TreeNode name="chrome_core_about" text="帮助1"  height="32"/> 	
