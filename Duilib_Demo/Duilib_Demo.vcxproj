@@ -104,6 +104,7 @@
     <ClCompile Include="vtk\vtk_window.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
+    <ClCompile Include="vtk_function_demo\TextWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\VtkFunctionDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +129,7 @@
     <ClInclude Include="vtk\vtk_window.h" />
     <ClInclude Include="vtk_dicom_demo\DicomSplitView.h" />
     <ClInclude Include="vtk_dicom_demo\DicomView.h" />
+    <ClInclude Include="vtk_function_demo\TextWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\VtkFunctionDemo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,6 +3,7 @@
 #include "vtk_function_demo/VtkFunctionDemo.h"
 #include "vtk_dicom_demo/DicomSplitView.h"
 #include "vtk_dicom_demo/DicomView.h"
+#include "vtk_function_demo/TextWidgetsDemo.h"
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -129,6 +130,9 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
 					m_vtk_function_demo->Function2(2);
 				} else if (item_name.CompareNoCase(L"function_9") == 0) {
+					CTextWidgetsDemo* text_widgets = new CTextWidgetsDemo(this->m_hWnd, rc);
+					text_widgets->TextWidgets_Test();
+				} else if (item_name.CompareNoCase(L"function_10") == 0) {
 					if (pControl) {
 						pControl->SetText(_T("btn 4 click."));
 					}
