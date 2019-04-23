@@ -8,6 +8,7 @@
 #include "vtk_function_demo/BoxWidgetsTest.h"
 #include "vtk_function_demo/ContourWidgetsTest.h"
 #include "vtk_function_demo/ImagePlaneWidgetsDemo.h"
+#include "vtk_function_demo/Rib3DView.h"
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -109,7 +110,7 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 				if (pVtkShowBtn) {
 					rc = pVtkShowBtn->GetClientPos();
 				}
-				CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button1")));
+				CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button_vtk_function_show")));
 				if (item_name.CompareNoCase(L"function_1") == 0) {
 					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
 					m_vtk_function_demo->Function1();
@@ -149,6 +150,12 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					CImagePlaneWidgetsDemo* box_widgets = new CImagePlaneWidgetsDemo(this->m_hWnd, rc);
 					box_widgets->ShowWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_14") == 0) {
+					Rib3DView* box_widgets = new Rib3DView(this->m_hWnd, rc);
+					if (pControl) {
+						pControl->SetText(_T("Please wait..."));
+					}
+					box_widgets->ShowWidgets_Test();
+				} else if (item_name.CompareNoCase(L"function_15") == 0) {
 					if (pControl) {
 						pControl->SetText(_T("btn 4 click."));
 					}
