@@ -26,7 +26,7 @@
 					<TreeNode name="function_7" 	text="角度测量"  	height="32"/>
 					<TreeNode name="function_8" 	text="BiDimensional测量"  	height="32"/>
 					<TreeNode name="function_9" 	text="Text_Widgets"  	height="32"/>
-					<TreeNode name="function_10" 	text="功能"  	height="32"/>
+					<TreeNode name="function_10" 	text="Caption_Widgets"  	height="32"/>
 					<TreeNode name="function_11" 	text="功能"  	height="32"/>
 					<TreeNode name="function_12" 	text="功能"  	height="32"/>
 				</TreeNode>
