@@ -7,6 +7,7 @@
 #include "vtk_function_demo/CaptionWidgetsDemo.h"
 #include "vtk_function_demo/BoxWidgetsTest.h"
 #include "vtk_function_demo/ContourWidgetsTest.h"
+#include "vtk_function_demo/ImagePlaneWidgetsDemo.h"
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -145,6 +146,9 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					CContourWidgetsTest* box_widgets = new CContourWidgetsTest(this->m_hWnd, rc);
 					box_widgets->ShowWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_13") == 0) {
+					CImagePlaneWidgetsDemo* box_widgets = new CImagePlaneWidgetsDemo(this->m_hWnd, rc);
+					box_widgets->ShowWidgets_Test();
+				} else if (item_name.CompareNoCase(L"function_14") == 0) {
 					if (pControl) {
 						pControl->SetText(_T("btn 4 click."));
 					}

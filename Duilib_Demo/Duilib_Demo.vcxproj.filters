@@ -111,6 +111,9 @@
     <ClCompile Include="vtk_function_demo\ContourWidgetsTest.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_function_demo\ImagePlaneWidgetsDemo.cpp">
+      <Filter>vtk_function_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -189,6 +192,9 @@
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
     <ClInclude Include="vtk_function_demo\ContourWidgetsTest.h">
+      <Filter>vtk_function_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_function_demo\ImagePlaneWidgetsDemo.h">
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
   </ItemGroup>
