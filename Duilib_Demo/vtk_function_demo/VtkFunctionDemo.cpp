@@ -76,16 +76,16 @@ void CVtkFunctionDemo::Function1()
 	iren->Start();
 }
 
-void CVtkFunctionDemo::Function2(int WidgetType)
+void CVtkFunctionDemo::InitVtk()
 {
-	vtkSmartPointer<vtkJPEGReader> reader = vtkSmartPointer<vtkJPEGReader>::New();
+	/*vtkSmartPointer<vtkJPEGReader>*/ reader = vtkSmartPointer<vtkJPEGReader>::New();
 	reader->SetFileName("..\\Bin\\Skin\\image\\ct.jpg");
 	reader->Update();
 
-	vtkSmartPointer<vtkImageActor> imgActor = vtkSmartPointer<vtkImageActor>::New();
+	/*vtkSmartPointer<vtkImageActor>*/ imgActor = vtkSmartPointer<vtkImageActor>::New();
 	imgActor->SetInput(reader->GetOutput());
 
-	vtkSmartPointer<vtkRenderer> render = vtkSmartPointer<vtkRenderer>::New();
+	/*vtkSmartPointer<vtkRenderer>*/ render = vtkSmartPointer<vtkRenderer>::New();
 	render->AddActor(imgActor);
 	render->SetBackground(0, 0, 0);
 	render->ResetCamera();
@@ -96,20 +96,26 @@ void CVtkFunctionDemo::Function2(int WidgetType)
 	//rw->SetSize(320, 320);
 	ResizeAndPosition(m_rc);
 
-	vtkSmartPointer<vtkRenderWindowInteractor> rwi =
-		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	/*vtkSmartPointer<vtkRenderWindowInteractor>*/ rwi = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 	rwi->SetRenderWindow(renWin);
 
-	vtkSmartPointer<vtkInteractorStyleImage> style = 
-		vtkSmartPointer<vtkInteractorStyleImage>::New();
+	/*vtkSmartPointer<vtkInteractorStyleImage>*/ style = vtkSmartPointer<vtkInteractorStyleImage>::New();
 	rwi->SetInteractorStyle(style);
-	/****************************************************************/	
+	
+	renWin->Render();
+	rwi->Initialize();
+	// 关键点：此处使用Start，则将消息循环，交给了VTK
+	//rwi->Start();
+	
+}
+
+void CVtkFunctionDemo::Function2(int WidgetType)
+{	
 	//vtkDistanceWidget
 	if (WidgetType == 0)
 	{
 		//实例化Widget
-		vtkSmartPointer<vtkDistanceWidget> distanceWidget =
-			vtkSmartPointer<vtkDistanceWidget>::New();
+		/*vtkSmartPointer<vtkDistanceWidget>*/ distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
 		//指定渲染窗口交互器,来监听用户事件
 		distanceWidget->SetInteractor(rwi);
 		//必要时使用观察者/命令模式创建回调函数(此处没用)
@@ -120,15 +126,11 @@ void CVtkFunctionDemo::Function2(int WidgetType)
 			->SetLabelFormat("%-#6.3g px");
 		//激活Widget
 		distanceWidget->On();
-
-		renWin->Render();
-		rwi->Initialize();
-		rwi->Start();
 	}
 	//vtkAngleWidget
 	if (WidgetType == 1)
 	{
-		vtkSmartPointer<vtkAngleWidget> angleWiget = vtkSmartPointer<vtkAngleWidget>::New();
+		/*vtkSmartPointer<vtkAngleWidget>*/ angleWiget = vtkSmartPointer<vtkAngleWidget>::New();
 		angleWiget->SetInteractor(rwi);
 		//创建个性化的实体图标
 		vtkSmartPointer<vtkAngleRepresentation2D> angleRep =
@@ -141,23 +143,15 @@ void CVtkFunctionDemo::Function2(int WidgetType)
 		angleRep->GetArc()->GetProperty()->SetLineWidth(3);
 		angleWiget->SetRepresentation(angleRep);
 		angleWiget->On();
-
-		renWin->Render();
-		rwi->Initialize();
-		rwi->Start();
 	}
 	//vtkBiDimensionalWidget
 	if (WidgetType == 2)
 	{
-		vtkSmartPointer<vtkBiDimensionalWidget> bidimensionalWidget =
+		/*vtkSmartPointer<vtkBiDimensionalWidget>*/ bidimensionalWidget =
 			vtkSmartPointer<vtkBiDimensionalWidget>::New();
 		bidimensionalWidget->SetInteractor(rwi);
 		//采用默认的图标
 		bidimensionalWidget->CreateDefaultRepresentation();
 		bidimensionalWidget->On();
-
-		renWin->Render();
-		rwi->Initialize();
-		rwi->Start();
 	}
 }
