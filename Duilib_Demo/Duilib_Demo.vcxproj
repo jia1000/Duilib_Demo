@@ -104,9 +104,9 @@
     <ClCompile Include="vtk\vtk_window.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
-    <ClCompile Include="vtk_function_demo\BoxWidgetsTest.cpp" />
+    <ClCompile Include="vtk_function_demo\BoxWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\CaptionWidgetsDemo.cpp" />
-    <ClCompile Include="vtk_function_demo\ContourWidgetsTest.cpp" />
+    <ClCompile Include="vtk_function_demo\ContourWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\ImagePlaneWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\Rib3DView.cpp" />
     <ClCompile Include="vtk_function_demo\TestWidgetsBase.cpp" />
@@ -135,9 +135,9 @@
     <ClInclude Include="vtk\vtk_window.h" />
     <ClInclude Include="vtk_dicom_demo\DicomSplitView.h" />
     <ClInclude Include="vtk_dicom_demo\DicomView.h" />
-    <ClInclude Include="vtk_function_demo\BoxWidgetsTest.h" />
+    <ClInclude Include="vtk_function_demo\BoxWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\CaptionWidgetsDemo.h" />
-    <ClInclude Include="vtk_function_demo\ContourWidgetsTest.h" />
+    <ClInclude Include="vtk_function_demo\ContourWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\ImagePlaneWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\Rib3DView.h" />
     <ClInclude Include="vtk_function_demo\TestWidgetsBase.h" />

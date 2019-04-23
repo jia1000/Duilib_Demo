@@ -2,11 +2,11 @@
 
 #include "global_include.h"
 
-class CBoxWidgetsTest 
+class CBoxWidgetsDemo 
 {
 public:
-    CBoxWidgetsTest(HWND parent, RECT rc);
-    ~CBoxWidgetsTest(void);
+    CBoxWidgetsDemo(HWND parent, RECT rc);
+    ~CBoxWidgetsDemo(void);
 
 	void ShowWidgets_Test();
 

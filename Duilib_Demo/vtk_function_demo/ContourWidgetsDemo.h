@@ -2,11 +2,11 @@
 
 #include "global_include.h"
 
-class CContourWidgetsTest
+class CContourWidgetsDemo
 {
 public:
-    CContourWidgetsTest(HWND parent, RECT rc);
-    ~CContourWidgetsTest(void);
+    CContourWidgetsDemo(HWND parent, RECT rc);
+    ~CContourWidgetsDemo(void);
 
 	void ShowWidgets_Test();
 

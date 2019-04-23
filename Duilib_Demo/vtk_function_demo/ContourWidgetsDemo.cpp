@@ -1,19 +1,19 @@
 #include "stdafx.h"
-#include "ContourWidgetsTest.h"
+#include "ContourWidgetsDemo.h"
 
 
-CContourWidgetsTest::CContourWidgetsTest(HWND parent, RECT rc)
+CContourWidgetsDemo::CContourWidgetsDemo(HWND parent, RECT rc)
 	: m_parentWnd(parent)
 	, m_rc(rc)
 {
 }
 
 
-CContourWidgetsTest::~CContourWidgetsTest(void)
+CContourWidgetsDemo::~CContourWidgetsDemo(void)
 {
 }
 
-void CContourWidgetsTest::ShowWidgets_Test()
+void CContourWidgetsDemo::ShowWidgets_Test()
 {
 	// Create the RenderWindow, Renderer and both Actors
 	m_renderer        = CreateRenderer();
@@ -28,7 +28,7 @@ void CContourWidgetsTest::ShowWidgets_Test()
 	StartWidgetsRender(m_renderer, m_renderWindow, m_interactor);
 }
 
-vtkSmartPointer<vtkRenderer> CContourWidgetsTest::CreateRenderer()
+vtkSmartPointer<vtkRenderer> CContourWidgetsDemo::CreateRenderer()
 {
 	vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
 
@@ -37,7 +37,7 @@ vtkSmartPointer<vtkRenderer> CContourWidgetsTest::CreateRenderer()
 	return renderer;
 }
 
-vtkSmartPointer<vtkRenderWindow> CContourWidgetsTest::CreateRenderWindow(vtkSmartPointer<vtkRenderer> renderer)
+vtkSmartPointer<vtkRenderWindow> CContourWidgetsDemo::CreateRenderWindow(vtkSmartPointer<vtkRenderer> renderer)
 {
 	vtkSmartPointer< vtkRenderWindow > renderWindow = vtkSmartPointer< vtkRenderWindow >::New();
 
@@ -47,7 +47,7 @@ vtkSmartPointer<vtkRenderWindow> CContourWidgetsTest::CreateRenderWindow(vtkSmar
 
 	return renderWindow;
 }
-vtkSmartPointer<vtkRenderWindowInteractor> CContourWidgetsTest::CreateInteractor(vtkSmartPointer<vtkRenderWindow> renderWindow)
+vtkSmartPointer<vtkRenderWindowInteractor> CContourWidgetsDemo::CreateInteractor(vtkSmartPointer<vtkRenderWindow> renderWindow)
 {
 	vtkSmartPointer< vtkRenderWindowInteractor > interactor = 
 		vtkSmartPointer< vtkRenderWindowInteractor >::New();
@@ -57,7 +57,7 @@ vtkSmartPointer<vtkRenderWindowInteractor> CContourWidgetsTest::CreateInteractor
 	return interactor;
 }
 
-void CContourWidgetsTest::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
+void CContourWidgetsDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
                                               vtkSmartPointer<vtkRenderWindow> renderWindow, 
                                               vtkSmartPointer<vtkRenderWindowInteractor> interactor)
 {
@@ -69,13 +69,13 @@ void CContourWidgetsTest::StartWidgetsRender(vtkSmartPointer<vtkRenderer> render
     m_interactor->Start();
 }
 
-void CContourWidgetsTest::SetMyInteractorStyle(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
+void CContourWidgetsDemo::SetMyInteractorStyle(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
 {
     vtkSmartPointer<vtkInteractorStyleTrackballCamera> style = vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
     interactor->SetInteractorStyle( style );
 }
 
-void CContourWidgetsTest::CreatePipeline(vtkSmartPointer<vtkRenderer> renderer)
+void CContourWidgetsDemo::CreatePipeline(vtkSmartPointer<vtkRenderer> renderer)
 {
     // Generate a set of points arranged in a circle
     int numPts = 10;
@@ -105,7 +105,7 @@ void CContourWidgetsTest::CreatePipeline(vtkSmartPointer<vtkRenderer> renderer)
     polydata->SetLines(lines);
 }
 
-void CContourWidgetsTest::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
+void CContourWidgetsDemo::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
 {
     // Create the contour widget
     /*vtkSmartPointer<vtkContourWidget> */contourWidget =
@@ -126,7 +126,7 @@ void CContourWidgetsTest::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> 
     //captionWidget->On();
 }
 
-void CContourWidgetsTest::ResizeAndPosition(RECT rc)
+void CContourWidgetsDemo::ResizeAndPosition(RECT rc)
 {
 	if (m_parentWnd) {
 		m_renderWindow->SetParentId(m_parentWnd);

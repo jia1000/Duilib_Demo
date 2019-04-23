@@ -5,8 +5,8 @@
 #include "vtk_dicom_demo/DicomView.h"
 #include "vtk_function_demo/TextWidgetsDemo.h"
 #include "vtk_function_demo/CaptionWidgetsDemo.h"
-#include "vtk_function_demo/BoxWidgetsTest.h"
-#include "vtk_function_demo/ContourWidgetsTest.h"
+#include "vtk_function_demo/BoxWidgetsDemo.h"
+#include "vtk_function_demo/ContourWidgetsDemo.h"
 #include "vtk_function_demo/ImagePlaneWidgetsDemo.h"
 #include "vtk_function_demo/Rib3DView.h"
 
@@ -141,10 +141,10 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					CCaptionWidgetsDemo* text_widgets = new CCaptionWidgetsDemo(this->m_hWnd, rc);
 					text_widgets->CaptionWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_11") == 0) {
-					CBoxWidgetsTest* box_widgets = new CBoxWidgetsTest(this->m_hWnd, rc);
+					CBoxWidgetsDemo* box_widgets = new CBoxWidgetsDemo(this->m_hWnd, rc);
 					box_widgets->ShowWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_12") == 0) {
-					CContourWidgetsTest* box_widgets = new CContourWidgetsTest(this->m_hWnd, rc);
+					CContourWidgetsDemo* box_widgets = new CContourWidgetsDemo(this->m_hWnd, rc);
 					box_widgets->ShowWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_13") == 0) {
 					CImagePlaneWidgetsDemo* box_widgets = new CImagePlaneWidgetsDemo(this->m_hWnd, rc);

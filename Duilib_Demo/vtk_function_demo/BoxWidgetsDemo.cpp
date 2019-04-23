@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "BoxWidgetsTest.h"
+#include "BoxWidgetsDemo.h"
 
 
 class vtkMyCallback : public vtkCommand
@@ -22,18 +22,18 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////
-CBoxWidgetsTest::CBoxWidgetsTest(HWND parent, RECT rc)
+CBoxWidgetsDemo::CBoxWidgetsDemo(HWND parent, RECT rc)
 	: m_parentWnd(parent)
 	, m_rc(rc)
 {
 }
 
 
-CBoxWidgetsTest::~CBoxWidgetsTest(void)
+CBoxWidgetsDemo::~CBoxWidgetsDemo(void)
 {
 }
 
-void CBoxWidgetsTest::ShowWidgets_Test()
+void CBoxWidgetsDemo::ShowWidgets_Test()
 {
 	// Create the RenderWindow, Renderer and both Actors
 	m_renderer        = CreateRenderer();
@@ -48,7 +48,7 @@ void CBoxWidgetsTest::ShowWidgets_Test()
 	StartWidgetsRender(m_renderer, m_renderWindow, m_interactor);
 }
 
-vtkSmartPointer<vtkRenderer> CBoxWidgetsTest::CreateRenderer()
+vtkSmartPointer<vtkRenderer> CBoxWidgetsDemo::CreateRenderer()
 {
 	vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
 
@@ -57,7 +57,7 @@ vtkSmartPointer<vtkRenderer> CBoxWidgetsTest::CreateRenderer()
 	return renderer;
 }
 
-vtkSmartPointer<vtkRenderWindow> CBoxWidgetsTest::CreateRenderWindow(vtkSmartPointer<vtkRenderer> renderer)
+vtkSmartPointer<vtkRenderWindow> CBoxWidgetsDemo::CreateRenderWindow(vtkSmartPointer<vtkRenderer> renderer)
 {
 	vtkSmartPointer< vtkRenderWindow > renderWindow = vtkSmartPointer< vtkRenderWindow >::New();
 
@@ -67,7 +67,7 @@ vtkSmartPointer<vtkRenderWindow> CBoxWidgetsTest::CreateRenderWindow(vtkSmartPoi
 	
 	return renderWindow;
 }
-vtkSmartPointer<vtkRenderWindowInteractor> CBoxWidgetsTest::CreateInteractor(vtkSmartPointer<vtkRenderWindow> renderWindow)
+vtkSmartPointer<vtkRenderWindowInteractor> CBoxWidgetsDemo::CreateInteractor(vtkSmartPointer<vtkRenderWindow> renderWindow)
 {
 	vtkSmartPointer< vtkRenderWindowInteractor > interactor = 
 		vtkSmartPointer< vtkRenderWindowInteractor >::New();
@@ -77,7 +77,7 @@ vtkSmartPointer<vtkRenderWindowInteractor> CBoxWidgetsTest::CreateInteractor(vtk
 	return interactor;
 }
 
-void CBoxWidgetsTest::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
+void CBoxWidgetsDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
                                               vtkSmartPointer<vtkRenderWindow> renderWindow, 
                                               vtkSmartPointer<vtkRenderWindowInteractor> interactor)
 {
@@ -87,13 +87,13 @@ void CBoxWidgetsTest::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer,
     m_interactor->Start();
 }
 
-void CBoxWidgetsTest::SetMyInteractorStyle(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
+void CBoxWidgetsDemo::SetMyInteractorStyle(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
 {
     vtkSmartPointer<vtkInteractorStyleTrackballCamera> style = vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
     interactor->SetInteractorStyle( style );
 }
 
-void CBoxWidgetsTest::CreatePipeline(vtkSmartPointer<vtkRenderer> renderer)
+void CBoxWidgetsDemo::CreatePipeline(vtkSmartPointer<vtkRenderer> renderer)
 {
     vtkSmartPointer<vtkConeSource> cone = vtkSmartPointer<vtkConeSource>::New();
 
@@ -106,7 +106,7 @@ void CBoxWidgetsTest::CreatePipeline(vtkSmartPointer<vtkRenderer> renderer)
     renderer->AddActor(actor);
 }
 
-void CBoxWidgetsTest::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
+void CBoxWidgetsDemo::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> interactor)
 {
     /*vtkSmartPointer<vtkBoxWidget> */boxWidget = vtkSmartPointer<vtkBoxWidget>::New();
     boxWidget->SetInteractor( interactor );
@@ -121,7 +121,7 @@ void CBoxWidgetsTest::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> inte
     //boxWidget->On();
 }
 
-void CBoxWidgetsTest::ResizeAndPosition(RECT rc)
+void CBoxWidgetsDemo::ResizeAndPosition(RECT rc)
 {
 	if (m_parentWnd) {
 		m_renderWindow->SetParentId(m_parentWnd);
