@@ -7,6 +7,7 @@ using namespace DuiLib;
 //////////////////////////////////////////////////////////////////////////
 
 class CVtkFunctionDemo;
+class CDicomView;
 
 class CVtkFunctionDemoFrameWnd : public WindowImplBase
 {
@@ -26,6 +27,6 @@ public:
 
 private:
 	CVtkFunctionDemo* m_vtk_function_demo;
-
+	CDicomView* dicom_view;
 };
 

@@ -45,7 +45,7 @@ public:
         _ImageViewer = imageViewer;
         _MinSlice = imageViewer->GetSliceMin();
         _MaxSlice = imageViewer->GetSliceMax();
-        _Slice = _MinSlice;
+        _Slice = (_MinSlice + _MaxSlice) / 2;
         cout << "Slice: Min = " << _MinSlice << ", Max = " << _MaxSlice << endl;
     }
 
@@ -220,7 +220,18 @@ void CDicomView::UpdateView(RECT rc)
 	ResizeAndPosition(rc);	
 }
 
-void CDicomView::ShowDicomFile(std::string folder)
+void CDicomView::SetOrientation(int orientation)
+{
+	if (vtkImageViewer2::SLICE_ORIENTATION_XY == orientation) {
+		m_imageViewer->SetSliceOrientationToXY();	    
+	} else if(vtkImageViewer2::SLICE_ORIENTATION_XZ == orientation){
+		m_imageViewer->SetSliceOrientationToXZ();
+	} else if(vtkImageViewer2::SLICE_ORIENTATION_YZ == orientation){
+		m_imageViewer->SetSliceOrientationToYZ();
+	}
+}
+
+void CDicomView::InitVtk(std::string folder)
 {
     //std::string folder = ".\\data\\slices";
     m_reader = vtkSmartPointer<vtkDICOMImageReader>::New();
@@ -243,14 +254,11 @@ void CDicomView::ShowDicomFile(std::string folder)
 
     AddLeftUpTextActor(usageTextMapper);    
 
-    vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+    /*vtkSmartPointer<vtkRenderWindowInteractor>*/ renderWindowInteractor =
         vtkSmartPointer<vtkRenderWindowInteractor>::New();
 
-    vtkSmartPointer<myvtkInteractorStyleImage> myInteractorStyle =
+    /*vtkSmartPointer<myvtkInteractorStyleImage>*/ myInteractorStyle =
         vtkSmartPointer<myvtkInteractorStyleImage>::New();
-
-	
-	
 
     myInteractorStyle->SetImageViewer(m_imageViewer);
     myInteractorStyle->SetStatusMapper(sliceTextMapper);
@@ -258,7 +266,6 @@ void CDicomView::ShowDicomFile(std::string folder)
 
     m_imageViewer->SetupInteractor(renderWindowInteractor);
     renderWindowInteractor->SetInteractorStyle(myInteractorStyle);
-
     
     //m_imageViewer->GetRenderWindow()->SetSize(800, 600);
 	ResizeAndPosition(m_rc);	
@@ -266,22 +273,9 @@ void CDicomView::ShowDicomFile(std::string folder)
     m_imageViewer->SetColorWindow(380);
     m_imageViewer->SetColorLevel(30);
 
-    //////////////////////////////////////////////////////////////////////////
-    m_imageViewer->SetSlice(0);
-
-	if (vtkImageViewer2::SLICE_ORIENTATION_XY == use_orientation) {
-		m_imageViewer->SetSliceOrientationToXY();	    
-	} else if(vtkImageViewer2::SLICE_ORIENTATION_XZ == use_orientation){
-		m_imageViewer->SetSliceOrientationToXZ();
-	} else if(vtkImageViewer2::SLICE_ORIENTATION_YZ == use_orientation){
-		m_imageViewer->SetSliceOrientationToYZ();
-	}
-
-
-    m_imageViewer->Render();
-    m_imageViewer->GetRenderer()->ResetCamera();
-
-    renderWindowInteractor->Start();
+    SetOrientation(use_orientation);
+	
+	m_imageViewer->Render();
 }
 
 void CDicomView::ResizeAndPosition(RECT rc)

@@ -12,6 +12,7 @@
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
+	, dicom_view(NULL)
 {
 }
 
@@ -117,14 +118,23 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"function_2") == 0) {
 					CDicomSplitView* split_view = new CDicomSplitView(this->m_hWnd, rc);
 				} else if (item_name.CompareNoCase(L"function_3") == 0) {
-					CDicomView* dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XY, rc);
-					dicom_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
+					if (!dicom_view) {
+						dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XY, rc);
+						dicom_view->InitVtk("..\\Bin\\Skin\\data\\slices1");
+					}
+					dicom_view->SetOrientation(vtkImageViewer2::SLICE_ORIENTATION_XY);
 				} else if (item_name.CompareNoCase(L"function_4") == 0) {
-					CDicomView* dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_YZ, rc);
-					dicom_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
+					if (!dicom_view) {
+						dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_YZ, rc);
+						dicom_view->InitVtk("..\\Bin\\Skin\\data\\slices1");
+					}
+					dicom_view->SetOrientation(vtkImageViewer2::SLICE_ORIENTATION_YZ);
 				} else if (item_name.CompareNoCase(L"function_5") == 0) {
-					CDicomView* dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XZ, rc);
-					dicom_view->ShowDicomFile("..\\Bin\\Skin\\data\\slices1");
+					if (!dicom_view) {
+						dicom_view = new CDicomView(this->m_hWnd, vtkImageViewer2::SLICE_ORIENTATION_XZ, rc);
+						dicom_view->InitVtk("..\\Bin\\Skin\\data\\slices1");
+					}
+					dicom_view->SetOrientation(vtkImageViewer2::SLICE_ORIENTATION_XZ);
 				} else if (item_name.CompareNoCase(L"function_6") == 0) {					
 					if (!m_vtk_function_demo) {
 						m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);

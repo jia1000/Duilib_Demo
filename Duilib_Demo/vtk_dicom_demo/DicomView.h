@@ -4,14 +4,17 @@
 //#include <vtkSmartPointer.h>
 //#include <vtkImageViewer2.h>
 
+class myvtkInteractorStyleImage;
+
 class CDicomView
 {
 public:
     CDicomView(HWND parent, int orientation, RECT rc);
     ~CDicomView(void);
 
-    void ShowDicomFile(std::string folder);
+    void InitVtk(std::string folder);
 	void UpdateView(RECT rc);
+	void SetOrientation(int orientation);
 
 private:
     vtkSmartPointer<vtkTextMapper> SetLeftDownTextAnonationMapper(vtkSmartPointer<vtkImageViewer2> imageViewer);
@@ -25,6 +28,9 @@ private:
 
     vtkSmartPointer< vtkImageViewer2 >           m_imageViewer;
     vtkSmartPointer<vtkDICOMImageReader> m_reader;
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor;
+	vtkSmartPointer<myvtkInteractorStyleImage> myInteractorStyle;
 
 	void ResizeAndPosition(RECT rc);
 
