@@ -1,11 +1,11 @@
 #pragma once
 #include "global_include.h"
 
-class CWidgetsBaseTest
+class CWidgetsDemoBase
 {
 public:
-    CWidgetsBaseTest(HWND parent, RECT rc);
-    ~CWidgetsBaseTest(void);
+    CWidgetsDemoBase(HWND parent, RECT rc);
+    ~CWidgetsDemoBase(void);
 
     void ShowWidgets_Test();
 

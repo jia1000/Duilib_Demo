@@ -2,7 +2,7 @@
 #include "Rib3DView.h"
 
 // 创建一个序列的三维重建
-Rib3DView::Rib3DView(HWND parent, RECT rc) : CWidgetsBaseTest(parent, rc)
+Rib3DView::Rib3DView(HWND parent, RECT rc) : CWidgetsDemoBase(parent, rc)
 {
 }
 

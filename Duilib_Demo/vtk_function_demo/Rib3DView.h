@@ -1,7 +1,8 @@
 #pragma once
-#include "testwidgetsbase.h"
+#include "WidgetsDemoBase.h"
+
 class Rib3DView :
-    public CWidgetsBaseTest
+    public CWidgetsDemoBase
 {
 public:
     Rib3DView(HWND parent, RECT rc);

@@ -109,7 +109,7 @@
     <ClCompile Include="vtk_function_demo\ContourWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\ImagePlaneWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\Rib3DView.cpp" />
-    <ClCompile Include="vtk_function_demo\TestWidgetsBase.cpp" />
+    <ClCompile Include="vtk_function_demo\WidgetsDemoBase.cpp" />
     <ClCompile Include="vtk_function_demo\TextWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\VtkFunctionDemo.cpp" />
   </ItemGroup>
@@ -140,7 +140,7 @@
     <ClInclude Include="vtk_function_demo\ContourWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\ImagePlaneWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\Rib3DView.h" />
-    <ClInclude Include="vtk_function_demo\TestWidgetsBase.h" />
+    <ClInclude Include="vtk_function_demo\WidgetsDemoBase.h" />
     <ClInclude Include="vtk_function_demo\TextWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\VtkFunctionDemo.h" />
   </ItemGroup>

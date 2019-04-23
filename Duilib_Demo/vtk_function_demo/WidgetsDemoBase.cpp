@@ -1,19 +1,19 @@
 #include "stdafx.h"
-#include "TestWidgetsBase.h"
+#include "WidgetsDemoBase.h"
 
 
-CWidgetsBaseTest::CWidgetsBaseTest(HWND parent, RECT rc)
+CWidgetsDemoBase::CWidgetsDemoBase(HWND parent, RECT rc)
 	: m_parentWnd(parent)
 	, m_rc(rc)
 {
 }
 
 
-CWidgetsBaseTest::~CWidgetsBaseTest(void)
+CWidgetsDemoBase::~CWidgetsDemoBase(void)
 {
 }
 
-void CWidgetsBaseTest::ShowWidgets_Test()
+void CWidgetsDemoBase::ShowWidgets_Test()
 {
     // Create the RenderWindow, Renderer and both Actors
     m_renderer        = CreateRenderer();
@@ -28,7 +28,7 @@ void CWidgetsBaseTest::ShowWidgets_Test()
     StartWidgetsRender(m_renderer, m_renderWindow, m_interactor);
 }
 
-vtkSmartPointer<vtkRenderer> CWidgetsBaseTest::CreateRenderer()
+vtkSmartPointer<vtkRenderer> CWidgetsDemoBase::CreateRenderer()
 {
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
     
@@ -37,7 +37,7 @@ vtkSmartPointer<vtkRenderer> CWidgetsBaseTest::CreateRenderer()
     return renderer;
 }
 
-vtkSmartPointer<vtkRenderWindow> CWidgetsBaseTest::CreateRenderWindow(vtkSmartPointer<vtkRenderer> renderer)
+vtkSmartPointer<vtkRenderWindow> CWidgetsDemoBase::CreateRenderWindow(vtkSmartPointer<vtkRenderer> renderer)
 {
     vtkSmartPointer< vtkRenderWindow > renderWindow = vtkSmartPointer< vtkRenderWindow >::New();
 
@@ -47,7 +47,7 @@ vtkSmartPointer<vtkRenderWindow> CWidgetsBaseTest::CreateRenderWindow(vtkSmartPo
 
     return renderWindow;
 }
-vtkSmartPointer<vtkRenderWindowInteractor> CWidgetsBaseTest::CreateInteractor(vtkSmartPointer<vtkRenderWindow> renderWindow)
+vtkSmartPointer<vtkRenderWindowInteractor> CWidgetsDemoBase::CreateInteractor(vtkSmartPointer<vtkRenderWindow> renderWindow)
 {
     vtkSmartPointer< vtkRenderWindowInteractor > interactor = 
         vtkSmartPointer< vtkRenderWindowInteractor >::New();
@@ -57,7 +57,7 @@ vtkSmartPointer<vtkRenderWindowInteractor> CWidgetsBaseTest::CreateInteractor(vt
     return interactor;
 }
 
-void CWidgetsBaseTest::ResizeAndPosition(RECT rc)
+void CWidgetsDemoBase::ResizeAndPosition(RECT rc)
 {
 	if (m_parentWnd) {
 		m_renderWindow->SetParentId(m_parentWnd);

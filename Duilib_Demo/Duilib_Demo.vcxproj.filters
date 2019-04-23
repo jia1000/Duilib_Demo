@@ -111,13 +111,13 @@
     <ClCompile Include="vtk_function_demo\Rib3DView.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
-    <ClCompile Include="vtk_function_demo\TestWidgetsBase.cpp">
-      <Filter>vtk_function_demo</Filter>
-    </ClCompile>
     <ClCompile Include="vtk_function_demo\BoxWidgetsDemo.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
     <ClCompile Include="vtk_function_demo\ContourWidgetsDemo.cpp">
+      <Filter>vtk_function_demo</Filter>
+    </ClCompile>
+    <ClCompile Include="vtk_function_demo\WidgetsDemoBase.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,13 +200,13 @@
     <ClInclude Include="vtk_function_demo\Rib3DView.h">
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
-    <ClInclude Include="vtk_function_demo\TestWidgetsBase.h">
-      <Filter>vtk_function_demo</Filter>
-    </ClInclude>
     <ClInclude Include="vtk_function_demo\BoxWidgetsDemo.h">
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
     <ClInclude Include="vtk_function_demo\ContourWidgetsDemo.h">
+      <Filter>vtk_function_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_function_demo\WidgetsDemoBase.h">
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
   </ItemGroup>
