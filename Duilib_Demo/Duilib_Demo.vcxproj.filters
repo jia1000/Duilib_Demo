@@ -105,6 +105,9 @@
     <ClCompile Include="vtk_function_demo\CaptionWidgetsDemo.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_function_demo\BoxWidgetsTest.cpp">
+      <Filter>vtk_function_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -177,6 +180,9 @@
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
     <ClInclude Include="vtk_function_demo\CaptionWidgetsDemo.h">
+      <Filter>vtk_function_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_function_demo\BoxWidgetsTest.h">
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
   </ItemGroup>

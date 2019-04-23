@@ -5,6 +5,7 @@
 #include "vtk_dicom_demo/DicomView.h"
 #include "vtk_function_demo/TextWidgetsDemo.h"
 #include "vtk_function_demo/CaptionWidgetsDemo.h"
+#include "vtk_function_demo/BoxWidgetsTest.h"
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -136,6 +137,9 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"function_10") == 0) {
 					CCaptionWidgetsDemo* text_widgets = new CCaptionWidgetsDemo(this->m_hWnd, rc);
 					text_widgets->CaptionWidgets_Test();
+				} else if (item_name.CompareNoCase(L"function_11") == 0) {
+					CBoxWidgetsTest* box_widgets = new CBoxWidgetsTest(this->m_hWnd, rc);
+					box_widgets->ShowWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_11") == 0) {
 					if (pControl) {
 						pControl->SetText(_T("btn 4 click."));
