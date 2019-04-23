@@ -136,7 +136,7 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					m_vtk_function_demo->Function2(2);
 				} else if (item_name.CompareNoCase(L"function_9") == 0) {
 					CTextWidgetsDemo* text_widgets = new CTextWidgetsDemo(this->m_hWnd, rc);
-					text_widgets->TextWidgets_Test();
+					text_widgets->ShowWidgets_Test();
 				} else if (item_name.CompareNoCase(L"function_10") == 0) {
 					CCaptionWidgetsDemo* text_widgets = new CCaptionWidgetsDemo(this->m_hWnd, rc);
 					text_widgets->CaptionWidgets_Test();
