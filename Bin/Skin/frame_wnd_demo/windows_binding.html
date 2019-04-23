@@ -34,17 +34,27 @@
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.send(int8View);
-
-
     }
+    function test_call_cPlusPlus_func() {
+        window.cefQuery({
+                request: "Call_C_Plus_Plus",
+                persistent: false,
+                onSuccess: function(response) { alert(response); },
+                onFailure: function(code, msg) { alert(code + " - " + msg); }
+            }
+        );
+    }
+
 </script>
 <body>
 <input type="button" value="min1" onclick="maximize();" />
 <input type="button" value="min2" onclick="test_window_binding_extension();" />
 <input type="button" value="min34" onclick="test_js_func();" />
 <form>
-    Query String: <input type="text" id="query" value="GiveMeMoney"/>&nbsp;&nbsp;<input  type="button" value="SendQuery" onclick="doQuery()"/>
+    Query String: <input type="text" id="query" value="HelloCefQuery_Test_Failure"/>&nbsp;&nbsp;<input  type="button" value="SendQuery" onclick="doQuery()"/>
 </form>
 <input type="button" value="min4" onclick="test_xmlhttprequest_func();" />
+<img name="logo_dp" src="logo_test.png" />
+<input type="button" value="Call c++" onclick="test_call_cPlusPlus_func();" />
 </body>
 </html>

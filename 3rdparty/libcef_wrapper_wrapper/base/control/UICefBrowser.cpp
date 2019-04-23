@@ -329,6 +329,13 @@ void CCefBrowserUI::SetNextChangeZoomValue(int step)
 		m_CallbackDelegate->OnZoomValueChanged(step);
 	}
 }
+
+void CCefBrowserUI::CallParentWndDoSomething(int type_id, std::wstring command)
+{
+	if (m_CallbackDelegate) {
+		m_CallbackDelegate->OnDoSpecialSomething(type_id, command);
+	}
+}
 //end
 //////////////////////////////////////////////////////////////////////////
 

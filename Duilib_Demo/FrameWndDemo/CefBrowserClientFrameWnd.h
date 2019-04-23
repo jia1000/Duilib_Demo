@@ -84,6 +84,8 @@ public:
 	void OnExit() OVERRIDE;
 	//
 	virtual void OnZoomValueChanged(int step);
+	//
+	virtual void OnDoSpecialSomething(int type_id, std::wstring command);
 
 	bool IsDragRect(POINT pt);
 	void SetDelegate(CCefBrowserClientFrameWnd::Delegate* wndDelegate){ m_pDelegate = wndDelegate;}

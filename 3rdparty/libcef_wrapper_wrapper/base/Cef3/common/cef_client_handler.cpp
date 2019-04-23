@@ -113,7 +113,7 @@ void CCefClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)
 
 		// JS和C++异步通信：第03步：
 		// 给Browser侧的MessageRouter，添加Browser侧的MessageRouter内部类Handler的对象 
-		message_handler_set_.insert(new WindowStateHandler());
+		message_handler_set_.insert(new WindowStateHandler(m_pOwner));
 		message_handler_set_.insert(new PrintToPdfHandler());
  		auto it = message_handler_set_.begin();
  		for (; it != message_handler_set_.end(); ++it)

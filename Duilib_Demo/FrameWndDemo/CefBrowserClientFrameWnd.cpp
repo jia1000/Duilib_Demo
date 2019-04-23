@@ -352,6 +352,19 @@ void CCefBrowserClientFrameWnd::OnZoomValueChanged(int step)
 	m_pBrowserUI->SetZoomLevel(scale);
 }
 
+void CCefBrowserClientFrameWnd::OnDoSpecialSomething(int type_id, std::wstring command)
+{
+	if (type_id == 1) {
+		COptionUI* pControl = static_cast<COptionUI*>(m_pm.FindControl(_T("OptionDemo3")));
+		if (pControl) {
+			static int click_count = 1;
+			CDuiString text;
+			text.Format(_T("%s %2d"), command.c_str(), click_count);
+			pControl->SetText(text);
+			click_count++;
+		}
+	}
+}
 //////////////////////////////////////////////////////////////////////////
 
 void CCefBrowserClientFrameWnd::NotifyWindowDestroyed()

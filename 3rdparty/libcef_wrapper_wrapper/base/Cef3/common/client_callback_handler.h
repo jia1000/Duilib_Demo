@@ -48,6 +48,8 @@ public:
 	// 
 	virtual void OnZoomValueChanged(int step) {};
 
+	virtual void OnDoSpecialSomething(int type_id, std::wstring command) {} ;
+
 protected:
 	virtual ~ICallbackDelegate() {}
 };

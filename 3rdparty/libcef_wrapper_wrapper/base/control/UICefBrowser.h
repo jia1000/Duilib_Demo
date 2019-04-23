@@ -91,6 +91,8 @@ public:
 	//获取缩放比例
 	double GetZoomLevel();
 
+	// 让父窗体做些事情
+	void CallParentWndDoSomething(int type_id, std::wstring command);
 private:
 	void resize();
 	//设置焦点

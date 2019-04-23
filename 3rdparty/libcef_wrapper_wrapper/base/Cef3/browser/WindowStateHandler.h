@@ -18,7 +18,9 @@ const char kMessageName[] = "WindowState";
 class WindowStateHandler : public CefMessageRouterBrowserSide::Handler 
 {
 public:
-	WindowStateHandler() {}
+	WindowStateHandler(CCefBrowserUI* owner) 
+		: m_pOwner(owner)
+	{}
 
 	virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
 		CefRefPtr<CefFrame> frame,
@@ -33,14 +35,25 @@ public:
 			
 			return true;
  		}
-		else if (request == "HelloCefQuery")
+		else if (request == "HelloCefQuery_Test_Success")
 		{
-			callback->Success("HelloCefQuery Ok");
+			callback->Success("HelloCefQuery_Test_Success Ok");
 			return true;
 		}
-		else if (request == "GiveMeMoney")
+		else if (request == "HelloCefQuery_Test_Failure")
 		{
-			callback->Failure(404, "There are none thus query!");
+			callback->Failure(404, "There are none thus query!  --- HelloCefQuery_Test_Failure");
+			return true;
+		}
+		else if (request == "Call_C_Plus_Plus")
+		{
+			if (m_pOwner) {
+				static int click_count = 1;
+				//CDuiString cmd;
+				//cmd.Format(_T("Click count %2d"), click_count);
+				m_pOwner->CallParentWndDoSomething(1, L"JS-->C++");
+			}
+			callback->Success("Call_C_Plus_Plus Ok");
 			return true;
 		}
 		// let other handlers to process.
@@ -55,4 +68,6 @@ public:
 
 		// cancel async query task...
 	}
+private:
+	CCefBrowserUI* m_pOwner;
 };

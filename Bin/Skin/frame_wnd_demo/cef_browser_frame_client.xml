@@ -36,13 +36,14 @@
 				<VerticalLayout>
 					<Option name="CEF_Control_Test" text="CEF控件测试" width="120" height="60" group="tabDemo" />
 					<Option name="OptionDemo2" text="Button测试24" width="120" height="60" group="tabDemo" />
+					<Option name="OptionDemo3" text="Browser Click " width="120" height="60" group="tabDemo" />
 				</VerticalLayout>
 			</HorizontalLayout>
 			<TabLayout name="tabTest" bkcolor="#FFF9FBFC" selectedid="-1">
 				<HorizontalLayout>
 					<!-- CEF浏览器控件 预留位置 -->
 					
-						<Cef url="" padding="2,1,2,1" />
+						<Cef url="http://127.0.0.1:8080/windows_binding_html" padding="2,1,2,1" />
 				</HorizontalLayout>
 				<HorizontalLayout>
 					<Button name="OptionDemo2" text="OptionDemo2" bkcolor="#FFF44C4C"  />					
