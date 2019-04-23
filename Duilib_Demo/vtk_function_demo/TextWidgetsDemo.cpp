@@ -66,6 +66,7 @@ void CTextWidgetsDemo::AddTextActor(vtkSmartPointer<vtkRenderWindowInteractor> i
     vtkSmartPointer<vtkTextRepresentation> textRepresentation = vtkSmartPointer<vtkTextRepresentation>::New();
     textRepresentation->GetPositionCoordinate()->SetValue( .01, .01 );
     textRepresentation->GetPosition2Coordinate()->SetValue( .7, .2 );
+
     textWidget ->SetRepresentation( textRepresentation );
 
     textWidget->SetInteractor(interactor);

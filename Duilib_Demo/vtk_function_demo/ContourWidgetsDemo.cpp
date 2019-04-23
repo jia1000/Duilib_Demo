@@ -70,6 +70,7 @@ void CContourWidgetsDemo::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> 
     vtkSmartPointer<vtkOrientedGlyphContourRepresentation> contourRepresentation =
         vtkSmartPointer<vtkOrientedGlyphContourRepresentation>::New();
     contourRepresentation->GetLinesProperty()->SetColor(1, 0, 0); // Set color to red
+
     contourWidget->SetRepresentation(contourRepresentation);
 
     // Set up the contour widget within the visualization pipeline just assembled
