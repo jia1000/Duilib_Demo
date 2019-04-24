@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
     <LibraryPath>D:\VTK-5.10.1\bin\Debug;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\release</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
@@ -55,7 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\Utilities;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -87,6 +87,20 @@
     <ClCompile Include="cef_simple\simple_handler.cpp" />
     <ClCompile Include="extended_control\list_pro_ui.cpp" />
     <ClCompile Include="extended_control\tile_layout_extended.cpp" />
+    <ClCompile Include="FourViews\vtkBorderSelectionWidget.cpp" />
+    <ClCompile Include="FourViews\vtkDataSet3DCroppingPlaneCallback.cpp" />
+    <ClCompile Include="FourViews\vtkImage3DCroppingBoxCallback.cpp" />
+    <ClCompile Include="FourViews\vtkImageBlendWithMask.cpp" />
+    <ClCompile Include="FourViews\vtkInteractorStyleImage2D.cpp" />
+    <ClCompile Include="FourViews\vtkOrientedBoxWidget.cpp" />
+    <ClCompile Include="FourViews\vtkRulerWidget.cpp" />
+    <ClCompile Include="FourViews\vtkSynchronizedView.cpp" />
+    <ClCompile Include="FourViews\vtkTextUnicodeProperty.cpp" />
+    <ClCompile Include="FourViews\vtkViewImage.cpp" />
+    <ClCompile Include="FourViews\vtkViewImage2D.cpp" />
+    <ClCompile Include="FourViews\vtkViewImage2DCommand.cpp" />
+    <ClCompile Include="FourViews\vtkViewImage2DFullCommand.cpp" />
+    <ClCompile Include="FourViews\vtkViewImage3D.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
@@ -99,6 +113,7 @@
     <ClCompile Include="FrameWndDemo\ImageDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkFunctionDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vtk\dui_vistasimple.cpp" />
     <ClCompile Include="vtk\vtk_window.cpp" />
@@ -118,6 +133,20 @@
     <ClInclude Include="cef_simple\simple_handler.h" />
     <ClInclude Include="extended_control\list_pro_ui.h" />
     <ClInclude Include="extended_control\tile_layout_extended.h" />
+    <ClInclude Include="FourViews\vtkBorderSelectionWidget.h" />
+    <ClInclude Include="FourViews\vtkDataSet3DCroppingPlaneCallback.h" />
+    <ClInclude Include="FourViews\vtkImage3DCroppingBoxCallback.h" />
+    <ClInclude Include="FourViews\vtkImageBlendWithMask.h" />
+    <ClInclude Include="FourViews\vtkInteractorStyleImage2D.h" />
+    <ClInclude Include="FourViews\vtkOrientedBoxWidget.h" />
+    <ClInclude Include="FourViews\vtkRulerWidget.h" />
+    <ClInclude Include="FourViews\vtkSynchronizedView.h" />
+    <ClInclude Include="FourViews\vtkTextUnicodeProperty.h" />
+    <ClInclude Include="FourViews\vtkViewImage.h" />
+    <ClInclude Include="FourViews\vtkViewImage2D.h" />
+    <ClInclude Include="FourViews\vtkViewImage2DCommand.h" />
+    <ClInclude Include="FourViews\vtkViewImage2DFullCommand.h" />
+    <ClInclude Include="FourViews\vtkViewImage3D.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
@@ -130,6 +159,7 @@
     <ClInclude Include="FrameWndDemo\ImageDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkFunctionDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h" />
     <ClInclude Include="global_include.h" />
     <ClInclude Include="vtk\dui_vistasimple.h" />
     <ClInclude Include="vtk\vtk_window.h" />

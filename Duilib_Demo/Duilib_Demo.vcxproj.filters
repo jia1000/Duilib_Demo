@@ -31,6 +31,9 @@
     <Filter Include="vtk_function_demo">
       <UniqueIdentifier>{b4683aba-461e-4ee0-b1f4-fbd067a6301a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FourViews">
+      <UniqueIdentifier>{f7caaf9d-818d-4f4d-ae20-81fa37a61c08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -120,6 +123,51 @@
     <ClCompile Include="vtk_function_demo\WidgetsDemoBase.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
+    <ClCompile Include="FourViews\vtkBorderSelectionWidget.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkDataSet3DCroppingPlaneCallback.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkImage3DCroppingBoxCallback.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkImageBlendWithMask.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkInteractorStyleImage2D.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkOrientedBoxWidget.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkRulerWidget.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkSynchronizedView.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkTextUnicodeProperty.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkViewImage.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkViewImage2D.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkViewImage2DCommand.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkViewImage2DFullCommand.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FourViews\vtkViewImage3D.cpp">
+      <Filter>FourViews</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -208,6 +256,51 @@
     </ClInclude>
     <ClInclude Include="vtk_function_demo\WidgetsDemoBase.h">
       <Filter>vtk_function_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkBorderSelectionWidget.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkDataSet3DCroppingPlaneCallback.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkImage3DCroppingBoxCallback.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkImageBlendWithMask.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkInteractorStyleImage2D.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkOrientedBoxWidget.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkRulerWidget.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkSynchronizedView.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkTextUnicodeProperty.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkViewImage.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkViewImage2D.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkViewImage2DCommand.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkViewImage2DFullCommand.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FourViews\vtkViewImage3D.h">
+      <Filter>FourViews</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
