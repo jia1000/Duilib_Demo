@@ -34,6 +34,9 @@
     <Filter Include="FourViews">
       <UniqueIdentifier>{f7caaf9d-818d-4f4d-ae20-81fa37a61c08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility_tool">
+      <UniqueIdentifier>{b6623ba7-ce2c-4842-9d01-252ffd33dee6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -168,6 +171,12 @@
     <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\DcmtkDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="utility_tool\string_converse.cpp">
+      <Filter>utility_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -301,6 +310,12 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\DcmtkDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="utility_tool\string_converse.h">
+      <Filter>utility_tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
