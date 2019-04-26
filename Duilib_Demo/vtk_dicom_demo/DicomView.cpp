@@ -229,6 +229,8 @@ void CDicomView::SetOrientation(int orientation)
 	} else if(vtkImageViewer2::SLICE_ORIENTATION_YZ == orientation){
 		m_imageViewer->SetSliceOrientationToYZ();
 	}
+
+	myInteractorStyle->SetImageViewer(m_imageViewer);
 }
 
 void CDicomView::InitVtk(std::string folder)

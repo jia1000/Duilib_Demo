@@ -23,7 +23,7 @@
 			<Button name="Button9"  text="Image test"        			height="60"  bkcolor="#FFFFF0D0" />
 			<Button name="Button10" text="VTK n * n"        				height="60"  bkcolor="#FFFFF0D0" />
 			<Button name="Button11" text="VTK Function Test"        	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button12" text="VTK Dicom Test"        		height="60"  bkcolor="#FFFFF0D0" />
+			<Button name="Button12" text="VTK Dicom Demo"        		height="60"  bkcolor="#FFFFF0D0" />
 			<Button name="Button13" text="VTK MPR"        			height="60"  bkcolor="#FFFFF0D0" />
 			<Button name="Button14" text="Button测试14"        			height="60"  bkcolor="#FFFFF0D0" />
 		</TileLayout>
