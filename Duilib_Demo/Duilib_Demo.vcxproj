@@ -48,6 +48,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Bin\release</OutDir>
+    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\VTK-5.10.1\bin\Release;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -73,13 +76,16 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\Utilities;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;D:\dcmtk-3.6.0\include;D:\dcmtk-3.6.0\dcmjpeg\include;D:\dcmtk-3.6.0\dcmdata\include;D:\dcmtk-3.6.0\ofstd\include;D:\dcmtk-3.6.0\oflog\include;D:\dcmtk-3.6.0\dcmimgle\include;D:\dcmtk-3.6.0\dcmnet\include;D:\dcmtk-3.6.0\dcmimage\include;D:\dcmtk-3.6.0\dcmsr\include;D:\dcmtk-3.6.0\dcmtls\include;D:\dcmtk-3.6.0\dcmpstat\include;D:\opencv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\VTK-5.10.1\bin\Release;D:\dcmtk-3.6.0\ReleaseWin32Lib;D:\opencv\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;opengl32.lib;glu32.lib;Wldap32.lib;Ws2_32.lib;vtkCommon.lib;vtkDICOMParser.lib;vtkRendering.lib;vtkexpat.lib;vtkFiltering.lib;vtkfreetype.lib;vtkftgl.lib;vtkGenericFiltering.lib;vtkGraphics.lib;vtkHybrid.lib;vtkImaging.lib;vtkIO.lib;vtkjpeg.lib;vtklibxml2.lib;vtkmetaio.lib;vtkNetCDF.lib;vtkpng.lib;vtktiff.lib;vtksys.lib;vtkzlib.lib;vtkVolumeRendering.lib;vtkWidgets.lib;netapi32.lib;ofstd.lib;oflog.lib;dcmdata.lib;dcmnet.lib;dcmtls.lib;dcmimage.lib;dcmimgle.lib;dcmjpeg.lib;dcmsr.lib;dcmpstat.lib;IlmImf.lib;libjasper.lib;libjpeg.lib;libpng.lib;libtiff.lib;libwebp.lib;opencv_calib3d320.lib;opencv_core320.lib;opencv_features2d320.lib;opencv_flann320.lib;opencv_highgui320.lib;opencv_imgcodecs320.lib;opencv_imgproc320.lib;opencv_ml320.lib;opencv_objdetect320.lib;opencv_photo320.lib;opencv_shape320.lib;opencv_stitching320.lib;opencv_superres320.lib;opencv_ts320.lib;opencv_video320.lib;opencv_videoio320.lib;opencv_videostab320.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
