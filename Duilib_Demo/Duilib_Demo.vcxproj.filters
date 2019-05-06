@@ -177,6 +177,9 @@
     <ClCompile Include="utility_tool\string_converse.cpp">
       <Filter>utility_tool</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="utility_tool\string_converse.h">
       <Filter>utility_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
