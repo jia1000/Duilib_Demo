@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(SolutionDir)3rdparty\rapidjson\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\VTK-5.10.1\bin\Debug;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\release</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
@@ -110,6 +110,7 @@
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />

@@ -14,6 +14,7 @@
 #include "FrameWndDemo/VtkMprDemoFrameWnd.h"
 #include "FrameWndDemo/DcmtkDemoFrameWnd.h"
 #include "FrameWndDemo/OpencvDemoFrameWnd.h"
+#include "FrameWndDemo/JsonParseDemoFrameWnd.h"
 
 CEntryFrameWnd::CEntryFrameWnd(void)
 {
@@ -155,7 +156,13 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
+		} else if (_tcscmp(pszCtrlName, _T("Button15")) == 0) {
+			CJsonParseDemoFrameWnd* duiFrame = new CJsonParseDemoFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
 		}
+
 
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
 		//

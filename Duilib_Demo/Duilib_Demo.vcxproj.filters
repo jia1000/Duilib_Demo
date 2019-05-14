@@ -180,6 +180,9 @@
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -321,6 +324,9 @@
       <Filter>utility_tool</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
