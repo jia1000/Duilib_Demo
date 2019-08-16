@@ -16,20 +16,21 @@ public:
     virtual void CreatePipeline(vtkSmartPointer<vtkRenderer> renderer);
     virtual void AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor> interactor);
 
-	void SetSkinActor(vtkSmartPointer<vtkVolume16Reader> v16);
-	void SetBoneActor(vtkSmartPointer<vtkVolume16Reader> v16);
-	void SetOutlineActor(vtkSmartPointer<vtkVolume16Reader> v16);
+	void SetSkinActor(vtkSmartPointer<vtkMetaImageReader> v16);
+	void SetBoneActor(vtkSmartPointer<vtkMetaImageReader> v16);
+	void SetOutlineActor(vtkSmartPointer<vtkMetaImageReader> v16);
 
-	void SetSagittalActor(vtkSmartPointer<vtkVolume16Reader> v16, vtkSmartPointer<vtkLookupTable> lut);
-	void SetAxialActor(vtkSmartPointer<vtkVolume16Reader> v16, vtkSmartPointer<vtkLookupTable> lut);
-	void SetCoronalActor(vtkSmartPointer<vtkVolume16Reader> v16, vtkSmartPointer<vtkLookupTable> lut);
+	void SetSagittalActor(vtkSmartPointer<vtkMetaImageReader> v16, vtkSmartPointer<vtkLookupTable> lut);
+	void SetAxialActor(vtkSmartPointer<vtkMetaImageReader> v16, vtkSmartPointer<vtkLookupTable> lut);
+	void SetCoronalActor(vtkSmartPointer<vtkMetaImageReader> v16, vtkSmartPointer<vtkLookupTable> lut);
 
 
 
 private:
     vtkSmartPointer<vtkTextWidget> textWidget;
 
-	vtkSmartPointer<vtkVolume16Reader> m_v16;
+	vtkSmartPointer<vtkMetaImageReader> m_v16;
+	//vtkSmartPointer<vtkMetaImageReader> m_v16;
 	vtkSmartPointer<vtkLookupTable> m_bwLut;
 	vtkSmartPointer<vtkLookupTable> m_hueLut;
 	vtkSmartPointer<vtkLookupTable> m_satLut;
@@ -41,5 +42,7 @@ private:
 	vtkSmartPointer<vtkImageActor> sagittal;
 	vtkSmartPointer<vtkImageActor> axial;
 	vtkSmartPointer<vtkImageActor> coronal;
+
+	int m_data_extent[6];
 };
 
