@@ -39,7 +39,9 @@
 					<TreeNode name="function_3d_move_cornal" 	text="cornal move"  	height="32"/>
 					<TreeNode name="function_3d_move_axial" 	text="axial move"  	height="32"/>
 					<TreeNode name="function_3d_hue_coronal" 	text="hue coronal"  	height="32"/>
+					<TreeNode name="function_3d_show_hide_sagitta" 	text="show/hide sagitta"  	height="32"/>
 					<TreeNode name="function_3d_show_hide_coronal" 	text="show/hide coronal"  	height="32"/>
+					<TreeNode name="function_3d_show_hide_axial" 	text="show/hide axial"  	height="32"/>
 					<TreeNode name="function_3d_show_hide_bone" 	text="show/hide bone"  	height="32"/>
 					<TreeNode name="function_3d_show_hide_skin" 	text="show/hide skin"  	height="32"/>
 					<TreeNode name="function_3d_show_hide_outline" 	text="show/hide outlline"  	height="32"/>

@@ -202,9 +202,17 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					if (box_widgets) {
 						box_widgets->ShowWidgets_Hue_coronal();
 					}
+				}else if (item_name.CompareNoCase(L"function_3d_show_hide_sagitta") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_show_Hide_Sagitta();
+					}
 				}else if (item_name.CompareNoCase(L"function_3d_show_hide_coronal") == 0) {
 					if (box_widgets) {
 						box_widgets->ShowWidgets_show_Hide_coronal();
+					}
+				}else if (item_name.CompareNoCase(L"function_3d_show_hide_axial") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_show_Hide_Axial();
 					}
 				}else if (item_name.CompareNoCase(L"function_3d_show_hide_bone") == 0) {
 					if (box_widgets) {

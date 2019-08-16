@@ -4,9 +4,12 @@
 // 创建一个序列的三维重建
 MultiSlicesImageDemo::MultiSlicesImageDemo(HWND parent, RECT rc) : CWidgetsDemoBase(parent, rc)
 {
-	m_is_show_coronal = true;
-	bool m_is_show_skin = true;
-	bool m_is_show_outline = true;
+	m_is_show_Sagitta	= true;
+	m_is_show_coronal	= true;
+	m_is_show_axial		= true;
+	m_is_show_bone		= true;
+	m_is_show_skin		= true;
+	m_is_show_outline	= true;
 }
 
 
@@ -55,10 +58,21 @@ void MultiSlicesImageDemo::ShowWidgets_Hue_coronal()
 	if (m_cur_hue_coronal_min >= 1.0) {
 		m_cur_hue_coronal_min = 0.0;
 	}
-	if (m_cur_hue_coronal_min >= 1.0) {
-		m_cur_hue_coronal_min = 0.0;
+	if (m_cur_hue_coronal_max >= 1.0) {
+		m_cur_hue_coronal_max = 0.0;
 	}
 	m_satLut->SetHueRange (m_cur_hue_coronal_min, m_cur_hue_coronal_max);		// 设置色度/色调范围
+	m_renderWindow->Render();
+}
+void MultiSlicesImageDemo::ShowWidgets_show_Hide_Sagitta()
+{
+	m_is_show_Sagitta = !m_is_show_Sagitta;
+	if (m_is_show_Sagitta) {
+		sagittal->VisibilityOn();
+	} 
+	else {
+		sagittal->VisibilityOff();
+	}
 	m_renderWindow->Render();
 }
 void MultiSlicesImageDemo::ShowWidgets_show_Hide_coronal()
@@ -72,7 +86,17 @@ void MultiSlicesImageDemo::ShowWidgets_show_Hide_coronal()
 	}
 	m_renderWindow->Render();
 }
-
+void MultiSlicesImageDemo::ShowWidgets_show_Hide_Axial()
+{
+	m_is_show_axial = !m_is_show_axial;
+	if (m_is_show_axial) {
+		axial->VisibilityOn();
+	} 
+	else {
+		axial->VisibilityOff();
+	}
+	m_renderWindow->Render();
+}
 void MultiSlicesImageDemo::ShowWidgets_show_Hide_bone()
 {
 	m_is_show_bone = !m_is_show_bone;
@@ -193,9 +217,8 @@ void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> rende
 	renderer->AddActor(skin);
 	renderer->AddActor(bone);
 	
-	m_is_show_bone = false;
 	// Turn off bone for this example.
-	bone->VisibilityOff();
+	//bone->VisibilityOff();
 
 	// Set skin to semi-transparent.
 	skin->GetProperty()->SetOpacity(0.5);
