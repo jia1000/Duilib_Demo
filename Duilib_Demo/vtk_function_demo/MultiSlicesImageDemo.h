@@ -24,7 +24,12 @@ public:
 	void SetAxialActor(vtkSmartPointer<vtkMetaImageReader> v16, vtkSmartPointer<vtkLookupTable> lut);
 	void SetCoronalActor(vtkSmartPointer<vtkMetaImageReader> v16, vtkSmartPointer<vtkLookupTable> lut);
 
-
+	void ShowWidgets_Move_Sagitta();
+	void ShowWidgets_Move_Cornal();
+	void ShowWidgets_Move_Axial();
+	void ShowWidgets_Hue_coronal();
+	void ShowWidgets_show_Hide_coronal();
+	void ShowWidgets_show_Hide_bone();
 
 private:
     vtkSmartPointer<vtkTextWidget> textWidget;
@@ -44,5 +49,14 @@ private:
 	vtkSmartPointer<vtkImageActor> coronal;
 
 	int m_data_extent[6];
+	int m_cur_sagitta;
+	int m_cur_cornal;
+	int m_cur_axial;
+
+	double m_cur_hue_coronal_min;
+	double m_cur_hue_coronal_max;
+
+	bool m_is_show_coronal;
+	bool m_is_show_bone;
 };
 

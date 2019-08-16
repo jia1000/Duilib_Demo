@@ -4,11 +4,83 @@
 // 创建一个序列的三维重建
 MultiSlicesImageDemo::MultiSlicesImageDemo(HWND parent, RECT rc) : CWidgetsDemoBase(parent, rc)
 {
+	m_is_show_coronal = true;
 }
 
 
 MultiSlicesImageDemo::~MultiSlicesImageDemo(void)
 {
+}
+
+void MultiSlicesImageDemo::ShowWidgets_Move_Sagitta()
+{
+	if (m_cur_sagitta >= m_data_extent[1]) {
+		m_cur_sagitta = 0;
+	}
+	m_cur_sagitta++;
+	// 设置显示3D切层的位置
+	sagittal->SetDisplayExtent(m_cur_sagitta, m_cur_sagitta, m_data_extent[2],m_data_extent[3], m_data_extent[4],m_data_extent[5]);
+	m_renderWindow->Render();
+
+}
+void MultiSlicesImageDemo::ShowWidgets_Move_Cornal()
+{
+	if (m_cur_cornal >= m_data_extent[1]) {
+		m_cur_cornal = 0;
+	}
+	m_cur_cornal++;
+	// 设置显示3D切层的位置
+	coronal->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_cur_cornal, m_cur_cornal, m_data_extent[4],m_data_extent[5]);
+	m_renderWindow->Render();
+
+}
+void MultiSlicesImageDemo::ShowWidgets_Move_Axial()
+{
+	if (m_cur_axial >= m_data_extent[1]) {
+		m_cur_axial = 0;
+	}
+	m_cur_axial++;
+
+	// 设置显示3D切层的位置
+	axial->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_data_extent[2],m_data_extent[3], m_cur_axial, m_cur_axial);
+
+	m_renderWindow->Render();
+}
+void MultiSlicesImageDemo::ShowWidgets_Hue_coronal()
+{
+	m_cur_hue_coronal_min += 0.1;
+	m_cur_hue_coronal_max += 0.1;
+	if (m_cur_hue_coronal_min >= 1.0) {
+		m_cur_hue_coronal_min = 0.0;
+	}
+	if (m_cur_hue_coronal_min >= 1.0) {
+		m_cur_hue_coronal_min = 0.0;
+	}
+	m_satLut->SetHueRange (m_cur_hue_coronal_min, m_cur_hue_coronal_max);		// 设置色度/色调范围
+	m_renderWindow->Render();
+}
+void MultiSlicesImageDemo::ShowWidgets_show_Hide_coronal()
+{
+	m_is_show_coronal = !m_is_show_coronal;
+	if (m_is_show_coronal) {
+		coronal->VisibilityOn();
+	} 
+	else {
+		coronal->VisibilityOff();
+	}
+	m_renderWindow->Render();
+}
+
+void MultiSlicesImageDemo::ShowWidgets_show_Hide_bone()
+{
+	m_is_show_bone = !m_is_show_bone;
+	if (m_is_show_bone) {
+		bone->VisibilityOn();
+	} 
+	else {
+		bone->VisibilityOff();
+	}
+	m_renderWindow->Render();
 }
 
 void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
@@ -34,23 +106,27 @@ void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> rende
 		m_data_extent[Index] = data_extent[Index];
 	}
 	m_bwLut = vtkSmartPointer<vtkLookupTable>::New();
-	m_bwLut->SetTableRange (0, 2000);
-	m_bwLut->SetSaturationRange (0, 0);
-	m_bwLut->SetHueRange (0, 0);
+	m_bwLut->SetTableRange (0, 2000);	
+	m_bwLut->SetSaturationRange (0, 0);	// 设置色彩饱和度
+	m_bwLut->SetHueRange (0, 0);		// 设置色度/色调范围
 	m_bwLut->SetValueRange (0, 1);
 	m_bwLut->Build(); 
 
+	// 用这个验证函数的使用
 	m_hueLut = vtkSmartPointer<vtkLookupTable>::New();
 	m_hueLut->SetTableRange (0, 2000);
-	m_hueLut->SetHueRange (0, 1);
-	m_hueLut->SetSaturationRange (1, 1);
+	m_hueLut->SetHueRange (0, 1);		// 设置色度/色调范围
+	m_hueLut->SetSaturationRange (1, 1);// 设置色彩饱和度
 	m_hueLut->SetValueRange (1, 1);
 	m_hueLut->Build();
 
+	m_cur_hue_coronal_min = 0.6;
+	m_cur_hue_coronal_max = 0.6;
+
 	m_satLut = vtkSmartPointer<vtkLookupTable>::New();
 	m_satLut->SetTableRange (0, 2000);
-	m_satLut->SetHueRange (.6, .6);
-	m_satLut->SetSaturationRange (0, 1);
+	m_satLut->SetHueRange (.6, .6);		// 设置色度/色调范围
+	m_satLut->SetSaturationRange (0, 1);// 设置色彩饱和度
 	m_satLut->SetValueRange (1, 1);
 	m_satLut->Build();
 
@@ -77,7 +153,8 @@ void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> rende
 	renderer->AddActor(coronal);
 	renderer->AddActor(skin);
 	renderer->AddActor(bone);
-
+	
+	m_is_show_bone = false;
 	// Turn off bone for this example.
 	bone->VisibilityOff();
 
@@ -202,8 +279,9 @@ void MultiSlicesImageDemo::SetSagittalActor(vtkSmartPointer<vtkMetaImageReader> 
 	sagittal->GetMapper()->SetInputConnection(sagittalColors->GetOutputPort());
 	//sagittal->SetDisplayExtent(32,32, 0,63, 0,92);
 	int adv = m_data_extent[1] - m_data_extent[0] + 1;
-	adv /= 2;
-	sagittal->SetDisplayExtent(adv, adv, m_data_extent[2],m_data_extent[3], m_data_extent[4],m_data_extent[5]);
+	m_cur_sagitta = adv / 2;
+	// 设置显示3D切层的位置
+	sagittal->SetDisplayExtent(m_cur_sagitta, m_cur_sagitta, m_data_extent[2],m_data_extent[3], m_data_extent[4],m_data_extent[5]);
 
 }
 
@@ -218,9 +296,10 @@ void MultiSlicesImageDemo::SetAxialActor(vtkSmartPointer<vtkMetaImageReader> v16
 	axial->GetMapper()->SetInputConnection(axialColors->GetOutputPort());
 	//axial->SetDisplayExtent(0,63, 0,63, 46,46);
 	int adv = m_data_extent[5] - m_data_extent[4] + 1;
-	adv /= 2;
-	axial->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_data_extent[2],m_data_extent[3], adv, adv);
-
+	m_cur_axial = adv / 2;
+	// 设置显示3D切层的位置
+	axial->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_data_extent[2],m_data_extent[3], m_cur_axial, m_cur_axial);
+	
 }
 
 void MultiSlicesImageDemo::SetCoronalActor(vtkSmartPointer<vtkMetaImageReader> v16, vtkSmartPointer<vtkLookupTable> lut)
@@ -234,7 +313,7 @@ void MultiSlicesImageDemo::SetCoronalActor(vtkSmartPointer<vtkMetaImageReader> v
 	coronal->GetMapper()->SetInputConnection(coronalColors->GetOutputPort());
 	//coronal->SetDisplayExtent(0,63, 32,32, 0,92);
 	int adv = m_data_extent[3] - m_data_extent[2] + 1;
-	adv /= 2;
-	coronal->SetDisplayExtent(m_data_extent[0],m_data_extent[1], adv, adv, m_data_extent[4],m_data_extent[5]);
-
+	m_cur_cornal = adv / 2;
+	// 设置显示3D切层的位置
+	coronal->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_cur_cornal, m_cur_cornal, m_data_extent[4],m_data_extent[5]);
 }

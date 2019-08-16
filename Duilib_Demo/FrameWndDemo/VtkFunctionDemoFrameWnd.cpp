@@ -14,6 +14,7 @@
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
 	, dicom_view(NULL)
+	, box_widgets(NULL)
 {
 }
 
@@ -180,11 +181,35 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 						pControl->SetText(_T("btn 4 click."));
 					}
 				}else if (item_name.CompareNoCase(L"function_3d_01") == 0) {
-					MultiSlicesImageDemo* box_widgets = new MultiSlicesImageDemo(this->m_hWnd, rc);
+					box_widgets = new MultiSlicesImageDemo(this->m_hWnd, rc);
 					if (pControl) {
 						pControl->SetText(_T("Please wait..."));
 					}
 					box_widgets->ShowWidgets_Test();
+				}else if (item_name.CompareNoCase(L"function_3d_move_sagitta") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_Move_Sagitta();
+					}
+				}else if (item_name.CompareNoCase(L"function_3d_move_cornal") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_Move_Cornal();
+					}
+				}else if (item_name.CompareNoCase(L"function_3d_move_axial") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_Move_Axial();
+					}
+				}else if (item_name.CompareNoCase(L"function_3d_hue_coronal") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_Hue_coronal();
+					}
+				}else if (item_name.CompareNoCase(L"function_3d_show_hide_coronal") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_show_Hide_coronal();
+					}
+				}else if (item_name.CompareNoCase(L"function_3d_show_hide_bone") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_show_Hide_bone();
+					}
 				}
 				// 其它二级菜单
 			}
