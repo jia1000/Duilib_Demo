@@ -5,6 +5,8 @@
 MultiSlicesImageDemo::MultiSlicesImageDemo(HWND parent, RECT rc) : CWidgetsDemoBase(parent, rc)
 {
 	m_is_show_coronal = true;
+	bool m_is_show_skin = true;
+	bool m_is_show_outline = true;
 }
 
 
@@ -82,7 +84,29 @@ void MultiSlicesImageDemo::ShowWidgets_show_Hide_bone()
 	}
 	m_renderWindow->Render();
 }
+void MultiSlicesImageDemo::ShowWidgets_show_Hide_skin()
+{
+	m_is_show_skin = !m_is_show_skin;
+	if (m_is_show_skin) {
+		skin->VisibilityOn();
+	} 
+	else {
+		skin->VisibilityOff();
+	}
+	m_renderWindow->Render();
+}
+void MultiSlicesImageDemo::ShowWidgets_show_Hide_outline()
+{
+	m_is_show_outline = !m_is_show_outline;
+	if (m_is_show_outline) {
+		outline->VisibilityOn();
+	} 
+	else {
+		outline->VisibilityOff();
+	}
+	m_renderWindow->Render();
 
+}
 void MultiSlicesImageDemo::ShowWidgets_Mip_Cornal()
 {
 	if (m_cur_cornal >= m_data_extent[3]) {

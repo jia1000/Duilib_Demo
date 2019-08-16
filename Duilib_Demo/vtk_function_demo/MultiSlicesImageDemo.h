@@ -30,6 +30,8 @@ public:
 	void ShowWidgets_Hue_coronal();
 	void ShowWidgets_show_Hide_coronal();
 	void ShowWidgets_show_Hide_bone();
+	void ShowWidgets_show_Hide_skin();
+	void ShowWidgets_show_Hide_outline();
 	void ShowWidgets_Mip_Cornal();
 private:
     vtkSmartPointer<vtkTextWidget> textWidget;
@@ -58,5 +60,7 @@ private:
 
 	bool m_is_show_coronal;
 	bool m_is_show_bone;
+	bool m_is_show_skin;
+	bool m_is_show_outline;
 };
 
