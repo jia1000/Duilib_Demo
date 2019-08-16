@@ -9,6 +9,7 @@
 #include "vtk_function_demo/ContourWidgetsDemo.h"
 #include "vtk_function_demo/ImagePlaneWidgetsDemo.h"
 #include "vtk_function_demo/Rib3DView.h"
+#include "vtk_function_demo/MultiSlicesImageDemo.h"
 
 CVtkFunctionDemoFrameWnd::CVtkFunctionDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -178,6 +179,12 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					if (pControl) {
 						pControl->SetText(_T("btn 4 click."));
 					}
+				}else if (item_name.CompareNoCase(L"function_3d_01") == 0) {
+					MultiSlicesImageDemo* box_widgets = new MultiSlicesImageDemo(this->m_hWnd, rc);
+					if (pControl) {
+						pControl->SetText(_T("Please wait..."));
+					}
+					box_widgets->ShowWidgets_Test();
 				}
 				// 其它二级菜单
 			}

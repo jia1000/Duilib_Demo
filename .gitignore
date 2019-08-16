@@ -13,3 +13,13 @@ Bin/release/Duilib_Demod.exe
 Bin/release/debug.log
 Duilib_Demo/GPUCache/
 ipch/
+Bin/Skin/data/slices1/
+Duilib_Demo/controller/browser_callback_controller.h
+Duilib_Demo/controller/browser_callback_controller.cpp
+Duilib_Demo/Release/
+Bin/release/
+Bin/DuiLib.pdb
+Bin/DuiLib.dll
+Bin/DuiLib_u.pdb
+Bin/DuiLib_u.dll
+Duilib_Demo/haha.png

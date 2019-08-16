@@ -101,4 +101,13 @@
 
 #include <vtkBMPReader.h>
 #include <vtkImageShrink3D.h>
+
+#include <vtkXMLImageDataWriter.h>
+#include <vtkXMLImageDataReader.h>
+
+#include <vtkVolume16Reader.h>
+#include <vtkStripper.h>
+#include <vtkOutlineFilter.h>
+#include <vtkImageMapper3D.h>
+#include <vtkCamera.h>
 // TODO: 在此处引用程序需要的其他头文件

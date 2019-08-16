@@ -60,6 +60,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\Utilities;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;D:\dcmtk-3.6.0\include;D:\dcmtk-3.6.0\dcmjpeg\include;D:\dcmtk-3.6.0\dcmdata\include;D:\dcmtk-3.6.0\ofstd\include;D:\dcmtk-3.6.0\oflog\include;D:\dcmtk-3.6.0\dcmimgle\include;D:\dcmtk-3.6.0\dcmnet\include;D:\dcmtk-3.6.0\dcmimage\include;D:\dcmtk-3.6.0\dcmsr\include;D:\dcmtk-3.6.0\dcmtls\include;D:\dcmtk-3.6.0\dcmpstat\include;D:\opencv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,6 +135,7 @@
     <ClCompile Include="vtk_function_demo\CaptionWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\ContourWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\ImagePlaneWidgetsDemo.cpp" />
+    <ClCompile Include="vtk_function_demo\MultiSlicesImageDemo.cpp" />
     <ClCompile Include="vtk_function_demo\Rib3DView.cpp" />
     <ClCompile Include="vtk_function_demo\WidgetsDemoBase.cpp" />
     <ClCompile Include="vtk_function_demo\TextWidgetsDemo.cpp" />
@@ -183,6 +186,7 @@
     <ClInclude Include="vtk_function_demo\CaptionWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\ContourWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\ImagePlaneWidgetsDemo.h" />
+    <ClInclude Include="vtk_function_demo\MultiSlicesImageDemo.h" />
     <ClInclude Include="vtk_function_demo\Rib3DView.h" />
     <ClInclude Include="vtk_function_demo\WidgetsDemoBase.h" />
     <ClInclude Include="vtk_function_demo\TextWidgetsDemo.h" />

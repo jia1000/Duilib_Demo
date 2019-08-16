@@ -33,6 +33,9 @@
 					<TreeNode name="function_14" 	text="Rib_3D"  	height="32"/>
 					<TreeNode name="function_15" 	text="--End--"  	height="32"/>
 				</TreeNode>
+				<TreeNode name="vtk_function_3D" text="VTK 3D测试"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
+					<TreeNode name="function_3d_01" 	text="multi_slice_image_mapper"  	height="32"/>					
+				</TreeNode>
 				<!--  <TreeNode name="vtk_function_help" text="功能帮助"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;"  >
 					<TreeNode name="chrome_core_about" text="帮助1"  height="32"/> 	
 				</TreeNode> -->				

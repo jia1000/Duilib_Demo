@@ -183,6 +183,9 @@
     <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_function_demo\MultiSlicesImageDemo.cpp">
+      <Filter>vtk_function_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -328,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_function_demo\MultiSlicesImageDemo.h">
+      <Filter>vtk_function_demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
