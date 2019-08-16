@@ -25,7 +25,7 @@ void MultiSlicesImageDemo::ShowWidgets_Move_Sagitta()
 }
 void MultiSlicesImageDemo::ShowWidgets_Move_Cornal()
 {
-	if (m_cur_cornal >= m_data_extent[1]) {
+	if (m_cur_cornal >= m_data_extent[3]) {
 		m_cur_cornal = 0;
 	}
 	m_cur_cornal++;
@@ -36,7 +36,7 @@ void MultiSlicesImageDemo::ShowWidgets_Move_Cornal()
 }
 void MultiSlicesImageDemo::ShowWidgets_Move_Axial()
 {
-	if (m_cur_axial >= m_data_extent[1]) {
+	if (m_cur_axial >= m_data_extent[5]) {
 		m_cur_axial = 0;
 	}
 	m_cur_axial++;
@@ -83,6 +83,21 @@ void MultiSlicesImageDemo::ShowWidgets_show_Hide_bone()
 	m_renderWindow->Render();
 }
 
+void MultiSlicesImageDemo::ShowWidgets_Mip_Cornal()
+{
+	if (m_cur_cornal >= m_data_extent[3]) {
+		m_cur_cornal = 0;
+	}
+	m_cur_cornal++;
+	// 设置显示3D切层的位置
+	int coronal_mip_max = m_cur_cornal + 5;
+	if (coronal_mip_max >= m_data_extent[3]) {
+		coronal_mip_max = m_data_extent[3];
+	}
+	// 打算显示多层，但是这个办法不行。
+	coronal->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_cur_cornal, coronal_mip_max, m_data_extent[4],m_data_extent[5]);
+	m_renderWindow->Render();
+}
 void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
                                               vtkSmartPointer<vtkRenderWindow> renderWindow, 
                                               vtkSmartPointer<vtkRenderWindowInteractor> interactor)

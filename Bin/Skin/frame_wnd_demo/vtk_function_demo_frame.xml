@@ -41,6 +41,7 @@
 					<TreeNode name="function_3d_hue_coronal" 	text="hue coronal"  	height="32"/>
 					<TreeNode name="function_3d_show_hide_coronal" 	text="show/hide coronal"  	height="32"/>
 					<TreeNode name="function_3d_show_hide_bone" 	text="show/hide bone"  	height="32"/>
+					<TreeNode name="function_3d_mip_coronal" 	text="mip coronal"  	height="32"/>					
 					
 				</TreeNode>
 				<!--  <TreeNode name="vtk_function_help" text="功能帮助"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;"  >

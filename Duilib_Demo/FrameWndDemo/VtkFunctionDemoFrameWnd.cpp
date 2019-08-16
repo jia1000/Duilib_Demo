@@ -210,6 +210,10 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 					if (box_widgets) {
 						box_widgets->ShowWidgets_show_Hide_bone();
 					}
+				}else if (item_name.CompareNoCase(L"function_3d_mip_coronal") == 0) {
+					if (box_widgets) {
+						box_widgets->ShowWidgets_Mip_Cornal();
+					}
 				}
 				// 其它二级菜单
 			}

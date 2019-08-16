@@ -30,7 +30,7 @@ public:
 	void ShowWidgets_Hue_coronal();
 	void ShowWidgets_show_Hide_coronal();
 	void ShowWidgets_show_Hide_bone();
-
+	void ShowWidgets_Mip_Cornal();
 private:
     vtkSmartPointer<vtkTextWidget> textWidget;
 
