@@ -259,18 +259,21 @@ void MultiSlicesImageDemo::AddMyActor(vtkSmartPointer<vtkRenderWindowInteractor>
 
 void MultiSlicesImageDemo::SetSkinActor(vtkSmartPointer<vtkMetaImageReader> v16)
 {
+	// Contour 轮廓、等高线
 	vtkSmartPointer<vtkContourFilter> skinExtractor =
 		vtkSmartPointer<vtkContourFilter>::New();
 	skinExtractor->SetInputConnection( v16->GetOutputPort());
 	skinExtractor->SetValue(0, 500);
 	skinExtractor->Update();
 
+	// Poly Data 多边形数据
 	vtkSmartPointer<vtkPolyDataNormals> skinNormals =
 		vtkSmartPointer<vtkPolyDataNormals>::New();
 	skinNormals->SetInputConnection(skinExtractor->GetOutputPort());
 	skinNormals->SetFeatureAngle(60.0);
 	skinNormals->Update();
 
+	// stripper 剥离器
 	vtkSmartPointer<vtkStripper> skinStripper =
 		vtkSmartPointer<vtkStripper>::New();
 	skinStripper->SetInputConnection(skinNormals->GetOutputPort());
@@ -279,12 +282,13 @@ void MultiSlicesImageDemo::SetSkinActor(vtkSmartPointer<vtkMetaImageReader> v16)
 	vtkSmartPointer<vtkPolyDataMapper> skinMapper =
 		vtkSmartPointer<vtkPolyDataMapper>::New();
 	skinMapper->SetInputConnection(skinStripper->GetOutputPort());
+	// scalar标量、梯状、分等级
 	skinMapper->ScalarVisibilityOff();
 
 	skin = vtkSmartPointer<vtkActor>::New();
 	skin->SetMapper(skinMapper);
-	skin->GetProperty()->SetDiffuseColor(1, .49, .25);
-	skin->GetProperty()->SetSpecular(.3);
+	skin->GetProperty()->SetDiffuseColor(1, .49, .25); // diffuse 弥漫  散射
+	skin->GetProperty()->SetSpecular(.3);  // Specular 反射
 	skin->GetProperty()->SetSpecularPower(20);
 }
 
