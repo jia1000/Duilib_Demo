@@ -39,7 +39,17 @@ CControlUI* DcmtkDLDicomSetDemoFrameWnd::CreateControl(LPCTSTR pstrClass)
 
 void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 {
-	
+	m_pNumberEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_number"));
+	m_pAetEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_aet"));
+	m_pHostEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_host"));
+	m_pDicomPortEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_port"));
+	//m_pPduSpinner = static_cast<CSpinnerUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
+	m_pSerchMethodCmb = static_cast<CComboUI*>(m_pm.FindControl(L"dicom_node_serch_method"));
+
+	m_pNumberEdit->SetText(L"253");
+	m_pAetEdit->SetText(L"DEEPWISESCP");
+	m_pHostEdit->SetText(L"192.168.1.253");
+	m_pDicomPortEdit->SetText(L"22222");
 }
 
 LRESULT DcmtkDLDicomSetDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -72,7 +82,7 @@ void    DcmtkDLDicomSetDemoFrameWnd::Notify(TNotifyUI& msg)
 		} else if (_tcscmp(pszCtrlName, _T("btn_sysclose")) == 0) {
 			Close(IDOK);
 		}  else if (_tcscmp(pszCtrlName, _T("dicom_node_test_connect")) == 0) {
-			Close(IDOK);
+			DoConnectTest();
 		} 
 	}
 }
@@ -89,6 +99,10 @@ LRESULT DcmtkDLDicomSetDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPA
 
 void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 {
-	Close(IDOK);
+	std::wstring aet_title = m_pAetEdit->GetText().GetData();
+	std::wstring host_addr = m_pHostEdit->GetText().GetData();
+	std::wstring port	   = m_pDicomPortEdit->GetText().GetData();
+	//EchoAssociation as("C-ECHO");
+	//CONDITION cond;
 }
 
