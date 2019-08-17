@@ -189,6 +189,9 @@
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -339,6 +342,9 @@
       <Filter>vtk_function_demo</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>

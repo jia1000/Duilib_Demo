@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Window caption="0,0,0,40" size="366,414" mininfo="366,414" sizebox="0,0,0,0" textrenderinghint="0" showshadow="true" shadowimage="main/shadow.png" shadowsize="6" shadowcorner="8,8,8,8">
+  <Font id="1" name="PingFangSC-Regular" size="14" bold="false" />
+  <Font id="2" name="PingFangSC-Regular" size="12" bold="false" default="true"/>
+  
+  <Default name="HScrollBar" shared="true" value="height=&quot;10&quot; showbutton1=&quot;false&quot; showbutton2=&quot;false&quot; thumbnormalimage=&quot;file='set/hscrollbar.png' source='0,8,32,16' corner='4,0,4,0'&quot; thumbhotimage=&quot;file='set/hscrollbar.png' source='0,8,32,16' corner='4,0,4,0'&quot; thumbpushedimage=&quot;file='set/hscrollbar.png' source='0,16,32,24' corner='4,0,4,0'&quot; railnormalimage=&quot;&quot; railhotimage=&quot;&quot; railpushedimage=&quot;&quot; raildisabledimage=&quot;&quot; bknormalimage=&quot;file='set/hscrollbar.png' source='0,0,32,8' corner='4,0,4,0'&quot; bkhotimage=&quot;&quot; bkpushedimage=&quot;&quot; bkdisabledimage=&quot;&quot; "/>
+  <Default name="VScrollBar" shared="true" value="width=&quot;10&quot; showbutton1=&quot;false&quot; showbutton2=&quot;false&quot; thumbnormalimage=&quot;file='set/vscrollbar.png' source='8,60,16,100' corner='0,4,0,4'&quot; thumbhotimage=&quot;file='set/vscrollbar.png' source='8,60,16,100' corner='0,4,0,4'&quot; thumbpushedimage=&quot;file='set/vscrollbar.png' source='16,60,24,100' corner='0,4,0,4'&quot; railnormalimage=&quot;&quot; railhotimage=&quot;&quot; railpushedimage=&quot;&quot; raildisabledimage=&quot;&quot; bknormalimage=&quot;file='set/vscrollbar.png' source='0,0,8,60' corner='0,4,0,4'&quot; bkhotimage=&quot;&quot; bkpushedimage=&quot;&quot; bkdisabledimage=&quot;&quot; "/>
+  
+  <Style name="combo_style_set" value="height=&quot;30&quot; itemfont=&quot;1&quot; textcolor=&quot;FFFAFAFA&quot; itemtextcolor=&quot;FFFAFAFA&quot; itemselectedtextcolor=&quot;#FFFAFAFA&quot; itemhottextcolor=&quot;#FFFAFAFA&quot; #valign=&quot;vcenter&quot; itembkcolor=&quot;#FF424242&quot; itemhotbkcolor=&quot;#FF545454&quot; itemselectedbkcolor=&quot;#FF383838&quot; textpadding=&quot;4,1,28,1&quot; bkcolor=&quot;#FF424242&quot; bordercolor=&quot;#FF999999&quot; normalimage=&quot;res='common/combo.png' source='0,28,161,56' corner='2,2,28,2'&quot; hotimage=&quot;res='common/combo.png' source='0,0,161,28' corner='2,2,28,2'&quot; pushedimage=&quot;res='common/combo.png' source='0,56,161,84' corner='2,2,28,2'&quot;"/>
+  <Style name="edit_style_dicom" value="height=&quot;32&quot; textcolor=&quot;#FFFAFAFA&quot; textpadding=&quot;10,6,6,6&quot; bkcolor=&quot;#FF424242&quot; bordersize=&quot;1&quot; bordercolor=&quot;#FF979797&quot; focusbordercolor=&quot;#FF00AEEF&quot; nativebkcolor=&quot;#FF424242&quot;" />
+  <Style name="cb_style" shared="true" value="align=&quot;left&quot; valign=&quot;vcenter&quot; height=&quot;16&quot; textcolor=&quot;#FFFAFAFA&quot; hottextcolor=&quot;#FFFFFFFF&quot; textpadding=&quot;20,0,6,0&quot; normalimage=&quot;res='common/cb_normal.png' dest='0,0,16.16'&quot; hotimage=&quot;res='common/cb_hot.png' dest='0,0,16.16'&quot; pushedimage=&quot;res='common/cb_pushed.png' dest='0,0,16.16'&quot; selectedimage=&quot;res='common/cb_selected.png' dest='0,0,16,16'&quot;" />
+  
+  <VerticalLayout name="root" bkcolor="#FF545454" bkcolor="#FF545454" bordersize = "1" bordercolor = "#FF00AEEF" >
+    <HorizontalLayout name="appbar" height="38" bkcolor="#FFCCCCCC" inset="8,0,0,0" padding="1,1,1,0">
+        <Label name="title_lb" text="编辑" valign="vcenter" align="left" textcolor="#FF333333" font="1"/>
+		<!--
+		<Button name="closebtn" width="46" height="38" tooltip="关闭" normalimage="file='set\close_button_normal.png'" hotimage="file='set\close_button_hover.png'" pushedimage="file='set\close_button_pushed.png'" disabledimage="file='set\close_button_disabled.png'" />
+		-->
+		<Button name="btn_sysclose" virtualwnd="mainpage" tooltip="关闭" width="48" height="32" hotbkcolor="#FF2C356A" pushedbkcolor="#FF2C356A" normalimage="file='window_title/close_nor.png' dest='16,8,32,24'" hotimage="file='window_title/close_hov.png' dest='16,8,32,24'" pushedimage="file='window_title/close_push.png' dest='16,8,32,24'" />
+	</HorizontalLayout>
+	<control height="6"/>
+    <HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="编号" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="28" />
+		<Edit name="dicom_node_number" font="2" maxwidth="280" minwidth="280" style="edit_style_dicom" />	
+		<control />
+	</HorizontalLayout>
+    <HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="AET" textcolor="#FFFAFAFA" font="1" width="0" autocalcwidth="true"/>
+		<control width="32" />
+		<Edit name="dicom_node_aet" font="2" maxwidth="280" minwidth="280" style="edit_style_dicom" />	
+		<control />
+	</HorizontalLayout>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="主机" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="28" />
+		<Edit name="dicom_node_host" font="2" maxwidth="280" minwidth="280" style="edit_style_dicom" />	
+		<control />
+	</HorizontalLayout>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="端口" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="28" />
+		<Edit name="dicom_node_port" font="2" maxwidth="280" minwidth="280" style="edit_style_dicom" numberonly="true" />	
+		<control />
+	</HorizontalLayout>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="PDU(KB)" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="7" />
+		<Spinner name="dicom_node_pdu_spinner"  width="280" value="16384" minvalue="4096" childvalign = "vcenter" inset="0,0,0,0" bkcolor="#FF545454" childpadding="0">
+			<SpinnerEdit name="spinner_number_edit" style="edit_style_dicom" numberonly="true" textpadding="6,0,6,0" width="250" showshadow="true"/>	
+			<VerticalLayout height="32" bkcolor="#FF545454" inset="0,0,0,0" childpadding="0">
+				<SpinnerButton name="spinner_add_btn" width="30" bkcolor="#FF545454" height="16" normalimage="file='sysbtn\up_arrow_normal.png' source='1,0,30,15'" hotimage="file='sysbtn\up_arrow_hover.png' source='1,0,30,15'" pushedimage="file='sysbtn\up_arrow_pressed.png' source='1,0,30,15'" disabledimage="file='sysbtn\up_arrow_disabled.png' source='1,0,30,15'" />
+		        <SpinnerButton name="spinner_sub_btn" width="30" bkcolor="#FF545454" height="16" normalimage="file='sysbtn\down_arrow_normal.png' source='1,0,30,16'" hotimage="file='sysbtn\down_arrow_hover.png' source='1,0,30,16'" pushedimage="file='sysbtn\down_arrow_pressed.png' source='1,0,30,16'" disabledimage="file='sysbtn\down_arrow_disabled.png' source='1,0,30,16'" />
+	        </VerticalLayout>
+		</Spinner>
+		<control />
+	</HorizontalLayout>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="检索方法" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="1" />
+		<Combo name="dicom_node_serch_method" font="2" width="279" style="combo_style_set" cursor="hand" showshadow="true"  dropbox="vscrollbar=&quot;true&quot;" itemselectedimage="file='set\checked.png' dest='257,10,270,19'" itemtextpadding="2,6,0,0"  >
+			<ListLabelElement text="C-MOVE" height="30" width="280" />
+			<ListLabelElement text="C-GET" selected="true" height="30" width="280" />
+		</Combo>
+		<control />
+	</HorizontalLayout>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="检索模式" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="1" />
+		<Combo name="dicom_node_serch_mode" font="2" width="279" style="combo_style_set" cursor="hand" showshadow="true"  dropbox="vscrollbar=&quot;true&quot;" itemselectedimage="file='set\checked.png' dest='257,10,270,19'" itemtextpadding="2,6,0,0"  >
+			<ListLabelElement text="序列" selected="true" height="30" width="280" />
+			<ListLabelElement text="检查" height="30" width="280" />
+		</Combo>
+		<control />
+	</HorizontalLayout>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="重用连接" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
+		<control width="1" />
+		<Option name="dicom_node_reuse_connect" text="" tooltip="当需要进行多个查询时重用连接" selected="true" font="2" textpadding="6,0,6,0" style="cb_style" width="0" autocalcwidth="true"/>
+		<control />
+	</HorizontalLayout>
+	<Control height="2"/>
+	<Label height="1" bkcolor="#FF333333;" padding="1,1,1,0" />
+	<Control height="10"/>
+	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" padding="1,1,0,0">
+		<Control width = "10"/>
+		<Button name="dicom_node_test_connect" width="88" height="30" text="测试连接" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
+		<Control width = "72"/>
+		<Button name="dicom_node_accept" width="88" height="30" text="接受" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
+		<Control width = "9"/>
+		<Button name="dicom_node_cancel" width="88" height="30" text="取消" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
+		<Control />
+	</HorizontalLayout>
+	<control />
+  </VerticalLayout>
+</Window>

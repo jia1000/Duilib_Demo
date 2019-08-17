@@ -12,7 +12,9 @@
 		
 		<!-- 主窗口 -->
 		<HorizontalLayout bkcolor="#FFE6E7E8"> 
-			<Button name="btn_test" text="This is DCMTK!"/> 
+			<Button name="btn_test" text="This is DCMTK!"/>
+			<Button name="dicom_set" width="88" height="30" text="设置" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
+		
 		</HorizontalLayout>
 	</VerticalLayout>
 </Window>

@@ -1,5 +1,6 @@
 #include "DcmtkDLDicomDemoFrameWnd.h"
 
+#include "DcmtkDLDicomSetDemoFrameWnd.h"
 
 DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 {
@@ -12,7 +13,7 @@ DcmtkDLDicomDemoFrameWnd::~DcmtkDLDicomDemoFrameWnd(void)
 
 LPCTSTR DcmtkDLDicomDemoFrameWnd::GetWindowClassName() const 
 { 
-	return _T("VtkDemoFrameWnd"); 
+	return _T("DcmtkDLDicomDemoFrameWnd"); 
 }
 
 void DcmtkDLDicomDemoFrameWnd::OnFinalMessage(HWND hWnd)
@@ -73,6 +74,11 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			Close(IDOK);
 		} else if (_tcscmp(pszCtrlName, _T("btn_test")) == 0) {
 			test_dcmtk();
+		} else if (_tcscmp(pszCtrlName, _T("dicom_set")) == 0) {
+			DcmtkDLDicomSetDemoFrameWnd* duiFrame = new DcmtkDLDicomSetDemoFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
 		}
 	}
 }
