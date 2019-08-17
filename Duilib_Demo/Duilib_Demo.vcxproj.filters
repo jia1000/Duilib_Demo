@@ -186,6 +186,9 @@
     <ClCompile Include="vtk_function_demo\MultiSlicesImageDemo.cpp">
       <Filter>vtk_function_demo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="vtk_function_demo\MultiSlicesImageDemo.h">
       <Filter>vtk_function_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -112,6 +112,7 @@
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
