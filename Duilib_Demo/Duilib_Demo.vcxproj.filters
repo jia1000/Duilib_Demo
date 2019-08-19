@@ -37,6 +37,21 @@
     <Filter Include="utility_tool">
       <UniqueIdentifier>{b6623ba7-ce2c-4842-9d01-252ffd33dee6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWndDemo\main">
+      <UniqueIdentifier>{612b744c-2768-4d09-95fa-e2b193fdaaf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWndDemo\main\controllers">
+      <UniqueIdentifier>{8a908785-109c-4955-ae0e-1aa5435e328c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWndDemo\main\controllers\dcmtk">
+      <UniqueIdentifier>{1b3c70d2-545e-4556-af09-06a4f69e34f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWndDemo\api">
+      <UniqueIdentifier>{bdfdcc37-1d87-4506-be91-8ca249e590c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWndDemo\api\dicom">
+      <UniqueIdentifier>{263851c6-a8d4-4050-a4c8-61f73f6288f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -192,6 +207,15 @@
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -346,6 +370,15 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

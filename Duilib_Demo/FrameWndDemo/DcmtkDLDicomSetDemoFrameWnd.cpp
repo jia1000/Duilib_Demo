@@ -1,5 +1,9 @@
 #include "DcmtkDLDicomSetDemoFrameWnd.h"
 
+#include "main/controllers/dcmtk/dicomnetwork.h"
+#include "main/controllers/dcmtk/dicomechoassociation.h"
+
+#include "utility_tool/string_converse.h"
 
 DcmtkDLDicomSetDemoFrameWnd::DcmtkDLDicomSetDemoFrameWnd(void)
 {
@@ -99,10 +103,71 @@ LRESULT DcmtkDLDicomSetDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPA
 
 void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 {
-	std::wstring aet_title = m_pAetEdit->GetText().GetData();
-	std::wstring host_addr = m_pHostEdit->GetText().GetData();
-	std::wstring port	   = m_pDicomPortEdit->GetText().GetData();
-	//EchoAssociation as("C-ECHO");
-	//CONDITION cond;
+	std::wstring ws_aet_title = m_pAetEdit->GetText().GetData();
+	std::wstring ws_host_addr = m_pHostEdit->GetText().GetData();
+	std::wstring ws_port	   = m_pDicomPortEdit->GetText().GetData();
+
+	bool success = true;
+	std::ostringstream errorMsg;
+	std::string errorTitle;
+
+	EchoAssociation as("C-ECHO");
+	CONDITION cond;
+
+	std::string aet_title	= toString(ws_aet_title);
+	std::string host_addr	= toString(ws_host_addr);
+	std::string port		= toString(ws_port);
+	std::string aet_local	= "DEEPWISE_001";
+	int psdu_length			= 16384;
+
+	as.Create(aet_title
+		, host_addr
+		, atoi(port.c_str())
+		, aet_local
+		, UID_VerificationSOPClass
+		);
+	GIL::DICOM::DCMTK::Network* pNetwork = NULL;
+	try {
+		pNetwork = GIL::DICOM::DCMTK::Network::Instance(this);
+	}
+	catch(const std::exception& ex)
+	{
+		success = false;
+		//errorMsg << _Std("Unable to connect: Could not start network support.") << ":\n" << ex.what();
+		errorMsg << "Unable to connect: Could not start network support." << ":\n" << ex.what();
+	}
+
+	if (success) {
+		as.SetTimeout(10);
+		pNetwork->InitializeNetwork(as.GetTimeout());
+		cond = pNetwork->ConnectAssociation(&as, psdu_length);//m_pPduSpinner->GetValue());
+		if (cond.good()) {
+			cond = as.SendEchoRequest();
+			if (cond.bad())	{
+				success = false;
+				//errorMsg << _Std("The service did not respond correctly to the C-ECHO") << ":\n" << cond.text();
+				errorMsg << "The service did not respond correctly to the C-ECHO" << ":\n" << cond.text();
+
+			}	
+		}
+		else {
+			success = false;
+			//errorMsg << _Std("The service did not respond correctly to the DICOM standard") << ":\n" << cond.text();
+			errorMsg << "The service did not respond correctly to the DICOM standard" << ":\n" << cond.text();
+
+		}
+		as.Drop(cond);
+		GIL::DICOM::DCMTK::Network::FreeInstance(this);
+		pNetwork = NULL;
+
+		CButtonUI* m_pBtnStatus = static_cast<CButtonUI*>(m_pm.FindControl(L"dicom_node_test_status"));
+		if (m_pBtnStatus) {
+			if (success) {
+				m_pBtnStatus->SetText(L"³É¹¦");
+			} else {
+				m_pBtnStatus->SetText(L"Ê§°Ü");
+			}
+		}
+	}
 }
 

@@ -115,6 +115,9 @@
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
@@ -168,6 +171,9 @@
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />

@@ -94,7 +94,9 @@
 	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" padding="1,1,0,0">
 		<Control width = "10"/>
 		<Button name="dicom_node_test_connect" width="88" height="30" text="测试连接" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
-		<Control width = "72"/>
+		<Control width = "10"/>
+		<Button name="dicom_node_test_status" width="40" height="30" text="" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
+		<Control width = "22"/>
 		<Button name="dicom_node_accept" width="88" height="30" text="接受" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
 		<Control width = "9"/>
 		<Button name="dicom_node_cancel" width="88" height="30" text="取消" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
