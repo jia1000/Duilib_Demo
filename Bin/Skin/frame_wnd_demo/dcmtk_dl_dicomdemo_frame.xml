@@ -12,9 +12,26 @@
 		
 		<!-- 主窗口 -->
 		<HorizontalLayout bkcolor="#FFE6E7E8"> 
-			<Button name="btn_test" text="This is DCMTK!"/>
-			<Button name="dicom_set" width="88" height="30" text="设置" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
-		
+			<VerticalLayout bkcolor="#FFc8eece" bordersize="1" bordercolor="#FF222222" borderround="0">
+				<HorizontalLayout bkcolor="#FF272B2E" height="25"> 
+					<Label name="patient" text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" />
+				</HorizontalLayout>
+				<Control height="5"/>
+				<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
+					<!-- 
+					<Option name="filter_date_range" group="radio_date" text="介于" userdata="Range" style="pacs_radio_style"/>
+					 -->
+					<Label name="filter_date_range" text="检查日期" height="25" width="75" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Control width="5"/>
+					<DateTime name="filter_range_from" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+					<Control width="5"/>
+					<DateTime name="filter_range_to" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+				</HorizontalLayout>
+				<Button name="btn_filter" text="搜索" width="80" height="30" tooltip="搜索" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
+				<Control />				
+			</VerticalLayout>
+			<Button name="dicom_set" width="88" height="30" text="设置" bordercolor="#FF222222" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />			
 		</HorizontalLayout>
 	</VerticalLayout>
 </Window>
