@@ -85,10 +85,6 @@ void    DcmtkDLDicomSetDemoFrameWnd::Notify(TNotifyUI& msg)
 			if( pControl ) pControl->SetVisible(false);
 		} else if (_tcscmp(pszCtrlName, _T("btn_sysclose")) == 0) {
 			Close(IDOK);
-		} else if (_tcscmp(pszCtrlName, _T("dicom_node_test_connect")) == 0) {
-			DoConnectTest();
-		} else if (_tcscmp(pszCtrlName, _T("btn_filter")) == 0) {
-			DoSearchTest();
 		} 
 	}
 }
@@ -173,6 +169,3 @@ void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 	}
 }
 
-void DcmtkDLDicomSetDemoFrameWnd::DoSearchTest()
-{
-}

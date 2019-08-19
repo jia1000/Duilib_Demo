@@ -22,6 +22,6 @@ public:
 	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
-	void test_dcmtk();
+	void DoSearchTest();
 };
 

@@ -23,7 +23,6 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 	void DoConnectTest();
-	void DoSearchTest();
 
 private:
 	CEditUI* m_pNumberEdit;

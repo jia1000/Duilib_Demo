@@ -72,14 +72,14 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			if( pControl ) pControl->SetVisible(false);
 		} else if (_tcscmp(pszCtrlName, _T("btn_sysclose")) == 0) {
 			Close(IDOK);
-		} else if (_tcscmp(pszCtrlName, _T("btn_test")) == 0) {
-			test_dcmtk();
 		} else if (_tcscmp(pszCtrlName, _T("dicom_set")) == 0) {
 			DcmtkDLDicomSetDemoFrameWnd* duiFrame = new DcmtkDLDicomSetDemoFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
-		}
+		} else if (_tcscmp(pszCtrlName, _T("btn_filter")) == 0) {
+			DoSearchTest();
+		} 
 	}
 }
 
@@ -88,60 +88,11 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM
 	return __super::HandleMessage(uMsg, wParam, lParam);
 }
 
-#include"dcmtk\config\osconfig.h"
-#include"dcmtk\dcmdata\dctk.h"
+//#include"dcmtk\config\osconfig.h"
+//#include"dcmtk\dcmdata\dctk.h"
+//
+//#include "utility_tool/string_converse.h"
 
-#include "utility_tool/string_converse.h"
-
-void DcmtkDLDicomDemoFrameWnd::test_dcmtk()
+void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 {
-	DcmFileFormat dfile;
-	dfile.loadFile("..\\Bin\\Skin\\data\\slices1\\2");
-
-	DcmMetaInfo* Metalnfo = dfile.getMetaInfo();
-	
-	DcmTag Tag;
-	Tag=Metalnfo->getTag();
-
-	Uint16 G_tag=Tag.getGTag();
-	DcmDataset* data=dfile.getDataset();
-	DcmElement*element=NULL;
-	data->findAndGetElement(DCM_PixelData,element);
-	double data_len=data->getLength();
-	double element_len=element->getLength();
-	
-	OFString patientName;
-	data->findAndGetOFString(DCM_PatientName,patientName);
-
-	OFString patientId;
-	data->findAndGetOFString(DCM_PatientID,patientId);
-
-	OFString patientAge;
-	data->findAndGetOFString(DCM_PatientAge,patientAge);
-
-	OFString PatientPosition;
-	data->findAndGetOFString(DCM_PatientPosition,PatientPosition);
-
-	OFString ImagePositionPatient;
-	data->findAndGetOFString(DCM_ImagePositionPatient,ImagePositionPatient);
-
-	OFString PixelSpacing;
-	data->findAndGetOFString(DCM_PixelSpacing,PixelSpacing);
-
-	Uint16* pixData16;
-	element->getUint16Array(pixData16);
-
-	//cv::Matimag=cv::Mat(512,512,CV_8U,pixData16);
-	//cv::imshow("image",imag);
-	//cv::waitKey(0);
-
-	std::string str = patientName.c_str();
-	std::wstring ws = toWString(str);
-	std::wstring ws2 = toWString(patientId.c_str());
-	CDuiString text;
-	text.Format(_T("Patient  Name :%s  patientId : %s"), ws.c_str(), ws2.c_str());
-	CButtonUI* pControl = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_test")));
-	if (pControl) {
-		pControl->SetText(text);
-	}
 }
