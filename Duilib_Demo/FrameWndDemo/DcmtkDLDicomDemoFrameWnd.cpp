@@ -51,7 +51,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
 	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_result"));
 
-	m_pPatientIdEdit->SetText(L"1007733445");
+	m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -108,15 +108,17 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 {
 	//GNC::GCS::StoredQuery pStoredQuery;
 
-	std::wstring ws_patient_id = m_pPatientIdEdit->GetText().GetData();
-	std::string patient_id	= toString(ws_patient_id);
+	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();
+	//std::string patient_ids	= toString(ws_patient_ids);
 
 	GIL::DICOM::DicomDataset queryWrapper;
 	queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
 	queryWrapper.tags[GKDCM_PatientName] = "";
-	queryWrapper.tags[GKDCM_PatientID] = patient_id;
+	queryWrapper.tags[GKDCM_PatientID] = "";
 	queryWrapper.tags[GKDCM_StudyDate] = "";
 	queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // 影像数量
+	queryWrapper.tags[GKDCM_ModalitiesInStudy] = "CT";
+
 
 	//query.addConditionIfNotExists(GKDCM_QueryRetrieveLevel, "STUDY");
 	//query.addConditionIfNotExists(GKDCM_PatientName);
@@ -201,26 +203,34 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 		else
 		{
 			std::string result("");
+			std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
 			//std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-			int count = 0;
+			//int count = 0;
 			for (auto iter : resultsWrapper) {
 				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> item = iter;
-				std::string patient_name("");
-				bool ret1 = item->getTag(GKDCM_PatientName, patient_name);
-				if (ret1) {
-					result += patient_name;
-					result += "  ";
+				std::string patient_id("");
+				
+				bool ret = item->getTag(GKDCM_PatientID, patient_id);
+				auto iter = std::find(patient_ids.begin(), patient_ids.end(), patient_id);
+				if (ret && iter != patient_ids.end()) {
+					std::string patient_name("");
+					
+					if (item->getTag(GKDCM_PatientName, patient_name)) {
+						result += patient_name;
+						result += "  ";
+					}
+					std::string number_study_instances("");
+					
+					if (item->getTag(GKDCM_NumberOfStudyRelatedInstances, number_study_instances)) {
+						result += number_study_instances;
+						result += "  ";
+						result += "\r\n";
+					}
+					//if (count > 10) {
+					//	break;
+					//}
+					//count++;
 				}
-				std::string number_study_instances("");
-				bool ret2 = item->getTag(GKDCM_NumberOfStudyRelatedInstances, number_study_instances);
-				if (ret2) {
-					result += number_study_instances;
-					result += "\r\n";
-				}
-				if (count > 10) {
-					break;
-				}
-				count++;
 			}
 			if (m_pFindResultLabel) {
 				std::wstring ws_result = toWString(result);
@@ -362,4 +372,20 @@ DcmElement* DcmtkDLDicomDemoFrameWnd::CrearElementoConValor(const char* s)
 	delete[] val;
 	return elem;
 
+}
+
+std::vector<std::string> DcmtkDLDicomDemoFrameWnd::testSplit(std::string srcStr, const std::string& delim)
+{
+	int nPos = 0;
+	std::vector<std::string> vec;
+	nPos = srcStr.find(delim.c_str());
+	while(-1 != nPos)
+	{
+		string temp = srcStr.substr(0, nPos);
+		vec.push_back(temp);
+		srcStr = srcStr.substr(nPos+1);
+		nPos = srcStr.find(delim.c_str());
+	}
+	vec.push_back(srcStr);
+	return vec;
 }
