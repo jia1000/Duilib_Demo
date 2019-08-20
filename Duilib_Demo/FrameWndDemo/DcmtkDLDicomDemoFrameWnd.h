@@ -32,5 +32,9 @@ public:
 
 	void FillInQuery(const GIL::DICOM::DicomDataset& base, DcmDataset* query);//, const GNC::GCS::Ptr<DicomServer>& server);
 	DcmElement* CrearElementoConValor(const char* s);
+
+private:
+	CEditUI* m_pPatientIdEdit;
+	CLabelUI* m_pFindResultLabel;
 };
 

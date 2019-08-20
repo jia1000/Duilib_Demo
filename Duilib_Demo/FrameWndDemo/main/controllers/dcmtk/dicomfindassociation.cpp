@@ -18,9 +18,10 @@
 //#include <wx/string.h>
 //#include <wx/intl.h>
 //#include <api/internationalization/internationalization.h>
-//#include <main/controllers/dicommanager.h>
+#include <main/controllers/dicommanager.h>
 //#include <main/controllers/dcmtk/dicomservers.h>
 #include <api/dicom/dicomdataset.h>
+#include "api/autoptr.h"
 
 #ifdef verify
 #define MACRO_QUE_ESTORBA verify
@@ -135,10 +136,11 @@ void FindAssociation::findCallback(void* callbackData, T_DIMSE_C_FindRQ* /*rq*/,
 	int max_results = pCallback->pCaller->GetMaxResults();
 	if (pCallback->pCaller->GetMaxResults() > 0 && responseCount > pCallback->pCaller->GetMaxResults()) {
 		//LOG_DEBUG(pCallback->pCaller->ambitolog, "findCallback(): Ignoring response num " << responseCount << ". The maximum number of responses was " << pCallback->pCaller->GetMaxResults());
-		rsp->DimseStatus = STATUS_FIND_CANCEL_SHOWTHEFIRST500;
-		pCallback->pCaller->Stop();
-		ASC_releaseAssociation(pCallback->assoc);
-		return;
+		// by jia
+		//rsp->DimseStatus = STATUS_FIND_CANCEL_SHOWTHEFIRST500;
+		//pCallback->pCaller->Stop();
+		//ASC_releaseAssociation(pCallback->assoc);
+		//return;
 	}
 	// by jia
 	//wxString mess = wxString::Format(_("%d results has been found"), (int)(responseCount) );
@@ -158,12 +160,13 @@ void FindAssociation::findCallback(void* callbackData, T_DIMSE_C_FindRQ* /*rq*/,
 		if (pCallback->pCaller->bPushResults) {
 			pCallback->pCaller->result.push(response);
 			//push into Ginkgo data...
-			//if (pCallback->pCaller->pResultsWrapper != NULL ) {//by jia ) && pCallback->pCaller->pDicomServer.IsValid()) {
-			//	GIL::DICOM::DICOMManager mgr( response, pCallback->pCaller->pDicomServer->GetDefaultCharset() );
-			//	GNC::GCS::Ptr<GIL::DICOM::DicomDataset> base = new GIL::DICOM::DicomDataset();							
-			//	mgr.CargarJerarquia((*base), DCM_MaxReadLength, NULL, false);
-			//	pCallback->pCaller->pResultsWrapper->push_back(base);
-			//}
+			if (pCallback->pCaller->pResultsWrapper != NULL ) {//by jia ) && pCallback->pCaller->pDicomServer.IsValid()) {
+				GIL::DICOM::DICOMManager mgr( response , "") ;//by jia, pCallback->pCaller->pDicomServer->GetDefaultCharset() );
+				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> base = new GIL::DICOM::DicomDataset();	
+
+				mgr.CargarJerarquia((*base), DCM_MaxReadLength, NULL, false);
+				pCallback->pCaller->pResultsWrapper->push_back(base);
+			}
 		}
 		else {
 		    //LOG_DEBUG("C-FIND", "No results found");
@@ -212,7 +215,7 @@ void FindAssociation::SetMaxResults(int max) {
 }
 
 //void FindAssociation::SetCallbackInfo(std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >* pRwrapper, const GNC::GCS::Ptr<DicomServer>& dicomServer)
-void FindAssociation::SetCallbackInfo(std::list<GIL::DICOM::DicomDataset>* pRwrapper)//, const DicomServer& dicomServer)
+void FindAssociation::SetCallbackInfo(std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >* pRwrapper)//, const DicomServer& dicomServer)
 {
 	pResultsWrapper = pRwrapper;
 	//pDicomServer = dicomServer;

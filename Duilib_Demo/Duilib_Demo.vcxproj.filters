@@ -222,6 +222,21 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.cpp">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dicommanager.cpp">
+      <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\autoptr.cpp">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\iexception.cpp">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\ilock.cpp">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\dicom\idicom.cpp">
+      <Filter>FrameWndDemo\api\dicom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -391,6 +406,30 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.h">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dicommanager.h">
+      <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\autoptr.h">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\globals.h">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\iexception.h">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\ilock.h">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\api.h">
+      <Filter>FrameWndDemo\api</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\dicom\idicommanager.h">
+      <Filter>FrameWndDemo\api\dicom</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\dicom\idicom.h">
+      <Filter>FrameWndDemo\api\dicom</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

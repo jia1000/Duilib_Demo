@@ -8,7 +8,7 @@
 #include "main/controllers/dcmtk/dicomfindassociation.h"
 #include "main/controllers/dcmtk/dicomnetwork.h"
 
-
+#include "utility_tool/string_converse.h"
 
 DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 {
@@ -48,7 +48,10 @@ CControlUI* DcmtkDLDicomDemoFrameWnd::CreateControl(LPCTSTR pstrClass)
 
 void DcmtkDLDicomDemoFrameWnd::InitWindow()
 {
-	
+	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
+	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_result"));
+
+	m_pPatientIdEdit->SetText(L"1007733445");
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -105,9 +108,15 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 {
 	//GNC::GCS::StoredQuery pStoredQuery;
 
+	std::wstring ws_patient_id = m_pPatientIdEdit->GetText().GetData();
+	std::string patient_id	= toString(ws_patient_id);
+
 	GIL::DICOM::DicomDataset queryWrapper;
 	queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
-	queryWrapper.tags[GKDCM_PatientName] = "123";
+	queryWrapper.tags[GKDCM_PatientName] = "";
+	queryWrapper.tags[GKDCM_PatientID] = patient_id;
+	queryWrapper.tags[GKDCM_StudyDate] = "";
+	queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // Ó°ÏñÊýÁ¿
 
 	//query.addConditionIfNotExists(GKDCM_QueryRetrieveLevel, "STUDY");
 	//query.addConditionIfNotExists(GKDCM_PatientName);
@@ -162,7 +171,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 			, aet_local
 			);
 
-		std::list< GIL::DICOM::DicomDataset> resultsWrapper;
+		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
 		//DicomServer server;
 		fs.SetCallbackInfo(&resultsWrapper);
 
@@ -188,6 +197,35 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 			fs.Destroy();
 			//LOG_INFO(ambitolog, "Disconnected");
 			//throw GIL::DICOM::PACSException(c.text());
+		}
+		else
+		{
+			std::string result("");
+			//std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
+			int count = 0;
+			for (auto iter : resultsWrapper) {
+				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> item = iter;
+				std::string patient_name("");
+				bool ret1 = item->getTag(GKDCM_PatientName, patient_name);
+				if (ret1) {
+					result += patient_name;
+					result += "  ";
+				}
+				std::string number_study_instances("");
+				bool ret2 = item->getTag(GKDCM_NumberOfStudyRelatedInstances, number_study_instances);
+				if (ret2) {
+					result += number_study_instances;
+					result += "\r\n";
+				}
+				if (count > 10) {
+					break;
+				}
+				count++;
+			}
+			if (m_pFindResultLabel) {
+				std::wstring ws_result = toWString(result);
+				m_pFindResultLabel->SetText(ws_result.c_str());
+			}
 		}
 
 		//LOG_INFO(ambitolog, "Disconnected");

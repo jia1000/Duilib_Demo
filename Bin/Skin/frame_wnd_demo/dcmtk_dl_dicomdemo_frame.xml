@@ -14,7 +14,7 @@
 		<HorizontalLayout bkcolor="#FFE6E7E8"> 
 			<VerticalLayout bkcolor="#FFc8eece" bordersize="1" bordercolor="#FF222222" borderround="0">
 				<HorizontalLayout bkcolor="#FF272B2E" height="25"> 
-					<Label name="patient" text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Label name="patient_id" text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
 					<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" />
 				</HorizontalLayout>
 				<Control height="5"/>
@@ -29,6 +29,7 @@
 					<DateTime name="filter_range_to" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
 				</HorizontalLayout>
 				<Button name="btn_filter" text="搜索" width="80" height="30" tooltip="搜索" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
+				<Edit name="edit_result" inset="5,0,5,0" height="250" wordbreak="true" tipvalue="结果是..." textpadding="5,0,0,0" />
 				<Control />				
 			</VerticalLayout>
 			<Button name="dicom_set" width="88" height="30" text="设置" bordercolor="#FF222222" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />			

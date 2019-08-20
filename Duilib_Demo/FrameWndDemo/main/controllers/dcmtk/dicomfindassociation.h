@@ -16,7 +16,7 @@
 #include "dicomassociation.h"
 //#include <api/dicom/imodelodicom.h>
 #include <list>
-//#include <api/autoptr.h>
+#include <api/autoptr.h>
 
 class DicomServer;
 namespace GIL {
@@ -106,7 +106,7 @@ public:
 	Set results wrapper to do incremental finds
 	*/
 	//void SetCallbackInfo(std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >* pRwrapper, const GNC::GCS::Ptr<DicomServer>& dicomServer);
-	void SetCallbackInfo(std::list< GIL::DICOM::DicomDataset>* pRwrapper);//, const DicomServer& dicomServer);
+	void SetCallbackInfo(std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >* pRwrapper);//, const DicomServer& dicomServer);
 
 	
 	/**
@@ -145,8 +145,8 @@ private:
 	 */
 	static void findCallback(void*, T_DIMSE_C_FindRQ*, int responseCount, T_DIMSE_C_FindRSP*, DcmDataset *responseIdentifiers);
 	int maxResults;
-	//std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >* pResultsWrapper;
-	std::list< GIL::DICOM::DicomDataset>* pResultsWrapper;
+	std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >* pResultsWrapper;
+	//std::list< GIL::DICOM::DicomDataset>* pResultsWrapper;
 
 	//GNC::GCS::Ptr<DicomServer> pDicomServer;
 	//DicomServer pDicomServer;
