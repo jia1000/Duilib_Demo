@@ -30,6 +30,7 @@
 				</HorizontalLayout>
 				<Button name="btn_filter" text="搜索" width="80" height="30" tooltip="搜索" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
 				<Edit name="edit_result" inset="5,0,5,0" height="250" wordbreak="true" tipvalue="结果是..." textpadding="5,0,0,0" />
+				<Button name="btn_download" text="下载" width="80" height="30" tooltip="下载" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
 				<Control />				
 			</VerticalLayout>
 			<Button name="dicom_set" width="88" height="30" text="设置" bordercolor="#FF222222" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />			

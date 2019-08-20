@@ -29,6 +29,7 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 	void DoSearchTest();
+	void DoDownloadTest();
 
 	void FillInQuery(const GIL::DICOM::DicomDataset& base, DcmDataset* query);//, const GNC::GCS::Ptr<DicomServer>& server);
 	DcmElement* CrearElementoConValor(const char* s);

@@ -90,7 +90,9 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("btn_filter")) == 0) {
 			DoSearchTest();
-		} 
+		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
+			DoDownloadTest();
+		}  
 	}
 }
 
@@ -243,6 +245,10 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	}
 }
 
+void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
+{
+
+}
 void DcmtkDLDicomDemoFrameWnd::FillInQuery(const GIL::DICOM::DicomDataset& base, DcmDataset* query)//, const GNC::GCS::Ptr<DicomServer>& server)
 {			
 	//wxCSConv conv = GetConv(server->GetDefaultCharset());
