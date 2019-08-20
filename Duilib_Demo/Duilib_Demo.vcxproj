@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(SolutionDir)3rdparty\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo\FrameWndDemo;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(SolutionDir)3rdparty\rapidjson\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\VTK-5.10.1\bin\Debug;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\release</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
@@ -109,6 +109,7 @@
     <ClCompile Include="FourViews\vtkViewImage2DCommand.cpp" />
     <ClCompile Include="FourViews\vtkViewImage2DFullCommand.cpp" />
     <ClCompile Include="FourViews\vtkViewImage3D.cpp" />
+    <ClCompile Include="FrameWndDemo\api\dicom\dicomdataset.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDemoFrameWnd.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
@@ -165,6 +167,7 @@
     <ClInclude Include="FourViews\vtkViewImage2DCommand.h" />
     <ClInclude Include="FourViews\vtkViewImage2DFullCommand.h" />
     <ClInclude Include="FourViews\vtkViewImage3D.h" />
+    <ClInclude Include="FrameWndDemo\api\dicom\dicomdataset.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDemoFrameWnd.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />

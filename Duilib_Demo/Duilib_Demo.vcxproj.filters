@@ -216,6 +216,12 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\dicom\dicomdataset.cpp">
+      <Filter>FrameWndDemo\api\dicom</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -378,6 +384,12 @@
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\dicom\dicomdataset.h">
+      <Filter>FrameWndDemo\api\dicom</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.h">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,12 @@
 #include <UIlib.h>
 using namespace DuiLib;
 
+#include "api/dicom/dicomdataset.h"
+
+#include <dcmtk/dcmdata/dcdict.h>
+#include <dcmtk/dcmdata/dcdicent.h>
+#include <dcmtk/dcmdata/dcdatset.h>
+
 //////////////////////////////////////////////////////////////////////////
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
@@ -23,5 +29,8 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 	void DoSearchTest();
+
+	void FillInQuery(const GIL::DICOM::DicomDataset& base, DcmDataset* query);//, const GNC::GCS::Ptr<DicomServer>& server);
+	DcmElement* CrearElementoConValor(const char* s);
 };
 
