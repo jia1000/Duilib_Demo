@@ -237,6 +237,12 @@
     <ClCompile Include="FrameWndDemo\api\dicom\idicom.cpp">
       <Filter>FrameWndDemo\api\dicom</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomgetassociation.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -430,6 +436,15 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\api\dicom\idicom.h">
       <Filter>FrameWndDemo\api\dicom</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetclient.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomgetassociation.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

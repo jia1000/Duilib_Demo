@@ -55,9 +55,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__WXMSW__;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\Utilities;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;D:\dcmtk-3.6.0\include;D:\dcmtk-3.6.0\dcmjpeg\include;D:\dcmtk-3.6.0\dcmdata\include;D:\dcmtk-3.6.0\ofstd\include;D:\dcmtk-3.6.0\oflog\include;D:\dcmtk-3.6.0\dcmimgle\include;D:\dcmtk-3.6.0\dcmnet\include;D:\dcmtk-3.6.0\dcmimage\include;D:\dcmtk-3.6.0\dcmsr\include;D:\dcmtk-3.6.0\dcmtls\include;D:\dcmtk-3.6.0\dcmpstat\include;D:\dcmtk-3.6.0\dcmjpls\include;D:\opencv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -66,7 +66,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\VTK-5.10.1\bin\Debug;D:\dcmtk-3.6.0\DebugWin32Lib;D:\opencv\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\VTK-5.10.1\bin\Debug;D:\dcmtk-3.6.0\lib\Debug;D:\dcmtk-3.6.0\DebugWin32Lib;D:\opencv\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libcef.lib;libcef_dll_wrapper_d.lib;opengl32.lib;glu32.lib;Wldap32.lib;Ws2_32.lib;vtkCommon.lib;vtkDICOMParser.lib;vtkRendering.lib;vtkexpat.lib;vtkFiltering.lib;vtkfreetype.lib;vtkftgl.lib;vtkGenericFiltering.lib;vtkGraphics.lib;vtkHybrid.lib;vtkImaging.lib;vtkIO.lib;vtkjpeg.lib;vtklibxml2.lib;vtkmetaio.lib;vtkNetCDF.lib;vtkpng.lib;vtktiff.lib;vtksys.lib;vtkzlib.lib;vtkVolumeRendering.lib;vtkWidgets.lib;netapi32.lib;ofstd.lib;oflog.lib;dcmdata.lib;dcmnet.lib;dcmtls.lib;dcmimage.lib;dcmimgle.lib;dcmjpls.lib;dcmjpeg.lib;dcmsr.lib;dcmpstat.lib;ijg8.lib;ijg12.lib;ijg16.lib;charls.lib;IlmImfd.lib;libjasperd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;libwebpd.lib;opencv_calib3d320d.lib;opencv_core320d.lib;opencv_features2d320d.lib;opencv_flann320d.lib;opencv_highgui320d.lib;opencv_imgcodecs320d.lib;opencv_imgproc320d.lib;opencv_ml320d.lib;opencv_objdetect320d.lib;opencv_photo320d.lib;opencv_shape320d.lib;opencv_stitching320d.lib;opencv_superres320d.lib;opencv_ts320d.lib;opencv_video320d.lib;opencv_videoio320d.lib;opencv_videostab320d.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -123,7 +123,9 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomgetassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dicommanager.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
@@ -189,7 +191,10 @@
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomgetassociation.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetclient.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dicommanager.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
