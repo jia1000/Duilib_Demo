@@ -977,7 +977,7 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerSerie(void* connectionKey, const std::stri
 
 			NetClient<GetAssociation> a(connectionKey, "C-GET");//, pNotificador);
 			a.SetWellKnownNumResults(numResults);
-			//a.SetStorageSOPClasses(GIL::DICOM::Conformance::GetModalities().GetSupportedSOPClassUIDs(modality));
+			a.SetStorageSOPClasses();//GIL::DICOM::Conformance::GetModalities().GetSupportedSOPClassUIDs(modality));
 			//a.SetModelo(pModelo);
 			a.SetPath("G:\\temp");
 

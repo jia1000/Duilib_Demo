@@ -20,6 +20,7 @@
 
 class GetAssociation : public FindAssociation {
 public:
+	typedef std::list<std::string> SOPClassList;
 
 	std::string m_errorMessage;
     GetAssociation(const std::string& ambitolog);//, IModeloDicom* pModelo=NULL);
@@ -30,6 +31,8 @@ public:
 	 //void SetModelo(IModeloDicom* pModelo);
 
 	 //void SetStorageSOPClasses(const GIL::DICOM::SOPClassList& SOPClasses);
+	 void SetStorageSOPClasses();//const SOPClassList& SOPClasses);
+
 
 	 void Create(const std::string& title, const std::string& peer, int port, const std::string& ouraet, /*int ourPort,*/ const char *abstractSyntax = UID_GETStudyRootQueryRetrieveInformationModel);
 	
@@ -94,6 +97,8 @@ protected:
     std::string m_pathParam;
 
 	//GIL::DICOM::SOPClassList SOPClasses;
+	SOPClassList SOPClasses;
+
 public:
 	float TasaTransferencia(int bytesRestantes);
 	void ResetearMedida(bool clearTasa = false);	 

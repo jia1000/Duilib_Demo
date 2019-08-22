@@ -63,9 +63,16 @@ CONDITION GetAssociation::SendObject(DcmDataset *dataset) {
 }
 
 //void GetAssociation::SetStorageSOPClasses(const GIL::DICOM::SOPClassList& SOPClasses)
-//{
-//	this->SOPClasses = SOPClasses;
-//}
+void GetAssociation::SetStorageSOPClasses()//const SOPClassList& SOPClasses)
+{
+	//this->SOPClasses = SOPClasses;	
+	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2");
+	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");
+	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2.1");
+	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");
+	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");
+
+}
 
 void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
 
@@ -78,6 +85,20 @@ void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
     }
 
     pid += 2;
+
+	if (SOPClasses.size() > 0) {
+		unsigned int i = 0;
+		for (SOPClassList::const_iterator itSopClass = SOPClasses.begin(); pid <= 255 && itSopClass != SOPClasses.end() && cond.good(); ++itSopClass, ++i) {
+			for (int j = 0; j < AllTransferSyntaxesCount ; j++) {
+				cond = ASC_addPresentationContext(params, pid, (*itSopClass).c_str(), &AllTransferSyntaxes[j], 1 );
+				pid += 2;
+			}			
+		}
+
+		if (pid >= 255) {
+			//LOG_WARN("C-GET", "Too many PresentationContexts setted");
+		}
+	}
 
     //if (SOPClasses.size() > 0) {
     //    /*for (unsigned int i = 0; pid <= 255 && i < (unsigned int) numberOfDcmLongSCUStorageSOPClassUIDs && cond.good(); ++i) {
@@ -105,16 +126,18 @@ void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
     //    }
     //}
     //else 
-	{
-		//这个分支，没有起作用
-        for (unsigned int i = 0; pid <= 255 && i < (unsigned int) numberOfDcmShortSCUStorageSOPClassUIDs && cond.good(); ++i) {
-            cond = ASC_addPresentationContext(params, pid, dcmShortSCUStorageSOPClassUIDs[i], AllTransferSyntaxes, AllTransferSyntaxesCount);
-            pid += 2;			
-        }
-        if (pid >= 255) {
-            //LOG_WARN("C-GET", "Too many PresentationContexts setted");
-        }
-    }
+	//{
+	//	//这个分支，没有起作用
+ //       for (unsigned int i = 0; pid <= 255 && i < (unsigned int) numberOfDcmShortSCUStorageSOPClassUIDs && cond.good(); ++i) {
+ //           //cond = ASC_addPresentationContext(params, pid, dcmShortSCUStorageSOPClassUIDs[i], AllTransferSyntaxes, AllTransferSyntaxesCount);
+	//		cond = ASC_addPresentationContext(params, pid, dcmShortSCUStorageSOPClassUIDs[i], AllTransferSyntaxes, AllTransferSyntaxesCount);
+
+ //           pid += 2;			
+ //       }
+ //       if (pid >= 255) {
+ //           //LOG_WARN("C-GET", "Too many PresentationContexts setted");
+ //       }
+ //   }
 }
 
 static int
