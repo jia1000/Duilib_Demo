@@ -4,6 +4,7 @@ using namespace DuiLib;
 
 #include "FrameWndDemo/EntryFrameWnd.h"
 #include "FrameWndDemo/CefBrowserClientFrameWnd.h"
+#include "FrameWndDemo/DcmtkDLDicomDemoFrameWnd.h"
 
 #include "cef_simple/simple_app.h"
 #include "base/Cef3/common/client_app.h"
@@ -109,7 +110,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	//CFirstFrameWnd duiFrame;
 	//CSecondFrameWnd duiFrame;
 	//CCefBrowserFrameWnd duiFrame;
-	CEntryFrameWnd duiFrame;
+	//CEntryFrameWnd duiFrame;
+	DcmtkDLDicomDemoFrameWnd duiFrame;
 	duiFrame.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 	duiFrame.CenterWindow();
 	duiFrame.ShowWindow();
