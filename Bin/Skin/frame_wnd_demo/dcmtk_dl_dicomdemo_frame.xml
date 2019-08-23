@@ -32,12 +32,28 @@
 					<DateTime name="filter_range_to" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
 				</HorizontalLayout>
 				<Control height="1"/>
-				<GroupBox  minwidth="420" text="删选条件" height="130" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+				<GroupBox  minwidth="420" text="删选条件" height="150" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
-						<Option name="device_cr" text="部位" userdata="CR" style="pacs_cb_style"/>
-						<Option name="device_mg" text="层厚" userdata="MG" style="pacs_cb_style"/>
-						<Option name="device_rf" text="设备" userdata="RF" style="pacs_cb_style"/>
-						<Option name="device_xa" text="性别" userdata="XA" style="pacs_cb_style"/>
+						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
+							<Option name="device_cr" text="部位" userdata="CR" style="pacs_cb_style"/>
+							<Control width="20"/>
+							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="part" textpadding="5,0,0,0" />				
+						</HorizontalLayout>
+						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
+							<Option name="device_mg" text="层厚" userdata="MG" style="pacs_cb_style"/>
+							<Control width="20"/>
+							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="mm" textpadding="5,0,0,0" />				
+						</HorizontalLayout>
+						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
+							<Option name="device_rf" text="设备" userdata="RF" style="pacs_cb_style"/>
+							<Control width="20"/>
+							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
+						</HorizontalLayout>
+						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
+							<Option name="device_xa" text="性别" userdata="XA" style="pacs_cb_style"/>
+							<Control width="20"/>
+							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="man" textpadding="5,0,0,0" />				
+						</HorizontalLayout>						
 					</VerticalLayout>
 				</GroupBox>
 				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
