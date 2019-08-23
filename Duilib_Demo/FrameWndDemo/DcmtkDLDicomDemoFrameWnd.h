@@ -81,6 +81,9 @@ private:
 	std::vector<std::string> m_study_ids;
 
 	CEditUI* m_pPatientIdEdit;
+	CEditUI* m_pBodyPartEdit;
+	CEditUI* m_pThicknessEdit;
+	CEditUI* m_pMOdalityiesInStudyEdit;
 	CLabelUI* m_pFindResultLabel;
 };
 

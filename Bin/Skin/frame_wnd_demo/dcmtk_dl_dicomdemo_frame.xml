@@ -37,24 +37,24 @@
 				<GroupBox  minwidth="420" text="删选条件" height="150" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="device_cr" text="部位" userdata="CR" style="pacs_cb_style"/>
+							<Option name="op_device_part" text="部位" userdata="CR" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="part" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="device_mg" text="层厚" userdata="MG" style="pacs_cb_style"/>
+							<Option name="op_device_thickness" text="层厚" userdata="MG" style="pacs_cb_style"/>
 							<Control width="20"/>
-							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="mm" textpadding="5,0,0,0" />				
+							<Edit name="edit_filter_thickness" inset="5,0,5,0" tipvalue="mm" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="device_rf" text="设备" userdata="RF" style="pacs_cb_style"/>
+							<Option name="op_device_modality" text="设备" userdata="RF" style="pacs_cb_style"/>
 							<Control width="20"/>
-							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
+							<Edit name="edit_filter_modality" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="device_xa" text="性别" userdata="XA" style="pacs_cb_style"/>
+							<Option name="op_device_sex" text="性别" userdata="XA" style="pacs_cb_style"/>
 							<Control width="20"/>
-							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="man" textpadding="5,0,0,0" />				
+							<Edit name="edit_filter_sex" inset="5,0,5,0" tipvalue="man" textpadding="5,0,0,0" />				
 						</HorizontalLayout>						
 					</VerticalLayout>
 				</GroupBox>

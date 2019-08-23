@@ -64,9 +64,11 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 {
 	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
 	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_research_result"));
-
+	m_pBodyPartEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_part"));
+	m_pThicknessEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_thickness"));
+	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
-	m_pPatientIdEdit->SetText(L"1008621671");// 1个ct
+	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
 
 }
 
@@ -148,7 +150,15 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	//GNC::GCS::StoredQuery pStoredQuery;
 
 	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();
+	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
+	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
+	std::wstring ws_modallity = m_pMOdalityiesInStudyEdit->GetText().GetData();
+
+
 	//std::string patient_ids	= toString(ws_patient_ids);
+	std::string body_part	= toString(ws_body_part);
+	std::string thickness	= toString(ws_thickness);
+	std::string modallity	= toString(ws_modallity);
 
 	GIL::DICOM::DicomDataset queryWrapper;
 	queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
@@ -158,6 +168,11 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // 影像数量
 	queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
 	queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
+	queryWrapper.tags[GKDCM_BodyPartExamined] = body_part;//CHEST  BREAST
+	queryWrapper.tags[GKDCM_ModalitiesInStudy] = modallity;//CT MG DX  etc.
+	queryWrapper.tags[GKDCM_SliceThickness] = thickness;//CT MG DX  etc.
+
+
 
 
 	//query.addConditionIfNotExists(GKDCM_QueryRetrieveLevel, "STUDY");
