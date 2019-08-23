@@ -75,8 +75,11 @@ void GetAssociation::SetStorageSOPClasses(std::string modality)//const SOPClassL
 		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");
 	} else if(modality == "CR"){
 		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1");
+	} else if(modality == "MG"){
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.2");
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.2.1");
 	}
-
 }
 
 void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
