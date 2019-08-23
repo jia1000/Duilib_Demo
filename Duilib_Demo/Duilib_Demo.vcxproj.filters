@@ -246,6 +246,9 @@
     <ClCompile Include="utility_tool\common_utils.cpp">
       <Filter>utility_tool</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\pacscontroller.cpp">
+      <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -451,6 +454,9 @@
     </ClInclude>
     <ClInclude Include="utility_tool\common_utils.h">
       <Filter>utility_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\pacscontroller.h">
+      <Filter>FrameWndDemo\main\controllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

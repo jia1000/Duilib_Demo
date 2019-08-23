@@ -127,6 +127,7 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dicommanager.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\pacscontroller.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dicommanager.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\pacscontroller.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
