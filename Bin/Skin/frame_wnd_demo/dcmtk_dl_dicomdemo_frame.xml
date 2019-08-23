@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Window size="800,600" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="600,480" showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
+	<Style name="pacs_cb_style" shared="true" value="autocalcwidth=&quot;true&quot; align=&quot;left&quot; valign=&quot;vcenter&quot; height=&quot;16&quot; textcolor=&quot;#FFFFFFFF&quot; hottextcolor=&quot;#FFFFFFFF&quot; textpadding=&quot;20,0,6,0&quot; normalimage=&quot;res='sysbtn/cb_normal.png' dest='0,0,16.16'&quot; hotimage=&quot;res='sysbtn/cb_hot.png' dest='0,0,16.16'&quot; pushedimage=&quot;res='sysbtn/cb_pushed.png' dest='0,0,16.16'&quot; selectedimage=&quot;res='sysbtn/cb_selected.png' dest='0,0,16,16'&quot;" />
+    
 	<VerticalLayout bkcolor="#FF272B2E" bordersize="1" bordercolor="#FF222222" borderround="0">
 		<!-- 标题栏区 -->
 	    <HorizontalLayout height="32" bkcolor="#FF1C2237" bordersize="0,0,0,1" bordercolor="#59000000">		        
@@ -12,26 +14,74 @@
 		
 		<!-- 主窗口 -->
 		<HorizontalLayout bkcolor="#FFE6E7E8"> 
-			<VerticalLayout bkcolor="#FFc8eece" bordersize="1" bordercolor="#FF222222" borderround="0">
+			<VerticalLayout bkcolor="#FF272B2E" bordersize="1" bordercolor="#FF222222" borderround="0">
 				<HorizontalLayout bkcolor="#FF272B2E" height="25"> 
 					<Label name="patient_id" text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Control width="5"/>
 					<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" />
 				</HorizontalLayout>
-				<Control height="5"/>
+				<Control height="1"/>
 				<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
 					<!-- 
 					<Option name="filter_date_range" group="radio_date" text="介于" userdata="Range" style="pacs_radio_style"/>
 					 -->
-					<Label name="filter_date_range" text="检查日期" height="25" width="75" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Label name="filter_date_range" text="检查日期" height="25" width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
 					<Control width="5"/>
 					<DateTime name="filter_range_from" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
 					<Control width="5"/>
 					<DateTime name="filter_range_to" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
 				</HorizontalLayout>
-				<Button name="btn_filter" text="搜索" width="80" height="30" tooltip="搜索" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
-				<Edit name="edit_result" inset="5,0,5,0" height="250" wordbreak="true" tipvalue="结果是..." textpadding="5,0,0,0" />
-				<Button name="btn_download" text="下载" width="80" height="30" tooltip="下载" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
-				<Control />				
+				<Control height="1"/>
+				<GroupBox  minwidth="420" text="删选条件" height="130" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+					<VerticalLayout  childpadding="4" >
+						<Option name="device_cr" text="部位" userdata="CR" style="pacs_cb_style"/>
+						<Option name="device_mg" text="层厚" userdata="MG" style="pacs_cb_style"/>
+						<Option name="device_rf" text="设备" userdata="RF" style="pacs_cb_style"/>
+						<Option name="device_xa" text="性别" userdata="XA" style="pacs_cb_style"/>
+					</VerticalLayout>
+				</GroupBox>
+				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
+					<Button name="btn_filter" text="搜索" width="80" tooltip="搜索" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
+				</HorizontalLayout>
+				<Control height="1"/>
+				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
+					<Label  text="搜索结果："  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Control width="5"/>
+					<Edit name="edit_research_result" inset="5,0,5,0" height="60" wordbreak="true" tipvalue="结果..." textpadding="5,0,0,0" />
+				</HorizontalLayout>
+				<Control height="1"/>
+				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
+					<Button name="btn_download" text="下载" width="80" height="30" tooltip="下载" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
+					<Control width="5"/>
+					<Button name="btn_download_path" text="选择路径" width="80" height="30" tooltip="下载建立" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
+					<Control width="5"/>
+					<Edit name="edit_download_path" inset="5,0,5,0" height="60" wordbreak="true" tipvalue="下载路径..." textpadding="5,0,0,0" />
+				</HorizontalLayout>
+				<Control height="1"/>	
+				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
+					<Label  text="下载结果："  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Label name="label_all_count" text="共0个, "  width="100" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Label name="label_success_count" text="成功0个"  width="100" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+				</HorizontalLayout>
+				<Control height="1"/>
+				<!-- 下载结果列表 tab页显示 -->
+				<HorizontalLayout bkcolor="#FFE6E7E8"> 
+					<HorizontalLayout width="80" >
+						<VerticalLayout>
+							<Option name="op_success" text="成功列表" height="60" group="tab_download_result" />
+							<Option name="op_failure" text="失败列表" height="60" group="tab_download_result" />
+						</VerticalLayout>
+					</HorizontalLayout>
+					<TabLayout name="tab_result_show" bkcolor="#FF424242" selectedid="-1">
+						<HorizontalLayout>
+							<Button name="btn_successs" text="成功结果" bkcolor="#FF535353"  />
+						</HorizontalLayout>
+						<HorizontalLayout>
+							<Button name="btn_failure" text="失败结果" bkcolor="#FFFFFFFF"  />
+						</HorizontalLayout>
+					</TabLayout> 
+				</HorizontalLayout>
+		
 			</VerticalLayout>
 			<Button name="dicom_set" width="88" height="30" text="设置" bordercolor="#FF222222" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />			
 		</HorizontalLayout>

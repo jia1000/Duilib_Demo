@@ -63,7 +63,7 @@ CControlUI* DcmtkDLDicomDemoFrameWnd::CreateControl(LPCTSTR pstrClass)
 void DcmtkDLDicomDemoFrameWnd::InitWindow()
 {
 	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
-	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_result"));
+	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_research_result"));
 
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2¸öct 2¸ödx
 	m_pPatientIdEdit->SetText(L"1008621671");// 1¸öct
@@ -109,7 +109,9 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
 			DoDownloadTest();
 		}  
-	}
+	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
+		OnSelChanged(msg.pSender);
+	} 
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -121,6 +123,22 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM
 //#include"dcmtk\dcmdata\dctk.h"
 //
 //#include "utility_tool/string_converse.h"
+
+void DcmtkDLDicomDemoFrameWnd::OnSelChanged(CControlUI* pSender)
+{
+	CTabLayoutUI* pTabResultShow = static_cast <CTabLayoutUI*>(m_pm.FindControl(_T("tab_result_show")));
+	if (pTabResultShow == NULL)
+	{
+		return;
+	}
+	CDuiString strSelName = pSender->GetName();
+	if (strSelName == _T("op_success")) 
+	{		
+		pTabResultShow->SelectItem(0);
+	} else if (strSelName == _T("op_failure")) {
+		pTabResultShow->SelectItem(1);
+	}
+}
 
 void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 {
