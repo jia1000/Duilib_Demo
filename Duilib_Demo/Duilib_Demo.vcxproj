@@ -140,6 +140,7 @@
     <ClCompile Include="FrameWndDemo\VtkFunctionDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="utility_tool\common_utils.cpp" />
     <ClCompile Include="utility_tool\string_converse.cpp" />
     <ClCompile Include="vtk\dui_vistasimple.cpp" />
     <ClCompile Include="vtk\vtk_window.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="FrameWndDemo\VtkFunctionDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h" />
     <ClInclude Include="global_include.h" />
+    <ClInclude Include="utility_tool\common_utils.h" />
     <ClInclude Include="utility_tool\string_converse.h" />
     <ClInclude Include="vtk\dui_vistasimple.h" />
     <ClInclude Include="vtk\vtk_window.h" />

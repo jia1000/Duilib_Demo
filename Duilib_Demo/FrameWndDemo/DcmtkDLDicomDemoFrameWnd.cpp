@@ -11,6 +11,7 @@
 #include "main/controllers/dcmtk/dicomnetclient.h"
 
 #include "utility_tool/string_converse.h"
+#include "utility_tool/common_utils.h"
 
 #include <dcmtk/dcmdata/dcdeftag.h>
 
@@ -147,6 +148,8 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	// 搜索前，先清空待下载的病历列表
 	m_study_ids.clear();
 
+	m_patient_ids.clear();
+
 	//GNC::GCS::StoredQuery pStoredQuery;
 
 	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();
@@ -159,6 +162,9 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	std::string body_part	= toString(ws_body_part);
 	std::string thickness	= toString(ws_thickness);
 	std::string modallity	= toString(ws_modallity);
+
+	m_filter_thickness = atoi(thickness.c_str());
+	m_bodyPartExamined = body_part;
 
 	GIL::DICOM::DicomDataset queryWrapper;
 	queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
@@ -288,6 +294,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 						result += "   ";
 						result += "\r\n";
 						m_study_ids.push_back(study_id);
+						m_patient_ids.push_back(patient_id);
 					}
 					//if (count > 10) {
 					//	break;
@@ -308,7 +315,12 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 
 void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
+	auto iter = m_patient_ids.begin();
 	for (auto item : m_study_ids) {
+		if (iter != m_patient_ids.end()) {
+			m_cur_patient_id = *iter;
+		}
+		iter++;
 		GIL::DICOM::DicomDataset base;
 		base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
 		base.tags[GKDCM_StudyInstanceUID] = item;		//"0020|000d"
@@ -537,6 +549,16 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerEstudio(void* connectionKey, const std::st
 			delete e;
 		}
 
+		e = newDicomElement(DCM_SliceThickness);
+		if (query.insert(e).bad()) {
+			delete e;
+		}
+
+		e = newDicomElement(DCM_BodyPartExamined);
+		if (query.insert(e).bad()) {
+			delete e;
+		}
+
 		std::list<std::string> listOfUIDS;
 		std::list<std::string> listOfModalities;
 		{
@@ -572,8 +594,34 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerEstudio(void* connectionKey, const std::st
 						OFString OFSeriesModality;
 						if ( dset->findAndGetOFString(DCM_SeriesInstanceUID, OFSSeriesInstanceUID).good() && dset->findAndGetOFString(DCM_Modality, OFSeriesModality).good() )
 						{
-							std::string seriesInstanceUID(OFSSeriesInstanceUID.c_str());
 							std::string seriesModality(OFSeriesModality.c_str());
+							std::string seriesInstanceUID(OFSSeriesInstanceUID.c_str());
+
+							// 过滤层厚
+							OFString OFSliceThickness;
+							if ( dset->findAndGetOFString(DCM_SliceThickness, OFSliceThickness).good())
+							{
+								std::string sliceThickness(OFSliceThickness.c_str());
+
+								if (sliceThickness.size() > 0 && m_filter_thickness != 0) {
+									int thickness = atoi(sliceThickness.c_str());
+									if (thickness != m_filter_thickness) {
+										continue;
+									}
+								}								
+							}
+							// 过滤部位
+							OFString OFBodyPartExamined;
+							if ( dset->findAndGetOFString(DCM_BodyPartExamined, OFBodyPartExamined).good())
+							{
+								std::string bodyPartExamined(OFBodyPartExamined.c_str());
+
+								if (bodyPartExamined.size() > 0 && m_bodyPartExamined.size() > 0) {
+									if (bodyPartExamined != m_bodyPartExamined) {
+										continue;
+									}
+								}								
+							}
 
 							listOfUIDS.push_back(seriesInstanceUID);
 							listOfModalities.push_back(seriesModality);
@@ -595,6 +643,12 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerEstudio(void* connectionKey, const std::st
 			//baseAux.tags["0008|0052"] = "SERIES";
 			baseAux.tags["0020|000e"] = (*itUIDS);
 			baseAux.tags["0008|0060"] = (*itModalities);
+
+			std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
+			std::string thickness	= toString(ws_thickness);
+			baseAux.tags[GKDCM_SliceThickness] = thickness;
+
+
 			ObtenerSerie(connectionKey, serverId, baseAux, link);
 		}
 
@@ -686,6 +740,11 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerEstudio(void* connectionKey, const std::st
 						baseAux.tags["0020|000e"] = OFSSeriesInstanceUID.c_str();
 						baseAux.tags["0008|0060"] = OFSeriesModality.c_str();
 
+
+						std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
+						std::string thickness	= toString(ws_thickness);
+						baseAux.tags[GKDCM_SliceThickness] = thickness;
+
 						ObtenerSerie(connectionKey, serverId, baseAux, link);
 					}
 				}
@@ -721,8 +780,34 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerSerie(void* connectionKey, const std::stri
 		modality = base.tags.find("0008|0060")->second;
 	}
 
-	std::string pathid = "G:\\temp\\";//DW::Util::TempDirOnlyPath::GetTempDirOnlyPath();
+	static std::string root_path = "G:\\temp\\";
 
+	//std::string patient_id;
+	//if (base.tags.find(GKDCM_PatientID) != base.tags.end()) {
+	//	patient_id = base.tags.find(GKDCM_PatientID)->second;
+	//}
+
+	std::string study_id;
+	if (base.tags.find(GKDCM_StudyInstanceUID) != base.tags.end()) {
+		study_id = base.tags.find(GKDCM_StudyInstanceUID)->second;
+	}
+
+	std::string series_id;
+	if (base.tags.find(GKDCM_SeriesInstanceUID) != base.tags.end()) {
+		series_id = base.tags.find(GKDCM_SeriesInstanceUID)->second;
+	}
+	// 创建患者编号的文件夹
+	std::string patient_path = root_path + m_cur_patient_id + "\\";
+	TryCreateDir(patient_path);
+
+	// 创建studyid的文件夹
+	std::string study_path = patient_path + study_id + "\\";
+	TryCreateDir(study_path);
+
+	// 创建seriesid的文件夹
+	std::string series_path = study_path + series_id + "\\" ;//DW::Util::TempDirOnlyPath::GetTempDirOnlyPath();
+	TryCreateDir(series_path);
+	
 	DcmElement* e = NULL;
 	DcmDataset query;
 
@@ -1012,7 +1097,7 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerSerie(void* connectionKey, const std::stri
 			a.SetWellKnownNumResults(numResults);
 			a.SetStorageSOPClasses(modality);//GIL::DICOM::Conformance::GetModalities().GetSupportedSOPClassUIDs(modality));
 			//a.SetModelo(pModelo);
-			a.SetPath("G:\\temp");
+			a.SetPath(series_path);
 
 			//if (server->useTLS) {
 			//	a.SetTLS(server->GetCertificate(), server->GetPrivateKey(), server->GetverifyCredentials());

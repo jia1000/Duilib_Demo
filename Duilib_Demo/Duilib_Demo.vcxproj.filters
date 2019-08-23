@@ -243,6 +243,9 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClCompile>
+    <ClCompile Include="utility_tool\common_utils.cpp">
+      <Filter>utility_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -445,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="utility_tool\common_utils.h">
+      <Filter>utility_tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

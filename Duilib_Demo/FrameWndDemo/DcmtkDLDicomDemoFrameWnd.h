@@ -79,6 +79,10 @@ private:
 	GNC::GCS::Ptr<DicomServer> server;
 	TRetrieveMethod retrieve_method; 
 	std::vector<std::string> m_study_ids;
+	std::vector<std::string> m_patient_ids;
+	std::string m_cur_patient_id;
+	int m_filter_thickness;
+	std::string m_bodyPartExamined;
 
 	CEditUI* m_pPatientIdEdit;
 	CEditUI* m_pBodyPartEdit;
