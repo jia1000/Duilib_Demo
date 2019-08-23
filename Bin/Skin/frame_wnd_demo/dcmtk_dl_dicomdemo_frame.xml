@@ -19,6 +19,8 @@
 					<Label name="patient_id" text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
 					<Control width="5"/>
 					<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" />
+					<Control width="5"/>
+					<Button name="dicom_set" width="80" height="30" text="设置" bordercolor="#FF222222" textcolor = "#FFF2F2F2" font = "2" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'" />						
 				</HorizontalLayout>
 				<Control height="1"/>
 				<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
@@ -99,7 +101,6 @@
 				</HorizontalLayout>
 		
 			</VerticalLayout>
-			<Button name="dicom_set" width="88" height="30" text="设置" bordercolor="#FF222222" textcolor = "#FF45597c" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />			
-		</HorizontalLayout>
+			</HorizontalLayout>
 	</VerticalLayout>
 </Window>
