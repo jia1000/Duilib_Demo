@@ -84,8 +84,8 @@
 				<HorizontalLayout bkcolor="#FFE6E7E8"> 
 					<HorizontalLayout width="80" >
 						<VerticalLayout>
-							<Option name="op_success" text="成功列表" height="60" group="tab_download_result" />
-							<Option name="op_failure" text="失败列表" height="60" group="tab_download_result" />
+							<Option name="op_success" text="成功列表" height="60" group="tab_download_result" selected="true"  normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
+							<Option name="op_failure" text="失败列表" height="60" group="tab_download_result" selected="false" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
 						</VerticalLayout>
 					</HorizontalLayout>
 					<TabLayout name="tab_result_show" bkcolor="#FF424242" selectedid="-1">
