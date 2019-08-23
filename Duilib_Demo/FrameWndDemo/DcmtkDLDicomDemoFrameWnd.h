@@ -16,12 +16,6 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
-//typedef enum TRetrieveMethod {
-//	MOVE = 0,
-//	GET,
-//	WADO
-//}TRetrieveMethod;
-
 class DcmtkDLDicomDemoFrameWnd : public WindowImplBase
 {
 public:
@@ -47,14 +41,9 @@ public:
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);
 
 private:
-	//GNC::GCS::Ptr<DicomServer> server;
-	//TRetrieveMethod retrieve_method; 
 	std::vector<std::string> m_study_ids;
 	std::vector<std::string> m_patient_ids;
-	//std::string m_cur_patient_id;
-	//int m_filter_thickness;
-	//std::string m_bodyPartExamined;
-
+	
 	CEditUI* m_pPatientIdEdit;
 	CEditUI* m_pBodyPartEdit;
 	CEditUI* m_pThicknessEdit;

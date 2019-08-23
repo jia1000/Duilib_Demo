@@ -66,7 +66,10 @@ namespace GIL {
 			}			
 		}
 
-		bool PACSController::ObtenerEstudio(void* connectionKey, const std::string& serverId, const GIL::DICOM::DicomDataset& base, /*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ bool link)
+		bool PACSController::ObtenerEstudio(void* connectionKey, const std::string& serverId, 
+			const GIL::DICOM::DicomDataset& base, 
+			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 
+			bool link)
 		{
 			bool success = true;
 			std::ostringstream errorMsg;
@@ -78,38 +81,9 @@ namespace GIL {
 			std::string aet_local	= LOCAL_AE_TITLE;
 			int psdu_length			= 16384;
 
-			DcmDataset query;
 			DcmElement* e = NULL;
-
-			e = newDicomElement(DCM_SpecificCharacterSet);
-			e->putString("");//server->GetDefaultCharset().c_str());
-			query.insert(e);
-
-			e = newDicomElement(DCM_PatientID);
-			if (query.insert(e).bad()) {
-				delete e;
-			}
-
-			e = newDicomElement(DCM_PatientName);
-			if (query.insert(e).bad()) {
-				delete e;
-			}
-
-			e = newDicomElement(DCM_StudyDate);
-			if (query.insert(e).bad()) {
-				delete e;
-			}
-
-			e = newDicomElement(DCM_StudyTime);
-			if (query.insert(e).bad()) {
-				delete e;
-			}
-
-			e = newDicomElement(DCM_StudyID);
-			if (query.insert(e).bad()) {
-				delete e;
-			}
-
+			DcmDataset query;
+			
 			FillInQuery(base, &query);//, server);
 
 			std::string localAET = LOCAL_AE_TITLE;//GNC::Entorno::Instance()->GetDicomLocalAET();
@@ -119,27 +93,7 @@ namespace GIL {
 				//we have to know the series uids and obtain series by series
 				e = newDicomElement(DCM_QueryRetrieveLevel);
 				e->putString("SERIES");//wxString( "SERIES", wxConvUTF8).mb_str(conv));
-				query.insert(e, true);
-
-				e = newDicomElement(DCM_SeriesInstanceUID);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_Modality);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_SliceThickness);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_BodyPartExamined);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
+				query.insert(e, true);				
 
 				std::list<std::string> listOfUIDS;
 				std::list<std::string> listOfModalities;
@@ -185,9 +139,8 @@ namespace GIL {
 									{
 										std::string sliceThickness(OFSliceThickness.c_str());
 
-										if (sliceThickness.size() > 0 && m_filter_thickness != 0) {
-											int thickness = atoi(sliceThickness.c_str());
-											if (thickness != m_filter_thickness) {
+										if (sliceThickness.size() > 0 && m_filter_thickness.size() > 0) {
+											if (sliceThickness != m_filter_thickness) {
 												continue;
 											}
 										}								
@@ -223,13 +176,14 @@ namespace GIL {
 
 					GIL::DICOM::DicomDataset baseAux = base;
 					//baseAux.tags["0008|0052"] = "SERIES";
-					baseAux.tags["0020|000e"] = (*itUIDS);
-					baseAux.tags["0008|0060"] = (*itModalities);
+					//baseAux.tags["0020|000e"] = (*itUIDS);
+					//baseAux.tags["0008|0060"] = (*itModalities);
+					//baseAux.tags[GKDCM_SliceThickness] = m_filter_thickness;
 
-					//std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
-					//std::string thickness	= toString(ws_thickness);
-					baseAux.tags[GKDCM_SliceThickness] = m_filter_thickness;//thickness;
-
+					SetWrapper(baseAux, "0008|0052", "SERIES");
+					SetWrapper(baseAux, "0020|000e", *itUIDS);
+					SetWrapper(baseAux, "0008|0060", *itModalities );
+					SetWrapper(baseAux, GKDCM_SliceThickness, m_filter_thickness);
 
 					ObtenerSerie(connectionKey, serverId, baseAux, link);
 				}
@@ -269,16 +223,6 @@ namespace GIL {
 				e = newDicomElement(DCM_QueryRetrieveLevel);
 				e->putString("SERIES");//wxString( "SERIES", wxConvUTF8).mb_str(conv));
 				query.insert(e, true);
-
-				e = newDicomElement(DCM_SeriesInstanceUID);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_Modality);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
 
 				NetClient<FindAssociation> f(connectionKey, "C-GET/FIND");//, pNotificador);
 
@@ -342,7 +286,10 @@ namespace GIL {
 
 		}
 
-		bool PACSController::ObtenerSerie(void* connectionKey, const std::string& serverId, const GIL::DICOM::DicomDataset& base, /*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ bool link)
+		bool PACSController::ObtenerSerie(void* connectionKey, const std::string& serverId, 
+			const GIL::DICOM::DicomDataset& base, 
+			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 
+			bool link)
 		{
 			//if (pModelo == NULL) {
 			//	return false;
@@ -398,28 +345,9 @@ namespace GIL {
 			if (retrieve_method == GET && modality.empty()) {//->GetRetrieveMethod() == DicomServer::GET && modality.empty()) { // We have to find series modality
 				FillInQuery(base, &query);//, server);
 
-				e = newDicomElement(DCM_SpecificCharacterSet);
-				e->putString("");//server->GetDefaultCharset().c_str());
-				query.insert(e);
-
 				e = newDicomElement(DCM_QueryRetrieveLevel);
 				e->putString("SERIES");//wxString( "SERIES", wxConvUTF8).mb_str(conv));
 				query.insert(e, true);
-
-				e = newDicomElement(DCM_StudyInstanceUID);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_SeriesInstanceUID);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_Modality);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
 
 				NetClient<FindAssociation> f(connectionKey, "C-GET/FIND");//, pNotificador);
 
@@ -490,23 +418,9 @@ namespace GIL {
 				if (!base.getTag(GKDCM_StudyInstanceUID, studyInstanceUID)) {
 					FillInQuery(base, &query);//, server);
 
-					e = newDicomElement(DCM_SpecificCharacterSet);
-					e->putString("");//server->GetDefaultCharset().c_str());
-					query.insert(e);
-
 					e = newDicomElement(DCM_QueryRetrieveLevel);
 					e->putString("SERIES");//wxString( "SERIES", wxConvUTF8).mb_str(conv));
 					query.insert(e, true);
-
-					e = newDicomElement(DCM_StudyInstanceUID);
-					if (query.insert(e).bad()) {
-						delete e;
-					}
-
-					e = newDicomElement(DCM_SeriesInstanceUID);
-					if (query.insert(e).bad()) {
-						delete e;
-					}
 
 					if (!f.QueryServer(&query, server, localAET, CT_None)) 
 					{
@@ -544,9 +458,6 @@ namespace GIL {
 
 				//now we have to get all sop instance uids...
 				f.DeleteResultStack();
-				e = newDicomElement(DCM_SpecificCharacterSet);
-				e->putString("");//server->GetDefaultCharset().c_str());
-				query.insert(e);
 
 				e = newDicomElement(DCM_QueryRetrieveLevel);
 				e->putString("IMAGE");//wxString( "IMAGE", wxConvUTF8).mb_str(conv));
@@ -554,16 +465,6 @@ namespace GIL {
 
 				e = newDicomElement(DCM_SeriesInstanceUID);
 				e->putString(seriesInstanceUID.c_str());//wxString( seriesInstanceUID.c_str(), wxConvUTF8).mb_str(conv));
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_SOPInstanceUID);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_InstanceNumber);
 				if (query.insert(e).bad()) {
 					delete e;
 				}
@@ -620,25 +521,12 @@ namespace GIL {
 			{//get and move
 				FillInQuery(base, &query);//, server);
 
-				e = newDicomElement(DCM_SpecificCharacterSet);
-				e->putString("");//server->GetDefaultCharset().c_str());
-				query.insert(e);			
-
 				e = newDicomElement(DCM_QueryRetrieveLevel);
 				e->putString("SERIES");//wxString( "SERIES", wxConvUTF8).mb_str(conv));
 				query.insert(e, true);
 
-				e = newDicomElement(DCM_SeriesInstanceUID);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
 
 				e = newDicomElement(DCM_Modality);
-				if (query.insert(e).bad()) {
-					delete e;
-				}
-
-				e = newDicomElement(DCM_SeriesNumber);
 				if (query.insert(e).bad()) {
 					delete e;
 				}
@@ -717,18 +605,9 @@ namespace GIL {
 
 			FillInQuery(base, &query);//, server);
 
-			e = newDicomElement(DCM_SpecificCharacterSet);
-			e->putString("");//server->GetDefaultCharset().c_str());
-			query.insert(e);
-
 			e = newDicomElement(DCM_QueryRetrieveLevel);
 			e->putString("IMAGE");//wxString( "IMAGE", wxConvUTF8).mb_str(conv));
 			query.insert(e, true);
-
-			e = newDicomElement(DCM_InstanceNumber);
-			if (query.insert(e).bad()) {
-				delete e;
-			}
 
 			std::string localAET = LOCAL_AE_TITLE ;//GNC::Entorno::Instance()->GetDicomLocalAET();
 
@@ -777,22 +656,9 @@ namespace GIL {
 				if (!base.getTag(GKDCM_SeriesInstanceUID, seriesInstanceUID) || !base.getTag(GKDCM_StudyInstanceUID, studyInstanceUID)) {
 					FillInQuery(base, &query);//, server);
 
-					e = newDicomElement(DCM_SpecificCharacterSet);
-					e->putString("");//server->GetDefaultCharset().c_str());
-					query.insert(e);
-
 					e = newDicomElement(DCM_QueryRetrieveLevel);
 					e->putString("IMAGE");//wxString( "IMAGE", wxConvUTF8).mb_str(conv));
 					query.insert(e, true);
-
-					e = newDicomElement(DCM_StudyInstanceUID);
-					if (query.insert(e).bad()) {
-						delete e;
-					}
-					e = newDicomElement(DCM_SeriesInstanceUID);
-					if (query.insert(e).bad()) {
-						delete e;
-					}
 
 					//association to make finds...
 					NetClient<FindAssociation> f(connectionKey, "WADO/FIND");//, pNotificador);
@@ -997,13 +863,49 @@ namespace GIL {
 		{
 			m_cur_patient_id = patient_id;
 		}
-		void PACSController::SetThickness(int thickness)
+		void PACSController::SetThickness(std::string thickness)
 		{
 			m_filter_thickness = thickness;
 		}
 		void PACSController::SetBodyPartExamined(std::string bodyPartExamined)
 		{
 			m_bodyPartExamined = bodyPartExamined;
+		}
+		void PACSController::InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper)
+		{
+			queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
+			queryWrapper.tags[GKDCM_PatientName] = "";
+			queryWrapper.tags[GKDCM_PatientID] = "";
+			queryWrapper.tags[GKDCM_StudyDate] = "";
+			queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // 影像数量
+			queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
+			queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
+			queryWrapper.tags[GKDCM_BodyPartExamined] = "";//CHEST  BREAST
+			queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";//CT MG DX  etc.
+			queryWrapper.tags[GKDCM_SliceThickness] = "";//CT MG DX  etc.
+
+			queryWrapper.tags[GKDCM_SpecificCharacterSet] = "";
+			queryWrapper.tags[GKDCM_StudyTime] = "";
+			queryWrapper.tags[GKDCM_StudyID] = "";
+			queryWrapper.tags[GKDCM_SeriesInstanceUID] = "";
+			queryWrapper.tags[GKDCM_Modality] = "";
+			queryWrapper.tags[GKDCM_SeriesNumber] = "";
+
+			queryWrapper.tags[GKDCM_InstanceNumber] = "";  // Image用
+
+
+
+		}
+
+		void PACSController::SetWrapper(GIL::DICOM::DicomDataset&  queryWrapper, char* tag, std::string value)
+		{
+			if(tag)
+			{
+				queryWrapper.tags[tag] = value;
+			}
+		}
+		void PACSController::InitSerieFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper)
+		{
 		}
 	};
 };

@@ -66,9 +66,14 @@ namespace GIL {
 			DcmElement* CrearElementoConValor(const char* s);
 
 			void SetCurPatientId(std::string patient_id);
-			void SetThickness(int thickness);
+			void SetThickness(std::string thickness);
 			void SetBodyPartExamined(std::string bodyPartExamined);
 
+			void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
+			//void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
+			void InitSerieFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
+
+			void SetWrapper(GIL::DICOM::DicomDataset&  queryWrapper, char* tag, std::string value);
 
 		protected:
 			PACSController();
@@ -78,7 +83,7 @@ namespace GIL {
 
 			GNC::GCS::Ptr<DicomServer> server;
 
-			int m_filter_thickness;
+			std::string m_filter_thickness;
 			std::string m_bodyPartExamined;
 			TRetrieveMethod retrieve_method; 
 			std::string m_cur_patient_id;

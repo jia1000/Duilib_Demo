@@ -164,24 +164,25 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	std::string thickness	= toString(ws_thickness);
 	std::string modallity	= toString(ws_modallity);
 
-	//m_filter_thickness = atoi(thickness.c_str());
-	GIL::DICOM::PACSController::Instance()->SetThickness(atoi(thickness.c_str()));
-	//m_bodyPartExamined = body_part;
+	GIL::DICOM::PACSController::Instance()->SetThickness(thickness);//atoi(thickness.c_str()));
 	GIL::DICOM::PACSController::Instance()->SetBodyPartExamined(body_part);
 
 	GIL::DICOM::DicomDataset queryWrapper;
-	queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
-	queryWrapper.tags[GKDCM_PatientName] = "";
-	queryWrapper.tags[GKDCM_PatientID] = "";
-	queryWrapper.tags[GKDCM_StudyDate] = "";
-	queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // 影像数量
-	queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
-	queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
-	queryWrapper.tags[GKDCM_BodyPartExamined] = body_part;//CHEST  BREAST
-	queryWrapper.tags[GKDCM_ModalitiesInStudy] = modallity;//CT MG DX  etc.
-	queryWrapper.tags[GKDCM_SliceThickness] = thickness;//CT MG DX  etc.
+	//queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
+	//queryWrapper.tags[GKDCM_PatientName] = "";
+	//queryWrapper.tags[GKDCM_PatientID] = "";
+	//queryWrapper.tags[GKDCM_StudyDate] = "";
+	//queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // 影像数量
+	//queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
+	//queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
+	//queryWrapper.tags[GKDCM_BodyPartExamined] = body_part;//CHEST  BREAST
+	//queryWrapper.tags[GKDCM_ModalitiesInStudy] = modallity;//CT MG DX  etc.
+	//queryWrapper.tags[GKDCM_SliceThickness] = thickness;//CT MG DX  etc.
 
-
+	GIL::DICOM::PACSController::Instance()->InitStudyFindQueryWrapper(queryWrapper);
+	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_BodyPartExamined, body_part);
+	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_ModalitiesInStudy, modallity);
+	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_SliceThickness, thickness);
 
 
 	//query.addConditionIfNotExists(GKDCM_QueryRetrieveLevel, "STUDY");
@@ -326,8 +327,10 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 		iter++;
 		GIL::DICOM::DicomDataset base;
-		base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
-		base.tags[GKDCM_StudyInstanceUID] = item;		//"0020|000d"
+		//base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
+		//base.tags[GKDCM_StudyInstanceUID] = item;		//"0020|000d"
+		GIL::DICOM::PACSController::Instance()->InitStudyFindQueryWrapper(base);
+		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, item);
 		GIL::DICOM::PACSController::Instance()->ObtenerEstudio(this, SCP_IDENTIFIER, base, false);
 	}
 }
