@@ -63,14 +63,19 @@ CONDITION GetAssociation::SendObject(DcmDataset *dataset) {
 }
 
 //void GetAssociation::SetStorageSOPClasses(const GIL::DICOM::SOPClassList& SOPClasses)
-void GetAssociation::SetStorageSOPClasses()//const SOPClassList& SOPClasses)
+void GetAssociation::SetStorageSOPClasses(std::string modality)//const SOPClassList& SOPClasses)
 {
-	//this->SOPClasses = SOPClasses;	
-	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2");
-	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");
-	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2.1");
-	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");
-	this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");
+	//this->SOPClasses = SOPClasses;
+	this->SOPClasses.clear();
+	if (modality == "CT") {
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2");
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2.1");
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");
+	} else if(modality == "CR"){
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1");
+	}
 
 }
 

@@ -138,7 +138,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	queryWrapper.tags[GKDCM_PatientID] = "";
 	queryWrapper.tags[GKDCM_StudyDate] = "";
 	queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // Ó°ÏñÊýÁ¿
-	queryWrapper.tags[GKDCM_ModalitiesInStudy] = "CT";
+	queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
 	queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
 
 
@@ -977,7 +977,7 @@ bool DcmtkDLDicomDemoFrameWnd::ObtenerSerie(void* connectionKey, const std::stri
 
 			NetClient<GetAssociation> a(connectionKey, "C-GET");//, pNotificador);
 			a.SetWellKnownNumResults(numResults);
-			a.SetStorageSOPClasses();//GIL::DICOM::Conformance::GetModalities().GetSupportedSOPClassUIDs(modality));
+			a.SetStorageSOPClasses(modality);//GIL::DICOM::Conformance::GetModalities().GetSupportedSOPClassUIDs(modality));
 			//a.SetModelo(pModelo);
 			a.SetPath("G:\\temp");
 

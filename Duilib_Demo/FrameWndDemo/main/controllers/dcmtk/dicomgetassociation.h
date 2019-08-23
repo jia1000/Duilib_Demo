@@ -31,7 +31,7 @@ public:
 	 //void SetModelo(IModeloDicom* pModelo);
 
 	 //void SetStorageSOPClasses(const GIL::DICOM::SOPClassList& SOPClasses);
-	 void SetStorageSOPClasses();//const SOPClassList& SOPClasses);
+	 void SetStorageSOPClasses(std::string modality);//const SOPClassList& SOPClasses);
 
 
 	 void Create(const std::string& title, const std::string& peer, int port, const std::string& ouraet, /*int ourPort,*/ const char *abstractSyntax = UID_GETStudyRootQueryRetrieveInformationModel);
