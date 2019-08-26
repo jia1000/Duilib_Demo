@@ -44,7 +44,7 @@ public:
 
 private:
 	std::vector<std::string> m_study_ids;
-	std::vector<std::string> m_patient_ids;
+	std::vector<std::string> m_patient_ids; // 不是edit控件是行显示的patientid
 	
 	CEditUI* m_pPatientCsvPathEdit;
 	CEditUI* m_pPatientIdEdit;

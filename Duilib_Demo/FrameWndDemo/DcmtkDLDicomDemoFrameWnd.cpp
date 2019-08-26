@@ -166,7 +166,27 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenPatientIDListFile()
     ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY;
     if (GetOpenFileName(&ofn)){
         if (m_pPatientCsvPathEdit) {
+			// 在edit框上，显示CSV的路径
 			m_pPatientCsvPathEdit->SetText(str_filename);
+			// 在edit框上，显示patient id列表
+			std::ifstream inFile(str_filename, ios::in);
+			std::string line;
+			//std::vector<std::wstring> strArray;
+			std::wstring ws_patient_ids_edit(L"");
+			while (getline(inFile, line)) {
+				std::stringstream ss(line);
+				std::string word;
+				while (getline(ss, word, ','))
+				{
+					std::wstring ws_word = toWString(word);
+					//strArray.push_back(ws_word);
+					ws_patient_ids_edit += ws_word;
+					ws_patient_ids_edit += L",";
+				}
+			}
+			if (m_pPatientIdEdit) {
+				m_pPatientIdEdit->SetText(ws_patient_ids_edit.c_str());
+			}
         }
     }  
 }
