@@ -55,6 +55,11 @@ public:
 	void DoDownloadTest();	
 	void DoDownloadTest2();	
 
+	int GetPatienCount();
+	int GetStudyCount();
+	int GetSeriesCount();
+
+	void UpdateDownloadStaticsText();
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
 	DcmElement* CrearElementoConValor(const char* s);
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);
@@ -70,12 +75,14 @@ private:
 	CEditUI* m_pMOdalityiesInStudyEdit;
 	CEditUI* m_pDownloadPathEdit;
 
-	CLabelUI* m_pFindResultLabel;
+	CLabelUI* m_pResearchResultLabel;
+	CLabelUI* m_pStatiscResultLabel;
 
 	std::vector<struct PatientInfo>  m_patient_infos; 
 	std::string m_dicom_saved_path;
 	std::string m_filter_thickness;
 	std::string m_bodyPartExamined;
 	std::string m_filter_modality;
+	int m_downloading_dicom_index;
 };
 

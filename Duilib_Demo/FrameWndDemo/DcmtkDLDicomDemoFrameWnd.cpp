@@ -26,6 +26,7 @@
 
 DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 	//: server(new DicomServer(SCP_IDENTIFIER, AET_TITLE, HOST_ADDR, AET_PORT, PSDU_LENGTH))
+	: m_downloading_dicom_index(0)
 {
 	//retrieve_method = GET;
 }
@@ -66,7 +67,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 {
 	m_pPatientCsvPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_patient_csv_path"));
 	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
-	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_research_result"));
+	m_pResearchResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_research_result"));
 	m_pBodyPartEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_part"));
 	m_pThicknessEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_thickness"));
 	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
@@ -74,6 +75,11 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
 	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
 
+	if (m_pDownloadPathEdit) {
+		m_pDownloadPathEdit->SetText(L"G:\\temp1");
+		m_dicom_saved_path = "G:\\temp1";
+	}
+	UpdateDownloadStaticsText();
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -267,9 +273,9 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 			
 		}
 	}
-	if (m_pFindResultLabel) {
+	if (m_pResearchResultLabel) {
 		std::wstring ws_result = toWString(result);
-		m_pFindResultLabel->SetText(ws_result.c_str());
+		m_pResearchResultLabel->SetText(ws_result.c_str());
 	}
 
 	DoSearchSeriesTest();
@@ -338,6 +344,59 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 		}
 	}
 
+	UpdateDownloadStaticsText();
+}
+
+void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
+{
+	m_pStatiscResultLabel = static_cast<CLabelUI*>(m_pm.FindControl(L"label_result_statics"));
+	if (m_pStatiscResultLabel) {
+		std::stringstream ss;
+		ss << "Patient ";
+		ss << GetPatienCount();
+		ss << " , ";
+		ss << "Study ";
+		ss << GetStudyCount();
+		ss << " , ";
+		ss << "Series ";
+		ss << GetSeriesCount();
+		ss << " , ";
+		ss << "Success's Series ";
+		ss << m_downloading_dicom_index;
+		ss << " ";
+		std::string s = ss.str();
+		std::wstring ws_result = toWString(s);
+		m_pStatiscResultLabel->SetText(ws_result.c_str());
+	}
+}
+
+int DcmtkDLDicomDemoFrameWnd::GetPatienCount()
+{
+	std::set<std::string> patient_ids;
+	for (auto patient_info : m_patient_infos) {
+		patient_ids.insert(patient_info.patiend_id);
+	}
+
+	return patient_ids.size();
+}
+
+int DcmtkDLDicomDemoFrameWnd::GetStudyCount()
+{
+	std::set<std::string> study_ids;
+	for (auto patient_info : m_patient_infos) {
+		study_ids.insert(patient_info.study_id);
+	}
+
+	return study_ids.size();
+}
+
+int DcmtkDLDicomDemoFrameWnd::GetSeriesCount()
+{
+	int count = 0;
+	for (auto patient_info : m_patient_infos) {
+		count += patient_info.sereis_infos.size();
+	}
+	return count;
 }
 
 bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& data)
@@ -375,6 +434,10 @@ bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& 
 }
 void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
+	// 下载series计数器，清零
+	m_downloading_dicom_index = 0;
+	UpdateDownloadStaticsText();
+
 	for (auto patient_info : m_patient_infos) {
 		// 创建患者编号的文件夹
 		std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
@@ -402,7 +465,10 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
 			std::string study_path = patient_path + patient_info.study_id + "\\";
 			std::string series_path = study_path + series_info.series_id + "\\" ;
-			GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path);
+			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path)) {
+				m_downloading_dicom_index++;
+				UpdateDownloadStaticsText();
+			}
 		}
 	}
 }

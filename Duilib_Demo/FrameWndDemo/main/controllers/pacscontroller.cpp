@@ -135,6 +135,7 @@ DcmDataset query;
 				return false;
 			}
 			query.clear();
+			return true;
 		}
 
 		bool PACSController::ObtenerEstudio(void* connectionKey, const std::string& serverId, 
