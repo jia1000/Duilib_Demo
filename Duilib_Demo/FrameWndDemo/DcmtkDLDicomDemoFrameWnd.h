@@ -16,11 +16,17 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
+typedef struct Series_Info
+{
+	std::string series_id;
+	std::string modality;   // 发起C-GET命令，下载dicom文件时，需要由Modality参数
+};
 typedef struct PatientInfo
 {
 	std::string patiend_id;
 	std::string study_id;
-	std::vector<std::string> sereis_ids;
+	//std::vector<std::string> sereis_ids;
+	std::vector<Series_Info> sereis_infos;
 };
 
 class DcmtkDLDicomDemoFrameWnd : public WindowImplBase
@@ -47,6 +53,7 @@ public:
 	void DoSearchSeriesTest();
 
 	void DoDownloadTest();	
+	void DoDownloadTest2();	
 
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
 	DcmElement* CrearElementoConValor(const char* s);

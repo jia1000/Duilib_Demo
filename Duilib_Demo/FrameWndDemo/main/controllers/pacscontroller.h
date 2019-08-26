@@ -46,6 +46,13 @@ namespace GIL {
 				bool link
 				);
 
+			virtual bool DownloadDicomFilesBySeries(
+				void* connectionKey,
+				const std::string& serverId,
+				const GIL::DICOM::DicomDataset& base, 
+				const std::string series_path
+				);
+
 			virtual bool ObtenerEstudio(
 				void* connectionKey,
 				const std::string& serverId,

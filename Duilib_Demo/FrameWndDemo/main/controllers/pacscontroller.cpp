@@ -109,6 +109,34 @@ DcmDataset query;
 			return true;
 		}
 
+		bool PACSController::DownloadDicomFilesBySeries(
+			void* connectionKey,
+			const std::string& serverId,
+			const GIL::DICOM::DicomDataset& base, 
+			const std::string series_path
+			)
+		{
+
+			std::string modality;
+			if (base.tags.find(GKDCM_Modality) != base.tags.end()) {
+				modality = base.tags.find(GKDCM_Modality)->second;
+			}
+
+			DcmDataset query;
+			FillInQuery(base, &query);
+
+			NetClient<GetAssociation> a(connectionKey, "C-GET");
+			//a.SetWellKnownNumResults(numResults);
+			a.SetStorageSOPClasses(modality);
+			//a.SetModelo(pModelo);
+			a.SetPath(series_path);
+
+			if (!a.QueryServer(&query, server, LOCAL_AE_TITLE, CT_MoveSerie)) {
+				return false;
+			}
+			query.clear();
+		}
+
 		bool PACSController::ObtenerEstudio(void* connectionKey, const std::string& serverId, 
 			const GIL::DICOM::DicomDataset& base, 
 			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 

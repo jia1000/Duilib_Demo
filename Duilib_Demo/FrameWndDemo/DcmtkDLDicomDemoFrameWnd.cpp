@@ -211,8 +211,8 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
 		if (m_pDownloadPathEdit) {
 			m_pDownloadPathEdit->SetText(sz_buffer);
 
-			std::string path = toString(sz_buffer);
-			GIL::DICOM::PACSController::Instance()->SetDicomSavedPath(path);
+			m_dicom_saved_path = toString(sz_buffer);
+			//GIL::DICOM::PACSController::Instance()->SetDicomSavedPath(path);
 		}
 	} 
 }
@@ -318,11 +318,18 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 				if (item->getTag(GKDCM_SeriesInstanceUID, series_id)) {
 					bool match_condition = CheckedMatchConditions(*item);
 					if (match_condition) {
-						patient_info.sereis_ids.push_back(series_id);
+						std::string series_modality("");					
+						if (item->getTag(GKDCM_Modality, series_modality)) {
+							Series_Info series_info;
+							series_info.series_id = series_id;
+							series_info.modality = series_modality;	
+							patient_info.sereis_infos.push_back(series_info);
+						}
 					}
 				}
+				
 			}
-			if (patient_info.sereis_ids.size() > 0) {
+			if (patient_info.sereis_infos.size() > 0) {
 				
 				patient_info.study_id = *item;
 				patient_info.patiend_id = *iter;
@@ -368,9 +375,43 @@ bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& 
 }
 void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
+	for (auto patient_info : m_patient_infos) {
+		// 创建患者编号的文件夹
+		std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
+		TryCreateDir(patient_path);
+		// 创建studyid的文件夹
+		std::string study_path = patient_path + patient_info.study_id + "\\";
+		TryCreateDir(study_path);
+		for (auto sereis_info : patient_info.sereis_infos) {
+			// 创建seriesid的文件夹
+			std::string series_path = study_path + sereis_info.series_id + "\\" ;
+			TryCreateDir(series_path);
+		}
+	}
+
+	for (auto patient_info : m_patient_infos) {
+		for (auto series_info : patient_info.sereis_infos) {
+			GIL::DICOM::DicomDataset base;
+			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, patient_info.study_id);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, patient_info.patiend_id);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_SeriesInstanceUID, series_info.series_id);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_Modality, series_info.modality);
+
+			std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
+			std::string study_path = patient_path + patient_info.study_id + "\\";
+			std::string series_path = study_path + series_info.series_id + "\\" ;
+			GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path);
+		}
+	}
+}
+
+void DcmtkDLDicomDemoFrameWnd::DoDownloadTest2()
+{
 	auto iter = m_patient_ids.begin();
 	auto item = m_study_ids.begin();
-	
+
 	for (; item != m_study_ids.end() && iter != m_patient_ids.end(); ++item, ++iter) {		
 		GIL::DICOM::DicomDataset base;
 		//base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
@@ -382,7 +423,6 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		GIL::DICOM::PACSController::Instance()->ObtenerEstudio(this, SCP_IDENTIFIER, base, false);
 	}
 }
-
 DcmElement* DcmtkDLDicomDemoFrameWnd::CrearElementoConValor(const char* s)
 {
 	unsigned int g = 0xffff;
