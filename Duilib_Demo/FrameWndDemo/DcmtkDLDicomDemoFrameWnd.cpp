@@ -240,152 +240,54 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 	GIL::DICOM::PACSController::Instance()->SetBodyPartExamined(body_part);
 
 	GIL::DICOM::DicomDataset queryWrapper;
-	//queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
-	//queryWrapper.tags[GKDCM_PatientName] = "";
-	//queryWrapper.tags[GKDCM_PatientID] = "";
-	//queryWrapper.tags[GKDCM_StudyDate] = "";
-	//queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // Ó°ÏñÊýÁ¿
-	//queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
-	//queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
-	//queryWrapper.tags[GKDCM_BodyPartExamined] = body_part;//CHEST  BREAST
-	//queryWrapper.tags[GKDCM_ModalitiesInStudy] = modallity;//CT MG DX  etc.
-	//queryWrapper.tags[GKDCM_SliceThickness] = thickness;//CT MG DX  etc.
-
 	GIL::DICOM::PACSController::Instance()->InitStudyFindQueryWrapper(queryWrapper);
+	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_QueryRetrieveLevel, "STUDY");
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_BodyPartExamined, body_part);
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_ModalitiesInStudy, modallity);
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_SliceThickness, thickness);
 
+	std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
 
-	//query.addConditionIfNotExists(GKDCM_QueryRetrieveLevel, "STUDY");
-	//query.addConditionIfNotExists(GKDCM_PatientName);
-	//query.addConditionIfNotExists(GKDCM_PatientID);
-	//query.addConditionIfNotExists(GKDCM_ModalitiesInStudy);
-	//query.addConditionIfNotExists(GKDCM_PatientBirthDate);
-	//query.addConditionIfNotExists(GKDCM_PatientSex);
-	//query.addConditionIfNotExists(GKDCM_StudyDate);
-	//query.addConditionIfNotExists(GKDCM_StudyTime);
-	//query.addConditionIfNotExists(GKDCM_StudyID);
-	//query.addConditionIfNotExists(GKDCM_StudyInstanceUID);
-	//query.addConditionIfNotExists(GKDCM_StudyDescription);
-	//query.addConditionIfNotExists(GKDCM_AccessionNumber);
-	//query.addConditionIfNotExists(GKDCM_StationName);
-	//query.addConditionIfNotExists(GKDCM_ReferringPhysicianName);
-	//query.addConditionIfNotExists(GKDCM_NumberOfStudyRelatedInstances);
-
-	bool success = true;
-	std::ostringstream errorMsg;
-	std::string errorTitle;
-
-	std::string aet_title	= AET_TITLE;//"DEEPWISESCP";
-	std::string host_addr	= HOST_ADDR;
-	//std::string port		= AET_PORT;//"22222";
-	std::string aet_local	= LOCAL_AE_TITLE;
-	int psdu_length			= PSDU_LENGTH;//16384;
-
-	DcmDataset query;
-	GIL::DICOM::PACSController::Instance()->FillInQuery(queryWrapper, &query);
-
-	FindAssociation fs("C-FIND");
-	fs.SetAbstractSyntax("1.2.840.10008.5.1.4.1.2.2.1");
-	fs.SetMaxResults(500);
-
-	GIL::DICOM::DCMTK::Network* pNetwork = NULL;
-	try {
-		pNetwork = GIL::DICOM::DCMTK::Network::Instance(this);
-	}
-	catch(const std::exception& ex)
-	{
-		success = false;
-		//errorMsg << _Std("Unable to connect: Could not start network support.") << ":\n" << ex.what();
-		errorMsg << "Unable to connect: Could not start network support." << ":\n" << ex.what();
-	}
-
-	if (success) {
-		pNetwork->InitializeNetwork(fs.GetTimeout());
-
-		fs.Create(aet_title
-			, host_addr
-			, AET_PORT//atoi(port.c_str())
-			, aet_local
-			);
-
+	std::string result = "";
+	for (int patient_index = 0; patient_index < patient_ids.size() ; patient_index++) {
+		std::string patient_id = patient_ids[patient_index];
+		GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_PatientID, patient_id);
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-		//DicomServer server;
-		fs.SetCallbackInfo(&resultsWrapper);
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainStudy(this, SCP_IDENTIFIER, queryWrapper, resultsWrapper, false);
 
-		CONDITION r = fs.Connect(pNetwork, 16384);
-
-		CONDITION c = ECC_Normal;
-
-		if (r.good() == true) {
-			//LOG_DEBUG(ambitolog, "Requesting object:" << std::endl << DumpDataset(query));
-			c = fs.SendObject(&query);
-		}
-		else {
-			//LOG_DEBUG(ambitolog, "Error connecting:" << r.text());
-			fs.Drop();
-			fs.Destroy();
-			//LOG_INFO(ambitolog, "Disconnected");
-			//throw GIL::DICOM::PACSException(r.text());
-		}
-
-		if (!c.good()) {
-			//LOG_DEBUG(ambitolog, "Error requesting object: " << c.text());
-			fs.Drop();
-			fs.Destroy();
-			//LOG_INFO(ambitolog, "Disconnected");
-			//throw GIL::DICOM::PACSException(c.text());
-		}
-		else
-		{
-			std::string result("");
-			std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
-			//std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-			//int count = 0;
+		if (ret_status_obtain) {
+			
 			for (auto iter : resultsWrapper) {
 				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> item = iter;
-				std::string patient_id("");
-				
-				bool ret = item->getTag(GKDCM_PatientID, patient_id);
-				auto iter = std::find(patient_ids.begin(), patient_ids.end(), patient_id);
-				if (ret && iter != patient_ids.end()) {
 
-					std::string patient_name("");					
-					if (item->getTag(GKDCM_PatientName, patient_name)) {
-						result += patient_name;
-						result += "   ";
-					}
+				std::string patient_name("");					
+				if (item->getTag(GKDCM_PatientName, patient_name)) {
+					result += patient_name;
+					result += "   ";
+				}
 
-					std::string number_study_instances("");					
-					if (item->getTag(GKDCM_NumberOfStudyRelatedInstances, number_study_instances)) {
-						result += number_study_instances;
-						result += "   ";
-						result += "\r\n";
-					}
+				std::string number_study_instances("");					
+				if (item->getTag(GKDCM_NumberOfStudyRelatedInstances, number_study_instances)) {
+					result += number_study_instances;
+					result += "   ";
+					result += "\r\n";
+				}
 
-					std::string study_id("");					
-					if (item->getTag(GKDCM_StudyInstanceUID, study_id)) {
-						result += study_id;
-						result += "   ";
-						result += "\r\n";
-						m_study_ids.push_back(study_id);
-						m_patient_ids.push_back(patient_id);
-					}
-					//if (count > 10) {
-					//	break;
-					//}
-					//count++;
+				std::string study_id("");					
+				if (item->getTag(GKDCM_StudyInstanceUID, study_id)) {
+					result += study_id;
+					result += "   ";
+					result += "\r\n";
+					m_study_ids.push_back(study_id);
+					m_patient_ids.push_back(patient_id);
 				}
 			}
-			if (m_pFindResultLabel) {
-				std::wstring ws_result = toWString(result);
-				m_pFindResultLabel->SetText(ws_result.c_str());
-			}
+			
 		}
-
-		//LOG_INFO(ambitolog, "Disconnected");
-		fs.Drop();
+	}
+	if (m_pFindResultLabel) {
+		std::wstring ws_result = toWString(result);
+		m_pFindResultLabel->SetText(ws_result.c_str());
 	}
 }
 

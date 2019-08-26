@@ -36,6 +36,16 @@ namespace GIL {
 			virtual void  GetConnection(void* connectionKey);
 			virtual void  ReleaseConnection(void* connectionKey);
 			
+			virtual bool ObtainStudy(
+				void* connectionKey,
+				const std::string& serverId,
+				const GIL::DICOM::DicomDataset& base,
+				std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper,
+				//IModeloDicom* pModelo,
+				//GNC::IProxyNotificadorProgreso* pNotificador,
+				bool link
+				);
+
 			virtual bool ObtenerEstudio(
 				void* connectionKey,
 				const std::string& serverId,

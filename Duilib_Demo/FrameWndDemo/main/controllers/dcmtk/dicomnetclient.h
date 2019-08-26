@@ -116,7 +116,7 @@ public:
 		return true;
 	}
 	*/
-	/*
+	
 	bool QueryServer(DcmDataset* query, const GNC::GCS::Ptr<DicomServer>& server, std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper, const std::string& local_aet) {
 		if (!server.IsValid()) {
 			return false;
@@ -134,9 +134,9 @@ public:
 			local_aet
 		);
 
-		T::SetNotificadorProgreso(m_pNotificadorProgreso);
+		//T::SetNotificadorProgreso(m_pNotificadorProgreso);
 
-		T::SetCallbackInfo(&resultsWrapper, server);
+		T::SetCallbackInfo(&resultsWrapper);//, server);
 
 		//LOG_INFO(ambitolog, "Connecting: AET = " << server->AET << ", Host = " << server->HostName << ", Puerto = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
 		CONDITION r = T::Connect(Net, server->PDU);
@@ -152,7 +152,7 @@ public:
 			T::Drop();
 			T::Destroy();
 			//LOG_INFO(ambitolog, "Disconnected");
-			throw GIL::DICOM::PACSException(r.text());
+			//throw GIL::DICOM::PACSException(r.text());
 		}
 
 		if (!c.good()) {
@@ -160,7 +160,7 @@ public:
 			T::Drop();
 			T::Destroy();
 			//LOG_INFO(ambitolog, "Disconnected");
-			throw GIL::DICOM::PACSException(c.text());
+			//throw GIL::DICOM::PACSException(c.text());
 		}
 
 		//LOG_INFO(ambitolog, "Disconnected");
@@ -168,7 +168,7 @@ public:
 		
 		return r.good();
 	}
-	*/
+	
 	///DEPRECATED! IModeloDICOM has to be replaced by results wrapper
 	bool QueryServer(DcmDataset* query, const GNC::GCS::Ptr<DicomServer>& server, /*IModeloDicom* pModelo,*/
 			const std::string& local_aet, CallbackType callbackType) 

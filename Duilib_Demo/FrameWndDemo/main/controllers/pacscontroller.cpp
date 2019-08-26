@@ -67,6 +67,48 @@ namespace GIL {
 			}			
 		}
 
+		bool PACSController::ObtainStudy(void* connectionKey, const std::string& serverId, 
+			const GIL::DICOM::DicomDataset& base, 
+			std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper,
+			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 
+			bool link)
+		{
+			bool success = true;
+			std::ostringstream errorMsg;
+			std::string errorTitle;
+
+			std::string aet_title	= AET_TITLE;//"DEEPWISESCP";
+			std::string host_addr	= HOST_ADDR;//"192.168.1.253";
+			//std::string port		= "22222";
+			std::string aet_local	= LOCAL_AE_TITLE;
+			int psdu_length			= 16384;
+
+			DcmElement* e = NULL;
+DcmDataset query;
+
+			FillInQuery(base, &query);//, server);
+
+			std::string localAET = LOCAL_AE_TITLE;//GNC::Entorno::Instance()->GetDicomLocalAET();			
+			
+			NetClient<FindAssociation> f(connectionKey, "C-FIND");//, pNotificador);
+			
+			//if (server->useTLS) {
+			//	f.SetTLS(server->GetCertificate(), server->GetPrivateKey(), server->GetverifyCredentials());
+			//}
+			//if (server->GetPACSUser() != "") {
+			//	f.SetUserPass(server->GetPACSUser(), server->GetPACSPass());
+			//}
+
+			f.QueryServer(&query, server, resultsWrapper, localAET);
+
+			if (f.Stopped()){
+				return false;
+			}
+
+			query.clear();	
+			return true;
+		}
+
 		bool PACSController::ObtenerEstudio(void* connectionKey, const std::string& serverId, 
 			const GIL::DICOM::DicomDataset& base, 
 			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 

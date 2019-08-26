@@ -16,6 +16,21 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
+typedef struct SeriesInfo
+{
+	std::string sereis_id;
+};
+typedef struct StudyInfo
+{
+	std::string study_id;
+	std::vector<SeriesInfo> series_ids;
+};
+typedef struct PatientInfo
+{
+	std::string patiend_id;
+	std::vector<StudyInfo> studies_ids;
+};
+
 class DcmtkDLDicomDemoFrameWnd : public WindowImplBase
 {
 public:
@@ -37,6 +52,7 @@ public:
 	void OnOpenDownloadPath();
 
 	void DoSearchTest();
+	void DoSearchTest2();
 	void DoDownloadTest();	
 
 	DcmElement* CrearElementoConValor(const char* s);
@@ -55,5 +71,6 @@ private:
 
 	CLabelUI* m_pFindResultLabel;
 
+	std::map<std::string, std::vector<StudyInfo>> m_patient_info; // first patientid, second study
 };
 
