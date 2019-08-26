@@ -181,10 +181,10 @@ namespace GIL {
 					//baseAux.tags["0008|0060"] = (*itModalities);
 					//baseAux.tags[GKDCM_SliceThickness] = m_filter_thickness;
 
-					SetWrapper(baseAux, "0008|0052", "SERIES");
-					SetWrapper(baseAux, "0020|000e", *itUIDS);
-					SetWrapper(baseAux, "0008|0060", *itModalities );
-					SetWrapper(baseAux, GKDCM_SliceThickness, m_filter_thickness);
+					SetWrapper(baseAux, GKDCM_QueryRetrieveLevel,	"SERIES");
+					SetWrapper(baseAux, GKDCM_SeriesInstanceUID,	*itUIDS);
+					SetWrapper(baseAux, GKDCM_Modality,				*itModalities );
+					SetWrapper(baseAux, GKDCM_SliceThickness,		m_filter_thickness);
 
 					ObtenerSerie(connectionKey, serverId, baseAux, link);
 				}
@@ -312,10 +312,10 @@ namespace GIL {
 
 			//m_dicom_saved_path = "G:\\temp\\";
 
-			//std::string patient_id;
-			//if (base.tags.find(GKDCM_PatientID) != base.tags.end()) {
-			//	patient_id = base.tags.find(GKDCM_PatientID)->second;
-			//}
+			std::string patient_id;
+			if (base.tags.find(GKDCM_PatientID) != base.tags.end()) {
+				patient_id = base.tags.find(GKDCM_PatientID)->second;
+			}
 
 			std::string study_id;
 			if (base.tags.find(GKDCM_StudyInstanceUID) != base.tags.end()) {
@@ -327,7 +327,7 @@ namespace GIL {
 				series_id = base.tags.find(GKDCM_SeriesInstanceUID)->second;
 			}
 			// 创建患者编号的文件夹
-			std::string patient_path = m_dicom_saved_path + "\\" + m_cur_patient_id + "\\";
+			std::string patient_path = m_dicom_saved_path + "\\" + patient_id + "\\";
 			TryCreateDir(patient_path);
 
 			// 创建studyid的文件夹
@@ -860,10 +860,10 @@ namespace GIL {
 		{
 			GIL::DICOM::DCMTK::Network::FreeInstance(connectionKey);
 		}
-		void PACSController::SetCurPatientId(std::string patient_id)
-		{
-			m_cur_patient_id = patient_id;
-		}
+		//void PACSController::SetCurPatientId(std::string patient_id)
+		//{
+		//	m_cur_patient_id = patient_id;
+		//}
 		void PACSController::SetThickness(std::string thickness)
 		{
 			m_filter_thickness = thickness;

@@ -65,7 +65,7 @@ namespace GIL {
 			void FillInQuery(const GIL::DICOM::DicomDataset& base, DcmDataset* query);//, const GNC::GCS::Ptr<DicomServer>& server);
 			DcmElement* CrearElementoConValor(const char* s);
 
-			void SetCurPatientId(std::string patient_id);
+			//void SetCurPatientId(std::string patient_id);
 			void SetThickness(std::string thickness);
 			void SetBodyPartExamined(std::string bodyPartExamined);
 			void SetDicomSavedPath(std::string path);
@@ -88,7 +88,7 @@ namespace GIL {
 			std::string m_filter_thickness;
 			std::string m_bodyPartExamined;
 			TRetrieveMethod retrieve_method; 
-			std::string m_cur_patient_id;
+			//std::string m_cur_patient_id;
 		};
 	};
 };

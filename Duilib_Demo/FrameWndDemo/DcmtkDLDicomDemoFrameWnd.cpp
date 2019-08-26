@@ -392,17 +392,16 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
 	auto iter = m_patient_ids.begin();
-	for (auto item : m_study_ids) {
-		if (iter != m_patient_ids.end()) {
-			//m_cur_patient_id = *iter;
-			GIL::DICOM::PACSController::Instance()->SetCurPatientId(*iter);
-		}
-		iter++;
+	auto item = m_study_ids.begin();
+	
+	for (; item != m_study_ids.end() && iter != m_patient_ids.end(); ++item, ++iter) {		
 		GIL::DICOM::DicomDataset base;
 		//base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
 		//base.tags[GKDCM_StudyInstanceUID] = item;		//"0020|000d"
 		GIL::DICOM::PACSController::Instance()->InitStudyFindQueryWrapper(base);
-		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, item);
+		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, *item);
+		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
+
 		GIL::DICOM::PACSController::Instance()->ObtenerEstudio(this, SCP_IDENTIFIER, base, false);
 	}
 }
