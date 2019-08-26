@@ -111,7 +111,7 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("btn_filter")) == 0) {
-			DoSearchTest();
+			DoSearchStudyTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
 			DoDownloadTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_patient_csv_path")) == 0) {
@@ -216,35 +216,17 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
 		}
 	} 
 }
-void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
+void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 {
 	// 搜索前，先清空待下载的病历列表
 	m_study_ids.clear();
-
 	m_patient_ids.clear();
 
-	//GNC::GCS::StoredQuery pStoredQuery;
-
-	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();
-	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
-	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
-	std::wstring ws_modallity = m_pMOdalityiesInStudyEdit->GetText().GetData();
-
-
-	//std::string patient_ids	= toString(ws_patient_ids);
-	std::string body_part	= toString(ws_body_part);
-	std::string thickness	= toString(ws_thickness);
-	std::string modallity	= toString(ws_modallity);
-
-	GIL::DICOM::PACSController::Instance()->SetThickness(thickness);//atoi(thickness.c_str()));
-	GIL::DICOM::PACSController::Instance()->SetBodyPartExamined(body_part);
+	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();	
 
 	GIL::DICOM::DicomDataset queryWrapper;
-	GIL::DICOM::PACSController::Instance()->InitStudyFindQueryWrapper(queryWrapper);
+	GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(queryWrapper);
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_QueryRetrieveLevel, "STUDY");
-	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_BodyPartExamined, body_part);
-	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_ModalitiesInStudy, modallity);
-	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_SliceThickness, thickness);
 
 	std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
 
@@ -253,7 +235,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 		std::string patient_id = patient_ids[patient_index];
 		GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_PatientID, patient_id);
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainStudy(this, SCP_IDENTIFIER, queryWrapper, resultsWrapper, false);
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, SCP_IDENTIFIER, queryWrapper, resultsWrapper, false);
 
 		if (ret_status_obtain) {
 			
@@ -289,8 +271,101 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 		std::wstring ws_result = toWString(result);
 		m_pFindResultLabel->SetText(ws_result.c_str());
 	}
+
+	DoSearchSeriesTest();
+}
+void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
+{
+	m_patient_infos.clear();
+
+	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
+	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
+	std::wstring ws_modallity = m_pMOdalityiesInStudyEdit->GetText().GetData();
+
+	m_bodyPartExamined	= toString(ws_body_part);
+	m_filter_thickness	= toString(ws_thickness);
+	m_filter_modality	= toString(ws_modallity);
+
+
+	//GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_BodyPartExamined, m_bodyPartExamined);
+	//GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_ModalitiesInStudy, m_filter_modality);
+	//GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_SliceThickness, m_filter_thickness);
+
+	GIL::DICOM::PACSController::Instance()->SetThickness(m_filter_thickness);
+	GIL::DICOM::PACSController::Instance()->SetBodyPartExamined(m_bodyPartExamined);
+
+	auto iter = m_patient_ids.begin();
+	auto item = m_study_ids.begin();
+
+	for (; item != m_study_ids.end() && iter != m_patient_ids.end(); ++item, ++iter) 
+	{
+		GIL::DICOM::DicomDataset base;
+		GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
+		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
+		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, *item);
+		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
+
+		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, SCP_IDENTIFIER, base, 
+			resultsWrapper, false);
+
+		if (ret_status_obtain) {
+			PatientInfo patient_info;
+			//std::vector<std::string> sereis_ids;
+			for (auto iter : resultsWrapper) {
+				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> item = iter;
+				std::string series_id("");					
+				if (item->getTag(GKDCM_SeriesInstanceUID, series_id)) {
+					bool match_condition = CheckedMatchConditions(*item);
+					if (match_condition) {
+						patient_info.sereis_ids.push_back(series_id);
+					}
+				}
+			}
+			if (patient_info.sereis_ids.size() > 0) {
+				
+				patient_info.study_id = *item;
+				patient_info.patiend_id = *iter;
+				m_patient_infos.push_back(patient_info);
+			}
+		}
+	}
+
 }
 
+bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& data)
+{
+	// 过滤时间
+	// 过滤层厚
+	std::string value = "";					
+	if (data.getTag(GKDCM_SliceThickness, value)) {
+		if (value.size() > 0 && m_filter_thickness.size() > 0) {
+			if (value != m_filter_thickness) {
+				return false;
+			}
+		}
+	}
+	// 过滤部位
+	value = "";					
+	if (data.getTag(GKDCM_BodyPartExamined, value)) {
+		if (value.size() > 0 && m_bodyPartExamined.size() > 0) {
+			if (value != m_bodyPartExamined) {
+				return false;
+			}
+		}
+	}
+	// 过滤设备
+	value = "";					
+	if (data.getTag(GKDCM_Modality, value)) {
+		if (value.size() > 0 && m_filter_modality.size() > 0) {
+			if (value != m_filter_modality) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
 	auto iter = m_patient_ids.begin();
@@ -300,7 +375,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		GIL::DICOM::DicomDataset base;
 		//base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
 		//base.tags[GKDCM_StudyInstanceUID] = item;		//"0020|000d"
-		GIL::DICOM::PACSController::Instance()->InitStudyFindQueryWrapper(base);
+		GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, *item);
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
 

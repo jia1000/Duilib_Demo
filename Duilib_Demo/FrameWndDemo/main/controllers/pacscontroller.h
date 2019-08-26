@@ -36,7 +36,7 @@ namespace GIL {
 			virtual void  GetConnection(void* connectionKey);
 			virtual void  ReleaseConnection(void* connectionKey);
 			
-			virtual bool ObtainStudy(
+			virtual bool ObtainDicomDataSet(
 				void* connectionKey,
 				const std::string& serverId,
 				const GIL::DICOM::DicomDataset& base,
@@ -80,7 +80,7 @@ namespace GIL {
 			void SetBodyPartExamined(std::string bodyPartExamined);
 			void SetDicomSavedPath(std::string path);
 
-			void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
+			void InitFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
 			//void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
 			void InitSerieFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
 

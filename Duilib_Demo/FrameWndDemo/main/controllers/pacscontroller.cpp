@@ -67,7 +67,7 @@ namespace GIL {
 			}			
 		}
 
-		bool PACSController::ObtainStudy(void* connectionKey, const std::string& serverId, 
+		bool PACSController::ObtainDicomDataSet(void* connectionKey, const std::string& serverId, 
 			const GIL::DICOM::DicomDataset& base, 
 			std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper,
 			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 
@@ -918,9 +918,9 @@ DcmDataset query;
 		{
 			m_dicom_saved_path = path;
 		}
-		void PACSController::InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper)
+		void PACSController::InitFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper)
 		{
-			queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "STUDY";
+			queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "";
 			queryWrapper.tags[GKDCM_PatientName] = "";
 			queryWrapper.tags[GKDCM_PatientID] = "";
 			queryWrapper.tags[GKDCM_StudyDate] = "";

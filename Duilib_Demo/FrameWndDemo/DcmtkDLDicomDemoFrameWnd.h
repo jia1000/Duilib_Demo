@@ -16,19 +16,11 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
-typedef struct SeriesInfo
-{
-	std::string sereis_id;
-};
-typedef struct StudyInfo
-{
-	std::string study_id;
-	std::vector<SeriesInfo> series_ids;
-};
 typedef struct PatientInfo
 {
 	std::string patiend_id;
-	std::vector<StudyInfo> studies_ids;
+	std::string study_id;
+	std::vector<std::string> sereis_ids;
 };
 
 class DcmtkDLDicomDemoFrameWnd : public WindowImplBase
@@ -51,9 +43,12 @@ public:
 	void OnOpenPatientIDListFile();
 	void OnOpenDownloadPath();
 
-	void DoSearchTest();
+	void DoSearchStudyTest();
+	void DoSearchSeriesTest();
+
 	void DoDownloadTest();	
 
+	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
 	DcmElement* CrearElementoConValor(const char* s);
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);
 
@@ -70,6 +65,10 @@ private:
 
 	CLabelUI* m_pFindResultLabel;
 
-	std::map<std::string, std::vector<StudyInfo>> m_patient_info; // first patientid, second study
+	std::vector<struct PatientInfo>  m_patient_infos; 
+	std::string m_dicom_saved_path;
+	std::string m_filter_thickness;
+	std::string m_bodyPartExamined;
+	std::string m_filter_modality;
 };
 
