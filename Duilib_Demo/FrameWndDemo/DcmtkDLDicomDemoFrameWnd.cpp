@@ -182,7 +182,6 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
 	bi.lpfn = NULL;
 	bi.lpszTitle = NULL;
 	bi.pszDisplayName =  sz_buffer;
-	//bi.ulFlags = BIF_BROWSEINCLUDEFILES;
 	bi.ulFlags = BIF_DONTGOBELOWDOMAIN | BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;//有新建文件夹按钮
 
 	InitCommonControlsEx(&init_ctrls);
@@ -191,6 +190,9 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
 		SHGetPathFromIDList(pil, sz_buffer);
 		if (m_pDownloadPathEdit) {
 			m_pDownloadPathEdit->SetText(sz_buffer);
+
+			std::string path = toString(sz_buffer);
+			GIL::DICOM::PACSController::Instance()->SetDicomSavedPath(path);
 		}
 	} 
 }

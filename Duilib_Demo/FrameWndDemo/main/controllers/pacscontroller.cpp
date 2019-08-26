@@ -43,6 +43,7 @@ namespace GIL {
 		PACSController::PACSController()
 			: server(new DicomServer(SCP_IDENTIFIER, AET_TITLE, HOST_ADDR, AET_PORT, PSDU_LENGTH))
 			, retrieve_method(GET)
+			, m_dicom_saved_path(".")
 		{
 			
 		}
@@ -309,7 +310,7 @@ namespace GIL {
 				modality = base.tags.find("0008|0060")->second;
 			}
 
-			static std::string root_path = "G:\\temp\\";
+			//m_dicom_saved_path = "G:\\temp\\";
 
 			//std::string patient_id;
 			//if (base.tags.find(GKDCM_PatientID) != base.tags.end()) {
@@ -326,7 +327,7 @@ namespace GIL {
 				series_id = base.tags.find(GKDCM_SeriesInstanceUID)->second;
 			}
 			// 创建患者编号的文件夹
-			std::string patient_path = root_path + m_cur_patient_id + "\\";
+			std::string patient_path = m_dicom_saved_path + "\\" + m_cur_patient_id + "\\";
 			TryCreateDir(patient_path);
 
 			// 创建studyid的文件夹
@@ -870,6 +871,10 @@ namespace GIL {
 		void PACSController::SetBodyPartExamined(std::string bodyPartExamined)
 		{
 			m_bodyPartExamined = bodyPartExamined;
+		}
+		void PACSController::SetDicomSavedPath(std::string path)
+		{
+			m_dicom_saved_path = path;
 		}
 		void PACSController::InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper)
 		{

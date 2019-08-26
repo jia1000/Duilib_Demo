@@ -68,6 +68,7 @@ namespace GIL {
 			void SetCurPatientId(std::string patient_id);
 			void SetThickness(std::string thickness);
 			void SetBodyPartExamined(std::string bodyPartExamined);
+			void SetDicomSavedPath(std::string path);
 
 			void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
 			//void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
@@ -83,6 +84,7 @@ namespace GIL {
 
 			GNC::GCS::Ptr<DicomServer> server;
 
+			std::string m_dicom_saved_path;
 			std::string m_filter_thickness;
 			std::string m_bodyPartExamined;
 			TRetrieveMethod retrieve_method; 
