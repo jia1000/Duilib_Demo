@@ -16,6 +16,8 @@
 
 #include <dcmtk/dcmdata/dcdeftag.h>
 
+#include <thread>
+
 #define LOCAL_AE_TITLE	"DEEPWISE_002"
 
 #define SCP_IDENTIFIER   "253"
@@ -27,6 +29,7 @@
 DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 	//: server(new DicomServer(SCP_IDENTIFIER, AET_TITLE, HOST_ADDR, AET_PORT, PSDU_LENGTH))
 	: m_downloading_dicom_index(0)
+	, m_is_stoped(false)
 {
 	//retrieve_method = GET;
 }
@@ -119,7 +122,10 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 		} else if (_tcscmp(pszCtrlName, _T("btn_filter")) == 0) {
 			DoSearchStudyTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
-			DoDownloadTest();
+			//DoDownloadTest();
+			m_is_stoped = false;
+			std::thread th(&DcmtkDLDicomDemoFrameWnd::DoDownloadTest, this);
+			th.detach();
 		} else if (_tcscmp(pszCtrlName, _T("btn_patient_csv_path")) == 0) {
 			OnOpenPatientIDListFile();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download_path")) == 0) {
@@ -133,6 +139,20 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return __super::HandleMessage(uMsg, wParam, lParam);
+}
+
+LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	switch (uMsg)
+	{
+	case WM_USER_UPDATE_DOWNLOAD_DICOM_FILE:
+		UpdateDownloadStaticsText();
+		break;
+	default:
+		break;
+	}
+	bHandled = FALSE;
+	return 0;
 }
 
 //#include"dcmtk\config\osconfig.h"
@@ -196,6 +216,9 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenPatientIDListFile()
         }
     }  
 }
+
+
+
 void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
 {
 	LPITEMIDLIST pil = NULL;
@@ -227,6 +250,8 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 	// 搜索前，先清空待下载的病历列表
 	m_study_ids.clear();
 	m_patient_ids.clear();
+
+	m_patient_infos2.clear();
 
 	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();	
 
@@ -288,7 +313,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 {
 	m_patient_infos1.clear();
-	m_patient_infos2.clear();
+	m_downloading_dicom_index = 0;
 
 	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
 	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
@@ -335,6 +360,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 							Series_Info series_info;
 							series_info.series_id = series_id;
 							series_info.modality = series_modality;	
+							series_info.is_downloaded = false;
 							patient_info.sereis_infos.push_back(series_info);
 						}
 					}
@@ -459,7 +485,13 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	}
 
 	for (auto& patient_info : m_patient_infos1) {
+		if (m_is_stoped) {
+			break;
+		}
 		for (auto& series_info : patient_info.sereis_infos) {
+			if (m_is_stoped) {
+				break;
+			}
 			GIL::DICOM::DicomDataset base;
 			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
@@ -474,7 +506,8 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path)) {
 				m_downloading_dicom_index++;
 				series_info.is_downloaded = true;
-				UpdateDownloadStaticsText();
+				//UpdateDownloadStaticsText();
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, m_downloading_dicom_index);
 			}
 			else
 			{
@@ -518,7 +551,7 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 		os_file << patient_id << ',' ;
 		os_file << "" << ',' ;
 		os_file << "" << ',' ;
-		os_file << "" << ',' ;
+		os_file << "not found" << ',' ;
 		os_file << endl;
 	}
 	os_file.close();

@@ -105,6 +105,10 @@ DcmDataset query;
 				return false;
 			}
 
+			if (resultsWrapper.size() <= 0) {
+				return false;
+			}
+
 			query.clear();	
 			return true;
 		}

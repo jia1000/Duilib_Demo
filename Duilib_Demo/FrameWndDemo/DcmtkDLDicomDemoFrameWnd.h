@@ -30,6 +30,8 @@ typedef struct PatientInfo
 	std::vector<Series_Info> sereis_infos;
 };
 
+#define WM_USER_UPDATE_DOWNLOAD_DICOM_FILE   (WM_USER + 101)
+
 class DcmtkDLDicomDemoFrameWnd : public WindowImplBase
 {
 public:
@@ -45,7 +47,9 @@ public:
 	virtual void    Notify(TNotifyUI& msg);
 	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	virtual LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
+	//void thread_func(DcmtkDLDicomDemoFrameWnd* ptr);
 	void OnSelChanged(CControlUI* pSender);
 	void OnOpenPatientIDListFile();
 	void OnOpenDownloadPath();
@@ -89,5 +93,6 @@ private:
 	std::string m_bodyPartExamined;
 	std::string m_filter_modality;
 	int m_downloading_dicom_index;
+	bool m_is_stoped;
 };
 
