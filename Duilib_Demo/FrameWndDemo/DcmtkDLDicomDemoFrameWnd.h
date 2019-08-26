@@ -33,6 +33,8 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 	void OnSelChanged(CControlUI* pSender);
+	void OnOpenPatientIDListFile();
+	void OnOpenDownloadPath();
 
 	void DoSearchTest();
 	void DoDownloadTest();	
@@ -44,10 +46,14 @@ private:
 	std::vector<std::string> m_study_ids;
 	std::vector<std::string> m_patient_ids;
 	
+	CEditUI* m_pPatientCsvPathEdit;
 	CEditUI* m_pPatientIdEdit;
 	CEditUI* m_pBodyPartEdit;
 	CEditUI* m_pThicknessEdit;
 	CEditUI* m_pMOdalityiesInStudyEdit;
+	CEditUI* m_pDownloadPathEdit;
+
 	CLabelUI* m_pFindResultLabel;
+
 };
 

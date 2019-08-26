@@ -64,11 +64,13 @@ CControlUI* DcmtkDLDicomDemoFrameWnd::CreateControl(LPCTSTR pstrClass)
 
 void DcmtkDLDicomDemoFrameWnd::InitWindow()
 {
+	m_pPatientCsvPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_patient_csv_path"));
 	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
 	m_pFindResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_research_result"));
 	m_pBodyPartEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_part"));
 	m_pThicknessEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_thickness"));
 	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
+	m_pDownloadPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_download_path"));
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
 	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
 
@@ -112,7 +114,11 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			DoSearchTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
 			DoDownloadTest();
-		}  
+		} else if (_tcscmp(pszCtrlName, _T("btn_patient_csv_path")) == 0) {
+			OnOpenPatientIDListFile();
+		} else if (_tcscmp(pszCtrlName, _T("btn_download_path")) == 0) {
+			OnOpenDownloadPath(); 
+		}    
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
 		OnSelChanged(msg.pSender);
 	} 
@@ -144,6 +150,50 @@ void DcmtkDLDicomDemoFrameWnd::OnSelChanged(CControlUI* pSender)
 	}
 }
 
+void DcmtkDLDicomDemoFrameWnd::OnOpenPatientIDListFile()
+{
+	std::wstring def_path = L"";
+	OPENFILENAME ofn = { 0 };  
+    TCHAR str_filename[MAX_PATH] = { 0 };
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = m_hWnd;
+    ofn.lpstrFilter = TEXT("All Files(*.*)\0*.*\0CSV Flies(*.csv)\0*.csv\0\0");
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFile = str_filename;
+    ofn.nMaxFile = sizeof(str_filename);
+    ofn.lpstrInitialDir = def_path.c_str();
+    ofn.lpstrTitle = NULL;
+    ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY;
+    if (GetOpenFileName(&ofn)){
+        if (m_pPatientCsvPathEdit) {
+			m_pPatientCsvPathEdit->SetText(str_filename);
+        }
+    }  
+}
+void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
+{
+	LPITEMIDLIST pil = NULL;
+	INITCOMMONCONTROLSEX init_ctrls = {0};
+	TCHAR sz_buffer[4096] = {0};
+	BROWSEINFO bi = {0};
+	bi.hwndOwner = m_hWnd;
+	bi.iImage = 0;
+	bi.lParam = NULL;
+	bi.lpfn = NULL;
+	bi.lpszTitle = NULL;
+	bi.pszDisplayName =  sz_buffer;
+	//bi.ulFlags = BIF_BROWSEINCLUDEFILES;
+	bi.ulFlags = BIF_DONTGOBELOWDOMAIN | BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;//有新建文件夹按钮
+
+	InitCommonControlsEx(&init_ctrls);
+	pil = SHBrowseForFolder(&bi);
+	if (NULL != pil){
+		SHGetPathFromIDList(pil, sz_buffer);
+		if (m_pDownloadPathEdit) {
+			m_pDownloadPathEdit->SetText(sz_buffer);
+		}
+	} 
+}
 void DcmtkDLDicomDemoFrameWnd::DoSearchTest()
 {
 	// 搜索前，先清空待下载的病历列表
