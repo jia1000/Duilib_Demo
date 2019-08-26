@@ -272,6 +272,11 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 			}
 			
 		}
+		else
+		{
+			// 统计无法找到series id的patient id
+			m_patient_infos2.push_back(patient_id);
+		}
 	}
 	if (m_pResearchResultLabel) {
 		std::wstring ws_result = toWString(result);
@@ -282,7 +287,8 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 }
 void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 {
-	m_patient_infos.clear();
+	m_patient_infos1.clear();
+	m_patient_infos2.clear();
 
 	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
 	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
@@ -339,7 +345,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 				
 				patient_info.study_id = *item;
 				patient_info.patiend_id = *iter;
-				m_patient_infos.push_back(patient_info);
+				m_patient_infos1.push_back(patient_info);
 			}
 		}
 	}
@@ -373,7 +379,7 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
 int DcmtkDLDicomDemoFrameWnd::GetPatienCount()
 {
 	std::set<std::string> patient_ids;
-	for (auto patient_info : m_patient_infos) {
+	for (auto patient_info : m_patient_infos1) {
 		patient_ids.insert(patient_info.patiend_id);
 	}
 
@@ -383,7 +389,7 @@ int DcmtkDLDicomDemoFrameWnd::GetPatienCount()
 int DcmtkDLDicomDemoFrameWnd::GetStudyCount()
 {
 	std::set<std::string> study_ids;
-	for (auto patient_info : m_patient_infos) {
+	for (auto patient_info : m_patient_infos1) {
 		study_ids.insert(patient_info.study_id);
 	}
 
@@ -393,7 +399,7 @@ int DcmtkDLDicomDemoFrameWnd::GetStudyCount()
 int DcmtkDLDicomDemoFrameWnd::GetSeriesCount()
 {
 	int count = 0;
-	for (auto patient_info : m_patient_infos) {
+	for (auto patient_info : m_patient_infos1) {
 		count += patient_info.sereis_infos.size();
 	}
 	return count;
@@ -438,7 +444,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	m_downloading_dicom_index = 0;
 	UpdateDownloadStaticsText();
 
-	for (auto patient_info : m_patient_infos) {
+	for (auto patient_info : m_patient_infos1) {
 		// 创建患者编号的文件夹
 		std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
 		TryCreateDir(patient_path);
@@ -452,7 +458,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 	}
 
-	for (auto& patient_info : m_patient_infos) {
+	for (auto& patient_info : m_patient_infos1) {
 		for (auto& series_info : patient_info.sereis_infos) {
 			GIL::DICOM::DicomDataset base;
 			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
@@ -469,6 +475,10 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 				m_downloading_dicom_index++;
 				series_info.is_downloaded = true;
 				UpdateDownloadStaticsText();
+			}
+			else
+			{
+				series_info.is_downloaded = false;
 			}
 		}
 	}
@@ -489,8 +499,9 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 	os_file << "status" << ',' ;
 	os_file << endl;
 
-	for (auto& patient_info : m_patient_infos) {
-		for (auto& series_info : patient_info.sereis_infos) {
+	// 写入 能够根据patiendid 找到 seriesid的数据
+	for (auto patient_info : m_patient_infos1) {
+		for (auto series_info : patient_info.sereis_infos) {
 			os_file << patient_info.patiend_id << ',' ;
 			os_file << patient_info.study_id << ',' ;
 			os_file << series_info.series_id << ',' ;
@@ -502,7 +513,14 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 			os_file << endl;
 		}
 	}
-
+	// 写入 能够根据patiendid 找到 seriesid的数据
+	for (auto patient_id : m_patient_infos2) {
+		os_file << patient_id << ',' ;
+		os_file << "" << ',' ;
+		os_file << "" << ',' ;
+		os_file << "" << ',' ;
+		os_file << endl;
+	}
 	os_file.close();
 }
 
