@@ -20,6 +20,7 @@ typedef struct Series_Info
 {
 	std::string series_id;
 	std::string modality;   // 发起C-GET命令，下载dicom文件时，需要由Modality参数
+	bool is_downloaded;
 };
 typedef struct PatientInfo
 {
@@ -60,6 +61,8 @@ public:
 	int GetSeriesCount();
 
 	void UpdateDownloadStaticsText();
+	void OutputResultStaticsToFile(std::string path);
+
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
 	DcmElement* CrearElementoConValor(const char* s);
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);

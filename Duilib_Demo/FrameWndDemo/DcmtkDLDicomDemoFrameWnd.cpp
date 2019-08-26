@@ -452,8 +452,8 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 	}
 
-	for (auto patient_info : m_patient_infos) {
-		for (auto series_info : patient_info.sereis_infos) {
+	for (auto& patient_info : m_patient_infos) {
+		for (auto& series_info : patient_info.sereis_infos) {
 			GIL::DICOM::DicomDataset base;
 			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
@@ -467,10 +467,43 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			std::string series_path = study_path + series_info.series_id + "\\" ;
 			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path)) {
 				m_downloading_dicom_index++;
+				series_info.is_downloaded = true;
 				UpdateDownloadStaticsText();
 			}
 		}
 	}
+
+	OutputResultStaticsToFile(m_dicom_saved_path);
+}
+
+void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
+{
+	std::string file_name= m_dicom_saved_path + "\\" + "result.csv";
+	std::ofstream os_file;
+	os_file.open(file_name, ios::out);
+
+	//  ≤Â»Î±ÌÕ∑
+	os_file << "patiend_id" << ',' ;
+	os_file << "study_id" << ',' ;
+	os_file <<"series_id" << ',' ;
+	os_file << "status" << ',' ;
+	os_file << endl;
+
+	for (auto& patient_info : m_patient_infos) {
+		for (auto& series_info : patient_info.sereis_infos) {
+			os_file << patient_info.patiend_id << ',' ;
+			os_file << patient_info.study_id << ',' ;
+			os_file << series_info.series_id << ',' ;
+			if (series_info.is_downloaded) {
+				os_file << "success" << ',' ;
+			} else {
+				os_file << "failure" << ',' ;
+			}
+			os_file << endl;
+		}
+	}
+
+	os_file.close();
 }
 
 void DcmtkDLDicomDemoFrameWnd::DoDownloadTest2()
