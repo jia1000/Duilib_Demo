@@ -52,7 +52,6 @@ public:
 	void OnOpenDownloadPath();
 
 	void DoSearchTest();
-	void DoSearchTest2();
 	void DoDownloadTest();	
 
 	DcmElement* CrearElementoConValor(const char* s);
