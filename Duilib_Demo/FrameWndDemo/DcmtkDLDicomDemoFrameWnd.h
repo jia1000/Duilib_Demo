@@ -76,7 +76,7 @@ public:
 	int GetStudyCount();
 	int GetSeriesCount();
 
-	void UpdateDownloadStaticsText();
+	void UpdateDownloadStaticsText(int index);
 	void UpdateDownloadListProAll();
 	void UpdateDownloadListProItem(int index, std::string status_text);
 	void OutputResultStaticsToFile(std::string path);
@@ -98,7 +98,6 @@ private:
 	CEditUI* m_pSexEdit;
 	CEditUI* m_pDownloadPathEdit;
 
-	CLabelUI* m_pResearchResultLabel;
 	CLabelUI* m_pStatiscResultLabel;
 
 	COptionUI* m_pFilterBodyPart;

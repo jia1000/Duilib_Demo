@@ -74,7 +74,6 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 {
 	m_pPatientCsvPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_patient_csv_path"));
 	m_pPatientIdEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_find"));
-	m_pResearchResultLabel = static_cast<CEditUI*>(m_pm.FindControl(L"edit_research_result"));
 	m_pBodyPartEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_part"));
 	m_pThicknessEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_thickness"));
 	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
@@ -122,6 +121,8 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	}
 	if (m_pBodyPartEdit) {
 		m_pBodyPartEdit->SetEnabled(is_sel);
+		std::wstring ws = toWString(filter_condition.condition_text);
+		m_pBodyPartEdit->SetText(ws.c_str());
 	}
 	// 层厚筛选
 	ConfigController::Instance()->GetFilterThickness(filter_condition);
@@ -131,6 +132,8 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	}
 	if (m_pThicknessEdit) {
 		m_pThicknessEdit->SetEnabled(is_sel);
+		std::wstring ws = toWString(filter_condition.condition_text);
+		m_pThicknessEdit->SetText(ws.c_str());
 	}
 	// 设备筛选
 	ConfigController::Instance()->GetFilterModality(filter_condition);
@@ -140,12 +143,14 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	}
 	if (m_pMOdalityiesInStudyEdit) {
 		m_pMOdalityiesInStudyEdit->SetEnabled(is_sel);
+		std::wstring ws = toWString(filter_condition.condition_text);
+		m_pMOdalityiesInStudyEdit->SetText(ws.c_str());
 	}
 	//is_sel = false;
 	//if (m_pSexEdit) {
 	//	m_pSexEdit->SetEnabled(is_sel);
 	//}
-	UpdateDownloadStaticsText();
+	UpdateDownloadStaticsText(0);
 	UpdateDownloadListProAll();
 }
 
@@ -214,7 +219,8 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, 
 	switch (uMsg)
 	{
 	case WM_USER_UPDATE_DOWNLOAD_DICOM_FILE:
-		UpdateDownloadStaticsText();
+		index = lParam;
+		UpdateDownloadStaticsText(index);
 		break;
 	case WM_USER_UPDATE_DOWNLOAD_STATUS:
 		index = wParam;
@@ -444,10 +450,6 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 			m_patient_infos2.push_back(patient_id);
 		}
 	}
-	if (m_pResearchResultLabel) {
-		std::wstring ws_result = toWString(result);
-		m_pResearchResultLabel->SetText(ws_result.c_str());
-	}
 
 	DoSearchSeriesTest();
 }
@@ -520,11 +522,11 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 		}
 	}
 
-	UpdateDownloadStaticsText();
+	UpdateDownloadStaticsText(0);
 	UpdateDownloadListProAll();
 }
 
-void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
+void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText(int index)
 {
 	m_pStatiscResultLabel = static_cast<CLabelUI*>(m_pm.FindControl(L"label_result_statics"));
 	if (m_pStatiscResultLabel) {
@@ -539,7 +541,7 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
 		ss << GetSeriesCount();
 		ss << " , ";
 		ss << "Success's Series ";
-		ss << m_downloading_dicom_index;
+		ss << index;
 		ss << " ";
 		std::string s = ss.str();
 		std::wstring ws_result = toWString(s);
@@ -667,7 +669,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
 	// 下载series计数器，清零
 	m_downloading_dicom_index = 0;
-	UpdateDownloadStaticsText();
+	UpdateDownloadStaticsText(0);
 
 	for (auto patient_info : m_patient_infos1) {
 		// 创建患者编号的文件夹

@@ -56,24 +56,11 @@
 							<Option name="op_device_modality" text="设备     (0008|0061)" width="160" userdata="RF" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_modality" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
-						</HorizontalLayout>
-						<!--
-						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="op_device_sex" text="性别     (0010|0040)" width="160" userdata="XA" style="pacs_cb_style"/>
-							<Control width="20"/>
-							<Edit name="edit_filter_sex" inset="5,0,5,0" tipvalue="man" textpadding="5,0,0,0" />				
-						</HorizontalLayout>		
--->						
+						</HorizontalLayout>	
 					</VerticalLayout>
 				</GroupBox>
 				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
 					<Button name="btn_filter" text="搜索" width="80" tooltip="搜索" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
-				</HorizontalLayout>
-				<Control height="1"/>
-				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
-					<Label  text="搜索结果："  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
-					<Control width="5"/>
-					<Edit name="edit_research_result" inset="5,0,5,0" height="60" wordbreak="true" tipvalue="结果..." textpadding="5,0,0,0" />
 				</HorizontalLayout>
 				<Control height="1"/>
 				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
@@ -84,13 +71,8 @@
 					<Edit name="edit_download_path" inset="5,0,5,0" height="60" wordbreak="true" tipvalue="下载路径..." textpadding="5,0,0,0" />
 					<Button name="btn_download_stop" text="停止下载" width="80" height="30" tooltip="停止下载" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>					
 				</HorizontalLayout>
-				<Control height="1"/>	
-				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
-					<Label  text="下载结果："  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
-					<Label name="label_result_statics" text=""  inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
-				</HorizontalLayout>
-				<Control height="1"/>
-				<HorizontalLayout bkcolor="#FF272B2E" height="400"> 
+				<Control height="1"/>					
+				<HorizontalLayout bkcolor="#FF272B2E" > 
 					<ListPro name="list_download_result"   style="list_style" itemshowcolumnline="true" itemshowrowline="true" itemlinecolor="FF888888" bkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true" itemtextcolor="#FF000000" itembkcolor="#FFE2DDDF" itemselectedtextcolor="#FF000000" itemselectedbkcolor="#FFC1E3FF" itemhottextcolor="#FF000000" itemhotbkcolor="#FFE9F5FF" itemdisabledtextcolor="#FFCCCCCC" itemdisabledbkcolor="#FFFFFFFF" >
 						<ListHeader name="domain1" style="listheader_style">
 							<ListHeaderItem text="index" width="40" height="23" minwidth="16"  sepwidth="1" align="center"  />
@@ -98,35 +80,15 @@
 							<ListHeaderItem text="study_id" 	width="400" height="23" minwidth="16"  sepwidth="1" align="center"  />
 							<ListHeaderItem text="series_id" 	width="400" height="23" minwidth="16"  sepwidth="1" align="center"  />
 							<ListHeaderItem text="status" 		width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
-						</ListHeader>
-						<!-- 
-						<ListLabelElement text="张三" selected="true" />
-						<ListLabelElement text="李四" />
-						<ListLabelElement text="王五" />
-						-->
+						</ListHeader>						
 					</ListPro>
 				</HorizontalLayout>
 				<Control height="1"/>
-				<!-- 下载结果列表 tab页显示 -->
-				<!-- 
-				<HorizontalLayout bkcolor="#FFE6E7E8"> 
-					<HorizontalLayout width="80" >
-						<VerticalLayout>
-							<Option name="op_success" text="成功列表" height="60" group="tab_download_result" selected="true"  normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
-							<Option name="op_failure" text="失败列表" height="60" group="tab_download_result" selected="false" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
-						</VerticalLayout>
-					</HorizontalLayout>
-					<TabLayout name="tab_result_show" bkcolor="#FF424242" selectedid="-1">
-						<HorizontalLayout>
-							<Button name="btn_successs" text="成功结果" bkcolor="#FF535353"  />
-						</HorizontalLayout>
-						<HorizontalLayout>
-							<Button name="btn_failure" text="失败结果" bkcolor="#FFFFFFFF"  />
-						</HorizontalLayout>
-					</TabLayout> 
+				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
+					<Label  text="下载结果："  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Label name="label_result_statics" text=""  inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
 				</HorizontalLayout>
-				-->
-		
+				<Control height="1"/>
 			</VerticalLayout>
 			</HorizontalLayout>
 	</VerticalLayout>
