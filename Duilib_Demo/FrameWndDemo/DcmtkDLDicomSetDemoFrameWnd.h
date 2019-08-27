@@ -23,12 +23,14 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 	void DoConnectTest();
+	void DoSaveConfigTest();
 
 private:
 	CEditUI* m_pNumberEdit;
 	CEditUI* m_pAetEdit;
 	CEditUI* m_pHostEdit;
 	CEditUI* m_pDicomPortEdit;
+	CEditUI* m_pDicomPdutEdit;
 	//CSpinnerUI* m_pPduSpinner;
 	CComboUI* m_pSerchMethodCmb;
 	CComboUI* m_pSerchModeCmb;

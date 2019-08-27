@@ -1,10 +1,10 @@
 #pragma once
 
 typedef struct ST_Filter_Condition {
-	std::string name;
-	std::string tag;
-	bool is_checked;
-	std::string condition;
+	//std::string name;
+	//std::string tag;
+	int is_checked;
+	std::string condition_text;
 };
 
 #define SECTION_PACS_SERVICE		"PACSService"
@@ -27,25 +27,30 @@ public:
 	static void FreeInstance();
 
 	void ReloadFile(const std::string& file_name);
+	std::wstring GetConfigFile();
 	void SaveFile();
 
-	void SetAETNumber(const std::string& number);
-	void SetAETTitle(const std::string& aet_title);
-	void SetAETHost(const std::string& ip_addr);
-	void SetAETPort(const std::string& port);
+	void SetAETNumber(const std::wstring& number);
+	void SetAETTitle(const std::wstring& aet_title);
+	void SetAETHost(const std::wstring& ip_addr);
+	void SetAETPort(const std::wstring& port);
+	void SetAETPduLength(const std::wstring& pdu);
 
-	std::string GetConfigFile();
-	std::string GetAETNumber();
-	std::string GetAETTitle();
-	std::string GetAETHost();
-	std::string GetAETPort();	
+	std::wstring GetAETNumber();
+	std::wstring GetAETTitle();
+	std::wstring GetAETHost();
+	std::wstring GetAETPort();	
+	std::wstring GetAETPdu();
 
 	void SetFilterDate(ST_Filter_Condition condition);
 	void SetFilterBodyPart(ST_Filter_Condition condition);
 	void SetFilterThickness(ST_Filter_Condition condition);
 	void SetFilterModality(ST_Filter_Condition condition);
 	
-	
+	void GetFilterDate(ST_Filter_Condition& condition);
+	void GetFilterBodyPart(ST_Filter_Condition& condition);
+	void GetFilterThickness(ST_Filter_Condition& condition);
+	void GetFilterModality(ST_Filter_Condition& condition);
 
 	// Õ®”√µƒ∂¡–¥≈‰÷√
 	void GetValue(const string &section, const string &key, string *value, const string &defaultValue);

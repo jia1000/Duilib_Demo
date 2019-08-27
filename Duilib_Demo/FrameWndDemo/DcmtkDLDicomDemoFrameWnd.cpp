@@ -100,29 +100,51 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 		m_pDownloadPathEdit->SetText(L"G:\\temp1");
 		m_dicom_saved_path = "G:\\temp1";
 	}
-	bool is_sel = false;
+	ST_Filter_Condition filter_condition;
+	//ConfigController::Instance()->ReloadFile("G:\\temp1\\test.ini");
+	// 日期筛选
+	ConfigController::Instance()->GetFilterDate(filter_condition);
+	bool is_sel = filter_condition.is_checked;
+	if (m_pFilterRANGE) {
+		m_pFilterRANGE->Selected(is_sel);
+	}
 	if (m_pFilterFROM) {
 		m_pFilterFROM->SetEnabled(is_sel);
-	}
-	is_sel = false;
+	}	
 	if (m_pFilterTO) {
 		m_pFilterTO->SetEnabled(is_sel);
 	}
-	is_sel = false;
+	// 部位筛选
+	ConfigController::Instance()->GetFilterBodyPart(filter_condition);
+	is_sel = filter_condition.is_checked;
+	if (m_pFilterBodyPart) {
+		m_pFilterBodyPart->Selected(is_sel);
+	}
 	if (m_pBodyPartEdit) {
 		m_pBodyPartEdit->SetEnabled(is_sel);
 	}
-	is_sel = false;
+	// 层厚筛选
+	ConfigController::Instance()->GetFilterThickness(filter_condition);
+	is_sel = filter_condition.is_checked;
+	if (m_pFilterThickness) {
+		m_pFilterThickness->Selected(is_sel);
+	}
 	if (m_pThicknessEdit) {
 		m_pThicknessEdit->SetEnabled(is_sel);
+	}
+	// 设备筛选
+	ConfigController::Instance()->GetFilterModality(filter_condition);
+	is_sel = filter_condition.is_checked;
+	if (m_pFilterModality) {
+		m_pFilterModality->Selected(is_sel);
 	}
 	if (m_pMOdalityiesInStudyEdit) {
 		m_pMOdalityiesInStudyEdit->SetEnabled(is_sel);
 	}
-	is_sel = false;
-	if (m_pSexEdit) {
-		m_pSexEdit->SetEnabled(is_sel);
-	}
+	//is_sel = false;
+	//if (m_pSexEdit) {
+	//	m_pSexEdit->SetEnabled(is_sel);
+	//}
 	UpdateDownloadStaticsText();
 	UpdateDownloadListProAll();
 }

@@ -52,6 +52,8 @@
 		<control width="15"/>
 		<Label text="PDU(KB)" textcolor="#FFFAFAFA" font="2" width="0" autocalcwidth="true"/>
 		<control width="7" />
+		<Edit name="dicom_node_pdu_spinner" font="2" maxwidth="280" minwidth="280" style="edit_style_dicom" numberonly="true" />	
+		<!--
 		<Spinner name="dicom_node_pdu_spinner"  width="280" value="16384" minvalue="4096" childvalign = "vcenter" inset="0,0,0,0" bkcolor="#FF545454" childpadding="0">
 			<SpinnerEdit name="spinner_number_edit" style="edit_style_dicom" numberonly="true" textpadding="6,0,6,0" width="250" showshadow="true"/>	
 			<VerticalLayout height="32" bkcolor="#FF545454" inset="0,0,0,0" childpadding="0">
@@ -59,6 +61,7 @@
 		        <SpinnerButton name="spinner_sub_btn" width="30" bkcolor="#FF545454" height="16" normalimage="file='sysbtn\down_arrow_normal.png' source='1,0,30,16'" hotimage="file='sysbtn\down_arrow_hover.png' source='1,0,30,16'" pushedimage="file='sysbtn\down_arrow_pressed.png' source='1,0,30,16'" disabledimage="file='sysbtn\down_arrow_disabled.png' source='1,0,30,16'" />
 	        </VerticalLayout>
 		</Spinner>
+		-->
 		<control />
 	</HorizontalLayout>
 	<HorizontalLayout width="364" height="38" bkcolor="#FF545454" childvalign="vcenter" padding="1,1,1,0">
@@ -97,7 +100,7 @@
 		<Control width = "10"/>
 		<Button name="dicom_node_test_status" width="40" height="30" text="" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
 		<Control width = "22"/>
-		<Button name="dicom_node_accept" width="88" height="30" text="接受" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
+		<Button name="dicom_node_accept" width="88" height="30" text="保存" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
 		<Control width = "9"/>
 		<Button name="dicom_node_cancel" width="88" height="30" text="取消" textcolor = "#FFFAFAFA" font = "2" normalimage="file='set/button_normal.png' corner='1,1,1,1'" hotimage="file='set/button_hover.png' corner='1,1,1,1'" pushedimage="file='set/button_pushed.png' corner='1,1,1,1'" />
 		<Control />

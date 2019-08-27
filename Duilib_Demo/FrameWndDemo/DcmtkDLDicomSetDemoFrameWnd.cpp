@@ -5,6 +5,8 @@
 
 #include "utility_tool/string_converse.h"
 
+#include "controller/configcontroller.h"
+
 DcmtkDLDicomSetDemoFrameWnd::DcmtkDLDicomSetDemoFrameWnd(void)
 {
 }
@@ -47,13 +49,37 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 	m_pAetEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_aet"));
 	m_pHostEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_host"));
 	m_pDicomPortEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_port"));
+	m_pDicomPdutEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
 	//m_pPduSpinner = static_cast<CSpinnerUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
 	m_pSerchMethodCmb = static_cast<CComboUI*>(m_pm.FindControl(L"dicom_node_serch_method"));
 
-	m_pNumberEdit->SetText(L"253");
-	m_pAetEdit->SetText(L"DEEPWISESCP");
-	m_pHostEdit->SetText(L"192.168.1.253");
-	m_pDicomPortEdit->SetText(L"22222");
+	ST_Filter_Condition filter_condition;
+
+	std::wstring text = L"";
+	if (m_pNumberEdit) {
+		text = ConfigController::Instance()->GetAETNumber();
+		m_pNumberEdit->SetText(text.c_str());
+	}
+
+	if (m_pAetEdit) {
+		text = ConfigController::Instance()->GetAETTitle();
+		m_pAetEdit->SetText(text.c_str());
+	}
+
+	if (m_pHostEdit) {
+		text = ConfigController::Instance()->GetAETHost();
+		m_pHostEdit->SetText(text.c_str());
+	}
+
+	if (m_pDicomPortEdit) {
+		text = ConfigController::Instance()->GetAETPort();
+		m_pDicomPortEdit->SetText(text.c_str());
+	}
+
+	if (m_pDicomPdutEdit) {
+		text = ConfigController::Instance()->GetAETPdu();
+		m_pDicomPdutEdit->SetText(text.c_str());
+	} 
 }
 
 LRESULT DcmtkDLDicomSetDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -85,6 +111,12 @@ void    DcmtkDLDicomSetDemoFrameWnd::Notify(TNotifyUI& msg)
 			if( pControl ) pControl->SetVisible(false);
 		} else if (_tcscmp(pszCtrlName, _T("btn_sysclose")) == 0) {
 			Close(IDOK);
+		} else if (_tcscmp(pszCtrlName, _T("dicom_node_cancel")) == 0) {
+			Close(IDOK);
+		} else if (_tcscmp(pszCtrlName, _T("dicom_node_test_connect")) == 0) {
+			DoConnectTest();
+		} else if (_tcscmp(pszCtrlName, _T("dicom_node_accept")) == 0) {
+			DoSaveConfigTest();
 		} 
 	}
 }
@@ -104,6 +136,7 @@ void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 	std::wstring ws_aet_title = m_pAetEdit->GetText().GetData();
 	std::wstring ws_host_addr = m_pHostEdit->GetText().GetData();
 	std::wstring ws_port	   = m_pDicomPortEdit->GetText().GetData();
+	std::wstring ws_pdu	   = m_pDicomPdutEdit->GetText().GetData();
 
 	bool success = true;
 	std::ostringstream errorMsg;
@@ -116,7 +149,9 @@ void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 	std::string host_addr	= toString(ws_host_addr);
 	std::string port		= toString(ws_port);
 	std::string aet_local	= "DEEPWISE_001";
-	int psdu_length			= 16384;
+	std::string pdu = toString(ws_pdu);
+	
+	int psdu_length			= atoi(pdu.c_str());
 
 	as.Create(aet_title
 		, host_addr
@@ -169,3 +204,29 @@ void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 	}
 }
 
+void DcmtkDLDicomSetDemoFrameWnd::DoSaveConfigTest()
+{
+	std::wstring ws = L"";
+	if (m_pNumberEdit) {
+		ws = m_pNumberEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETNumber(ws);
+	}
+	if (m_pAetEdit) {
+		ws = m_pAetEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETTitle(ws);
+	}
+	if (m_pHostEdit) {
+		ws = m_pHostEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETHost(ws);
+	}
+	if (m_pDicomPortEdit) {
+		ws = m_pDicomPortEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETPort(ws);
+	}
+	if (m_pDicomPdutEdit) {
+		ws = m_pDicomPdutEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETPduLength(ws);
+	}
+
+	ConfigController::Instance()->SaveFile();
+}
