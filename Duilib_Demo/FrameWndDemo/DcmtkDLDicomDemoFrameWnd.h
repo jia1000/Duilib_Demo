@@ -9,18 +9,29 @@ using namespace DuiLib;
 #include <dcmtk/dcmdata/dcdatset.h>
 
 #include "main/controllers/dcmtk/dicomservers.h"
-
 #include "main/controllers/pacscontroller.h"
+
+#include "extended_control/list_pro_ui.h"
 
 //////////////////////////////////////////////////////////////////////////
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
+#define DOWNLOAD_STATUS_HAS_FOUND		"has found"
+#define DOWNLOAD_STATUS_NOT_FOUND		"not found"
+#define DOWNLOAD_STATUS_DOWNLOADING		"downloading"
+#define DOWNLOAD_STATUS_STOPPED			"stopped"
+#define DOWNLOAD_STATUS_SUCCESS			"success"
+#define DOWNLOAD_STATUS_FAILURE			"failure"
+
+
+
 typedef struct Series_Info
 {
 	std::string series_id;
 	std::string modality;   // 发起C-GET命令，下载dicom文件时，需要由Modality参数
-	bool is_downloaded;
+	//bool is_downloaded;
+	std::string download_status;
 };
 typedef struct PatientInfo
 {
@@ -65,6 +76,7 @@ public:
 	int GetSeriesCount();
 
 	void UpdateDownloadStaticsText();
+	void UpdateDownloadListProAll();
 	void OutputResultStaticsToFile(std::string path);
 
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
@@ -89,6 +101,7 @@ private:
 	CDateTimeUI* m_pFilterFROM;
 	CDateTimeUI* m_pFilterTO;
 
+	ListPro* m_listPro;
 	std::vector<struct PatientInfo>  m_patient_infos1;  // 可以根据patienid找到series的数据
 	std::vector<std::string>  m_patient_infos2;  // 不能根据patienid找到series的数据
 

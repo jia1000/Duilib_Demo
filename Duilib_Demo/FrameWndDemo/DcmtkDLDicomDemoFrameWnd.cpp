@@ -63,6 +63,9 @@ CDuiString DcmtkDLDicomDemoFrameWnd::GetSkinFolder()
 
 CControlUI* DcmtkDLDicomDemoFrameWnd::CreateControl(LPCTSTR pstrClass)
 {
+	if ( _tcsicmp(pstrClass, _T("ListPro")) == 0 ) {
+		return new ListPro;
+	}
 	return NULL;
 }
 
@@ -79,6 +82,8 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pFilterFROM  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_from"));
 	m_pFilterTO  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_to"));
 
+	m_listPro = static_cast<ListPro*>(m_pm.FindControl(L"list_download_result"));
+
 	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
 
 	if (m_pDownloadPathEdit) {
@@ -86,6 +91,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 		m_dicom_saved_path = "G:\\temp1";
 	}
 	UpdateDownloadStaticsText();
+	UpdateDownloadListProAll();
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -265,7 +271,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_QueryRetrieveLevel, "STUDY");
 
 	// 日期范围过滤
-	if (true) { //m_pFilterRANGE && m_pFilterRANGE->IsSelected()) {
+	if (false) { //m_pFilterRANGE && m_pFilterRANGE->IsSelected()) {
 		std::ostringstream ostr;
 		SYSTEMTIME time;
 		if (m_pFilterFROM) {
@@ -313,6 +319,15 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 					result += "   ";
 					result += "\r\n";
 					m_study_ids.push_back(study_id);
+				}
+				// 如果patientid为空，表示搜索所有
+				if (patient_id.size() == 0) {
+					std::string p_id("");					
+					if (item->getTag(GKDCM_PatientID, p_id)) {
+						m_patient_ids.push_back(p_id);
+					}
+				}
+				else {
 					m_patient_ids.push_back(patient_id);
 				}
 			}
@@ -334,6 +349,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 {
 	m_patient_infos1.clear();
+	m_listPro->RemoveAll();
 	m_downloading_dicom_index = 0;
 
 	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
@@ -398,6 +414,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 	}
 
 	UpdateDownloadStaticsText();
+	UpdateDownloadListProAll();
 }
 
 void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
@@ -423,6 +440,44 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
 	}
 }
 
+void DcmtkDLDicomDemoFrameWnd::UpdateDownloadListProAll()
+{
+	CDuiString str;
+	if (!m_listPro) {
+		return;
+	}
+	int number_index = 0;
+	for (int i = 0; i < m_patient_infos1.size() ; i++) {
+		PatientInfo patient_info = m_patient_infos1[i];
+		for (int j = 0; j < patient_info.sereis_infos.size() ; j++) {
+			number_index++;
+			CListTextElementUI* pListElement = new CListTextElementUI;
+			if (pListElement) {
+				pListElement->SetTag(number_index);
+				m_listPro->Add(pListElement);
+	
+				std::wstring ws = L"";
+				str.Format(_T("%d"), number_index);
+				pListElement->SetText(0, str);
+
+				ws = toWString(patient_info.patiend_id);
+				pListElement->SetText(1, ws.c_str());
+
+				ws = toWString(patient_info.study_id);
+				pListElement->SetText(2, ws.c_str());
+
+				ws = toWString(patient_info.sereis_infos[j].series_id);
+				pListElement->SetText(3, ws.c_str());
+
+				if (patient_info.sereis_infos[j].is_downloaded) {
+					pListElement->SetText(4, L"success");
+				} else {
+					pListElement->SetText(4, L"failure");
+				}
+			}
+		}
+	}
+}
 int DcmtkDLDicomDemoFrameWnd::GetPatienCount()
 {
 	std::set<std::string> patient_ids;
@@ -489,6 +544,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
 	// 下载series计数器，清零
 	m_downloading_dicom_index = 0;
+	m_listPro->RemoveAll();
 	UpdateDownloadStaticsText();
 
 	for (auto patient_info : m_patient_infos1) {
@@ -538,6 +594,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	}
 
 	OutputResultStaticsToFile(m_dicom_saved_path);
+	UpdateDownloadListProAll();
 }
 
 void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)

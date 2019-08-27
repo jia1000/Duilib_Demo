@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Window size="800,600" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="600,480" showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
+<Window size="1000,600" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,20" bktrans="false" mininfo="600,480" showshadow="true" shadowsize="2" shadowcorner="8,8,8,8" >
 	<Style name="pacs_cb_style" shared="true" value="autocalcwidth=&quot;true&quot; align=&quot;left&quot; valign=&quot;vcenter&quot; height=&quot;16&quot; textcolor=&quot;#FFFFFFFF&quot; hottextcolor=&quot;#FFFFFFFF&quot; textpadding=&quot;20,0,6,0&quot; normalimage=&quot;res='sysbtn/cb_normal.png' dest='0,0,16.16'&quot; hotimage=&quot;res='sysbtn/cb_hot.png' dest='0,0,16.16'&quot; pushedimage=&quot;res='sysbtn/cb_pushed.png' dest='0,0,16.16'&quot; selectedimage=&quot;res='sysbtn/cb_selected.png' dest='0,0,16,16'&quot;" />
-    
+    <Style name="list_style" value="headerbkimage=&quot;res='main/list_header_bg.png'&quot; itemalign=&quot;center&quot; itemlinecolor=&quot;#FF888888&quot; itemshowrowline=&quot;false&quot; itemshowcolumnline=&quot;false&quot;" />
+	<Style name="listheader_style" value="sortimage_align=&quot;right&quot; sortimage_valign=&quot;vcenter&quot; hotimage=&quot;res='main/list_header_hot.png'&quot; pushedimage=&quot;res='main/list_header_pushed.png'&quot; ascimage=&quot;main/list_tree/list_icon_asc.png&quot; descimage=&quot;main/list_tree/list_icon_desc.png&quot; sortimage_height=&quot;12&quot; sortimage_width=&quot;22&quot; textpadding=&quot;6,0,0,0&quot; align=&quot;left&quot; sepimage=&quot;res='main/list_header_sep.png'&quot; sepwidth=&quot;1&quot;" />
+  
 	<VerticalLayout bkcolor="#FF272B2E" bordersize="1" bordercolor="#FF222222" borderround="0">
 		<!-- 标题栏区 -->
 	    <HorizontalLayout height="32" bkcolor="#FF1C2237" bordersize="0,0,0,1" bordercolor="#59000000">		        
@@ -37,9 +39,9 @@
 					 -->
 					<Label name="filter_date_range" text="检查日期" height="25" width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
 					<Control width="5"/>
-					<DateTime name="filter_range_from" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+					<DateTime name="filter_range_from" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
 					<Control width="5"/>
-					<DateTime name="filter_range_to" width="120" enabled="false" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+					<DateTime name="filter_range_to" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
 				</HorizontalLayout>
 				<Control height="1"/>
 				<GroupBox  minwidth="420" text="筛选条件" height="150" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
@@ -82,15 +84,33 @@
 					<Button name="btn_download_path" text="选择路径" width="80" height="30" tooltip="下载建立" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>
 					<Control width="5"/>
 					<Edit name="edit_download_path" inset="5,0,5,0" height="60" wordbreak="true" tipvalue="下载路径..." textpadding="5,0,0,0" />
+					<Button name="btn_download_stop" text="停止下载" width="80" height="30" tooltip="停止下载" textcolor="#FFF2F2F2" hottextcolor="#FF333333" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'"/>					
 				</HorizontalLayout>
 				<Control height="1"/>	
 				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
 					<Label  text="下载结果："  width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
-					<Label name="label_all_count" text="共0个, "  width="100" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
-					<Label name="label_success_count" text="成功0个"  width="100" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+					<Label name="label_result_statics" text=""  inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
+				</HorizontalLayout>
+				<Control height="1"/>
+				<HorizontalLayout bkcolor="#FF272B2E" height="400"> 
+					<ListPro name="list_download_result"   style="list_style" itemshowcolumnline="true" itemshowrowline="true" itemlinecolor="FF888888" bkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true" itemtextcolor="#FF000000" itembkcolor="#FFE2DDDF" itemselectedtextcolor="#FF000000" itemselectedbkcolor="#FFC1E3FF" itemhottextcolor="#FF000000" itemhotbkcolor="#FFE9F5FF" itemdisabledtextcolor="#FFCCCCCC" itemdisabledbkcolor="#FFFFFFFF" >
+						<ListHeader name="domain1" style="listheader_style">
+							<ListHeaderItem text="index" width="40" height="23" minwidth="16"  sepwidth="1" align="center"  />
+							<ListHeaderItem text="patiend_id" 	width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
+							<ListHeaderItem text="study_id" 	width="400" height="23" minwidth="16"  sepwidth="1" align="center"  />
+							<ListHeaderItem text="series_id" 	width="400" height="23" minwidth="16"  sepwidth="1" align="center"  />
+							<ListHeaderItem text="status" 		width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
+						</ListHeader>
+						<!-- 
+						<ListLabelElement text="张三" selected="true" />
+						<ListLabelElement text="李四" />
+						<ListLabelElement text="王五" />
+						-->
+					</ListPro>
 				</HorizontalLayout>
 				<Control height="1"/>
 				<!-- 下载结果列表 tab页显示 -->
+				<!-- 
 				<HorizontalLayout bkcolor="#FFE6E7E8"> 
 					<HorizontalLayout width="80" >
 						<VerticalLayout>
@@ -107,6 +127,7 @@
 						</HorizontalLayout>
 					</TabLayout> 
 				</HorizontalLayout>
+				-->
 		
 			</VerticalLayout>
 			</HorizontalLayout>
