@@ -78,6 +78,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pThicknessEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_thickness"));
 	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
 	m_pDownloadPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_download_path"));
+	m_pSexEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_sex"));
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2¸öct 2¸ödx
 	m_pFilterFROM  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_from"));
 	m_pFilterTO  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_to"));
@@ -89,6 +90,29 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	if (m_pDownloadPathEdit) {
 		m_pDownloadPathEdit->SetText(L"G:\\temp1");
 		m_dicom_saved_path = "G:\\temp1";
+	}
+	bool is_sel = false;
+	if (m_pFilterFROM) {
+		m_pFilterFROM->SetEnabled(is_sel);
+	}
+	is_sel = false;
+	if (m_pFilterTO) {
+		m_pFilterTO->SetEnabled(is_sel);
+	}
+	is_sel = false;
+	if (m_pBodyPartEdit) {
+		m_pBodyPartEdit->SetEnabled(is_sel);
+	}
+	is_sel = false;
+	if (m_pThicknessEdit) {
+		m_pThicknessEdit->SetEnabled(is_sel);
+	}
+	if (m_pMOdalityiesInStudyEdit) {
+		m_pMOdalityiesInStudyEdit->SetEnabled(is_sel);
+	}
+	is_sel = false;
+	if (m_pSexEdit) {
+		m_pSexEdit->SetEnabled(is_sel);
 	}
 	UpdateDownloadStaticsText();
 	UpdateDownloadListProAll();
@@ -180,17 +204,60 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, 
 
 void DcmtkDLDicomDemoFrameWnd::OnSelChanged(CControlUI* pSender)
 {
-	CTabLayoutUI* pTabResultShow = static_cast <CTabLayoutUI*>(m_pm.FindControl(_T("tab_result_show")));
-	if (pTabResultShow == NULL)
-	{
-		return;
-	}
+	//CTabLayoutUI* pTabResultShow = static_cast <CTabLayoutUI*>(m_pm.FindControl(_T("tab_result_show")));
+	//if (pTabResultShow == NULL)
+	//{
+	//	return;
+	//}
 	CDuiString strSelName = pSender->GetName();
 	if (strSelName == _T("op_success")) 
 	{		
-		pTabResultShow->SelectItem(0);
+		//pTabResultShow->SelectItem(0);
 	} else if (strSelName == _T("op_failure")) {
-		pTabResultShow->SelectItem(1);
+		//pTabResultShow->SelectItem(1);
+	} else if (strSelName == _T("op_device_date_range")) {
+		 COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_date_range")));
+		 if (pOptionUI) {
+		 	bool is_sel = pOptionUI->IsSelected();
+			if (m_pFilterFROM) {
+				m_pFilterFROM->SetEnabled(is_sel);
+			}
+			if (m_pFilterTO) {
+				m_pFilterTO->SetEnabled(is_sel);
+			}
+		 }
+	} else if (strSelName == _T("op_device_part")) {
+		COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_part")));
+		if (pOptionUI) {
+			bool is_sel = pOptionUI->IsSelected();
+			if (m_pBodyPartEdit) {
+				m_pBodyPartEdit->SetEnabled(is_sel);
+			}
+		}
+	} else if (strSelName == _T("op_device_thickness")) {
+		COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_thickness")));
+		if (pOptionUI) {
+			bool is_sel = pOptionUI->IsSelected();
+			if (m_pThicknessEdit) {
+				m_pThicknessEdit->SetEnabled(is_sel);
+			}
+		}
+	} else if (strSelName == _T("op_device_modality")) {
+		COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_modality")));
+		if (pOptionUI) {
+			bool is_sel = pOptionUI->IsSelected();
+			if (m_pMOdalityiesInStudyEdit) {
+				m_pMOdalityiesInStudyEdit->SetEnabled(is_sel);
+			}
+		}
+	} else if (strSelName == _T("op_device_sex")) {
+		COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_sex")));
+		if (pOptionUI) {
+			bool is_sel = pOptionUI->IsSelected();
+			if (m_pSexEdit) {
+				m_pSexEdit->SetEnabled(is_sel);
+			}
+		}
 	}
 }
 

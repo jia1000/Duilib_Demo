@@ -33,36 +33,32 @@
 					<Button name="dicom_set" width="80"  text="设置" bordercolor="#FF222222" textcolor = "#FFF2F2F2" font = "2" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'" />						
 				</HorizontalLayout>
 				<Control height="1"/>
-				<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-					<!-- 
-					<Option name="filter_date_range" group="radio_date" text="介于" userdata="Range" style="pacs_radio_style"/>
-					 -->
-					<Label name="filter_date_range" text="检查日期" height="25" width="80" inset="5,0,5,0" textcolor="#FFFFFFFF" font="1" />
-					<Control width="5"/>
-					<DateTime name="filter_range_from" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
-					<Control width="5"/>
-					<DateTime name="filter_range_to" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
-				</HorizontalLayout>
-				<Control height="1"/>
-				<GroupBox  minwidth="420" text="筛选条件" height="150" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+				<GroupBox  minwidth="420" text="筛选条件" height="180" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="op_device_part" text="部位 (0018|0015)" width="150" userdata="CR" style="pacs_cb_style"/>
+							<Option name="op_device_date_range" text="检查日期 (0018|0015)" width="160" userdata="CR" style="pacs_cb_style"/>
+							<Control width="20"/>
+							<DateTime name="filter_range_from" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+							<Control width="5"/>
+							<DateTime name="filter_range_to" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+						</HorizontalLayout>
+						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
+							<Option name="op_device_part" text="部位     (0018|0015)" width="160" userdata="CR" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="part" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="op_device_thickness" text="层厚 (0018|0050)" width="150" userdata="MG" style="pacs_cb_style"/>
+							<Option name="op_device_thickness" text="层厚     (0018|0050)" width="160" userdata="MG" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_thickness" inset="5,0,5,0" tipvalue="mm" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="op_device_modality" text="设备 (0008|0061)" width="150" userdata="RF" style="pacs_cb_style"/>
+							<Option name="op_device_modality" text="设备     (0008|0061)" width="160" userdata="RF" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_modality" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
-							<Option name="op_device_sex" text="性别 (0010|0040)" width="150" userdata="XA" style="pacs_cb_style"/>
+							<Option name="op_device_sex" text="性别     (0010|0040)" width="160" userdata="XA" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_sex" inset="5,0,5,0" tipvalue="man" textpadding="5,0,0,0" />				
 						</HorizontalLayout>						

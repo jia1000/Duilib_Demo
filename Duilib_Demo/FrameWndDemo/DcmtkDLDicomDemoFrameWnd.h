@@ -95,6 +95,7 @@ private:
 	CEditUI* m_pBodyPartEdit;
 	CEditUI* m_pThicknessEdit;
 	CEditUI* m_pMOdalityiesInStudyEdit;
+	CEditUI* m_pSexEdit;
 	CEditUI* m_pDownloadPathEdit;
 
 	CLabelUI* m_pResearchResultLabel;
