@@ -101,6 +101,12 @@ private:
 	CLabelUI* m_pResearchResultLabel;
 	CLabelUI* m_pStatiscResultLabel;
 
+	COptionUI* m_pFilterBodyPart;
+	COptionUI* m_pFilterThickness;
+	COptionUI* m_pFilterModality;
+	COptionUI* m_pFilterSex;
+
+	COptionUI* m_pFilterRANGE;
 	CDateTimeUI* m_pFilterFROM;
 	CDateTimeUI* m_pFilterTO;
 

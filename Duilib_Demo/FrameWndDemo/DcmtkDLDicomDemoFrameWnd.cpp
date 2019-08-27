@@ -80,8 +80,16 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pDownloadPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_download_path"));
 	m_pSexEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_sex"));
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
+	m_pFilterRANGE = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_date_range")));
 	m_pFilterFROM  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_from"));
 	m_pFilterTO  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_to"));
+
+	m_pFilterBodyPart = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_part")));
+	m_pFilterThickness = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_thickness")));
+	m_pFilterModality = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_modality")));
+	m_pFilterSex = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_sex")));
+
+
 
 	m_listPro = static_cast<ListPro*>(m_pm.FindControl(L"list_download_result"));
 
@@ -345,7 +353,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_QueryRetrieveLevel, "STUDY");
 
 	// 日期范围过滤
-	if (false) { //m_pFilterRANGE && m_pFilterRANGE->IsSelected()) {
+	if (m_pFilterRANGE && m_pFilterRANGE->IsSelected()) {
 		std::ostringstream ostr;
 		SYSTEMTIME time;
 		if (m_pFilterFROM) {
@@ -508,7 +516,7 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
 		ss << GetSeriesCount();
 		ss << " , ";
 		ss << "Success's Series ";
-		ss << m_downloading_dicom_index + 1;
+		ss << m_downloading_dicom_index;
 		ss << " ";
 		std::string s = ss.str();
 		std::wstring ws_result = toWString(s);
@@ -600,10 +608,11 @@ int DcmtkDLDicomDemoFrameWnd::GetSeriesCount()
 
 bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& data)
 {
-	// 过滤时间
+	// 过滤时间 ：放在了开始搜索时，进行过滤
+	
 	// 过滤层厚
 	std::string value = "";					
-	if (data.getTag(GKDCM_SliceThickness, value)) {
+	if (m_pFilterThickness && m_pFilterThickness->IsSelected() && data.getTag(GKDCM_SliceThickness, value)) {
 		if (value.size() > 0 && m_filter_thickness.size() > 0) {
 			if (value != m_filter_thickness) {
 				return false;
@@ -612,7 +621,7 @@ bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& 
 	}
 	// 过滤部位
 	value = "";					
-	if (data.getTag(GKDCM_BodyPartExamined, value)) {
+	if (m_pFilterBodyPart && m_pFilterBodyPart->IsSelected() && data.getTag(GKDCM_BodyPartExamined, value)) {
 		if (value.size() > 0 && m_bodyPartExamined.size() > 0) {
 			if (value != m_bodyPartExamined) {
 				return false;
@@ -621,7 +630,7 @@ bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& 
 	}
 	// 过滤设备
 	value = "";					
-	if (data.getTag(GKDCM_Modality, value)) {
+	if (m_pFilterModality && m_pFilterModality->IsSelected() && data.getTag(GKDCM_Modality, value)) {
 		if (value.size() > 0 && m_filter_modality.size() > 0) {
 			if (value != m_filter_modality) {
 				return false;
@@ -689,7 +698,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 				//series_info.is_downloaded = true;
 				series_info.download_status = DOWNLOAD_STATUS_SUCCESS;
 				//UpdateDownloadStaticsText();
-				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, m_downloading_dicom_index);
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, m_downloading_dicom_index + 1);
 				//更新list控件中，对应的series的状态为success
 				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_SUCCESS);
 			}

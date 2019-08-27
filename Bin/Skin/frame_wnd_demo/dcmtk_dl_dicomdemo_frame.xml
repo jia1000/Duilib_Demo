@@ -33,7 +33,7 @@
 					<Button name="dicom_set" width="80"  text="设置" bordercolor="#FF222222" textcolor = "#FFF2F2F2" font = "2" normalimage="file='sysbtn\button_normal.png' corner='1,1,1,1'" hotimage="file='sysbtn\button_hover.png' corner='1,1,1,1'" pushedimage="file='sysbtn\button_pushed.png' corner='1,1,1,1'" />						
 				</HorizontalLayout>
 				<Control height="1"/>
-				<GroupBox  minwidth="420" text="筛选条件" height="180" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+				<GroupBox  minwidth="420" text="筛选条件" height="150" bkcolor="#FF424242" textcolor="#FFFFFFFF" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
 							<Option name="op_device_date_range" text="检查日期 (0018|0015)" width="160" userdata="CR" style="pacs_cb_style"/>
@@ -57,11 +57,13 @@
 							<Control width="20"/>
 							<Edit name="edit_filter_modality" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
 						</HorizontalLayout>
+						<!--
 						<HorizontalLayout height="25" bkcolor="#FF272B2E"> 
 							<Option name="op_device_sex" text="性别     (0010|0040)" width="160" userdata="XA" style="pacs_cb_style"/>
 							<Control width="20"/>
 							<Edit name="edit_filter_sex" inset="5,0,5,0" tipvalue="man" textpadding="5,0,0,0" />				
-						</HorizontalLayout>						
+						</HorizontalLayout>		
+-->						
 					</VerticalLayout>
 				</GroupBox>
 				<HorizontalLayout bkcolor="#FF272B2E" height="30"> 
