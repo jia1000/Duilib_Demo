@@ -13,6 +13,7 @@
 
 #include "utility_tool/string_converse.h"
 #include "utility_tool/common_utils.h"
+#include "controller/configcontroller.h"
 
 #include <dcmtk/dcmdata/dcdeftag.h>
 

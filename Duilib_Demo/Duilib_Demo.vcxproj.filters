@@ -52,6 +52,9 @@
     <Filter Include="FrameWndDemo\api\dicom">
       <UniqueIdentifier>{263851c6-a8d4-4050-a4c8-61f73f6288f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="controller">
+      <UniqueIdentifier>{bb72a01c-b038-4e6d-992a-d5c66546adac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -248,6 +251,12 @@
     </ClCompile>
     <ClCompile Include="FrameWndDemo\main\controllers\pacscontroller.cpp">
       <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="utility_tool\inifile.cpp">
+      <Filter>utility_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="controller\configtroller.cpp">
+      <Filter>controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +466,12 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\pacscontroller.h">
       <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="utility_tool\inifile.h">
+      <Filter>utility_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="controller\configcontroller.h">
+      <Filter>controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

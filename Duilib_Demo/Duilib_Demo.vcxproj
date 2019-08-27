@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="cef_simple\simple_app.cpp" />
     <ClCompile Include="cef_simple\simple_handler.cpp" />
+    <ClCompile Include="controller\configtroller.cpp" />
     <ClCompile Include="extended_control\list_pro_ui.cpp" />
     <ClCompile Include="extended_control\tile_layout_extended.cpp" />
     <ClCompile Include="FourViews\vtkBorderSelectionWidget.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utility_tool\common_utils.cpp" />
+    <ClCompile Include="utility_tool\inifile.cpp" />
     <ClCompile Include="utility_tool\string_converse.cpp" />
     <ClCompile Include="vtk\dui_vistasimple.cpp" />
     <ClCompile Include="vtk\vtk_window.cpp" />
@@ -160,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="cef_simple\simple_app.h" />
     <ClInclude Include="cef_simple\simple_handler.h" />
+    <ClInclude Include="controller\configcontroller.h" />
     <ClInclude Include="extended_control\list_pro_ui.h" />
     <ClInclude Include="extended_control\tile_layout_extended.h" />
     <ClInclude Include="FourViews\vtkBorderSelectionWidget.h" />
@@ -213,6 +216,7 @@
     <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h" />
     <ClInclude Include="global_include.h" />
     <ClInclude Include="utility_tool\common_utils.h" />
+    <ClInclude Include="utility_tool\inifile.h" />
     <ClInclude Include="utility_tool\string_converse.h" />
     <ClInclude Include="vtk\dui_vistasimple.h" />
     <ClInclude Include="vtk\vtk_window.h" />
