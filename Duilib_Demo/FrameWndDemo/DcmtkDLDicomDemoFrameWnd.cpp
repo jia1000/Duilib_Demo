@@ -76,6 +76,9 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
 	m_pDownloadPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_download_path"));
 	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
+	m_pFilterFROM  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_from"));
+	m_pFilterTO  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_to"));
+
 	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
 
 	if (m_pDownloadPathEdit) {
@@ -260,6 +263,22 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 	GIL::DICOM::DicomDataset queryWrapper;
 	GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(queryWrapper);
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_QueryRetrieveLevel, "STUDY");
+
+	// 日期范围过滤
+	if (true) { //m_pFilterRANGE && m_pFilterRANGE->IsSelected()) {
+		std::ostringstream ostr;
+		SYSTEMTIME time;
+		if (m_pFilterFROM) {
+			time = m_pFilterFROM->GetTime();
+			ostr << time.wYear << std::setw( 2 ) << std::setfill( '0' ) << time.wMonth << std::setw( 2 ) << std::setfill( '0' ) << time.wDay;
+		}
+		ostr << "-";
+		if (m_pFilterTO){
+			time = m_pFilterTO->GetTime();
+			ostr << time.wYear << std::setw( 2 ) << std::setfill( '0' ) << time.wMonth << std::setw( 2 ) << std::setfill( '0' ) << time.wDay;
+		}
+		GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_StudyDate, ostr.str());
+	}
 
 	std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
 

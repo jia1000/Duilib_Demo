@@ -86,6 +86,9 @@ private:
 	CLabelUI* m_pResearchResultLabel;
 	CLabelUI* m_pStatiscResultLabel;
 
+	CDateTimeUI* m_pFilterFROM;
+	CDateTimeUI* m_pFilterTO;
+
 	std::vector<struct PatientInfo>  m_patient_infos1;  // 可以根据patienid找到series的数据
 	std::vector<std::string>  m_patient_infos2;  // 不能根据patienid找到series的数据
 
