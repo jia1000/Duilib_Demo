@@ -17,7 +17,7 @@ using namespace DuiLib;
 // 该类使用xml文件创建窗口
 //////////////////////////////////////////////////////////////////////////
 
-#define DOWNLOAD_STATUS_HAS_FOUND		"has found"
+#define DOWNLOAD_STATUS_HAS_FOUND		"found"
 #define DOWNLOAD_STATUS_NOT_FOUND		"not found"
 #define DOWNLOAD_STATUS_DOWNLOADING		"downloading"
 #define DOWNLOAD_STATUS_STOPPED			"stopped"
@@ -42,6 +42,7 @@ typedef struct PatientInfo
 };
 
 #define WM_USER_UPDATE_DOWNLOAD_DICOM_FILE   (WM_USER + 101)
+#define WM_USER_UPDATE_DOWNLOAD_STATUS		 (WM_USER + 102)
 
 class DcmtkDLDicomDemoFrameWnd : public WindowImplBase
 {
@@ -77,6 +78,7 @@ public:
 
 	void UpdateDownloadStaticsText();
 	void UpdateDownloadListProAll();
+	void UpdateDownloadListProItem(int index, std::string status_text);
 	void OutputResultStaticsToFile(std::string path);
 
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);

@@ -154,10 +154,17 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM
 
 LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
+	int index = 0;
+	std::string status = "";
 	switch (uMsg)
 	{
 	case WM_USER_UPDATE_DOWNLOAD_DICOM_FILE:
 		UpdateDownloadStaticsText();
+		break;
+	case WM_USER_UPDATE_DOWNLOAD_STATUS:
+		index = wParam;
+		status = (char*)lParam;
+		UpdateDownloadListProItem(index, status);
 		break;
 	default:
 		break;
@@ -434,11 +441,25 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
 		ss << GetSeriesCount();
 		ss << " , ";
 		ss << "Success's Series ";
-		ss << m_downloading_dicom_index;
+		ss << m_downloading_dicom_index + 1;
 		ss << " ";
 		std::string s = ss.str();
 		std::wstring ws_result = toWString(s);
 		m_pStatiscResultLabel->SetText(ws_result.c_str());
+	}
+}
+
+void DcmtkDLDicomDemoFrameWnd::UpdateDownloadListProItem(int index, std::string status_text)
+{
+	if (m_listPro) {
+		std::wstring ws = toWString(status_text);
+		int list_count = m_listPro->GetCount();
+		if (index < list_count && index >= 0) {
+			CListTextElementUI* pListElement = (CListTextElementUI*)(m_listPro->GetItemAt(index));
+			if (pListElement) {
+				pListElement->SetText(4, ws.c_str());
+			}
+		}		
 	}
 }
 
@@ -448,11 +469,13 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadListProAll()
 	if (!m_listPro) {
 		return;
 	}
+	m_listPro->RemoveAll();
+
 	int number_index = 0;
 	for (int i = 0; i < m_patient_infos1.size() ; i++) {
 		PatientInfo patient_info = m_patient_infos1[i];
 		for (int j = 0; j < patient_info.sereis_infos.size() ; j++) {
-			number_index++;
+			
 			CListTextElementUI* pListElement = new CListTextElementUI;
 			if (pListElement) {
 				pListElement->SetTag(number_index);
@@ -473,6 +496,8 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadListProAll()
 
 				ws = toWString(patient_info.sereis_infos[j].download_status);
 				pListElement->SetText(4, ws.c_str());
+
+				number_index++;
 			}
 		}
 	}
@@ -543,7 +568,6 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
 	// 下载series计数器，清零
 	m_downloading_dicom_index = 0;
-	m_listPro->RemoveAll();
 	UpdateDownloadStaticsText();
 
 	for (auto patient_info : m_patient_infos1) {
@@ -560,21 +584,25 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 	}
 
-	//更新list下载状态为 downloading
-	for (auto& patient_info : m_patient_infos1) {
-		for (auto& sereis_info : patient_info.sereis_infos) {
-			sereis_info.download_status = DOWNLOAD_STATUS_DOWNLOADING;
-		}
-	}
-	UpdateDownloadListProAll();
+	////更新list下载状态为 downloading
+	//for (auto& patient_info : m_patient_infos1) {
+	//	for (auto& sereis_info : patient_info.sereis_infos) {
+	//		sereis_info.download_status = DOWNLOAD_STATUS_DOWNLOADING;
+	//	}
+	//}
+	//UpdateDownloadListProAll();
 
 	for (auto& patient_info : m_patient_infos1) {
-		if (m_is_stoped) {
-			break;
-		}
+		//if (m_is_stoped) {
+		//	break;
+		//}
 		for (auto& series_info : patient_info.sereis_infos) {
 			if (m_is_stoped) {
-				break;
+				//更新list控件中，对应的series的状态为stopped
+				series_info.download_status = DOWNLOAD_STATUS_STOPPED;
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_STOPPED);
+				m_downloading_dicom_index++;
+				continue; 
 			}
 			GIL::DICOM::DicomDataset base;
 			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
@@ -587,24 +615,30 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
 			std::string study_path = patient_path + patient_info.study_id + "\\";
 			std::string series_path = study_path + series_info.series_id + "\\" ;
+			//更新list控件中，对应的series的状态为downloading
+			SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_DOWNLOADING);
+
 			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path)) {
-				m_downloading_dicom_index++;
 				//series_info.is_downloaded = true;
 				series_info.download_status = DOWNLOAD_STATUS_SUCCESS;
 				//UpdateDownloadStaticsText();
 				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, m_downloading_dicom_index);
+				//更新list控件中，对应的series的状态为success
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_SUCCESS);
 			}
 			else
 			{
 				//series_info.is_downloaded = false;
 				series_info.download_status = DOWNLOAD_STATUS_FAILURE;
+				//更新list控件中，对应的series的状态为failure
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_FAILURE);
 			}
+			m_downloading_dicom_index++;
 		}
 	}
 
 	OutputResultStaticsToFile(m_dicom_saved_path);
-	m_listPro->RemoveAll();
-	UpdateDownloadListProAll();
+	//UpdateDownloadListProAll();
 }
 
 void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)
