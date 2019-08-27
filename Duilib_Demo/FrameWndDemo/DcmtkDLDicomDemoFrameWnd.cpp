@@ -130,6 +130,8 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			OnOpenPatientIDListFile();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download_path")) == 0) {
 			OnOpenDownloadPath(); 
+		} else if (_tcscmp(pszCtrlName, _T("btn_download_stop")) == 0) {
+			SetDownloadStop(true); 
 		}    
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
 		OnSelChanged(msg.pSender);
@@ -517,6 +519,11 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	}
 
 	OutputResultStaticsToFile(m_dicom_saved_path);
+}
+
+void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)
+{
+	m_is_stoped = is_stopped;
 }
 
 void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)

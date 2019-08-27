@@ -70,6 +70,7 @@ public:
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
 	DcmElement* CrearElementoConValor(const char* s);
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);
+	void SetDownloadStop(bool is_stopped);
 
 private:
 	std::vector<std::string> m_study_ids;
