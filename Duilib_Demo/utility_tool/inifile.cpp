@@ -568,9 +568,11 @@ int IniFile::SetDoubleValue(const string &section, const string &key, double val
 int IniFile::SetBoolValue(const string &section, const string &key, bool value)
 {
     if (value) {
-        return setValue(section, key, "true");
+        //return setValue(section, key, "true");
+		return setValue(section, key, "1");
     } else {
-        return setValue(section, key, "false");
+        //return setValue(section, key, "false");
+		return setValue(section, key, "0");
     }
 }
 

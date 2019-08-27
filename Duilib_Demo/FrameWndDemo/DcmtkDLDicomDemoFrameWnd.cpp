@@ -100,7 +100,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 		m_dicom_saved_path = "G:\\temp1";
 	}
 	ST_Filter_Condition filter_condition;
-	//ConfigController::Instance()->ReloadFile("G:\\temp1\\test.ini");
+	ConfigController::Instance()->ReloadFile("G:\\temp1\\test.ini");
 	// 日期筛选
 	ConfigController::Instance()->GetFilterDate(filter_condition);
 	bool is_sel = filter_condition.is_checked;
@@ -201,10 +201,61 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			OnOpenDownloadPath(); 
 		} else if (_tcscmp(pszCtrlName, _T("btn_download_stop")) == 0) {
 			SetDownloadStop(true); 
+		} else if (_tcscmp(pszCtrlName, _T("btn_filter_save")) == 0) {
+			SaveFilterCondition(); 
+		} else if (_tcscmp(pszCtrlName, _T("btn_filter_clear")) == 0) {
+			ClearFilterCondition(); 
 		}    
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
 		OnSelChanged(msg.pSender);
 	} 
+}
+
+void DcmtkDLDicomDemoFrameWnd::SaveFilterCondition()
+{
+	ST_Filter_Condition filter_condition;
+	// 部位筛选
+	filter_condition.is_checked = m_pFilterBodyPart->IsSelected();
+	filter_condition.condition_text = toString(m_pBodyPartEdit->GetText().GetData());
+	ConfigController::Instance()->SetFilterBodyPart(filter_condition);
+	// 日期筛选
+	filter_condition.is_checked = m_pFilterRANGE->IsSelected();
+	filter_condition.condition_text = "";
+	ConfigController::Instance()->SetFilterDate(filter_condition);
+	// 层厚筛选
+	filter_condition.is_checked = m_pFilterThickness->IsSelected();
+	filter_condition.condition_text = toString(m_pThicknessEdit->GetText().GetData());
+	ConfigController::Instance()->SetFilterThickness(filter_condition);
+	// 设备筛选
+	filter_condition.is_checked = m_pFilterModality->IsSelected();
+	filter_condition.condition_text = toString(m_pMOdalityiesInStudyEdit->GetText().GetData());
+	ConfigController::Instance()->SetFilterModality(filter_condition);
+
+	ConfigController::Instance()->SaveFile();
+}
+void DcmtkDLDicomDemoFrameWnd::ClearFilterCondition()
+{
+	ST_Filter_Condition filter_condition;
+	filter_condition.is_checked = false;
+	filter_condition.condition_text = "";
+
+	// 部位筛选
+	m_pFilterBodyPart->Selected(false);
+	m_pBodyPartEdit->SetText(L"");
+	ConfigController::Instance()->SetFilterBodyPart(filter_condition);
+	// 日期筛选
+	m_pFilterRANGE->Selected(false);
+	ConfigController::Instance()->SetFilterDate(filter_condition);
+	// 层厚筛选
+	m_pFilterThickness->Selected(false);
+	m_pThicknessEdit->SetText(L"");
+	ConfigController::Instance()->SetFilterThickness(filter_condition);
+	// 设备筛选
+	m_pFilterModality->Selected(false);
+	m_pMOdalityiesInStudyEdit->SetText(L"");
+	ConfigController::Instance()->SetFilterModality(filter_condition);
+
+	ConfigController::Instance()->SaveFile();
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)

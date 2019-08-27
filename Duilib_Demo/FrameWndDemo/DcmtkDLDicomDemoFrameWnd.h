@@ -85,6 +85,8 @@ public:
 	DcmElement* CrearElementoConValor(const char* s);
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);
 	void SetDownloadStop(bool is_stopped);
+	void SaveFilterCondition();
+	void ClearFilterCondition();
 
 private:
 	std::vector<std::string> m_study_ids;
