@@ -393,11 +393,13 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 					bool match_condition = CheckedMatchConditions(*item);
 					if (match_condition) {
 						std::string series_modality("");					
+						Series_Info series_info;
+						series_info.download_status = DOWNLOAD_STATUS_NOT_FOUND;
 						if (item->getTag(GKDCM_Modality, series_modality)) {
-							Series_Info series_info;
 							series_info.series_id = series_id;
 							series_info.modality = series_modality;	
-							series_info.is_downloaded = false;
+							//series_info.is_downloaded = false;
+							series_info.download_status = DOWNLOAD_STATUS_HAS_FOUND;
 							patient_info.sereis_infos.push_back(series_info);
 						}
 					}
@@ -469,11 +471,8 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadListProAll()
 				ws = toWString(patient_info.sereis_infos[j].series_id);
 				pListElement->SetText(3, ws.c_str());
 
-				if (patient_info.sereis_infos[j].is_downloaded) {
-					pListElement->SetText(4, L"success");
-				} else {
-					pListElement->SetText(4, L"failure");
-				}
+				ws = toWString(patient_info.sereis_infos[j].download_status);
+				pListElement->SetText(4, ws.c_str());
 			}
 		}
 	}
@@ -561,6 +560,14 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 	}
 
+	//更新list下载状态为 downloading
+	for (auto& patient_info : m_patient_infos1) {
+		for (auto& sereis_info : patient_info.sereis_infos) {
+			sereis_info.download_status = DOWNLOAD_STATUS_DOWNLOADING;
+		}
+	}
+	UpdateDownloadListProAll();
+
 	for (auto& patient_info : m_patient_infos1) {
 		if (m_is_stoped) {
 			break;
@@ -582,18 +589,21 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			std::string series_path = study_path + series_info.series_id + "\\" ;
 			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path)) {
 				m_downloading_dicom_index++;
-				series_info.is_downloaded = true;
+				//series_info.is_downloaded = true;
+				series_info.download_status = DOWNLOAD_STATUS_SUCCESS;
 				//UpdateDownloadStaticsText();
 				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, m_downloading_dicom_index);
 			}
 			else
 			{
-				series_info.is_downloaded = false;
+				//series_info.is_downloaded = false;
+				series_info.download_status = DOWNLOAD_STATUS_FAILURE;
 			}
 		}
 	}
 
 	OutputResultStaticsToFile(m_dicom_saved_path);
+	m_listPro->RemoveAll();
 	UpdateDownloadListProAll();
 }
 
@@ -621,11 +631,12 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 			os_file << patient_info.patiend_id << ',' ;
 			os_file << patient_info.study_id << ',' ;
 			os_file << series_info.series_id << ',' ;
-			if (series_info.is_downloaded) {
-				os_file << "success" << ',' ;
-			} else {
-				os_file << "failure" << ',' ;
-			}
+			os_file << series_info.download_status << ',' ;
+			//if (series_info.is_downloaded) {
+			//	os_file << "success" << ',' ;
+			//} else {
+			//	os_file << "failure" << ',' ;
+			//}
 			os_file << endl;
 		}
 	}
