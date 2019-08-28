@@ -411,7 +411,14 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 	}
 
 	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();	
-	std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
+	std::vector<std::string> patient_ids;
+	if (ws_patient_ids.size() > 0) {
+		patient_ids = testSplit(toString(ws_patient_ids), ",");
+	}
+	else {
+		// patientid列表如果为空，意味着要搜索所有。
+		patient_ids.push_back("");
+	}
 
 	for (int patient_index = 0; patient_index < patient_ids.size() ; patient_index++) {
 		std::string patient_id = patient_ids[patient_index];
