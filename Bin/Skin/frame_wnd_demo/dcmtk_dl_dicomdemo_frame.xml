@@ -5,6 +5,9 @@
 	<Style name="listheader_style" value="sortimage_align=&quot;right&quot; sortimage_valign=&quot;vcenter&quot; hotimage=&quot;res='main/list_header_hot.png'&quot; pushedimage=&quot;res='main/list_header_pushed.png'&quot; ascimage=&quot;main/list_tree/list_icon_asc.png&quot; descimage=&quot;main/list_tree/list_icon_desc.png&quot; sortimage_height=&quot;12&quot; sortimage_width=&quot;22&quot; textpadding=&quot;6,0,0,0&quot; align=&quot;left&quot; sepimage=&quot;res='main/list_header_sep.png'&quot; sepwidth=&quot;1&quot;" />
     <Style name="edit_style_dicom" value="height=&quot;32&quot; textcolor=&quot;#FFFAFAFA&quot; textpadding=&quot;10,6,6,6&quot; bkcolor=&quot;#FF11172D&quot; bordersize=&quot;1&quot; bordercolor=&quot;#FF979797&quot; focusbordercolor=&quot;#FF00AEEF&quot; nativebkcolor=&quot;#FF11172D&quot;" />
   
+   <Default name="VScrollBar" value="button1normalimage=&quot;file='sysbtn/scrollbar.png' source='0,0,16,16'&quot; button1hotimage=&quot;file='sysbtn/scrollbar.png' source='16,0,32,16'&quot; button1pushedimage=&quot;file='sysbtn/scrollbar.png' source='32,0,48,16'&quot; button2normalimage=&quot;file='sysbtn/scrollbar.png' source='64,0,80,16'&quot; button2hotimage=&quot;file='sysbtn/scrollbar.png' source='64,0,80,16'&quot; button2pushedimage=&quot;file='sysbtn/scrollbar.png' source='96,0,112,16'&quot; thumbnormalimage=&quot;file='sysbtn/scrollbar.png' source='192,0,208,16' corner='1,1,1,1'&quot; thumbhotimage=&quot;file='sysbtn/scrollbar.png' source='192,0,208,16' corner='1,1,1,1'&quot; thumbpushedimage=&quot;file='sysbtn/scrollbar.png' source='192,0,208,16' corner='1,1,1,1'&quot; bknormalimage=&quot;file='sysbtn/scrollbar.png' source='224,0,240,16'&quot;" />
+   <Default name="HScrollBar" value="button1normalimage=&quot;file='sysbtn/scrollbar.png' source='0,16,16,32'&quot; button1hotimage=&quot;file='sysbtn/scrollbar.png' source='16,16,32,32'&quot; button1pushedimage=&quot;file='sysbtn/scrollbar.png' source='32,16,48,32'&quot; button2normalimage=&quot;file='sysbtn/scrollbar.png' source='64,16,80,32'&quot; button2hotimage=&quot;file='sysbtn/scrollbar.png' source='64,16,80,32'&quot; button2pushedimage=&quot;file='sysbtn/scrollbar.png' source='96,16,112,32'&quot; thumbnormalimage=&quot;file='sysbtn/scrollbar.png' source='192,16,208,32' corner='1,1,1,1'&quot; thumbhotimage=&quot;file='sysbtn/scrollbar.png' source='192,16,208,32' corner='1,1,1,1'&quot; thumbpushedimage=&quot;file='sysbtn/scrollbar.png' source='192,16,208,32' corner='1,1,1,1'&quot; bknormalimage=&quot;file='sysbtn/scrollbar.png' source='224,0,240,16'&quot;"/>
+  
 	<VerticalLayout bkcolor="#FF11172D" bordersize="1" bordercolor="#FF222222" borderround="0">
 		<!-- 标题栏区 -->
 	    <HorizontalLayout height="32" bkcolor="#FF282E4E" bordersize="0,0,0,1" bordercolor="#59000000">		        
@@ -94,8 +97,8 @@
 								<ListHeader name="domain1" style="listheader_style">
 									<ListHeaderItem text="index" width="40" height="23" minwidth="16"  sepwidth="1" align="center"  />
 									<ListHeaderItem text="patiend_id" 	width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
-									<ListHeaderItem text="study_id" 	width="380" height="23" minwidth="16"  sepwidth="1" align="center"  />
-									<ListHeaderItem text="series_id" 	width="380" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem text="study_id" 	width="370" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem text="series_id" 	width="370" height="23" minwidth="16"  sepwidth="1" align="center"  />
 									<ListHeaderItem text="status" 		width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
 								</ListHeader>						
 							</ListPro>
