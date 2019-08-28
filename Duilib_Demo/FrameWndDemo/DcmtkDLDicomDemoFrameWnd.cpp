@@ -491,15 +491,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 	m_bodyPartExamined	= toString(ws_body_part);
 	m_filter_thickness	= toString(ws_thickness);
 	m_filter_modality	= toString(ws_modallity);
-
-
-	//GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_BodyPartExamined, m_bodyPartExamined);
-	//GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_ModalitiesInStudy, m_filter_modality);
-	//GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_SliceThickness, m_filter_thickness);
-
-	GIL::DICOM::PACSController::Instance()->SetThickness(m_filter_thickness);
-	GIL::DICOM::PACSController::Instance()->SetBodyPartExamined(m_bodyPartExamined);
-
+		
 	auto iter = m_patient_ids.begin();
 	auto item = m_study_ids.begin();
 
@@ -516,7 +508,6 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 
 		if (ret_status_obtain) {
 			PatientInfo patient_info;
-			//std::vector<std::string> sereis_ids;
 			for (auto iter : resultsWrapper) {
 				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> item = iter;
 				std::string series_id("");					
@@ -529,16 +520,13 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 						if (item->getTag(GKDCM_Modality, series_modality)) {
 							series_info.series_id = series_id;
 							series_info.modality = series_modality;	
-							//series_info.is_downloaded = false;
 							series_info.download_status = DOWNLOAD_STATUS_HAS_FOUND;
 							patient_info.sereis_infos.push_back(series_info);
 						}
 					}
-				}
-				
+				}				
 			}
-			if (patient_info.sereis_infos.size() > 0) {
-				
+			if (patient_info.sereis_infos.size() > 0) {				
 				patient_info.study_id = *item;
 				patient_info.patiend_id = *iter;
 				m_patient_infos1.push_back(patient_info);
@@ -709,18 +697,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 	}
 
-	////更新list下载状态为 downloading
-	//for (auto& patient_info : m_patient_infos1) {
-	//	for (auto& sereis_info : patient_info.sereis_infos) {
-	//		sereis_info.download_status = DOWNLOAD_STATUS_DOWNLOADING;
-	//	}
-	//}
-	//UpdateDownloadListProAll();
-
 	for (auto& patient_info : m_patient_infos1) {
-		//if (m_is_stoped) {
-		//	break;
-		//}
 		for (auto& series_info : patient_info.sereis_infos) {
 			if (m_is_stoped) {
 				//更新list控件中，对应的series的状态为stopped
@@ -744,16 +721,13 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_DOWNLOADING);
 
 			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, base, series_path)) {
-				//series_info.is_downloaded = true;
 				series_info.download_status = DOWNLOAD_STATUS_SUCCESS;
-				//UpdateDownloadStaticsText();
 				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, m_downloading_dicom_index + 1);
 				//更新list控件中，对应的series的状态为success
 				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_SUCCESS);
 			}
 			else
 			{
-				//series_info.is_downloaded = false;
 				series_info.download_status = DOWNLOAD_STATUS_FAILURE;
 				//更新list控件中，对应的series的状态为failure
 				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_FAILURE);
@@ -761,9 +735,8 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			m_downloading_dicom_index++;
 		}
 	}
-
+	//保存下载结果到文件
 	OutputResultStaticsToFile(m_dicom_saved_path);
-	//UpdateDownloadListProAll();
 }
 
 void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)
@@ -791,15 +764,10 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 			os_file << patient_info.study_id << ',' ;
 			os_file << series_info.series_id << ',' ;
 			os_file << series_info.download_status << ',' ;
-			//if (series_info.is_downloaded) {
-			//	os_file << "success" << ',' ;
-			//} else {
-			//	os_file << "failure" << ',' ;
-			//}
 			os_file << endl;
 		}
 	}
-	// 写入 能够根据patiendid 找到 seriesid的数据
+	// 写入 不能够根据patiendid 找到 seriesid的数据
 	for (auto patient_id : m_patient_infos2) {
 		os_file << patient_id << ',' ;
 		os_file << "" << ',' ;

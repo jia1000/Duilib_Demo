@@ -721,14 +721,7 @@ DcmDataset query;
 		//{
 		//	m_cur_patient_id = patient_id;
 		//}
-		void PACSController::SetThickness(std::string thickness)
-		{
-			m_filter_thickness = thickness;
-		}
-		void PACSController::SetBodyPartExamined(std::string bodyPartExamined)
-		{
-			m_bodyPartExamined = bodyPartExamined;
-		}
+
 		void PACSController::SetDicomSavedPath(std::string path)
 		{
 			m_dicom_saved_path = path;
