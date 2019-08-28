@@ -52,6 +52,7 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 	m_pDicomPdutEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
 	//m_pPduSpinner = static_cast<CSpinnerUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
 	m_pSerchMethodCmb = static_cast<CComboUI*>(m_pm.FindControl(L"dicom_node_serch_method"));
+	m_pLabelStatus = static_cast<CLabelUI*>(m_pm.FindControl(L"dicom_node_test_status"));
 
 	ST_Filter_Condition filter_condition;
 
@@ -80,6 +81,7 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 		text = ConfigController::Instance()->GetAETPdu();
 		m_pDicomPdutEdit->SetText(text.c_str());
 	} 
+
 }
 
 LRESULT DcmtkDLDicomSetDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -192,13 +194,12 @@ void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 		as.Drop(cond);
 		GIL::DICOM::DCMTK::Network::FreeInstance(this);
 		pNetwork = NULL;
-
-		CButtonUI* m_pBtnStatus = static_cast<CButtonUI*>(m_pm.FindControl(L"dicom_node_test_status"));
-		if (m_pBtnStatus) {
+				
+		if (m_pLabelStatus) {
 			if (success) {
-				m_pBtnStatus->SetText(L"成功");
+				m_pLabelStatus->SetText(L"成功");
 			} else {
-				m_pBtnStatus->SetText(L"失败");
+				m_pLabelStatus->SetText(L"失败");
 			}
 		}
 	}

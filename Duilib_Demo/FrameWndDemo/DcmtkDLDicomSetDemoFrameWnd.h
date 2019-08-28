@@ -34,6 +34,7 @@ private:
 	//CSpinnerUI* m_pPduSpinner;
 	CComboUI* m_pSerchMethodCmb;
 	CComboUI* m_pSerchModeCmb;
+	CLabelUI* m_pLabelStatus;
 
 };
 
