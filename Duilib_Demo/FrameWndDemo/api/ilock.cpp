@@ -14,23 +14,23 @@
 #include "ilock.h"
 //#include <wx/thread.h>
 
-wxCriticalSection::wxCriticalSection()
+wxCriticalSectionMY::wxCriticalSectionMY()
 {
 	//InitializeCriticalSection(&cs);
 }
 
-wxCriticalSection::~wxCriticalSection()
+wxCriticalSectionMY::~wxCriticalSectionMY()
 {
 	//DeleteCriticalSection(&cs);
 }
 
-void wxCriticalSection::Enter()
+void wxCriticalSectionMY::Enter()
 {
 	//EnterCriticalSection(&cs);
 	cs.lock();
 }
 
-void wxCriticalSection::Leave()
+void wxCriticalSectionMY::Leave()
 {
 	//LeaveCriticalSection(&cs);
 	cs.unlock();
@@ -46,7 +46,7 @@ GNC::GCS::ILockable::ILockable()
 {
 	m_pLocker = NULL;
 	m_IsLocked = false;
-	m_pCS = new wxCriticalSection();
+	m_pCS = new wxCriticalSectionMY();
 }
 
 GNC::GCS::ILockable::~ILockable()

@@ -30,11 +30,11 @@ namespace GNC {
 }
 //endregion
 
-class wxCriticalSection
+class wxCriticalSectionMY
 {
 public:
-	wxCriticalSection();
-	~wxCriticalSection();
+	wxCriticalSectionMY();
+	~wxCriticalSectionMY();
 
 	void Enter();
 	void Leave();
@@ -81,7 +81,7 @@ namespace GNC {
 			//----------------------------------------------------------------------------------------------------
 			//region Atributos
 			private:
-				wxCriticalSection* m_pCS;             // El cerrojo real.
+				wxCriticalSectionMY* m_pCS;             // El cerrojo real.
 				bool               m_IsLocked;
 			//endregion
 
