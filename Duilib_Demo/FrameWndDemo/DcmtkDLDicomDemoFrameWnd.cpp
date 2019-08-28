@@ -26,7 +26,7 @@ DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 	: m_downloading_dicom_index(0)
 	, m_is_stoped(false)
 {
-	//retrieve_method = GET;
+	
 }
 
 
@@ -53,7 +53,6 @@ CDuiString DcmtkDLDicomDemoFrameWnd::GetSkinFile()
 CDuiString DcmtkDLDicomDemoFrameWnd::GetSkinFolder()
 {
 	return CDuiString(CPaintManagerUI::GetInstancePath()) + _T("skin\\");
-
 }
 
 CControlUI* DcmtkDLDicomDemoFrameWnd::CreateControl(LPCTSTR pstrClass)
@@ -73,7 +72,6 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pMOdalityiesInStudyEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_modality"));
 	m_pDownloadPathEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_download_path"));
 	m_pSexEdit = static_cast<CEditUI*>(m_pm.FindControl(L"edit_filter_sex"));
-	//m_pPatientIdEdit->SetText(L"1007733445,0060388,0170713,0171033");// 2个ct 2个dx
 	m_pFilterRANGE = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_date_range")));
 	m_pFilterFROM  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_from"));
 	m_pFilterTO  = static_cast<CDateTimeUI*>(m_pm.FindControl(L"filter_range_to"));
@@ -83,67 +81,60 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pFilterModality = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_modality")));
 	m_pFilterSex = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_sex")));
 
-
-
 	m_listPro = static_cast<ListPro*>(m_pm.FindControl(L"list_download_result"));
 
+#ifdef _DEBUG
 	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
-
 	if (m_pDownloadPathEdit) {
 		m_pDownloadPathEdit->SetText(L"G:\\temp1");
 		m_dicom_saved_path = "G:\\temp1";
 	}
+#endif // _DEBUG
+	
 	ST_Filter_Condition filter_condition;
 	ConfigController::Instance()->ReloadFile("G:\\temp1\\test.ini");
 	// 日期筛选
 	ConfigController::Instance()->GetFilterDate(filter_condition);
-	bool is_sel = filter_condition.is_checked;
 	if (m_pFilterRANGE) {
-		m_pFilterRANGE->Selected(is_sel);
+		m_pFilterRANGE->Selected(filter_condition.is_checked);
 	}
 	if (m_pFilterFROM) {
-		m_pFilterFROM->SetEnabled(is_sel);
+		m_pFilterFROM->SetEnabled(filter_condition.is_checked);
 	}	
 	if (m_pFilterTO) {
-		m_pFilterTO->SetEnabled(is_sel);
+		m_pFilterTO->SetEnabled(filter_condition.is_checked);
 	}
 	// 部位筛选
 	ConfigController::Instance()->GetFilterBodyPart(filter_condition);
-	is_sel = filter_condition.is_checked;
 	if (m_pFilterBodyPart) {
-		m_pFilterBodyPart->Selected(is_sel);
+		m_pFilterBodyPart->Selected(filter_condition.is_checked);
 	}
 	if (m_pBodyPartEdit) {
-		m_pBodyPartEdit->SetEnabled(is_sel);
+		m_pBodyPartEdit->SetEnabled(filter_condition.is_checked);
 		std::wstring ws = toWString(filter_condition.condition_text);
 		m_pBodyPartEdit->SetText(ws.c_str());
 	}
 	// 层厚筛选
 	ConfigController::Instance()->GetFilterThickness(filter_condition);
-	is_sel = filter_condition.is_checked;
 	if (m_pFilterThickness) {
-		m_pFilterThickness->Selected(is_sel);
+		m_pFilterThickness->Selected(filter_condition.is_checked);
 	}
 	if (m_pThicknessEdit) {
-		m_pThicknessEdit->SetEnabled(is_sel);
+		m_pThicknessEdit->SetEnabled(filter_condition.is_checked);
 		std::wstring ws = toWString(filter_condition.condition_text);
 		m_pThicknessEdit->SetText(ws.c_str());
 	}
 	// 设备筛选
 	ConfigController::Instance()->GetFilterModality(filter_condition);
-	is_sel = filter_condition.is_checked;
 	if (m_pFilterModality) {
-		m_pFilterModality->Selected(is_sel);
+		m_pFilterModality->Selected(filter_condition.is_checked);
 	}
 	if (m_pMOdalityiesInStudyEdit) {
-		m_pMOdalityiesInStudyEdit->SetEnabled(is_sel);
+		m_pMOdalityiesInStudyEdit->SetEnabled(filter_condition.is_checked);
 		std::wstring ws = toWString(filter_condition.condition_text);
 		m_pMOdalityiesInStudyEdit->SetText(ws.c_str());
 	}
-	//is_sel = false;
-	//if (m_pSexEdit) {
-	//	m_pSexEdit->SetEnabled(is_sel);
-	//}
+
 	UpdateDownloadStaticsText(0);
 	UpdateDownloadListProAll();
 }
@@ -185,7 +176,6 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 		} else if (_tcscmp(pszCtrlName, _T("btn_filter")) == 0) {
 			DoSearchStudyTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
-			//DoDownloadTest();
 			m_is_stoped = false;
 			std::thread th(&DcmtkDLDicomDemoFrameWnd::DoDownloadTest, this);
 			th.detach();
@@ -279,35 +269,20 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, 
 	return 0;
 }
 
-//#include"dcmtk\config\osconfig.h"
-//#include"dcmtk\dcmdata\dctk.h"
-//
-//#include "utility_tool/string_converse.h"
-
 void DcmtkDLDicomDemoFrameWnd::OnSelChanged(CControlUI* pSender)
 {
-	//CTabLayoutUI* pTabResultShow = static_cast <CTabLayoutUI*>(m_pm.FindControl(_T("tab_result_show")));
-	//if (pTabResultShow == NULL)
-	//{
-	//	return;
-	//}
 	CDuiString strSelName = pSender->GetName();
-	if (strSelName == _T("op_success")) 
-	{		
-		//pTabResultShow->SelectItem(0);
-	} else if (strSelName == _T("op_failure")) {
-		//pTabResultShow->SelectItem(1);
-	} else if (strSelName == _T("op_device_date_range")) {
-		 COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_date_range")));
-		 if (pOptionUI) {
-		 	bool is_sel = pOptionUI->IsSelected();
+	if (strSelName == _T("op_device_date_range")) {
+		COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_date_range")));
+		if (pOptionUI) {
+			bool is_sel = pOptionUI->IsSelected();
 			if (m_pFilterFROM) {
 				m_pFilterFROM->SetEnabled(is_sel);
 			}
 			if (m_pFilterTO) {
 				m_pFilterTO->SetEnabled(is_sel);
 			}
-		 }
+		}
 	} else if (strSelName == _T("op_device_part")) {
 		COptionUI* pOptionUI = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_part")));
 		if (pOptionUI) {
@@ -350,8 +325,8 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenPatientIDListFile()
     TCHAR str_filename[MAX_PATH] = { 0 };
     ofn.lStructSize = sizeof(OPENFILENAME);
     ofn.hwndOwner = m_hWnd;
-    ofn.lpstrFilter = TEXT("All Files(*.*)\0*.*\0CSV Flies(*.csv)\0*.csv\0\0");
-    ofn.nFilterIndex = 1;
+    ofn.lpstrFilter = TEXT("CSV Flies(*.csv)\0*.csv\0All Files(*.*)\0*.*\0\0");
+	ofn.nFilterIndex = 1;
     ofn.lpstrFile = str_filename;
     ofn.nMaxFile = sizeof(str_filename);
     ofn.lpstrInitialDir = def_path.c_str();
@@ -361,10 +336,9 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenPatientIDListFile()
         if (m_pPatientCsvPathEdit) {
 			// 在edit框上，显示CSV的路径
 			m_pPatientCsvPathEdit->SetText(str_filename);
-			// 在edit框上，显示patient id列表
+			// 读取csv文件，并在edit框上，显示patient id列表
 			std::ifstream inFile(str_filename, ios::in);
 			std::string line;
-			//std::vector<std::wstring> strArray;
 			std::wstring ws_patient_ids_edit(L"");
 			while (getline(inFile, line)) {
 				std::stringstream ss(line);
@@ -372,7 +346,6 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenPatientIDListFile()
 				while (getline(ss, word, ','))
 				{
 					std::wstring ws_word = toWString(word);
-					//strArray.push_back(ws_word);
 					ws_patient_ids_edit += ws_word;
 					ws_patient_ids_edit += L",";
 				}
@@ -406,9 +379,7 @@ void DcmtkDLDicomDemoFrameWnd::OnOpenDownloadPath()
 		SHGetPathFromIDList(pil, sz_buffer);
 		if (m_pDownloadPathEdit) {
 			m_pDownloadPathEdit->SetText(sz_buffer);
-
 			m_dicom_saved_path = toString(sz_buffer);
-			//GIL::DICOM::PACSController::Instance()->SetDicomSavedPath(path);
 		}
 	} 
 }
@@ -417,11 +388,8 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 	// 搜索前，先清空待下载的病历列表
 	m_study_ids.clear();
 	m_patient_ids.clear();
-
 	m_patient_infos2.clear();
-
-	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();	
-
+	
 	GIL::DICOM::DicomDataset queryWrapper;
 	GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(queryWrapper);
 	GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_QueryRetrieveLevel, "STUDY");
@@ -442,6 +410,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 		GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_StudyDate, ostr.str());
 	}
 
+	std::wstring ws_patient_ids = m_pPatientIdEdit->GetText().GetData();	
 	std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
 
 	for (int patient_index = 0; patient_index < patient_ids.size() ; patient_index++) {
@@ -484,13 +453,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 	m_listPro->RemoveAll();
 	m_downloading_dicom_index = 0;
 
-	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
-	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
-	std::wstring ws_modallity = m_pMOdalityiesInStudyEdit->GetText().GetData();
-
-	m_bodyPartExamined	= toString(ws_body_part);
-	m_filter_thickness	= toString(ws_thickness);
-	m_filter_modality	= toString(ws_modallity);
+	GetAllControlValue();
 		
 	auto iter = m_patient_ids.begin();
 	auto item = m_study_ids.begin();
@@ -683,16 +646,16 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	m_downloading_dicom_index = 0;
 	UpdateDownloadStaticsText(0);
 
+	// 获取最新的控件值，主要是获取Dicom保存路径
+	GetAllControlValue();
+
 	for (auto patient_info : m_patient_infos1) {
-		// 创建患者编号的文件夹
-		std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
-		TryCreateDir(patient_path);
-		// 创建studyid的文件夹
-		std::string study_path = patient_path + patient_info.study_id + "\\";
-		TryCreateDir(study_path);
 		for (auto sereis_info : patient_info.sereis_infos) {
 			// 创建seriesid的文件夹
-			std::string series_path = study_path + sereis_info.series_id + "\\" ;
+			std::string series_path = "";
+			series_path += m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
+			series_path += patient_info.study_id + "\\";
+			series_path += sereis_info.series_id + "\\" ;
 			TryCreateDir(series_path);
 		}
 	}
@@ -746,9 +709,26 @@ void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)
 
 void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 {
-	std::string file_name= m_dicom_saved_path + "\\" + "result.csv";
+	// 格式化结果文件名
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+	std::stringstream filename;
+	filename << m_dicom_saved_path;
+	filename << "\\result";
+	filename << "_";
+	filename << st.wYear;
+	filename << std::setw(2) << std::setfill('0') << st.wMonth;
+	filename << std::setw(2) << std::setfill('0') << st.wDay;
+	filename << "_";
+	filename << std::setw(2) << std::setfill('0') << st.wHour;
+	filename << std::setw(2) << std::setfill('0') << st.wMinute;
+	filename << std::setw(2) << std::setfill('0') << st.wSecond;
+	filename << ".csv";
+
+	TryCreateDir(m_dicom_saved_path);
+
 	std::ofstream os_file;
-	os_file.open(file_name, ios::out);
+	os_file.open(filename.str(), ios::out);
 
 	//  插入表头
 	os_file << "patiend_id" << ',' ;
@@ -778,82 +758,6 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 	os_file.close();
 }
 
-DcmElement* DcmtkDLDicomDemoFrameWnd::CrearElementoConValor(const char* s)
-{
-	unsigned int g = 0xffff;
-	unsigned int e = 0xffff;
-	int n = 0;
-	char* val = new char[strlen(s)+1];
-	OFString dicName, valStr;
-	OFString msg;
-
-	val[0] = '\0';
-
-	// try to parse group and element number
-	n = sscanf(s, "%x|%x=%s", &g, &e, val);
-	OFString toParse = s;
-	size_t eqPos = toParse.find('=');
-	if (n < 2) // if at least no tag could be parsed
-	{
-		// if value is given, extract it (and extrect dictname)
-		if (eqPos != OFString_npos) {
-			dicName = toParse.substr(0, eqPos).c_str();
-			valStr = toParse.substr(eqPos + 1, toParse.length());
-		} else // no value given, just dictionary name
-			dicName = s; // only dictionary name given (without value)
-		// try to lookup in dictionary
-		DcmTagKey key(0xffff, 0xffff);
-		const DcmDataDictionary& globalDataDict = dcmDataDict.rdlock();
-		const DcmDictEntry *dicent = globalDataDict.findEntry(dicName.c_str());
-		dcmDataDict.unlock();
-		if (dicent != NULL) {
-			// found dictionary name, copy group and element number
-			key = dicent->getKey();
-			g = key.getGroup();
-			e = key.getElement();
-		} else {
-			// not found in dictionary
-			std::cerr <<  "bad key format or dictionary name not found in dictionary: " << dicName << std::endl;
-			delete[] val;
-			return NULL;
-		}
-	}// tag could be parsed, copy value if it exists
-	else {
-		if (eqPos != OFString_npos) {
-			valStr = toParse.substr(eqPos + 1, toParse.length());
-		}
-	}
-	DcmTag tag(g, e);
-	if (tag.error() != EC_Normal) {
-		std::cerr << "Tag desconocido: (" <<
-			std::hex << std::setw(4) << std::setfill('0') << g << "|" <<
-			std::hex << std::setw(4) << std::setfill('0') << e << ")" << std::endl;
-		delete[] val;
-		return NULL;
-	}
-	DcmElement *elem = newDicomElement(tag);
-	if (elem == NULL) {
-		std::cerr << "No se pudo crear el elemento para el tag: (" <<
-			std::hex << std::setw(4) << std::setfill('0') << g << "|" <<
-			std::hex << std::setw(4) << std::setfill('0') << e << ")" << std::endl;
-		delete[] val;
-		return NULL;
-	}
-	if (valStr.length() > 0) {
-		if (elem->putString(valStr.c_str()).bad()) {
-			std::cerr << "No se pudo asignar el valor al elemento: (" <<
-				std::hex << std::setw(4) << std::setfill('0') << g << "|" <<
-				std::hex << std::setw(4) << std::setfill('0') << e << ")=" << valStr.c_str() << std::endl;
-			delete elem;
-			delete[] val;
-			return NULL;
-		}
-	}
-	delete[] val;
-	return elem;
-
-}
-
 std::vector<std::string> DcmtkDLDicomDemoFrameWnd::testSplit(std::string srcStr, const std::string& delim)
 {
 	int nPos = 0;
@@ -874,13 +778,15 @@ std::vector<std::string> DcmtkDLDicomDemoFrameWnd::testSplit(std::string srcStr,
 	return vec;
 }
 
-//void DcmtkDLDicomDemoFrameWnd::GetConnection(void* connectionKey)
-//{
-//	GIL::DICOM::DCMTK::Network::Instance(connectionKey);
-//}
-//
-//void DcmtkDLDicomDemoFrameWnd::ReleaseConnection(void* connectionKey)
-//{
-//	GIL::DICOM::DCMTK::Network::FreeInstance(connectionKey);
-//}
+void DcmtkDLDicomDemoFrameWnd::GetAllControlValue()
+{
+	std::wstring ws_body_part = m_pBodyPartEdit->GetText().GetData();
+	std::wstring ws_thickness = m_pThicknessEdit->GetText().GetData();
+	std::wstring ws_modallity = m_pMOdalityiesInStudyEdit->GetText().GetData();
+	std::wstring ws_save_path = m_pDownloadPathEdit->GetText().GetData();
 
+	m_bodyPartExamined	= toString(ws_body_part);
+	m_filter_thickness	= toString(ws_thickness);
+	m_filter_modality	= toString(ws_modallity);
+	m_dicom_saved_path  = toString(ws_save_path);
+}

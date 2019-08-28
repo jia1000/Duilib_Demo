@@ -42,7 +42,11 @@ void TryCreateDir(const std::string& dir)
 	//CGLogger::Info("Save Image to  : " + dir);
 	
 	std::vector<std::string> v;
+#ifdef WIN32
+	SplitString(dir, v, "\\");
+#else
 	SplitString(dir, v, "/");
+#endif // WIN32	
 
 	std::string dst_dir_path("" );
 	for(auto iter = v.begin(); iter != v.end(); ++iter)

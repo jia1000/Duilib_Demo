@@ -48,34 +48,11 @@ namespace GIL {
 				const GIL::DICOM::DicomDataset& base, 
 				const std::string series_path
 				);
-			
-			virtual bool ObtenerSerie(
-				void* connectionKey,
-				const std::string& serverId,
-				const GIL::DICOM::DicomDataset& base,
-				//IModeloDicom* pModelo,
-				//GNC::IProxyNotificadorProgreso* pNotificador,
-				bool link
-				);
-
-			virtual bool ObtenerImagen(
-				void* connectionKey,
-				const std::string& serverId,
-				const GIL::DICOM::DicomDataset& base//,
-				//IModeloDicom* pModelo,
-				//GNC::IProxyNotificadorProgreso* pNotificador
-				);
-
+						
 			void FillInQuery(const GIL::DICOM::DicomDataset& base, DcmDataset* query);//, const GNC::GCS::Ptr<DicomServer>& server);
 			DcmElement* CrearElementoConValor(const char* s);
 
-			//void SetCurPatientId(std::string patient_id);
-			void SetDicomSavedPath(std::string path);
-
 			void InitFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
-			//void InitStudyFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
-			void InitSerieFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper);
-
 			void SetWrapper(GIL::DICOM::DicomDataset&  queryWrapper, char* tag, std::string value);
 
 		protected:
@@ -86,9 +63,7 @@ namespace GIL {
 
 			GNC::GCS::Ptr<DicomServer> server;
 
-			std::string m_dicom_saved_path;
-			TRetrieveMethod retrieve_method; 
-			//std::string m_cur_patient_id;
+			TRetrieveMethod retrieve_method;
 		};
 	};
 };

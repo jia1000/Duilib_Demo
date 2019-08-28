@@ -30,14 +30,12 @@ typedef struct Series_Info
 {
 	std::string series_id;
 	std::string modality;   // 发起C-GET命令，下载dicom文件时，需要由Modality参数
-	//bool is_downloaded;
 	std::string download_status;
 };
 typedef struct PatientInfo
 {
 	std::string patiend_id;
 	std::string study_id;
-	//std::vector<std::string> sereis_ids;
 	std::vector<Series_Info> sereis_infos;
 };
 
@@ -61,7 +59,6 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	virtual LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
-	//void thread_func(DcmtkDLDicomDemoFrameWnd* ptr);
 	void OnSelChanged(CControlUI* pSender);
 	void OnOpenPatientIDListFile();
 	void OnOpenDownloadPath();
@@ -86,6 +83,7 @@ public:
 	void SetDownloadStop(bool is_stopped);
 	void SaveFilterCondition();
 	void ClearFilterCondition();
+	void GetAllControlValue();
 
 private:
 	std::vector<std::string> m_study_ids;
