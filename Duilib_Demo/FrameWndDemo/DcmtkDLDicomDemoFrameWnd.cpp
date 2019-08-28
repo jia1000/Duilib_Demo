@@ -81,6 +81,12 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_pFilterModality = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_modality")));
 	m_pFilterSex = static_cast<COptionUI*>(m_pm.FindControl(_T("op_device_sex")));
 
+	m_pBtnResearch = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_filter")));
+	m_pBtnDownload = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_download")));
+	m_pBtnSavePath = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_download_path")));
+	m_pBtnStopped = static_cast<CButtonUI*>(m_pm.FindControl(_T("btn_download_stop")));
+
+
 	m_listPro = static_cast<ListPro*>(m_pm.FindControl(L"list_download_result"));
 
 #ifdef _DEBUG
@@ -137,6 +143,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 
 	UpdateDownloadStaticsText(0);
 	UpdateDownloadListProAll();
+	ChangeButtonStatusInDownload(false);
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -177,6 +184,7 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			DoSearchStudyTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
 			m_is_stoped = false;
+			ChangeButtonStatusInDownload(true);
 			std::thread th(&DcmtkDLDicomDemoFrameWnd::DoDownloadTest, this);
 			th.detach();
 		} else if (_tcscmp(pszCtrlName, _T("btn_patient_csv_path")) == 0) {
@@ -184,6 +192,7 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 		} else if (_tcscmp(pszCtrlName, _T("btn_download_path")) == 0) {
 			OnOpenDownloadPath(); 
 		} else if (_tcscmp(pszCtrlName, _T("btn_download_stop")) == 0) {
+			ChangeButtonStatusInDownload(false);
 			SetDownloadStop(true); 
 		} else if (_tcscmp(pszCtrlName, _T("btn_filter_save")) == 0) {
 			SaveFilterCondition(); 
@@ -707,6 +716,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	}
 	//保存下载结果到文件
 	OutputResultStaticsToFile(m_dicom_saved_path);
+	ChangeButtonStatusInDownload(false);
 }
 
 void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)
@@ -796,4 +806,20 @@ void DcmtkDLDicomDemoFrameWnd::GetAllControlValue()
 	m_filter_thickness	= toString(ws_thickness);
 	m_filter_modality	= toString(ws_modallity);
 	m_dicom_saved_path  = toString(ws_save_path);
+}
+
+void DcmtkDLDicomDemoFrameWnd::ChangeButtonStatusInDownload(bool is_downloading)
+{
+	if (m_pBtnResearch) {
+		m_pBtnResearch->SetEnabled(!is_downloading);
+	}
+	if (m_pBtnDownload) {
+		m_pBtnDownload->SetEnabled(!is_downloading);
+	}
+	if (m_pBtnSavePath) {
+		m_pBtnSavePath->SetEnabled(!is_downloading);
+	}
+	if (m_pBtnStopped) {
+		m_pBtnStopped->SetEnabled(is_downloading);
+	}
 }

@@ -84,6 +84,7 @@ public:
 	void SaveFilterCondition();
 	void ClearFilterCondition();
 	void GetAllControlValue();
+	void ChangeButtonStatusInDownload(bool is_downloading);
 
 private:
 	std::vector<std::string> m_study_ids;
@@ -107,6 +108,11 @@ private:
 	COptionUI* m_pFilterRANGE;
 	CDateTimeUI* m_pFilterFROM;
 	CDateTimeUI* m_pFilterTO;
+
+	CButtonUI* m_pBtnResearch;
+	CButtonUI* m_pBtnDownload;
+	CButtonUI* m_pBtnSavePath;
+	CButtonUI* m_pBtnStopped;
 
 	ListPro* m_listPro;
 	std::vector<struct PatientInfo>  m_patient_infos1;  // 可以根据patienid找到series的数据
