@@ -27,14 +27,12 @@
 				<GroupBox  minwidth="420" text="患者编号" height="110" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FF333333" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout bkcolor="#FF11172D" height="25"> 
-							<Control width="5"/>
 							<Button name="btn_patient_csv_path" text="选择文件" width="80" tooltip="选择csv格式的Patient ID列表文件" textcolor="#FFF2F2F2" hottextcolor="#FFFFFFFF"  bkcolor="#FF2C356A" hotbkcolor="#FF626FFF"/>
 							<Control width="5"/>
 							<Edit name="edit_patient_csv_path" inset="5,0,5,0" wordbreak="true" tipvalue="pid列表文件路径..." textpadding="5,0,0,0" style="edit_style_dicom"/>
 						</HorizontalLayout>
 						<Control height="1"/>
 						<HorizontalLayout bkcolor="#FF11172D" height="25"> 
-							<Control width="5"/>
 							<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" style="edit_style_dicom"/>
 							</HorizontalLayout>
 					</VerticalLayout>
@@ -46,9 +44,13 @@
 						<HorizontalLayout height="25" bkcolor="#FF11172D"> 
 							<Option name="op_device_date_range" text="检查日期 (0018|0015)" width="160"  style="pacs_cb_style" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF"/>
 							<Control width="20"/>
-							<DateTime name="filter_range_from" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+							<Label text="从" textcolor="#FFABBCDC" font="2" width="0" autocalcwidth="true"/>
 							<Control width="5"/>
-							<DateTime name="filter_range_to" width="120" enabled="true" bordersize="1" textcolor="#FF000000" bkcolor="#FFFFFFFF" bordercolor="#FFFFFFFF" textpadding="3"/>
+							<DateTime name="filter_range_from" width="120" enabled="true" bordersize="1" textcolor="#FFABBCDC" bkcolor="#FF11172D" bordercolor="#FF979797" textpadding="3"/>
+							<Control width="5"/>
+							<Label text="至" textcolor="#FFABBCDC" font="2" width="0" autocalcwidth="true"/>
+							<Control width="5"/>
+							<DateTime name="filter_range_to" width="120" enabled="true" bordersize="1" textcolor="#FFABBCDC" bkcolor="#FF11172D" bordercolor="#FF979797" textpadding="3"/>
 							<Control  />
 							<Button name="btn_filter_save"  text="保存条件" width="100" tooltip="保存所有筛选条件" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
 							<Control width="5"/>
