@@ -70,7 +70,6 @@ public:
 	void DoSearchSeriesTest();
 
 	void DoDownloadTest();	
-	void DoDownloadTest2();	
 
 	int GetPatienCount();
 	int GetStudyCount();

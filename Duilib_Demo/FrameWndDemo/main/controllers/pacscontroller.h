@@ -41,25 +41,12 @@ namespace GIL {
 			virtual bool ObtainDicomDataSet(
 				void* connectionKey,
 				const GIL::DICOM::DicomDataset& base,
-				std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper,
-				//IModeloDicom* pModelo,
-				//GNC::IProxyNotificadorProgreso* pNotificador,
-				bool link
-				);
+				std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper);
 
 			virtual bool DownloadDicomFilesBySeries(
 				void* connectionKey,
 				const GIL::DICOM::DicomDataset& base, 
 				const std::string series_path
-				);
-
-			virtual bool ObtenerEstudio(
-				void* connectionKey,
-				const std::string& serverId,
-				const GIL::DICOM::DicomDataset& base,
-				//IModeloDicom* pModelo,
-				//GNC::IProxyNotificadorProgreso* pNotificador,
-				bool link
 				);
 			
 			virtual bool ObtenerSerie(

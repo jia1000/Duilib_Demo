@@ -444,36 +444,17 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 
 	std::vector<std::string> patient_ids = testSplit(toString(ws_patient_ids), ",");
 
-	std::string result = "";
 	for (int patient_index = 0; patient_index < patient_ids.size() ; patient_index++) {
 		std::string patient_id = patient_ids[patient_index];
 		GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_PatientID, patient_id);
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, queryWrapper, resultsWrapper, false);
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, queryWrapper, resultsWrapper);
 
-		if (ret_status_obtain) {
-			
+		if (ret_status_obtain) {			
 			for (auto iter : resultsWrapper) {
 				GNC::GCS::Ptr<GIL::DICOM::DicomDataset> item = iter;
-
-				std::string patient_name("");					
-				if (item->getTag(GKDCM_PatientName, patient_name)) {
-					result += patient_name;
-					result += "   ";
-				}
-
-				std::string number_study_instances("");					
-				if (item->getTag(GKDCM_NumberOfStudyRelatedInstances, number_study_instances)) {
-					result += number_study_instances;
-					result += "   ";
-					result += "\r\n";
-				}
-
 				std::string study_id("");					
 				if (item->getTag(GKDCM_StudyInstanceUID, study_id)) {
-					result += study_id;
-					result += "   ";
-					result += "\r\n";
 					m_study_ids.push_back(study_id);
 				}
 				// 如果patientid为空，表示搜索所有
@@ -486,8 +467,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 				else {
 					m_patient_ids.push_back(patient_id);
 				}
-			}
-			
+			}			
 		}
 		else
 		{
@@ -532,8 +512,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
 
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, base, 
-			resultsWrapper, false);
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, base, resultsWrapper);
 
 		if (ret_status_obtain) {
 			PatientInfo patient_info;
@@ -831,24 +810,6 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 	os_file.close();
 }
 
-void DcmtkDLDicomDemoFrameWnd::DoDownloadTest2()
-{
-	auto iter = m_patient_ids.begin();
-	auto item = m_study_ids.begin();
-
-	for (; item != m_study_ids.end() && iter != m_patient_ids.end(); ++item, ++iter) {		
-		GIL::DICOM::DicomDataset base;
-		//base.tags[GKDCM_QueryRetrieveLevel] = "STUDY";	//"0008|0052"
-		//base.tags[GKDCM_StudyInstanceUID] = item;		//"0020|000d"
-		GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
-		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, *item);
-		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
-
-		std::wstring ws_number = ConfigController::Instance()->GetAETNumber();
-		std::string number = toString(ws_number);
-		GIL::DICOM::PACSController::Instance()->ObtenerEstudio(this, number, base, false);
-	}
-}
 DcmElement* DcmtkDLDicomDemoFrameWnd::CrearElementoConValor(const char* s)
 {
 	unsigned int g = 0xffff;
