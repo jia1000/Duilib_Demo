@@ -36,9 +36,10 @@ namespace GIL {
 			virtual void  GetConnection(void* connectionKey);
 			virtual void  ReleaseConnection(void* connectionKey);
 			
+			virtual void InitDicomServer();
+
 			virtual bool ObtainDicomDataSet(
 				void* connectionKey,
-				const std::string& serverId,
 				const GIL::DICOM::DicomDataset& base,
 				std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper,
 				//IModeloDicom* pModelo,
@@ -48,7 +49,6 @@ namespace GIL {
 
 			virtual bool DownloadDicomFilesBySeries(
 				void* connectionKey,
-				const std::string& serverId,
 				const GIL::DICOM::DicomDataset& base, 
 				const std::string series_path
 				);

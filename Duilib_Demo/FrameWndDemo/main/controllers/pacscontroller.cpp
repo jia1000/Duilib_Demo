@@ -26,14 +26,11 @@
 #include "api/dicom/dcmdictionary.h"
 
 #include "utility_tool/common_utils.h"
+#include "utility_tool/string_converse.h"
+#include "controller/configcontroller.h"
 
 #define LOCAL_AE_TITLE	"DEEPWISE_002"
 
-#define SCP_IDENTIFIER   "253"
-#define AET_TITLE		"DEEPWISESCP"
-#define HOST_ADDR		"192.168.1.253"
-#define AET_PORT	22222
-#define PSDU_LENGTH 16384
 
 
 namespace GIL {
@@ -41,11 +38,10 @@ namespace GIL {
 		PACSController* PACSController::m_pInstance = NULL;
 		
 		PACSController::PACSController()
-			: server(new DicomServer(SCP_IDENTIFIER, AET_TITLE, HOST_ADDR, AET_PORT, PSDU_LENGTH))
-			, retrieve_method(GET)
+			: retrieve_method(GET)
 			, m_dicom_saved_path(".")
 		{
-			
+			InitDicomServer();
 		}
 
 		PACSController::~PACSController()
@@ -66,20 +62,28 @@ namespace GIL {
 				m_pInstance = NULL;
 			}			
 		}
+		void PACSController::InitDicomServer()
+		{
+			std::string aet_nubmer = ConfigController::Instance()->GetAETNumberStr();
+			std::string host_addr = ConfigController::Instance()->GetAETHostStr();
+			std::string aet_title = ConfigController::Instance()->GetAETTitleStr();
+			std::string aet_port = ConfigController::Instance()->GetAETPortStr();
+			int port = atoi(aet_port.c_str());
+			std::string aet_pdu = ConfigController::Instance()->GetAETPortStr();
+			int pdu_length = atoi(aet_pdu.c_str());
+			server = new DicomServer(aet_nubmer, aet_title, host_addr, port, pdu_length);
+		}
 
-		bool PACSController::ObtainDicomDataSet(void* connectionKey, const std::string& serverId, 
-			const GIL::DICOM::DicomDataset& base, 
+		bool PACSController::ObtainDicomDataSet(void* connectionKey, const GIL::DICOM::DicomDataset& base, 
 			std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> >& resultsWrapper,
 			/*IModeloDicom* pModelo, GNC::IProxyNotificadorProgreso* pNotificador,*/ 
 			bool link)
 		{
+			InitDicomServer();
 			bool success = true;
 			std::ostringstream errorMsg;
 			std::string errorTitle;
 
-			std::string aet_title	= AET_TITLE;//"DEEPWISESCP";
-			std::string host_addr	= HOST_ADDR;//"192.168.1.253";
-			//std::string port		= "22222";
 			std::string aet_local	= LOCAL_AE_TITLE;
 			int psdu_length			= 16384;
 
@@ -115,7 +119,6 @@ DcmDataset query;
 
 		bool PACSController::DownloadDicomFilesBySeries(
 			void* connectionKey,
-			const std::string& serverId,
 			const GIL::DICOM::DicomDataset& base, 
 			const std::string series_path
 			)
@@ -151,8 +154,8 @@ DcmDataset query;
 			std::ostringstream errorMsg;
 			std::string errorTitle;
 
-			std::string aet_title	= AET_TITLE;//"DEEPWISESCP";
-			std::string host_addr	= HOST_ADDR;//"192.168.1.253";
+			//std::string aet_title	= AET_TITLE;//"DEEPWISESCP";
+			//std::string host_addr	= HOST_ADDR;//"192.168.1.253";
 			//std::string port		= "22222";
 			std::string aet_local	= LOCAL_AE_TITLE;
 			int psdu_length			= 16384;

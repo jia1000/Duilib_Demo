@@ -140,6 +140,46 @@ std::wstring ConfigController::GetAETPdu()
 	}
 }
 
+std::string ConfigController::GetAETNumberStr()
+{
+	if (m_ini_file) {
+		std::string number;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Number", &number);
+		return number;
+	}
+}
+std::string ConfigController::GetAETTitleStr()
+{
+	if (m_ini_file) {
+		std::string aet_title;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "AetTitle", &aet_title);
+		return aet_title;
+	}
+}
+std::string ConfigController::GetAETHostStr()
+{
+	if (m_ini_file) {
+		std::string ip_addr;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Host", &ip_addr);
+		return ip_addr;
+	}
+}
+std::string ConfigController::GetAETPortStr()
+{
+	if (m_ini_file) {
+		std::string port;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Port", &port);
+		return port;
+	}
+}
+std::string ConfigController::GetAETPduStr()
+{
+	if (m_ini_file) {
+		std::string pdu;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Pdu", &pdu);
+		return pdu;
+	}
+}
 void ConfigController::SetFilterDate(ST_Filter_Condition condition)
 {
 	if (m_ini_file) {

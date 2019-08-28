@@ -19,6 +19,7 @@ typedef struct ST_Filter_Condition {
 #define KEY_FILTER_CHECKED			"ischecked"
 #define KEY_FILTER_CONDITION		"condition"
 
+using namespace std;
 class IniFile;
 
 class ConfigController{
@@ -41,6 +42,12 @@ public:
 	std::wstring GetAETHost();
 	std::wstring GetAETPort();	
 	std::wstring GetAETPdu();
+
+	std::string GetAETNumberStr();
+	std::string GetAETTitleStr();
+	std::string GetAETHostStr();
+	std::string GetAETPortStr();	
+	std::string GetAETPduStr();
 
 	void SetFilterDate(ST_Filter_Condition condition);
 	void SetFilterBodyPart(ST_Filter_Condition condition);

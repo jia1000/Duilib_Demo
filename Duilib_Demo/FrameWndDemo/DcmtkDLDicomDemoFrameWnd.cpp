@@ -21,14 +21,8 @@
 
 #define LOCAL_AE_TITLE	"DEEPWISE_002"
 
-#define SCP_IDENTIFIER   "253"
-#define AET_TITLE		"DEEPWISESCP"
-#define HOST_ADDR		"192.168.1.253"
-#define AET_PORT	22222
-#define PSDU_LENGTH 16384
 
 DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
-	//: server(new DicomServer(SCP_IDENTIFIER, AET_TITLE, HOST_ADDR, AET_PORT, PSDU_LENGTH))
 	: m_downloading_dicom_index(0)
 	, m_is_stoped(false)
 {
@@ -455,7 +449,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchStudyTest()
 		std::string patient_id = patient_ids[patient_index];
 		GIL::DICOM::PACSController::Instance()->SetWrapper(queryWrapper, GKDCM_PatientID, patient_id);
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, SCP_IDENTIFIER, queryWrapper, resultsWrapper, false);
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, queryWrapper, resultsWrapper, false);
 
 		if (ret_status_obtain) {
 			
@@ -538,7 +532,7 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
 
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
-		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, SCP_IDENTIFIER, base, 
+		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, base, 
 			resultsWrapper, false);
 
 		if (ret_status_obtain) {
@@ -770,7 +764,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			//更新list控件中，对应的series的状态为downloading
 			SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_DOWNLOADING);
 
-			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, SCP_IDENTIFIER, base, series_path)) {
+			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, base, series_path)) {
 				//series_info.is_downloaded = true;
 				series_info.download_status = DOWNLOAD_STATUS_SUCCESS;
 				//UpdateDownloadStaticsText();
@@ -850,7 +844,9 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest2()
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, *item);
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
 
-		GIL::DICOM::PACSController::Instance()->ObtenerEstudio(this, SCP_IDENTIFIER, base, false);
+		std::wstring ws_number = ConfigController::Instance()->GetAETNumber();
+		std::string number = toString(ws_number);
+		GIL::DICOM::PACSController::Instance()->ObtenerEstudio(this, number, base, false);
 	}
 }
 DcmElement* DcmtkDLDicomDemoFrameWnd::CrearElementoConValor(const char* s)
@@ -937,11 +933,15 @@ std::vector<std::string> DcmtkDLDicomDemoFrameWnd::testSplit(std::string srcStr,
 	while(-1 != nPos)
 	{
 		string temp = srcStr.substr(0, nPos);
-		vec.push_back(temp);
+		if (temp.size() > 0) {
+			vec.push_back(temp);
+		}
 		srcStr = srcStr.substr(nPos+1);
 		nPos = srcStr.find(delim.c_str());
 	}
-	vec.push_back(srcStr);
+	if (srcStr.size() > 0) {
+		vec.push_back(srcStr);
+	}
 	return vec;
 }
 
