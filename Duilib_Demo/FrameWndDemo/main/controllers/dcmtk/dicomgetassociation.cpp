@@ -67,19 +67,127 @@ void GetAssociation::SetStorageSOPClasses(std::string modality)//const SOPClassL
 {
 	//this->SOPClasses = SOPClasses;
 	this->SOPClasses.clear();
-	if (modality == "CT") {
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2");
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2.1");
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");
-	} else if(modality == "CR"){
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1");
-	} else if(modality == "MG"){
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.2");
-		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.2.1");
-	}
+	if(modality == "CR") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1");  // ComputedRadiographyImageStorage
+	} else if(modality == "CT") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2");  // CTImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.2.1");  // EnhancedCTImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");  // DigitalIntraOralXRayImageStorageForProcessing
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");  // DigitalIntraOralXRayImageStorageForPresentation
+	} else if(modality == "DM") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.2");  // VLMicroscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.2.1");  // VideoMicroscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.3");  // VLSlideCoordinatesMicroscopicImageStorage
+	} else if(modality == "DOC") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.104.1");  // EncapsulatedPDFStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.66");  // RawDataStorage
+	} else if(modality == "DX") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.1");  // DigitalXRayImageStorageForPresentation
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.1.1");  // DigitalXRayImageStorageForProcessing
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");  // DigitalIntraOralXRayImageStorageForPresentation
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");  // DigitalIntraOralXRayImageStorageForProcessing
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1");  // ComputedRadiographyImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.2");  // XRayRadiofluoroscopicImageStorage
+	} else if(modality == "ECG") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.2.1");  // HemodynamicWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.1.1");  // TwelveLeadECGWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.1.2");  // GeneralECGWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.1.3");  // AmbulatoryECGWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.3.1");  // CardiacElectrophysiologyWaveformStorage
+	} else if(modality == "ES") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1");  // VLEndoscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1.1");  // VideoEndoscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4");  // VLPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4.1");  // VideoPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1");  // VLEndoscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1.1");  // VideoEndoscopicImageStorage
+	} else if(modality == "HC") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.1.29");  // HardcopyGrayscaleImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.1.30");  // HardcopyColorImageStorage
+	} else if(modality == "HD") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.2.1");  // HemodynamicWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.5.1");  // ArterialPulseWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.6.1");  // RespiratoryWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.1.1");  // TwelveLeadECGWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.1.2");  // GeneralECGWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.1.3");  // AmbulatoryECGWaveformStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9.3.1");  // CardiacElectrophysiologyWaveformStorage
+	} else if(modality == "MG") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.2");  // DigitalMammographyXRayImageStorageForPresentation
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.2.1");  // DigitalMammographyXRayImageStorageForProcessing
+	} else if(modality == "MR") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.4");  // MRImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.4.1");  // EnhancedMRImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.4.2");  // MRSpectroscopyStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.4.3");  // EnhancedMRColorImageStorage
+	} else if(modality == "NM") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.20");  // NuclearMedicineImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.9");  // StandaloneCurveStorage
+	} else if(modality == "OCT") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4");  // VLPhotographicImageStorage
+	} else if(modality == "OT") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4");  // VLPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4.1");  // VideoPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.66");  // RawDataStorage
+	} else if(modality == "PET") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.128");  // PositronEmissionTomographyImageStorage
+	} else if(modality == "PT") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.128");  // PositronEmissionTomographyImageStorage
+	} else if(modality == "RF") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.2");  // XRayRadiofluoroscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3.1");  // DigitalIntraOralXRayImageStorageForProcessing
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.1.3");  // DigitalIntraOralXRayImageStorageForPresentation
+	} else if(modality == "RT") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.481.1");  // RTImageStorage
+	} else if(modality == "SC") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.104.1");  // EncapsulatedPDFStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.1");  // MultiframeSingleBitSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.2");  // MultiframeGrayscaleByteSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.3");  // MultiframeGrayscaleWordSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.4");  // MultiframeTrueColorSecondaryCaptureImageStorage
+	} else if(modality == "SR") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.88.11");  // BasicTextSRStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.88.22");  // EnhancedSRStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.88.50");  // MammographyCADSRStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.88.33");  // ComprehensiveSRStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.88.59");  // KeyObjectSelectionDocumentStorage
+	} else if(modality == "US") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.6.1");  // UltrasoundImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.3.1");  // UltrasoundMultiframeImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.1");  // MultiframeSingleBitSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.2");  // MultiframeGrayscaleByteSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.3");  // MultiframeGrayscaleWordSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7.4");  // MultiframeTrueColorSecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.3");  // RetiredUltrasoundMultiframeImageStorage
+	} else if(modality == "XA") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.1");  // XRayAngiographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.1.1");  // EnhancedXAImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.2");  // XRayRadiofluoroscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.2.1");  // EnhancedXRFImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.13.1.1");  // XRay3DAngiographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.12.2");  // XRayRadiofluoroscopicImageStorage
+	} else if(modality == "XC") { 
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1");  // VLEndoscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1.1");  // VideoEndoscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.2.1");  // VideoMicroscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4");  // VLPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4.1");  // VideoPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.7");  // SecondaryCaptureImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4");  // VLPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.4.1");  // VideoPhotographicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.1");  // VLEndoscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.2");  // VLMicroscopicImageStorage
+		this->SOPClasses.push_back("1.2.840.10008.5.1.4.1.1.77.1.2.1");  // VideoMicroscopicImageStorage
+	} 
 }
 
 void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
