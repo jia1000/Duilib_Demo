@@ -3,6 +3,7 @@
 	<Style name="pacs_cb_style" shared="true" value="autocalcwidth=&quot;false&quot; align=&quot;left&quot; valign=&quot;vcenter&quot; height=&quot;16&quot; textcolor=&quot;#FFFF0000&quot; hottextcolor=&quot;#FF00FF00&quot; textpadding=&quot;20,0,6,0&quot; normalimage=&quot;res='sysbtn/cb_normal.png' dest='0,0,16.16'&quot; hotimage=&quot;res='sysbtn/cb_hot.png' dest='0,0,16.16'&quot; pushedimage=&quot;res='sysbtn/cb_pushed.png' dest='0,0,16.16'&quot; selectedimage=&quot;res='sysbtn/cb_selected.png' dest='0,0,16,16'&quot;" />
     <Style name="list_style" value="headerbkimage=&quot;res='main/list_header_bg.png'&quot; itemalign=&quot;center&quot; itemlinecolor=&quot;#FF888888&quot; itemshowrowline=&quot;false&quot; itemshowcolumnline=&quot;false&quot;" />
 	<Style name="listheader_style" value="sortimage_align=&quot;right&quot; sortimage_valign=&quot;vcenter&quot; hotimage=&quot;res='main/list_header_hot.png'&quot; pushedimage=&quot;res='main/list_header_pushed.png'&quot; ascimage=&quot;main/list_tree/list_icon_asc.png&quot; descimage=&quot;main/list_tree/list_icon_desc.png&quot; sortimage_height=&quot;12&quot; sortimage_width=&quot;22&quot; textpadding=&quot;6,0,0,0&quot; align=&quot;left&quot; sepimage=&quot;res='main/list_header_sep.png'&quot; sepwidth=&quot;1&quot;" />
+    <Style name="edit_style_dicom" value="height=&quot;32&quot; textcolor=&quot;#FFFAFAFA&quot; textpadding=&quot;10,6,6,6&quot; bkcolor=&quot;#FF11172D&quot; bordersize=&quot;1&quot; bordercolor=&quot;#FF979797&quot; focusbordercolor=&quot;#FF00AEEF&quot; nativebkcolor=&quot;#FF11172D&quot;" />
   
 	<VerticalLayout bkcolor="#FF11172D" bordersize="1" bordercolor="#FF222222" borderround="0">
 		<!-- 标题栏区 -->
@@ -23,24 +24,24 @@
 		<HorizontalLayout bkcolor="#FFE6E7E8"> 			
 			<VerticalLayout bkcolor="#FF11172D" bordersize="1" bordercolor="#FF222222" borderround="0">
 				<Control height="10"/>
-				<GroupBox  minwidth="420" text="患者编号" height="100" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+				<GroupBox  minwidth="420" text="患者编号" height="110" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FF333333" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout bkcolor="#FF11172D" height="25"> 
 							<Control width="5"/>
 							<Button name="btn_patient_csv_path" text="选择文件" width="80" tooltip="选择csv格式的Patient ID列表文件" textcolor="#FFF2F2F2" hottextcolor="#FFFFFFFF"  bkcolor="#FF2C356A" hotbkcolor="#FF626FFF"/>
 							<Control width="5"/>
-							<Edit name="edit_patient_csv_path" inset="5,0,5,0" wordbreak="true" tipvalue="pid列表文件路径..." textpadding="5,0,0,0" />
+							<Edit name="edit_patient_csv_path" inset="5,0,5,0" wordbreak="true" tipvalue="pid列表文件路径..." textpadding="5,0,0,0" style="edit_style_dicom"/>
 						</HorizontalLayout>
 						<Control height="1"/>
 						<HorizontalLayout bkcolor="#FF11172D" height="25"> 
 							<Control width="5"/>
-							<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" />
+							<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" style="edit_style_dicom"/>
 							</HorizontalLayout>
 					</VerticalLayout>
 				</GroupBox>				
 				<Control height="5"/>
 				
-				<GroupBox  minwidth="420" text="筛选条件" height="160" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+				<GroupBox  minwidth="420" text="筛选条件" height="160" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FF333333" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout height="25" bkcolor="#FF11172D"> 
 							<Option name="op_device_date_range" text="检查日期 (0018|0015)" width="160"  style="pacs_cb_style" textcolor="#FFABBCDC"/>
@@ -56,23 +57,23 @@
 						<HorizontalLayout height="25" bkcolor="#FF11172D"> 
 							<Option name="op_device_part" text="部位     (0018|0015)" width="160" userdata="CR" style="pacs_cb_style" textcolor="#FFABBCDC"/>
 							<Control width="20"/>
-							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="part" textpadding="5,0,0,0" />				
+							<Edit name="edit_filter_part" inset="5,0,5,0" tipvalue="part" textpadding="5,0,0,0" style="edit_style_dicom"/>				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF11172D"> 
 							<Option name="op_device_thickness" text="层厚     (0018|0050)" width="160" userdata="MG" style="pacs_cb_style" textcolor="#FFABBCDC"/>
 							<Control width="20"/>
-							<Edit name="edit_filter_thickness" inset="5,0,5,0" tipvalue="mm" textpadding="5,0,0,0" />				
+							<Edit name="edit_filter_thickness" inset="5,0,5,0" tipvalue="mm" textpadding="5,0,0,0" style="edit_style_dicom"/>				
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF11172D"> 
 							<Option name="op_device_modality" text="设备     (0008|0061)" width="160" userdata="RF" style="pacs_cb_style" textcolor="#FFABBCDC"/>
 							<Control width="20"/>
-							<Edit name="edit_filter_modality" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" />				
+							<Edit name="edit_filter_modality" inset="5,0,5,0" tipvalue="modality" textpadding="5,0,0,0" style="edit_style_dicom"/>				
 						</HorizontalLayout>	
 					</VerticalLayout>
 				</GroupBox>
 				<Control height="5"/>
 				
-				<GroupBox  minwidth="420" text="搜索&下载" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
+				<GroupBox  minwidth="420" text="搜索 / 下载" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FF333333" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >						
 						<HorizontalLayout bkcolor="#FF11172D" height="30"> 
 							<Button name="btn_filter" text="搜索" width="80" tooltip="搜索" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
@@ -81,7 +82,7 @@
 							<Control width="5"/>
 							<Button name="btn_download_path" text="选择路径" width="80" tooltip="下载建立" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
 							<Control width="5"/>
-							<Edit name="edit_download_path" inset="5,0,5,0" wordbreak="true" tipvalue="下载路径..." textpadding="5,0,0,0" />
+							<Edit name="edit_download_path" inset="5,0,5,0" wordbreak="true" tipvalue="下载路径..." textpadding="5,0,0,0" style="edit_style_dicom"/>
 							<Control width="5"/>
 							<Button name="btn_download_stop" text="停止下载" width="80"  tooltip="停止下载" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />												
 						</HorizontalLayout>
