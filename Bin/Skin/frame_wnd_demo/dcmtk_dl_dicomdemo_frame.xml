@@ -26,15 +26,13 @@
 				<GroupBox  minwidth="420" text="患者编号" height="100" bkcolor="#FF1C2136" textcolor="#FFABBCDC" bordercolor="#FFDCDCDC" bordersize="1" borderround="6,6">
 					<VerticalLayout  childpadding="4" >
 						<HorizontalLayout bkcolor="#FF11172D" height="25"> 
-							<Label text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFABBCDC" font="1" />
-							<Control width="2"/>
+							<Control width="5"/>
 							<Button name="btn_patient_csv_path" text="选择文件" width="80" tooltip="选择csv格式的Patient ID列表文件" textcolor="#FFF2F2F2" hottextcolor="#FFFFFFFF"  bkcolor="#FF2C356A" hotbkcolor="#FF626FFF"/>
-							<Control width="2"/>
+							<Control width="5"/>
 							<Edit name="edit_patient_csv_path" inset="5,0,5,0" wordbreak="true" tipvalue="pid列表文件路径..." textpadding="5,0,0,0" />
 						</HorizontalLayout>
 						<Control height="1"/>
 						<HorizontalLayout bkcolor="#FF11172D" height="25"> 
-							<Label name="patient_id" text="患者编号"  width="80" inset="5,0,5,0" textcolor="#FFABBCDC" font="1" />
 							<Control width="5"/>
 							<Edit name="edit_find" inset="5,0,5,0" tipvalue="请输入" textpadding="5,0,0,0" />
 							</HorizontalLayout>
