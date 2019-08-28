@@ -92,7 +92,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 #endif // _DEBUG
 	
 	ST_Filter_Condition filter_condition;
-	ConfigController::Instance()->ReloadFile("G:\\temp1\\test.ini");
+	ConfigController::Instance()->ReloadFile(".\\deepwise_pacs_download_config.ini");
 	// ÈÕÆÚÉ¸Ñ¡
 	ConfigController::Instance()->GetFilterDate(filter_condition);
 	if (m_pFilterRANGE) {

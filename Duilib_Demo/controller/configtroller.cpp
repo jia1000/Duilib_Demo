@@ -35,7 +35,7 @@ ConfigController* ConfigController::Instance()
 	if (m_pInstance == NULL) {
 		m_pInstance = new ConfigController();
 		m_ini_file = new IniFile();
-		m_ini_file->Load("G:\\temp1\\test.ini");
+		m_ini_file->Load(".\\deepwise_pacs_download_config.ini");
 	}
 	return m_pInstance;
 }
