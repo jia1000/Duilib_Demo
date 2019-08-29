@@ -99,11 +99,18 @@ void  ConfigController::SetAETPduLength(const std::wstring& pdu)
 		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "Pdu", s);
 	}
 }
-void  ConfigController::SetAETLocalName(const std::wstring& pdu)
+void  ConfigController::SetAETLocalName(const std::wstring& local_name)
 {
 	if (m_ini_file) {
-		std::string s = toString(pdu);
+		std::string s = toString(local_name);
 		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "Local", s);
+	}
+}
+void  ConfigController::SetAETRetriveWay(const std::wstring& retive_way)
+{
+	if (m_ini_file) {
+		std::string s = toString(retive_way);
+		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "RetriveWay", s);
 	}
 }
 std::wstring ConfigController::GetAETNumber()
@@ -144,6 +151,14 @@ std::wstring ConfigController::GetAETPdu()
 		std::string pdu;
 		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Pdu", &pdu);
 		return toWString(pdu);
+	}
+}
+std::wstring ConfigController::GetAETRetriveWay()
+{
+	if (m_ini_file) {
+		std::string name;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "RetriveWay", &name);
+		return toWString(name);
 	}
 }
 std::wstring ConfigController::GetAETLocalName()
@@ -192,6 +207,14 @@ std::string ConfigController::GetAETPduStr()
 		std::string pdu;
 		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Pdu", &pdu);
 		return pdu;
+	}
+}
+std::string ConfigController::GetAETRetriveWayStr()
+{
+	if (m_ini_file) {
+		std::string s;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "RetriveWay", &s);
+		return s;
 	}
 }
 std::string ConfigController::GetAETLocalNameStr()

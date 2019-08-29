@@ -31,6 +31,7 @@ private:
 	CEditUI* m_pHostEdit;
 	CEditUI* m_pDicomPortEdit;
 	CEditUI* m_pDicomPdutEdit;
+	CEditUI* m_pRetriveWayeEdit;
 	CEditUI* m_pLocalNameEdit;
 
 	//CSpinnerUI* m_pPduSpinner;

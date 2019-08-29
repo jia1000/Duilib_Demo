@@ -50,6 +50,7 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 	m_pHostEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_host"));
 	m_pDicomPortEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_port"));
 	m_pDicomPdutEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
+	m_pRetriveWayeEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_retrive_way"));
 	m_pLocalNameEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_local_name"));
 	//m_pPduSpinner = static_cast<CSpinnerUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
 	m_pSerchMethodCmb = static_cast<CComboUI*>(m_pm.FindControl(L"dicom_node_serch_method"));
@@ -82,6 +83,10 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 		text = ConfigController::Instance()->GetAETPdu();
 		m_pDicomPdutEdit->SetText(text.c_str());
 	} 
+	if (m_pRetriveWayeEdit) {
+		text = ConfigController::Instance()->GetAETRetriveWay();
+		m_pRetriveWayeEdit->SetText(text.c_str());
+	}
 	if (m_pLocalNameEdit) {
 		text = ConfigController::Instance()->GetAETLocalName();
 		m_pLocalNameEdit->SetText(text.c_str());
@@ -233,6 +238,10 @@ void DcmtkDLDicomSetDemoFrameWnd::DoSaveConfigTest()
 	if (m_pDicomPdutEdit) {
 		ws = m_pDicomPdutEdit->GetText().GetData();
 		ConfigController::Instance()->SetAETPduLength(ws);
+	}
+	if (m_pRetriveWayeEdit) {
+		ws = m_pRetriveWayeEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETRetriveWay(ws);
 	}
 	if (m_pLocalNameEdit) {
 		ws = m_pLocalNameEdit->GetText().GetData();
