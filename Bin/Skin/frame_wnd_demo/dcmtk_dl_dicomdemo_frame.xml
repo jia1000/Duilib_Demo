@@ -109,7 +109,7 @@
 				
 				<Control height="1"/>
 				<HorizontalLayout bkcolor="#FF11172D" height="30">
-					<Control width="5"/>				
+					<Control width="15"/>				
 					<Label  text="下载结果："  width="80" inset="5,0,5,0" textcolor="#FFABBCDC" font="1" />
 					<Label name="label_result_statics" text=""  inset="5,0,5,0" textcolor="#FFABBCDC" font="1" />
 				</HorizontalLayout>
