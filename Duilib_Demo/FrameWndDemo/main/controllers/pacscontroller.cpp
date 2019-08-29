@@ -66,7 +66,7 @@ namespace GIL {
 			std::string aet_title = ConfigController::Instance()->GetAETTitleStr();
 			std::string aet_port = ConfigController::Instance()->GetAETPortStr();
 			int port = atoi(aet_port.c_str());
-			std::string aet_pdu = ConfigController::Instance()->GetAETPortStr();
+			std::string aet_pdu = ConfigController::Instance()->GetAETPduStr();
 			int pdu_length = atoi(aet_pdu.c_str());
 			server = new DicomServer(aet_nubmer, aet_title, host_addr, port, pdu_length);
 		}
