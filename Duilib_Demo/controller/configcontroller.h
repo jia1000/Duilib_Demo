@@ -36,18 +36,21 @@ public:
 	void SetAETHost(const std::wstring& ip_addr);
 	void SetAETPort(const std::wstring& port);
 	void SetAETPduLength(const std::wstring& pdu);
+	void SetAETLocalName(const std::wstring& pdu);
 
 	std::wstring GetAETNumber();
 	std::wstring GetAETTitle();
 	std::wstring GetAETHost();
 	std::wstring GetAETPort();	
 	std::wstring GetAETPdu();
+	std::wstring GetAETLocalName();
 
 	std::string GetAETNumberStr();
 	std::string GetAETTitleStr();
 	std::string GetAETHostStr();
 	std::string GetAETPortStr();	
 	std::string GetAETPduStr();
+	std::string GetAETLocalNameStr();
 
 	void SetFilterDate(ST_Filter_Condition condition);
 	void SetFilterBodyPart(ST_Filter_Condition condition);

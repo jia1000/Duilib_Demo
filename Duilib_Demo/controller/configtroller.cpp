@@ -99,6 +99,13 @@ void  ConfigController::SetAETPduLength(const std::wstring& pdu)
 		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "Pdu", s);
 	}
 }
+void  ConfigController::SetAETLocalName(const std::wstring& pdu)
+{
+	if (m_ini_file) {
+		std::string s = toString(pdu);
+		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "Local", s);
+	}
+}
 std::wstring ConfigController::GetAETNumber()
 {
 	if (m_ini_file) {
@@ -139,7 +146,14 @@ std::wstring ConfigController::GetAETPdu()
 		return toWString(pdu);
 	}
 }
-
+std::wstring ConfigController::GetAETLocalName()
+{
+	if (m_ini_file) {
+		std::string name;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Local", &name);
+		return toWString(name);
+	}
+}
 std::string ConfigController::GetAETNumberStr()
 {
 	if (m_ini_file) {
@@ -178,6 +192,14 @@ std::string ConfigController::GetAETPduStr()
 		std::string pdu;
 		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Pdu", &pdu);
 		return pdu;
+	}
+}
+std::string ConfigController::GetAETLocalNameStr()
+{
+	if (m_ini_file) {
+		std::string s;
+		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Local", &s);
+		return s;
 	}
 }
 void ConfigController::SetFilterDate(ST_Filter_Condition condition)

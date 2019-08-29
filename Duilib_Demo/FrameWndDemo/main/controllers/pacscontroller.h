@@ -64,6 +64,7 @@ namespace GIL {
 			GNC::GCS::Ptr<DicomServer> server;
 
 			TRetrieveMethod retrieve_method;
+			std::string m_localAET;
 		};
 	};
 };

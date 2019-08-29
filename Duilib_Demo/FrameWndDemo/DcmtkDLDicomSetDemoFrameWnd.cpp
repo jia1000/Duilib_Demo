@@ -50,6 +50,7 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 	m_pHostEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_host"));
 	m_pDicomPortEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_port"));
 	m_pDicomPdutEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
+	m_pLocalNameEdit = static_cast<CEditUI*>(m_pm.FindControl(L"dicom_node_local_name"));
 	//m_pPduSpinner = static_cast<CSpinnerUI*>(m_pm.FindControl(L"dicom_node_pdu_spinner"));
 	m_pSerchMethodCmb = static_cast<CComboUI*>(m_pm.FindControl(L"dicom_node_serch_method"));
 	m_pLabelStatus = static_cast<CLabelUI*>(m_pm.FindControl(L"dicom_node_test_status"));
@@ -81,6 +82,10 @@ void DcmtkDLDicomSetDemoFrameWnd::InitWindow()
 		text = ConfigController::Instance()->GetAETPdu();
 		m_pDicomPdutEdit->SetText(text.c_str());
 	} 
+	if (m_pLocalNameEdit) {
+		text = ConfigController::Instance()->GetAETLocalName();
+		m_pLocalNameEdit->SetText(text.c_str());
+	}
 
 }
 
@@ -135,10 +140,11 @@ LRESULT DcmtkDLDicomSetDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPA
 
 void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 {
-	std::wstring ws_aet_title = m_pAetEdit->GetText().GetData();
-	std::wstring ws_host_addr = m_pHostEdit->GetText().GetData();
-	std::wstring ws_port	   = m_pDicomPortEdit->GetText().GetData();
-	std::wstring ws_pdu	   = m_pDicomPdutEdit->GetText().GetData();
+	std::wstring ws_aet_title	= m_pAetEdit->GetText().GetData();
+	std::wstring ws_host_addr	= m_pHostEdit->GetText().GetData();
+	std::wstring ws_port		= m_pDicomPortEdit->GetText().GetData();
+	std::wstring ws_pdu			= m_pDicomPdutEdit->GetText().GetData();
+	std::wstring ws_local_name	= m_pLocalNameEdit->GetText().GetData();
 
 	bool success = true;
 	std::ostringstream errorMsg;
@@ -150,7 +156,7 @@ void DcmtkDLDicomSetDemoFrameWnd::DoConnectTest()
 	std::string aet_title	= toString(ws_aet_title);
 	std::string host_addr	= toString(ws_host_addr);
 	std::string port		= toString(ws_port);
-	std::string aet_local	= "DEEPWISE_001";
+	std::string aet_local	= toString(ws_local_name);
 	std::string pdu = toString(ws_pdu);
 	
 	int psdu_length			= atoi(pdu.c_str());
@@ -228,6 +234,9 @@ void DcmtkDLDicomSetDemoFrameWnd::DoSaveConfigTest()
 		ws = m_pDicomPdutEdit->GetText().GetData();
 		ConfigController::Instance()->SetAETPduLength(ws);
 	}
-
+	if (m_pLocalNameEdit) {
+		ws = m_pLocalNameEdit->GetText().GetData();
+		ConfigController::Instance()->SetAETLocalName(ws);
+	}
 	ConfigController::Instance()->SaveFile();
 }

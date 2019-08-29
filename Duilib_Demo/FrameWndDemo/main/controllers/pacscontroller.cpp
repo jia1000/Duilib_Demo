@@ -68,6 +68,7 @@ namespace GIL {
 			int port = atoi(aet_port.c_str());
 			std::string aet_pdu = ConfigController::Instance()->GetAETPduStr();
 			int pdu_length = atoi(aet_pdu.c_str());
+			m_localAET = ConfigController::Instance()->GetAETLocalNameStr();
 			server = new DicomServer(aet_nubmer, aet_title, host_addr, port, pdu_length);
 		}
 
@@ -80,11 +81,11 @@ namespace GIL {
 
 			FillInQuery(base, &query);
 
-			std::string localAET = LOCAL_AE_TITLE;	
+			//std::string localAET = LOCAL_AE_TITLE;	
 			
 			NetClient<FindAssociation> f(connectionKey, "C-FIND");
 
-			f.QueryServer(&query, server, resultsWrapper, localAET);
+			f.QueryServer(&query, server, resultsWrapper, m_localAET);
 
 			if (f.Stopped()){
 				return false;
@@ -116,7 +117,7 @@ namespace GIL {
 			a.SetStorageSOPClasses(modality);
 			a.SetPath(series_path);
 
-			if (!a.QueryServer(&query, server, LOCAL_AE_TITLE, CT_MoveSerie)) {
+			if (!a.QueryServer(&query, server, m_localAET, CT_MoveSerie)) {
 				return false;
 			}
 			query.clear();
