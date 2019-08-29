@@ -50,7 +50,7 @@ Source: "..\Bin\snapshot_blob.bin"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\v8_context_snapshot.bin"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\icudtl.dat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\deepwise_pacs_download_config.ini"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Bin\cef_sandbox.lib"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\Bin\cef_sandbox.lib"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\Bin\cef.pak"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\cef_100_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
@@ -65,7 +65,7 @@ Source: "..\Bin\libcef.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\widevinecdmadapter.dll"; DestDir: "{app}"; Flags: ignoreversion
-
+Source: "..\Bin\ISTask.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
