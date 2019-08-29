@@ -53,8 +53,10 @@
 #include <dcmtk/dcmdata/dcdatset.h>
 #include <dcmtk/dcmjpeg/djdecode.h>
 #include <dcmtk/dcmjpeg/djencode.h>
+#ifdef _DEBUG  // release下，无法链接该库
 #include <dcmtk/dcmjpls/djdecode.h>		//for JPEG-LS decode
 #include <dcmtk/dcmjpls/djencode.h>		//for JPEG-LS encode
+#endif
 #include <dcmtk/dcmdata/dcrledrg.h>
 #include <dcmtk/dcmdata/dcrleerg.h>
 #include <api/dicom/dcmdictionary.h>
@@ -99,8 +101,12 @@ namespace GIL
 				0, 0, 0, true, ESS_444, true); // optimize huffman table
 			DJDecoderRegistration::registerCodecs();
 
+#ifdef _DEBUG
 			DJLSEncoderRegistration::registerCodecs();		//JPEG-LS encoder registerCodecs
 			DJLSDecoderRegistration::registerCodecs();		//JPEG-LS decoder registerCodecs
+#endif // _DEBUG
+
+			
 
 			// DcmRLEEncoderRegistration::registerCodecs();
 			// DcmRLEDecoderRegistration::registerCodecs();
@@ -119,10 +125,10 @@ namespace GIL
 				OFFalse, // verbose
 				0, 0, 0, true, ESS_444, true); // optimize huffman table
 			DJDecoderRegistration::registerCodecs();
-
+#ifdef _DEBUG
 			DJLSEncoderRegistration::registerCodecs();		//JPEG-LS encoder registerCodecs
 			DJLSDecoderRegistration::registerCodecs();		//JPEG-LS decoder registerCodecs
-
+#endif
 			// DcmRLEEncoderRegistration::registerCodecs();
 			// DcmRLEDecoderRegistration::registerCodecs();
 		}
@@ -141,10 +147,10 @@ namespace GIL
 			// 3种Dicom格式，都要编解码解注册
 			DJEncoderRegistration::cleanup();
 			DJDecoderRegistration::cleanup();
-
+#ifdef _DEBUG
 			DJLSEncoderRegistration::cleanup();		//JPEG-LS encoder cleanup
 			DJLSDecoderRegistration::cleanup();		//JPEG-LS decoder cleanup
-
+#endif
 			// DcmRLEEncoderRegistration::cleanup();
 			// DcmRLEDecoderRegistration::cleanup();
 		}
