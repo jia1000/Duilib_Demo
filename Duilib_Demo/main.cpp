@@ -40,16 +40,23 @@ using namespace DuiLib;
 #endif
 #endif
 
+#define USE_CEF_LIB   0
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
 	CPaintManagerUI::SetInstance(hInstance);
 	 // 设置资源的默认路径（此处设置为和exe在同一目录）
-	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("..\\..\\Bin\\Skin\\"));  
+	//CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("..\\..\\Bin\\Skin\\"));  
+
+	// 资源路径
+	DuiLib::CDuiString strResourcePath = DuiLib::CPaintManagerUI::GetInstancePath();
+	strResourcePath += _T("Skin\\");
+	CPaintManagerUI::SetResourcePath(strResourcePath.GetData()); 
 
 	HRESULT Hr = ::CoInitialize(NULL);
 	if( FAILED(Hr) ) return 0;
 
+#if USE_CEF_LIB
 	// CEF 初始化 相关
 	CefMainArgs args(hInstance);
 	//创建CefApp实例
@@ -106,23 +113,25 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 		// 使用XMLHttpRequest进行交互：第1步：注册Scheme
 		CefRegisterSchemeHandlerFactory("http", HANDLER_DOMAIN_NAME, new ClientSchemeHandlerFactory);
 	};
-
+#endif
 	//CFirstFrameWnd duiFrame;
 	//CSecondFrameWnd duiFrame;
 	//CCefBrowserFrameWnd duiFrame;
-	CEntryFrameWnd duiFrame;
-	//DcmtkDLDicomDemoFrameWnd duiFrame;
+	//CEntryFrameWnd duiFrame;
+	DcmtkDLDicomDemoFrameWnd duiFrame;
 	duiFrame.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 	duiFrame.CenterWindow();
-	duiFrame.ShowWindow();
+	duiFrame.ShowModal();
+	//duiFrame.ShowWindow();
 
 
+#if USE_CEF_LIB
 	// CEF 结束处理相关
 	//执行消息循环,此时会堵塞，直到CefQuitMessageLoop()函数被调用。
 	CefRunMessageLoop();
 	// 关闭CEF，释放资源  
 	CefShutdown();
-
+#endif
 
 	/*CPaintManagerUI::MessageLoop();*/
 
