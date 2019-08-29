@@ -23,7 +23,7 @@ LPCTSTR CVtkDicomViewDemoFramWnd::GetWindowClassName() const
 void CVtkDicomViewDemoFramWnd::OnFinalMessage(HWND hWnd)
 {
 	WindowImplBase::OnFinalMessage(hWnd);
-	delete this; //退出时，会有异常
+	//delete this; //退出时，会有异常
 }
 
 CDuiString CVtkDicomViewDemoFramWnd::GetSkinFile()

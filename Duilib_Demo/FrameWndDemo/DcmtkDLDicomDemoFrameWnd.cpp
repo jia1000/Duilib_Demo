@@ -33,6 +33,7 @@ DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 
 DcmtkDLDicomDemoFrameWnd::~DcmtkDLDicomDemoFrameWnd(void)
 {
+	PostQuitMessage(0);
 }
 
 LPCTSTR DcmtkDLDicomDemoFrameWnd::GetWindowClassName() const 

@@ -34,7 +34,7 @@ LPCTSTR CEntryFrameWnd::GetWindowClassName() const
 void CEntryFrameWnd::OnFinalMessage(HWND hWnd)
 {
 	WindowImplBase::OnFinalMessage(hWnd);
-	delete this; 
+	//delete this; 
 }
 
 void CEntryFrameWnd::InitWindow()
