@@ -95,11 +95,11 @@
 						<HorizontalLayout bkcolor="#FF11172D" > 
 							<ListPro name="list_download_result"   style="list_style" itemshowcolumnline="true" itemshowrowline="true" itemlinecolor="FF888888" bkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true" itemtextcolor="#FF000000" itembkcolor="#FFE2DDDF" itemselectedtextcolor="#FF000000" itemselectedbkcolor="#FFC1E3FF" itemhottextcolor="#FF000000" itemhotbkcolor="#FFE9F5FF" itemdisabledtextcolor="#FFCCCCCC" itemdisabledbkcolor="#FFFFFFFF" >
 								<ListHeader name="domain1" style="listheader_style">
-									<ListHeaderItem text="index" width="40" height="23" minwidth="16"  sepwidth="1" align="center"  />
-									<ListHeaderItem text="patiend_id" 	width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
-									<ListHeaderItem text="study_id" 	width="370" height="23" minwidth="16"  sepwidth="1" align="center"  />
-									<ListHeaderItem text="series_id" 	width="370" height="23" minwidth="16"  sepwidth="1" align="center"  />
-									<ListHeaderItem text="status" 		width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem name="list_head_index"      text="index"        width="40" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem name="list_head_patiend_id" text="patiend_id" 	width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem name="list_head_study_id" 	text="study_id" 	width="370" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem name="list_head_series_id" 	text="series_id" 	width="370" height="23" minwidth="16"  sepwidth="1" align="center"  />
+									<ListHeaderItem name="list_head_status" 	text="status" 		width="80" height="23" minwidth="16"  sepwidth="1" align="center"  />
 								</ListHeader>						
 							</ListPro>
 						</HorizontalLayout>

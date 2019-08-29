@@ -25,6 +25,7 @@
 DcmtkDLDicomDemoFrameWnd::DcmtkDLDicomDemoFrameWnd(void)
 	: m_downloading_dicom_index(0)
 	, m_is_stoped(false)
+	, m_listPro(NULL)
 {
 	
 }
@@ -149,6 +150,34 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 LRESULT DcmtkDLDicomDemoFrameWnd::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	__super::OnSize(uMsg, wParam, lParam, bHandled);
+	RECT wnd_rc;
+	GetClientRect(m_hWnd, &wnd_rc);
+
+	RECT rc;
+
+	if (m_listPro) {
+		rc = m_listPro->GetClientPos();
+		rc.right = wnd_rc.right - 30;
+		rc.left = wnd_rc.left + 30;
+		int width = rc.right - rc.left;
+		int study_id_widht  = width * 0.39;
+		int series_id_widht = width * 0.39;
+		CListHeaderUI* list_head_ui = static_cast<CListHeaderUI*>(m_pm.FindSubControlByName(m_listPro, _T("domain1")));
+
+		if (list_head_ui) {
+			CListHeaderItemUI* study_id_ui = static_cast<CListHeaderItemUI*>(m_pm.FindSubControlByName(list_head_ui, _T("list_head_study_id")));
+			if (study_id_ui) {
+				study_id_ui->SetMinWidth(study_id_widht);
+				study_id_ui->SetMaxWidth(study_id_widht);
+			}
+			CListHeaderItemUI* series_id_ui = static_cast<CListHeaderItemUI*>(m_pm.FindSubControlByName(list_head_ui,_T("list_head_series_id")));
+			if (series_id_ui) {
+				series_id_ui->SetMinWidth(series_id_widht);
+				series_id_ui->SetMaxWidth(series_id_widht);
+			}
+		}
+
+	}
 	return 0;
 }
 
