@@ -264,25 +264,26 @@ namespace GIL {
 
 		void PACSController::InitFindQueryWrapper(GIL::DICOM::DicomDataset&  queryWrapper)
 		{
-			queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "";
-			queryWrapper.tags[GKDCM_PatientName] = "";
-			queryWrapper.tags[GKDCM_PatientID] = "";
-			queryWrapper.tags[GKDCM_StudyDate] = "";
-			queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // 影像数量
-			queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";
-			queryWrapper.tags[GKDCM_StudyInstanceUID] = "";
-			queryWrapper.tags[GKDCM_BodyPartExamined] = "";//CHEST  BREAST
-			queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";//CT MG DX  etc.
-			queryWrapper.tags[GKDCM_SliceThickness] = "";//CT MG DX  etc.
+			queryWrapper.tags[GKDCM_SpecificCharacterSet] = "";	//"0008|0005"
+			queryWrapper.tags[GKDCM_StudyDate] = "";			//"0008|0020"
+			queryWrapper.tags[GKDCM_StudyTime] = "";			//"0008|0030"
+			queryWrapper.tags[GKDCM_QueryRetrieveLevel] = "";	//"0008|0052"
+			queryWrapper.tags[GKDCM_Modality] = "";				//"0008|0060"
+			queryWrapper.tags[GKDCM_ModalitiesInStudy] = "";	//"0008|0061"  CT MG DX  etc.
 
-			queryWrapper.tags[GKDCM_SpecificCharacterSet] = "";
-			queryWrapper.tags[GKDCM_StudyTime] = "";
-			queryWrapper.tags[GKDCM_StudyID] = "";
-			queryWrapper.tags[GKDCM_SeriesInstanceUID] = "";
-			queryWrapper.tags[GKDCM_Modality] = "";
-			queryWrapper.tags[GKDCM_SeriesNumber] = "";
+			queryWrapper.tags[GKDCM_PatientName] = "";			//"0010|0010"
+			queryWrapper.tags[GKDCM_PatientID] = "";			//"0010|0020"
 
-			queryWrapper.tags[GKDCM_InstanceNumber] = "";  // Image用
+			queryWrapper.tags[GKDCM_BodyPartExamined] = "";		//"0018|0015" CHEST  BREAST
+			queryWrapper.tags[GKDCM_SliceThickness] = "";		//"0018|0050"  CT MG DX  etc.
+
+			queryWrapper.tags[GKDCM_StudyInstanceUID] = "";		//"0020|000d"
+			queryWrapper.tags[GKDCM_SeriesInstanceUID] = "";	//"0020|000e"
+			queryWrapper.tags[GKDCM_StudyID] = "";				//"0020|0010"
+			queryWrapper.tags[GKDCM_SeriesNumber] = "";			//"0020|0011"
+			queryWrapper.tags[GKDCM_InstanceNumber] = "";		//"0020|0013"  Image用
+			queryWrapper.tags[GKDCM_NumberOfStudyRelatedInstances] = ""; // "0020|1208"  影像数量
+
 		}
 
 		void PACSController::SetWrapper(GIL::DICOM::DicomDataset&  queryWrapper, char* tag, std::string value)
