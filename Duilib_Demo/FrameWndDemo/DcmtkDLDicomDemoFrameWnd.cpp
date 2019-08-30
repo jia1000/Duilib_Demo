@@ -510,7 +510,8 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 		GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
 		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, *item);
-		GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
+		// 部分PACS，查找Series时，不能携带Patientid tag
+		//GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, *iter);
 
 		std::list< GNC::GCS::Ptr<GIL::DICOM::DicomDataset> > resultsWrapper;
 		bool ret_status_obtain = GIL::DICOM::PACSController::Instance()->ObtainDicomDataSet(this, base, resultsWrapper);
@@ -719,7 +720,8 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, patient_info.study_id);
-			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, patient_info.patiend_id);
+			// 部分PACS，下载Series时，不能携带Patientid tag
+			//GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, patient_info.patiend_id);
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_SeriesInstanceUID, series_info.series_id);
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_Modality, series_info.modality);
 
