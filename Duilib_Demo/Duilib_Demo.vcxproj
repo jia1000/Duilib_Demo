@@ -127,6 +127,7 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomgetassociation.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dicommanager.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomgetassociation.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetclient.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h" />

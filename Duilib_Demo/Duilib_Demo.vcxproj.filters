@@ -258,6 +258,9 @@
     <ClCompile Include="controller\configtroller.cpp">
       <Filter>controller</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -472,6 +475,9 @@
     </ClInclude>
     <ClInclude Include="controller\configcontroller.h">
       <Filter>controller</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
