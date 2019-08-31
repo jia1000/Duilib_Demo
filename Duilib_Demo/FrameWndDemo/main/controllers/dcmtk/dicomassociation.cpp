@@ -13,7 +13,7 @@
  *
  */
 //#include <api/controllers/icontroladorlog.h>
-//#include <main/controllers/controladorlog.h>
+#include <main/controllers/controladorlog.h>
 #include "dicomassociation.h"
 #include "dicomnetwork.h"
 
@@ -198,7 +198,7 @@ CONDITION Association::SendObject(DcmDataset *dataset) {
     DcmXfer original_xfer(dataset->getOriginalXfer());
 
     if (opt_oxferSyn.getXfer() != ori_oxferSyn) {
-		//by jia LOG_DEBUG(ambitolog, "Converting object into accepted Transfer-Syntax: " << opt_oxferSyn.getXferName());
+		LOG_DEBUG(ambitolog, "Converting object into accepted Transfer-Syntax: " << opt_oxferSyn.getXferName());
 
 		CONDITION cond;
 		// create RepresentationParameter
@@ -219,7 +219,7 @@ CONDITION Association::SendObject(DcmDataset *dataset) {
 		// recompress ?
 		if (rp != NULL) {
 			if (original_xfer.isEncapsulated()) {
-				//by jia LOG_DEBUG(ambitolog, "The DICOM file is already compressed. It will previously converted to uncompressed Transfer Syntax");
+				LOG_DEBUG(ambitolog, "The DICOM file is already compressed. It will previously converted to uncompressed Transfer Syntax");
 				if (EC_Normal != dataset->chooseRepresentation(EXS_LittleEndianExplicit, NULL)) {
 					return makeOFCondition(OFM_dcmnet, DIMSEC_BADDATA, OF_error, "Unable to convert the original format to uncompressed Transfer Syntax");
 				}
@@ -228,11 +228,11 @@ CONDITION Association::SendObject(DcmDataset *dataset) {
 
 		cond = dataset->chooseRepresentation(opt_oxferSyn.getXfer(), rp);
 		if (cond.bad()) {
-			//by jia LOG_ERROR(ambitolog, "Error choosing representation: " << cond.text());
+			LOG_ERROR(ambitolog, "Error choosing representation: " << cond.text());
 		}
 
 		if (dataset->canWriteXfer(opt_oxferSyn.getXfer())) {
-			//by jia LOG_DEBUG(ambitolog, "The output transfer syntax (" <<  opt_oxferSyn.getXferName() << " can be writen");
+			LOG_DEBUG(ambitolog, "The output transfer syntax (" <<  opt_oxferSyn.getXferName() << " can be writen");
 		}
 		else {
 			std::ostringstream os;
@@ -262,11 +262,11 @@ CONDITION Association::SendObject(DcmDataset *dataset) {
     // what happened
 
     if (rsp.DataSetType == DIMSE_DATASET_PRESENT) {
-		//by jia LOG_DEBUG(ambitolog, "Response with dataset");
+		LOG_DEBUG(ambitolog, "Response with dataset");
     }
 
     if (statusDetail != NULL) {
-		//by jia LOG_TRACE(ambitolog, "Status: " << DumpDataset(statusDetail));
+		LOG_TRACE(ambitolog, "Status: " << DumpDataset(statusDetail));
 		delete statusDetail;
     }
 
@@ -278,7 +278,7 @@ CONDITION Association::SendObject(DcmDataset *dataset) {
 		return DIMSE_NORMAL;
 	}
 	else {
-		//by jia LOG_ERROR(ambitolog, "DIMSE Status failed: " << rsp.DimseStatus);
+		LOG_ERROR(ambitolog, "DIMSE Status failed: " << rsp.DimseStatus);
 		return DIMSE_BADDATA;
 	}
 }
@@ -320,10 +320,10 @@ CONDITION Association::SendEchoRequest() {
 
     OFCondition cond = DIMSE_echoUser(assoc, ++msgId, DIMSE_BLOCKING, 0, &status, &statusDetail);
     if (cond.good()) {
-		//by jia LOG_DEBUG(ambitolog, "DIMSE ECHO completed. Status: " << DU_cstoreStatusString(status));
+		LOG_DEBUG(ambitolog, "DIMSE ECHO completed. Status: " << DU_cstoreStatusString(status));
     }
     else {
-		//by jia LOG_DEBUG(ambitolog, "DIMSE ECHO Failed: " << cond.text());
+		LOG_DEBUG(ambitolog, "DIMSE ECHO Failed: " << cond.text());
     }
 
     if (statusDetail != NULL) {
@@ -424,14 +424,14 @@ CONDITION Association::addAllStoragePresentationContexts(T_ASC_Parameters *param
 
 	CONDITION cond = ASC_addPresentationContext(params, pid, m_abstractSyntax.c_str(), AllTransferSyntaxes, 3);
 	if (cond.bad()) {
-		//by jia LOG_ERROR(ambitolog, "Unable to add presentation context for " << m_abstractSyntax);
+		LOG_ERROR(ambitolog, "Unable to add presentation context for " << m_abstractSyntax);
 		return cond;
 	}
 
 	pid += 2;
 
 	if (pid >= 255) {
-		//by jia LOG_WARN(ambitolog, "Too many PresentationContexts setted");
+		LOG_WARN(ambitolog, "Too many PresentationContexts setted");
 	}
 
     return cond;

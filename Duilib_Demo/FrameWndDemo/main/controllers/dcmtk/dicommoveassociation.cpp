@@ -15,7 +15,7 @@
 #define LOGGER "C-MOVE"
 
 //#include <api/controllers/icontroladorlog.h>
-//#include <main/controllers/controladorlog.h>
+#include <main/controllers/controladorlog.h>
 //#include <api/dicom/imodelodicom.h>
 //#include <main/controllers/controladorpermisos.h>
 //#include <api/controllers/ipacscontroller.h>
@@ -441,7 +441,7 @@ CONDITION MoveAssociation::moveSCU(DcmDataset *pdset) {
 	}
 
 	if (statusDetail != NULL) {
-		//LOG_DEBUG(ambitolog, "DIMSE_moveUser(): Estado: " << std::endl << DumpDataset(statusDetail));
+		LOG_DEBUG(ambitolog, "DIMSE_moveUser(): Estado: " << std::endl << DumpDataset(statusDetail));
 		delete statusDetail;
 	}
 

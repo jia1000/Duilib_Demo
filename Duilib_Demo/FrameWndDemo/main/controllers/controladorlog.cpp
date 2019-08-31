@@ -72,7 +72,7 @@ namespace GNC {
             //    }
             //}
             
-			ostr << "DeepWiseLog.log";
+			ostr << "PacsDownload.log";
 			log4cplus::SharedAppenderPtr append_0(gnkLog4cplus::GUIAppender::Instance());
 			append_0->setName(LOG4CPLUS_TEXT("AppenderGUI"));
 			append_0->setLayout( OFauto_ptr<log4cplus::Layout>(new log4cplus::PatternLayout("%D{%Y/%m/%d %H:%M:%S.%q} [%t] %-5p %c %x - %m%n")) );

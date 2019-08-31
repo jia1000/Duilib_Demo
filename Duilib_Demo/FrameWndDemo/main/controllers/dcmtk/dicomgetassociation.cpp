@@ -12,7 +12,7 @@
 */
 #define LOGGER "C-GET"
 //#include <api/controllers/icontroladorlog.h>
-//#include <main/controllers/controladorlog.h>
+#include <main/controllers/controladorlog.h>
 //#include <api/dicom/imodelodicom.h>
 //#include <main/controllers/controladorpermisos.h>
 //#include <api/controllers/ipacscontroller.h>
@@ -196,7 +196,7 @@ void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
 
     CONDITION cond = ASC_addPresentationContext(params, pid, m_abstractSyntax.c_str(), AllTransferSyntaxes, 3);
     if (cond.bad()) {
-        //LOG_ERROR(ambitolog, "Unable to add GETStudyRootQueryRetrieveInformationModel presentation context");
+        LOG_ERROR(ambitolog, "Unable to add GETStudyRootQueryRetrieveInformationModel presentation context");
         return;
     }
 
@@ -212,7 +212,7 @@ void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
 		}
 
 		if (pid >= 255) {
-			//LOG_WARN("C-GET", "Too many PresentationContexts setted");
+			LOG_WARN("C-GET", "Too many PresentationContexts setted");
 		}
 	}
 
@@ -238,7 +238,7 @@ void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
     //    }
 
     //    if (pid >= 255) {
-    //        //LOG_WARN("C-GET", "Too many PresentationContexts setted");
+    //        LOG_WARN("C-GET", "Too many PresentationContexts setted");
     //    }
     //}
     //else 
@@ -251,7 +251,7 @@ void GetAssociation::OnAddPresentationContext(T_ASC_Parameters * params) {
  //           pid += 2;			
  //       }
  //       if (pid >= 255) {
- //           //LOG_WARN("C-GET", "Too many PresentationContexts setted");
+ //           LOG_WARN("C-GET", "Too many PresentationContexts setted");
  //       }
  //   }
 }
@@ -326,7 +326,7 @@ OFCondition MDIMSE_getUser(
 
     msgId = request->MessageID;
 
-    //LOG_DEBUG("C-GET", "Accepted presID " << (int)presID);
+    LOG_DEBUG("C-GET", "Accepted presID " << (int)presID);
 
     OFCondition cond = DIMSE_sendMessageUsingMemoryData(assoc, presID, &req,
         NULL, requestIdentifiers,
@@ -372,7 +372,7 @@ OFCondition MDIMSE_getUser(
         {
             OFString str;
             DIMSE_dumpMessage(str, rsp, DIMSE_INCOMING);
-            //LOG_DEBUG("C-GET", "Command received" << std::endl << str.c_str());
+            LOG_DEBUG("C-GET", "Command received" << std::endl << str.c_str());
         }
 
         switch (rsp.CommandField){
@@ -464,14 +464,14 @@ CONDITION GetAssociation::getSCU(DcmDataset *pdset) {
     StoreCallbackInfo storeCallbackData;
 
     if (pdset == NULL) {
-        //LOG_ERROR(ambitolog, "Dataset nulo en getSCU");
+        LOG_ERROR(ambitolog, "Dataset nulo en getSCU");
         return DIMSE_NULLKEY;
     }
 
     {
         OFString str;
         ASC_dumpParameters(str, assoc->params, ASC_ASSOC_AC);
-        //LOG_DEBUG("C-GET", str.c_str());
+        LOG_DEBUG("C-GET", str.c_str());
 
     }
 
@@ -505,7 +505,7 @@ CONDITION GetAssociation::getSCU(DcmDataset *pdset) {
     {
         OFString str;
         DIMSE_dumpMessage(str, req, DIMSE_OUTGOING, pdset, presId);
-        //LOG_DEBUG("C-GET", str.c_str());
+        LOG_DEBUG("C-GET", str.c_str());
     }
 
     cond = MDIMSE_getUser(
@@ -531,7 +531,7 @@ CONDITION GetAssociation::getSCU(DcmDataset *pdset) {
     }
 
     if (statusDetail != NULL) {
-        //LOG_DEBUG(ambitolog, "DIMSE_getUser(): Estado: " << std::endl << DumpDataset(statusDetail));
+        LOG_DEBUG(ambitolog, "DIMSE_getUser(): Estado: " << std::endl << DumpDataset(statusDetail));
         delete statusDetail;
     }
 
@@ -555,7 +555,7 @@ CONDITION GetAssociation::getSCU(DcmDataset *pdset) {
     }
 
     if (statusDetail != NULL) {
-    //LOG_DEBUG(ambitolog, "DIMSE_getUser(): Estado: " << std::endl << DumpDataset(statusDetail));
+    LOG_DEBUG(ambitolog, "DIMSE_getUser(): Estado: " << std::endl << DumpDataset(statusDetail));
     delete statusDetail;
     }
 
@@ -589,17 +589,17 @@ void GetAssociation::subOpCallback(void *pCaller, T_ASC_Network *aNet, T_ASC_Ass
 	++caller->m_numeroImagenes;
     //wxString msg = wxString::Format(_("Downloading file %d"), (int)(++caller->m_numeroImagenes));
     //caller->m_mensaje = std::string(msg.ToUTF8());
-    ////LOG_DEBUG(caller->ambitolog, caller->m_mensaje);
+    //LOG_DEBUG(caller->ambitolog, caller->m_mensaje);
     //caller->NotificarProgreso((float)caller->m_numeroImagenes/100,caller->m_mensaje);
 
     if (*subAssoc == NULL) {
         // negotiate association
-        //LOG_DEBUG(caller->ambitolog, "Aceptando subasociacion");
+        LOG_DEBUG(caller->ambitolog, "Aceptando subasociacion");
         caller->acceptSubAssoc(aNet, subAssoc);
     }
     else {
         // be a service class provider
-        //LOG_DEBUG(caller->ambitolog, "Invocando subOp SCP");
+        LOG_DEBUG(caller->ambitolog, "Invocando subOp SCP");
         caller->subOpSCP(subAssoc);
     }
 }
@@ -617,7 +617,7 @@ CONDITION GetAssociation::subOpSCP(T_ASC_Association **subAssoc) {
 
     /* just in case */
     if (!ASC_dataWaiting(*subAssoc, 0)) {
-        //LOG_TRACE(ambitolog, "No hay datos pendientes");
+        LOG_TRACE(ambitolog, "No hay datos pendientes");
         return DIMSE_NODATAAVAILABLE;
     }
 
@@ -626,15 +626,15 @@ CONDITION GetAssociation::subOpSCP(T_ASC_Association **subAssoc) {
     if (cond == EC_Normal) {
         switch (msg.CommandField) {
         case DIMSE_C_STORE_RQ:
-            //LOG_TRACE(ambitolog, "Invocando C-STORE_RQ");
+            LOG_TRACE(ambitolog, "Invocando C-STORE_RQ");
             cond = storeSCP(*subAssoc, &msg, presID);
             break;
         case DIMSE_C_ECHO_RQ:
-            //LOG_TRACE(ambitolog, "Invocando C-ECHO_RQ");
+            LOG_TRACE(ambitolog, "Invocando C-ECHO_RQ");
             cond = echoSCP(*subAssoc, &msg, presID);
             break;
         default:
-            //LOG_ERROR(ambitolog, "Tipo de comando incorrecto. Sólo se aceptan C-STORE_RQ o C-ECHO_RQ en esta etapa" << cond.text());
+            LOG_ERROR(ambitolog, "Tipo de comando incorrecto. Sólo se aceptan C-STORE_RQ o C-ECHO_RQ en esta etapa" << cond.text());
             cond = DIMSE_BADCOMMANDTYPE;
             break;
         }
@@ -648,10 +648,10 @@ CONDITION GetAssociation::subOpSCP(T_ASC_Association **subAssoc) {
         return cond;
     }
     else if (cond == DUL_PEERABORTEDASSOCIATION) {
-        //LOG_ERROR(ambitolog, "El PACS remoto aborto la asociacion"  << cond.text());
+        LOG_ERROR(ambitolog, "El PACS remoto aborto la asociacion"  << cond.text());
     }
     else if (cond != EC_Normal) {
-        //LOG_ERROR(ambitolog, "Ha ocurrido un error y se abortara la asociacion"  << cond.text());
+        LOG_ERROR(ambitolog, "Ha ocurrido un error y se abortara la asociacion"  << cond.text());
         // some kind of error so abort the association
         cond = ASC_abortAssociation(*subAssoc);
     }
@@ -728,7 +728,7 @@ void GetAssociation::storeSCPCallback(void *callbackData, T_DIMSE_StoreProgress 
         //    msg = wxString::Format(_("Downloading file %d"), (int)(caller->m_numeroImagenes + 1) );
         //}
         //caller->m_mensaje = std::string(msg.ToUTF8());
-        ////LOG_DEBUG(caller->ambitolog, caller->m_mensaje);
+        //LOG_DEBUG(caller->ambitolog, caller->m_mensaje);
 
         //if (!caller->NotificarProgreso((float) partial, caller->m_mensaje) ) {
         //    rsp->DimseStatus = STATUS_STORE_Refused_OutOfResources;
@@ -773,7 +773,7 @@ void GetAssociation::storeSCPCallback(void *callbackData, T_DIMSE_StoreProgress 
         }
     }
     else if (progress->state == DIMSE_StoreEnd) {
-        //LOG_TRACE(caller->ambitolog, "storeSCPCallback(). DIMSE_StoreEnd");
+        LOG_TRACE(caller->ambitolog, "storeSCPCallback(). DIMSE_StoreEnd");
         caller->m_numeroImagenes++;
         *statusDetail = NULL; /* no status detail */
         caller->ResetearMedida();
@@ -793,15 +793,15 @@ void GetAssociation::storeSCPCallback(void *callbackData, T_DIMSE_StoreProgress 
             /* which SOP class and SOP instance ? */
             if (!DU_findSOPClassAndInstanceInDataSet(imageDataSet, sopClass, sopInstance)) {
                 rsp->DimseStatus = STATUS_STORE_Error_DataSetDoesNotMatchSOPClass;
-                //LOG_ERROR(caller->ambitolog, "No se pudo encontrar SOPClass o SOPInstanceUID en el dataset");
+                LOG_ERROR(caller->ambitolog, "No se pudo encontrar SOPClass o SOPInstanceUID en el dataset");
             }
             else if (strcmp(sopClass, req->AffectedSOPClassUID) != 0) {
                 rsp->DimseStatus = STATUS_STORE_Error_DataSetDoesNotMatchSOPClass;
-                //LOG_ERROR(caller->ambitolog, "El SOPClass del dataset(" << sopClass << ") no coincide con el SOPClass requerido (" << req->AffectedSOPClassUID << ")");
+                LOG_ERROR(caller->ambitolog, "El SOPClass del dataset(" << sopClass << ") no coincide con el SOPClass requerido (" << req->AffectedSOPClassUID << ")");
             }
             else if (strcmp(sopInstance, req->AffectedSOPInstanceUID) != 0) {
                 rsp->DimseStatus = STATUS_STORE_Error_DataSetDoesNotMatchSOPClass;
-                //LOG_ERROR(caller->ambitolog, "El SOPInstance del dataset(" << sopInstance << ") no coincide con el SOPInstanceUID requerido (" << req->AffectedSOPInstanceUID << ")");
+                LOG_ERROR(caller->ambitolog, "El SOPInstance del dataset(" << sopInstance << ") no coincide con el SOPInstanceUID requerido (" << req->AffectedSOPInstanceUID << ")");
             }
         }
     }
@@ -947,12 +947,12 @@ CONDITION GetAssociation::echoSCP(T_ASC_Association *assoc, T_DIMSE_Message *msg
 //                    InstanceNumber.assign(OFInstanceNumber.c_str());
 //                }
 //                else {
-//                    //LOG_WARN(ambitolog, "InstanceNumber not found. Setting to default");
+//                    LOG_WARN(ambitolog, "InstanceNumber not found. Setting to default");
 //                    InstanceNumber.assign("1");
 //                }
 //                m_pModelo->InsertarImagen(SerieUID,UIDImagen, InstanceNumber, fileName);
 //            } else {
-//                //LOG_ERROR("DCMGET", "InstanceUID not found");
+//                LOG_ERROR("DCMGET", "InstanceUID not found");
 //            }
 //        }
 //    }

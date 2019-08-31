@@ -17,7 +17,7 @@
 #include "dicomnetwork.h"
 #include "dicomechoassociation.h"
 //#include <api/controllers/ipacscontroller.h>
-//#include <api/controllers/icontroladorlog.h>
+#include <api/controllers/icontroladorlog.h>
 
 #ifdef verify
 #define MACRO_QUE_ESTORBA verify
@@ -61,10 +61,10 @@ GIL::DICOM::DCMTK::Network* GIL::DICOM::DCMTK::Network::Instance(void* key) {
 	if (it == m_pInstancesMap.end()) {
 		pInstance = new GIL::DICOM::DCMTK::Network();
 		m_pInstancesMap[key] = pInstance;
-		//by jia LOG_TRACE("DICOMNetwork", "Network instance created. key = " << key);
+		LOG_TRACE("DICOMNetwork", "Network instance created. key = " << key);
 	}
 	else {
-		//by jia LOG_TRACE("DICOMNetwork", "Network instance reused. key = " << key);
+		LOG_TRACE("DICOMNetwork", "Network instance reused. key = " << key);
 		pInstance = (*it).second;
 	}
 
@@ -78,13 +78,13 @@ void GIL::DICOM::DCMTK::Network::FreeInstance(void* key)
 	GIL::DICOM::DCMTK::Network::IntanceMapType::iterator it = m_pInstancesMap.find(key);
 	
 	if (it == m_pInstancesMap.end()) {
-		//by jia LOG_WARN("DICOMNetwork", "Unable to free Network instance. Instance was not registered.");
+		LOG_WARN("DICOMNetwork", "Unable to free Network instance. Instance was not registered.");
 	}
 	else {
 		GIL::DICOM::DCMTK::Network* pInstance = (*it).second;
 		delete pInstance;
 		m_pInstancesMap.erase(it);
-		//by jia LOG_TRACE("DICOMNetwork", "Network instance released. key = " << key);
+		LOG_TRACE("DICOMNetwork", "Network instance released. key = " << key);
 	}
 
 }
@@ -128,7 +128,7 @@ bool GIL::DICOM::DCMTK::Network::Initiallized()
 CONDITION GIL::DICOM::DCMTK::Network::InitializeNetwork(int timeout, Association::RoleType role, int port) {
 
 	if (m_pDCMTKNetwork != NULL) {
-		//LOG_WARN("DICOMNetwork", "Shutting down previous initiallized network");
+		LOG_WARN("DICOMNetwork", "Shutting down previous initiallized network");
 		DropNetwork();
 	}
 
@@ -240,7 +240,7 @@ CONDITION GIL::DICOM::DCMTK::Network::ASC_ConnectAssociation(Association* assoc,
 	{
 		OFString str;
 		ASC_dumpParameters(str, params, ASC_ASSOC_RQ);
-		//by jia LOG_DEBUG(assoc->ambitolog, "Requesting association" << std::endl << str.c_str());
+		LOG_DEBUG(assoc->ambitolog, "Requesting association" << std::endl << str.c_str());
 
 	}
 	
@@ -263,7 +263,7 @@ CONDITION GIL::DICOM::DCMTK::Network::ASC_ConnectAssociation(Association* assoc,
 	{
 		OFString str;
 		ASC_dumpParameters(str, params, ASC_ASSOC_AC);
-		//by jia LOG_DEBUG(assoc->ambitolog, "Association accepted" << std::endl << str.c_str());
+		LOG_DEBUG(assoc->ambitolog, "Association accepted" << std::endl << str.c_str());
 	}
 	
     /* what has been accepted/refused ? */

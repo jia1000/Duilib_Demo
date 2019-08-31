@@ -31,7 +31,7 @@
 #include "dicommanager.h"
 //#include <api/ientorno.h>
 #include <api/dicom/idicom.h>
-//#include <api/controllers/icontroladorlog.h>
+#include <api/controllers/icontroladorlog.h>
 //#include <main/controllers/dcmtk/ginkgouid.h>
 //#include <api/math/geometry.h>
 
@@ -886,7 +886,7 @@ namespace GIL
 					return true;
 				}
 			}
-			//LOG_ERROR("Dicommanager", "error extracting tag");
+			LOG_ERROR("Dicommanager", "error extracting tag");
 			return false;
 		}
 
@@ -1173,7 +1173,7 @@ namespace GIL
 						cond = itemPadre->insert(e, true, false);
 					}
 					if (cond.bad()) {
-						//LOG_ERROR("DICOMMANAGER", "No se pudo insertar el elemento: (" << e->getTag().toString().c_str() << "): " << cond.text());
+						LOG_ERROR("DICOMMANAGER", "No se pudo insertar el elemento: (" << e->getTag().toString().c_str() << "): " << cond.text());
 					}
 					else {
 						numTotalInsertados++;

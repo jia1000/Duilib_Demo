@@ -12,7 +12,7 @@
  *  Code adapted from Aeskulap
  *
  */
-//#include <api/controllers/icontroladorlog.h>
+#include <api/controllers/icontroladorlog.h>
 //#include <api/controllers/icontroladorpermisos.h>
 #include "dicomfindassociation.h"
 //#include <wx/string.h>
@@ -75,7 +75,7 @@ CONDITION FindAssociation::findSCU(T_ASC_Association *assoc, DcmDataset *query) 
 	/* which presentation context should be used */
 	presId = ASC_findAcceptedPresentationContextID(assoc, m_abstractSyntax.c_str());
 	if (presId == 0) {
-		//LOG_ERROR(ambitolog, "Invalid PresentationContextId");
+		LOG_ERROR(ambitolog, "Invalid PresentationContextId");
 		return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
 	}
 	
@@ -119,7 +119,7 @@ CONDITION FindAssociation::findSCU(T_ASC_Association *assoc, DcmDataset *query) 
     }
 	
 	if (statusDetail != NULL) {
-		////LOG_DEBUG(ambitolog, "DIMSE_findUser(): Status: " << std::endl << DumpDataset(statusDetail));
+		LOG_DEBUG(ambitolog, "DIMSE_findUser(): Status: " << std::endl << DumpDataset(statusDetail));
 		delete statusDetail;
 	}
 
@@ -135,7 +135,7 @@ void FindAssociation::findCallback(void* callbackData, T_DIMSE_C_FindRQ* /*rq*/,
 	
 	int max_results = pCallback->pCaller->GetMaxResults();
 	if (pCallback->pCaller->GetMaxResults() > 0 && responseCount > pCallback->pCaller->GetMaxResults()) {
-		//LOG_DEBUG(pCallback->pCaller->ambitolog, "findCallback(): Ignoring response num " << responseCount << ". The maximum number of responses was " << pCallback->pCaller->GetMaxResults());
+		LOG_DEBUG(pCallback->pCaller->ambitolog, "findCallback(): Ignoring response num " << responseCount << ". The maximum number of responses was " << pCallback->pCaller->GetMaxResults());
 		// by jia
 		//rsp->DimseStatus = STATUS_FIND_CANCEL_SHOWTHEFIRST500;
 		//pCallback->pCaller->Stop();
@@ -146,13 +146,13 @@ void FindAssociation::findCallback(void* callbackData, T_DIMSE_C_FindRQ* /*rq*/,
 	//wxString mess = wxString::Format(_("%d results has been found"), (int)(responseCount) );
 	//std::string mensaje(mess.ToUTF8());
 	//
-	////LOG_DEBUG(pCallback->pCaller->ambitolog, "Processing response num " << responseCount);
+	//LOG_DEBUG(pCallback->pCaller->ambitolog, "Processing response num " << responseCount);
 	//if(!pCallback->pCaller->NotificarProgreso(0.0f, mensaje))
 	//{
 	//	rsp->DimseStatus = STATUS_FIND_Cancel_MatchingTerminatedDueToCancelRequest;
 	//	pCallback->pCaller->Stop();
 	//	ASC_releaseAssociation(pCallback->assoc);
-	//	//LOG_INFO(pCallback->pCaller->ambitolog, "Operation canceled by user");
+	//	LOG_INFO(pCallback->pCaller->ambitolog, "Operation canceled by user");
 	//	return;
 	//} else 	{
 		DcmDataset* response = new DcmDataset(*responseIdentifiers);
@@ -169,7 +169,7 @@ void FindAssociation::findCallback(void* callbackData, T_DIMSE_C_FindRQ* /*rq*/,
 			}
 		}
 		else {
-		    //LOG_DEBUG("C-FIND", "No results found");
+		    LOG_DEBUG("C-FIND", "No results found");
 		}
 		pCallback->pCaller->OnResponseReceived(response);
 	//}
@@ -180,7 +180,7 @@ CONDITION FindAssociation::SendObject(DcmDataset *dataset) {
 }
 
 void FindAssociation::OnResponseReceived(DcmDataset* response) {
-	//LOG_DEBUG(ambitolog, "Response received: " << std::endl << DumpDataset(response));
+	LOG_DEBUG(ambitolog, "Response received: " << std::endl << DumpDataset(response));
 }
 
 DcmStack* FindAssociation::GetResultStack() {
@@ -228,6 +228,6 @@ int FindAssociation::GetMaxResults() {
 void FindAssociation::OnAddPresentationContext(T_ASC_Parameters* params) {
 	CONDITION cond = ASC_addPresentationContext(params, 1, m_abstractSyntax.c_str(), AllTransferSyntaxes, 3);
 	if (cond.bad()) {
-		//LOG_ERROR(ambitolog, "Unable to add default presentation context");
+		LOG_ERROR(ambitolog, "Unable to add default presentation context");
 	}
 }

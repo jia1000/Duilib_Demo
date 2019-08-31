@@ -24,6 +24,8 @@
 #include "main/controllers/dcmtk/dicomnetwork.h"
 #include "main/controllers/dcmtk/dicomnetclient.h"
 
+#include "main/controllers/controladorlog.h"
+
 #include "api/dicom/dcmdictionary.h"
 
 #include "utility_tool/common_utils.h"
@@ -161,7 +163,7 @@ namespace GIL {
 					cond = query->insert(e, true, false);
 
 					if (cond.bad()) {
-						//LOG_ERROR("PACSController", "No se pudo insertar el elemento: (" << e->getTag().toString().c_str() << "): " << cond.text());
+						LOG_ERROR("PACSController", "No se pudo insertar el elemento: (" << e->getTag().toString().c_str() << "): " << cond.text());
 					}
 				}
 			}
@@ -186,7 +188,7 @@ namespace GIL {
 								cond = di->insert(ei, true, false);
 
 								if (cond.bad()) {
-									//LOG_ERROR("DcmtkDLDicomDemoFrameWnd", "No se pudo insertar el elemento: (" << ei->getTag().toString().c_str() << "): " << cond.text());
+									LOG_ERROR("DcmtkDLDicomDemoFrameWnd", "No se pudo insertar el elemento: (" << ei->getTag().toString().c_str() << "): " << cond.text());
 								}
 							}
 						}

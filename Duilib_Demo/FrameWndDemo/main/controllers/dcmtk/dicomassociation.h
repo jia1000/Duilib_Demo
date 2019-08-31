@@ -27,7 +27,7 @@
 #include <dcmtk/dcmnet/dimse.h>
 #include <dcmtk/dcmdata/dcfilefo.h>
 //#include <api/iproxynotificadorprogreso.h>
-//#include "helpers.h"
+#include "helpers.h"
 
 
 #ifdef MACRO_QUE_ESTORBA

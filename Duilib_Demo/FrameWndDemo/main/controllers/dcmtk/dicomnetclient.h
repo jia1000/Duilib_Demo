@@ -15,10 +15,10 @@
 #pragma once
 //#include <api/controllers/icontroladorlog.h>
 //#include <api/iproxynotificadorprogreso.h>
-//#include <main/controllers/controladorlog.h>
+#include <main/controllers/controladorlog.h>
 #include <main/controllers/dcmtk/dicomservers.h>
 #include "dicomnetwork.h"
-//#include "helpers.h"
+#include "helpers.h"
 
 #include <iostream>
 
@@ -63,7 +63,7 @@ public:
 	NetClient(void* connectionKey, const std::string& ambitolog, GNC::IProxyNotificadorProgreso* pNotificadorProgreso = NULL) : T(ambitolog) {
 
 		if (connectionKey == NULL) {
-			//LOG_ERROR(ambitolog, "NULL Connection key");
+			LOG_ERROR(ambitolog, "NULL Connection key");
 		}
 		this->Net = GIL::DICOM::DCMTK::Network::Instance(connectionKey);
 		this->m_pNotificadorProgreso = pNotificadorProgreso;
@@ -89,7 +89,7 @@ public:
 
 		T::SetNotificadorProgreso(m_pNotificadorProgreso);
 
-		//LOG_DEBUG(ambitolog, "Connected: AET = " << server->AET << ", Host = " << server->HostName << ", Port = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
+		LOG_DEBUG(ambitolog, "Connected: AET = " << server->AET << ", Host = " << server->HostName << ", Port = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
 		CONDITION r = T::Connect(Net, server->PDU);
 
 		CONDITION c = ECC_Normal;
@@ -98,20 +98,20 @@ public:
 			c = T::SendObject();
 		}
 		else {
-			//LOG_ERROR(ambitolog, "Error connecting:" << r.text());
+			LOG_ERROR(ambitolog, "Error connecting:" << r.text());
 			T::Drop();
 			T::Destroy();
 			throw GIL::DICOM::PACSException(r.text());
 		}
 
 		if (!c.good()) {
-			//LOG_ERROR(ambitolog, "Error sending object: " << c.text());
+			LOG_ERROR(ambitolog, "Error sending object: " << c.text());
 			T::Drop();
 			T::Destroy();
 			throw GIL::DICOM::PACSException(c.text());
 		}
 
-		//LOG_DEBUG(ambitolog, "Closing association");
+		LOG_DEBUG(ambitolog, "Closing association");
 		T::Drop();
 		return true;
 	}
@@ -138,32 +138,32 @@ public:
 
 		T::SetCallbackInfo(&resultsWrapper);//, server);
 
-		//LOG_INFO(ambitolog, "Connecting: AET = " << server->AET << ", Host = " << server->HostName << ", Puerto = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
+		LOG_INFO(ambitolog, "Connecting: AET = " << server->AET << ", Host = " << server->HostName << ", Puerto = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
 		CONDITION r = T::Connect(Net, server->PDU);
 
 		CONDITION c = ECC_Normal;
 
 		if (r.good() == true) {
-			//LOG_DEBUG(ambitolog, "Requesting object:" << std::endl << DumpDataset(query));
+			LOG_DEBUG(ambitolog, "Requesting object:" << std::endl << DumpDataset(query));
 			c = T::SendObject(query);
 		}
 		else {
-			//LOG_DEBUG(ambitolog, "Error connecting:" << r.text());
+			LOG_DEBUG(ambitolog, "Error connecting:" << r.text());
 			T::Drop();
 			T::Destroy();
-			//LOG_INFO(ambitolog, "Disconnected");
+			LOG_INFO(ambitolog, "Disconnected");
 			//throw GIL::DICOM::PACSException(r.text());
 		}
 
 		if (!c.good()) {
-			//LOG_DEBUG(ambitolog, "Error requesting object: " << c.text());
+			LOG_DEBUG(ambitolog, "Error requesting object: " << c.text());
 			T::Drop();
 			T::Destroy();
-			//LOG_INFO(ambitolog, "Disconnected");
+			LOG_INFO(ambitolog, "Disconnected");
 			//throw GIL::DICOM::PACSException(c.text());
 		}
 
-		//LOG_INFO(ambitolog, "Disconnected");
+		LOG_INFO(ambitolog, "Disconnected");
 		T::Drop();
 		
 		return r.good();
@@ -195,34 +195,34 @@ public:
 
 		//T::SetNotificadorProgreso(m_pNotificadorProgreso);
 
-		//LOG_INFO(ambitolog, "Connecting: AET = " << server->AET << ", Host = " << server->HostName << ", Puerto = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
+		LOG_INFO(ambitolog, "Connecting: AET = " << server->AET << ", Host = " << server->HostName << ", Puerto = " << server->Port << ", Local AET = " << local_aet << ", PDU = " << server->PDU);
 		CONDITION r = T::Connect(Net, server->PDU);
 
 		CONDITION c = ECC_Normal;
 
 		if (r.good() == true) {
-			//LOG_DEBUG(ambitolog, "Requesting object:" << std::endl << DumpDataset(query));
+			LOG_DEBUG(ambitolog, "Requesting object:" << std::endl << DumpDataset(query));
 			c = T::SendObject(query);
 		}
 		else {
-			//LOG_DEBUG(ambitolog, "Error connecting:" << r.text());
+			LOG_DEBUG(ambitolog, "Error connecting:" << r.text());
 			T::Drop();
 			T::Destroy();
-			//LOG_INFO(ambitolog, "Disconnected");
+			LOG_INFO(ambitolog, "Disconnected");
 			//throw GIL::DICOM::PACSException(r.text());
 		}
 
 		if (!c.good()) {
-			//LOG_DEBUG(ambitolog, "Error requesting object: " << c.text());
+			LOG_DEBUG(ambitolog, "Error requesting object: " << c.text());
 			T::Drop();
 			T::Destroy();
-			//LOG_INFO(ambitolog, "Disconnected");
+			LOG_INFO(ambitolog, "Disconnected");
 			//throw GIL::DICOM::PACSException(c.text());
 		}
 
 		DcmStack* result = T::GetResultStack();
 		if (r.good() && c.good() && result != NULL && result->card() > 0) {
-			//LOG_DEBUG(ambitolog, "Num results: " << result->card());
+			LOG_DEBUG(ambitolog, "Num results: " << result->card());
 
 			//for (unsigned long i = 0; i < result->card(); ++i) {
 			//	DcmDataset* dset = new DcmDataset( *(static_cast<DcmDataset*>(result->elem(i))) );
@@ -244,14 +244,14 @@ public:
 		}
 		else {
 			if (r.bad()) {
-				//LOG_ERROR(ambitolog, "Connection error: " << r.text());
+				LOG_ERROR(ambitolog, "Connection error: " << r.text());
 			}
 			if (c.bad()) {
-				//LOG_ERROR(ambitolog, "Error requesting object: " << c.text());
+				LOG_ERROR(ambitolog, "Error requesting object: " << c.text());
 			}
 		}
 
-		//LOG_INFO(ambitolog, "Disconnected");
+		LOG_INFO(ambitolog, "Disconnected");
 		T::Drop();
 		
 		return r.good() && c.good();
@@ -304,7 +304,7 @@ public:
 		OFString OFPacienteUID;
 		if (dset->findAndGetOFString(DCM_PatientID, OFPacienteUID).bad()) {
 			if (!dset->isEmpty()) {
-				//LOG_ERROR(ambitolog, "El PACS no devolvió el PatientID del paciente. Entrada ignorada.");
+				LOG_ERROR(ambitolog, "El PACS no devolvió el PatientID del paciente. Entrada ignorada.");
 			}
 			return;
 		}
@@ -350,7 +350,7 @@ public:
 		OFString OFSerieUID;
 		if (dset->findAndGetOFString(DCM_StudyInstanceUID, OFEstudioUID).bad() || dset->findAndGetOFString(DCM_SeriesInstanceUID, OFSerieUID).bad()) {
 			if (!dset->isEmpty()) {
-				//LOG_ERROR(ambitolog, "El PACS no devolvió el StudyInstanceUID o el SeriesInstanceUID de la serie. Entrada ignorada.");
+				LOG_ERROR(ambitolog, "El PACS no devolvió el StudyInstanceUID o el SeriesInstanceUID de la serie. Entrada ignorada.");
 			}
 			return;
 		}
@@ -422,7 +422,7 @@ public:
 		OFString OFInstanceNumber;
 		if (dset->findAndGetOFString(DCM_SeriesInstanceUID, OFSerieUID).bad() || dset->findAndGetOFString(DCM_SOPInstanceUID, OFImagenUID).bad()) {
 			if (!dset->isEmpty()) {
-				//LOG_ERROR(ambitolog, "El PACS no devolvió el SeriesInstanceUID o el SOPInstanceUID de la imagen. Entrada ignorada.");
+				LOG_ERROR(ambitolog, "El PACS no devolvió el SeriesInstanceUID o el SOPInstanceUID de la imagen. Entrada ignorada.");
 			}
 			return;
 		}
@@ -466,7 +466,7 @@ public:
 		OFString OFEstudioUID;
 		if (dset->findAndGetOFString(DCM_StudyInstanceUID, OFEstudioUID).bad()) {
 			if (!dset->isEmpty()) {
-				//LOG_ERROR(ambitolog, "El PACS no devolvió el StudyInstanceUID del estudio. Entrada ignorada.");
+				LOG_ERROR(ambitolog, "El PACS no devolvió el StudyInstanceUID del estudio. Entrada ignorada.");
 			}
 			return;
 		}
@@ -586,13 +586,13 @@ public:
 		DcmFileFormat fileformat(dataset); // copies dataset
 		OFCondition ec = fileformat.error();
 		if (ec.bad()) {
-			//LOG_ERROR(T::ambitolog, "Unable to read DICOM dataset: " << ec.text());
+			LOG_ERROR(T::ambitolog, "Unable to read DICOM dataset: " << ec.text());
 			return OFFalse;
 		}
 
 		ec = fileformat.saveFile(ofname, dataset->getOriginalXfer());
 		if (ec.bad()) {
-			//LOG_ERROR(T::ambitolog, "Unable to write file (" << ofname << ": " << ec.text());
+			LOG_ERROR(T::ambitolog, "Unable to write file (" << ofname << ": " << ec.text());
 			return OFFalse;
 		}
 		return OFTrue;
