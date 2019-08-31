@@ -276,6 +276,9 @@
     <ClCompile Include="FrameWndDemo\main\controllers\log4cplus\guiappender.cpp">
       <Filter>FrameWndDemo\main\controllers\log4cplus</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\helpers.cpp">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\logdefines.h">
       <Filter>FrameWndDemo\main\controllers\log4cplus</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\helpers.h">
+      <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

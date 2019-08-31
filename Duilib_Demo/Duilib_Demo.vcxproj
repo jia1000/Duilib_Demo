@@ -132,6 +132,7 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\helpers.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dicommanager.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\log4cplus\guiappender.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\pacscontroller.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetclient.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\helpers.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dicommanager.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\guiappender.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\logdefines.h" />
