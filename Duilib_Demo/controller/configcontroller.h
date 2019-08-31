@@ -12,6 +12,7 @@ typedef struct ST_Filter_Condition {
 #define SECTION_FILTER_BODY_PART	"FilterBodyPart"
 #define SECTION_FILTER_THICKNESS	"FilterThickness"
 #define SECTION_FILTER_MODALITY		"FilterModality"
+#define SECTION_DEBUG_INFO			"DEBUG_INFO"
 
 //#define KEY_FILTER_INDEX			"index"
 #define KEY_FILTER_NAME				"name"
@@ -46,6 +47,8 @@ public:
 	std::wstring GetAETPdu();
 	std::wstring GetAETRetriveWay();
 	std::wstring GetAETLocalName();
+
+	int GetLogLevel();
 
 	std::string GetAETNumberStr();
 	std::string GetAETTitleStr();

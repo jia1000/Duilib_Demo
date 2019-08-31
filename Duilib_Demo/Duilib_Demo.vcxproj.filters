@@ -55,6 +55,12 @@
     <Filter Include="controller">
       <UniqueIdentifier>{bb72a01c-b038-4e6d-992a-d5c66546adac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWndDemo\api\controllers">
+      <UniqueIdentifier>{e8d725f1-b72a-4919-ac2c-b203fe5e9c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWndDemo\main\controllers\log4cplus">
+      <UniqueIdentifier>{5aa38706-be17-4404-9c3b-57e24f606c01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -260,6 +266,15 @@
     </ClCompile>
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.cpp">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\controladorlog.cpp">
+      <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\controllers\icontroladorlog.cpp">
+      <Filter>FrameWndDemo\api\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\main\controllers\log4cplus\guiappender.cpp">
+      <Filter>FrameWndDemo\main\controllers\log4cplus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +493,18 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicommoveassociation.h">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\controladorlog.h">
+      <Filter>FrameWndDemo\main\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\controllers\icontroladorlog.h">
+      <Filter>FrameWndDemo\api\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\guiappender.h">
+      <Filter>FrameWndDemo\main\controllers\log4cplus</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\logdefines.h">
+      <Filter>FrameWndDemo\main\controllers\log4cplus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -113,6 +113,7 @@
     <ClCompile Include="FourViews\vtkViewImage2DFullCommand.cpp" />
     <ClCompile Include="FourViews\vtkViewImage3D.cpp" />
     <ClCompile Include="FrameWndDemo\api\autoptr.cpp" />
+    <ClCompile Include="FrameWndDemo\api\controllers\icontroladorlog.cpp" />
     <ClCompile Include="FrameWndDemo\api\dicom\dicomdataset.cpp" />
     <ClCompile Include="FrameWndDemo\api\dicom\idicom.cpp" />
     <ClCompile Include="FrameWndDemo\api\iexception.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\JsonParseDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\controladorlog.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.cpp" />
@@ -131,6 +133,7 @@
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\dicommanager.cpp" />
+    <ClCompile Include="FrameWndDemo\main\controllers\log4cplus\guiappender.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\pacscontroller.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
@@ -184,6 +187,7 @@
     <ClInclude Include="FourViews\vtkViewImage3D.h" />
     <ClInclude Include="FrameWndDemo\api\api.h" />
     <ClInclude Include="FrameWndDemo\api\autoptr.h" />
+    <ClInclude Include="FrameWndDemo\api\controllers\icontroladorlog.h" />
     <ClInclude Include="FrameWndDemo\api\dicom\dicomdataset.h" />
     <ClInclude Include="FrameWndDemo\api\dicom\idicom.h" />
     <ClInclude Include="FrameWndDemo\api\dicom\idicommanager.h" />
@@ -196,6 +200,7 @@
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\JsonParseDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\controladorlog.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomechoassociation.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomfindassociation.h" />
@@ -205,6 +210,8 @@
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomnetwork.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\dicomservers.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\dicommanager.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\guiappender.h" />
+    <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\logdefines.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\pacscontroller.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />

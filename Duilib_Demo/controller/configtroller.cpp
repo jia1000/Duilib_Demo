@@ -14,6 +14,7 @@
 #include <StdAfx.h>
 
 #include "configcontroller.h"
+#include "main/controllers/log4cplus/guiappender.h"
 
 #include "utility_tool/inifile.h"
 #include "utility_tool/string_converse.h"
@@ -159,6 +160,16 @@ std::wstring ConfigController::GetAETRetriveWay()
 		std::string name;
 		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "RetriveWay", &name);
 		return toWString(name);
+	}
+}
+
+int ConfigController::GetLogLevel()
+{
+	if (m_ini_file) {
+		int value = log4cplus::DEBUG_LOG_LEVEL;
+		int default = log4cplus::DEBUG_LOG_LEVEL;
+		m_ini_file->GetIntValueOrDefault(SECTION_DEBUG_INFO, "LogLevel", &value, default);
+		return value;
 	}
 }
 std::wstring ConfigController::GetAETLocalName()
