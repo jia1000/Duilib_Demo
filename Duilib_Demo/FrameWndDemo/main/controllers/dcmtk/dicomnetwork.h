@@ -33,7 +33,7 @@ namespace GIL {
 				static void FreeInstance(void* key);
 
 				bool Initiallized();
-
+				void SetInitiallized(bool init) { m_Initiallized = init; }
 				/**
 				Initialize the dicom network
 				*/

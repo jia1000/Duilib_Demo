@@ -92,7 +92,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 	m_listPro = static_cast<ListPro*>(m_pm.FindControl(L"list_download_result"));
 
 #ifdef _DEBUG
-	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666");// 1个ct
+	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666,1128010");// 1个ct
 	if (m_pDownloadPathEdit) {
 		m_pDownloadPathEdit->SetText(L"G:\\temp1");
 		m_dicom_saved_path = "G:\\temp1";
@@ -214,8 +214,9 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			DoSearchStudyTest();
 		} else if (_tcscmp(pszCtrlName, _T("btn_download")) == 0) {
 			m_is_stoped = false;
-			ChangeButtonStatusInDownload(true);
-			std::thread th(&DcmtkDLDicomDemoFrameWnd::DoDownloadTest, this);
+			ChangeButtonStatusInDownload(true);			
+			// 开启下载dicom线程
+ 			std::thread th(&DcmtkDLDicomDemoFrameWnd::DoDownloadTest, this);
 			th.detach();
 		} else if (_tcscmp(pszCtrlName, _T("btn_patient_csv_path")) == 0) {
 			OnOpenPatientIDListFile();

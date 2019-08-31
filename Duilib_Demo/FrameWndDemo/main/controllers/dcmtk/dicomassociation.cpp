@@ -95,7 +95,7 @@ presId(0),
 msgId(0),
 Net(NULL),
 Role(RT_Requestor),
-AcceptorPort(0),
+AcceptorPort(11112),//0),
 m_TLS(false),
 m_UseUserPass(false),
 m_Validate(false)

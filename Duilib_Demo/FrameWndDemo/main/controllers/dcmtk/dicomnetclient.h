@@ -254,7 +254,7 @@ public:
 		//LOG_INFO(ambitolog, "Disconnected");
 		T::Drop();
 		
-		return r.good();
+		return r.good() && c.good();
 	}
 #if 0
 	wxCSConv GetConv(DcmDataset* dset, const std::string& defaultCharset)

@@ -20,11 +20,11 @@
 #include <dcmtk/dcmdata/dcdatset.h>
 #include "dcmtk/dicomservers.h"
 
-typedef enum TRetrieveMethod {
-	MOVE = 0,
-	GET,
-	WADO
-}TRetrieveMethod;
+//typedef enum TRetrieveMethod {
+//	MOVE = 0,
+//	GET,
+//	WADO
+//}TRetrieveMethod;
 
 namespace GIL {
 	namespace DICOM {
@@ -63,8 +63,9 @@ namespace GIL {
 
 			GNC::GCS::Ptr<DicomServer> server;
 
-			TRetrieveMethod retrieve_method;
+			//TRetrieveMethod retrieve_method;
 			std::string m_localAET;
+			std::string m_retrieve_way;
 		};
 	};
 };

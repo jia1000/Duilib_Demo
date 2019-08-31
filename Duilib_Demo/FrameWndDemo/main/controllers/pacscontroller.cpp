@@ -20,6 +20,7 @@
 
 #include "main/controllers/dcmtk/dicomfindassociation.h"
 #include "main/controllers/dcmtk/dicomgetassociation.h"
+#include "main/controllers/dcmtk/dicommoveassociation.h"
 #include "main/controllers/dcmtk/dicomnetwork.h"
 #include "main/controllers/dcmtk/dicomnetclient.h"
 
@@ -36,7 +37,7 @@ namespace GIL {
 		PACSController* PACSController::m_pInstance = NULL;
 		
 		PACSController::PACSController()
-			: retrieve_method(GET)
+			//: retrieve_method(GET)
 		{
 			InitDicomServer();
 		}
@@ -69,6 +70,7 @@ namespace GIL {
 			std::string aet_pdu = ConfigController::Instance()->GetAETPduStr();
 			int pdu_length = atoi(aet_pdu.c_str());
 			m_localAET = ConfigController::Instance()->GetAETLocalNameStr();
+			m_retrieve_way = ConfigController::Instance()->GetAETRetriveWayStr();
 			server = new DicomServer(aet_nubmer, aet_title, host_addr, port, pdu_length);
 		}
 
@@ -116,10 +118,27 @@ namespace GIL {
 			NetClient<GetAssociation> a(connectionKey, "C-GET");
 			a.SetStorageSOPClasses(modality);
 			a.SetPath(series_path);
+			if (m_retrieve_way == "GET") {
+				NetClient<GetAssociation> a(connectionKey, "C-GET");
+				a.SetStorageSOPClasses(modality);
+				a.SetPath(series_path);
 
-			if (!a.QueryServer(&query, server, m_localAET, CT_MoveSerie)) {
-				return false;
-			}
+				if (!a.QueryServer(&query, server, m_localAET, CT_MoveSerie)) {
+					return false;
+				}
+			} else if(m_retrieve_way == "MOVE"){
+				GIL::DICOM::DCMTK::Network::Instance(connectionKey)->SetInitiallized(false);
+				NetClient<MoveAssociation> a(connectionKey, "C-MOVE");
+				a.SetRole(Association::RT_AcceptorRequestor);
+				//int port_temp = a.GetAcceptorPort();
+				a.SetAcceptorPort(11112);
+				a.SetPath(series_path);
+				a.SetNumeroImagene(0);
+				if (!a.QueryServer(&query, server, m_localAET, CT_MoveSerie)) {
+					return false;
+				}
+			}		
+			
 			query.clear();
 			return true;
 		}
