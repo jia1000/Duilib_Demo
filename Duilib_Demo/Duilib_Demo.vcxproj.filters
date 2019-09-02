@@ -61,6 +61,12 @@
     <Filter Include="FrameWndDemo\main\controllers\log4cplus">
       <UniqueIdentifier>{5aa38706-be17-4404-9c3b-57e24f606c01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWndDemo\menu_right">
+      <UniqueIdentifier>{30077429-d799-406b-b689-7ba008171d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWndDemo\menu_right\pacs_download_right_menu">
+      <UniqueIdentifier>{1185e0ae-0feb-4d59-ab8f-dfaced0231a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -278,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="FrameWndDemo\main\controllers\dcmtk\helpers.cpp">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\right_menu\pacs_download_right_menu\pacs_download_right_menu.cpp">
+      <Filter>FrameWndDemo\menu_right\pacs_download_right_menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -511,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\main\controllers\dcmtk\helpers.h">
       <Filter>FrameWndDemo\main\controllers\dcmtk</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\right_menu\pacs_download_right_menu\pacs_download_right_menu.h">
+      <Filter>FrameWndDemo\menu_right\pacs_download_right_menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

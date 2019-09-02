@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window showshadow="true">
+<Font name="微软雅黑" size="12" bold="false" default="true" />
+<Font shared="true" id="30" name="微软雅黑" size="12" bold="true"/>
+
+	<Menu bkcolor="0XFF2C356A" inset="3,3,3,3" bordersize="1" itemdisabledbkcolor="0XFF2C356A" itemdisabledtextcolor="0xFF6D6D6D"  bordercolor="0xFFA0A0A0" itemselectedbkcolor="0XFF626FFF" itemtextpadding="30,0,30,0" itemhottextcolor="0xFFFFFFFF" itemselectedtextcolor="0xFFFFFFFF" itemtextcolor="0xFFFFFFFF">
+	    <MenuElement name="right_menu_download" height="30" text="下载序列" iconsize="18,18" icon="rightmenu/ico_download.png"/>
+	</Menu>
+
+</Window>

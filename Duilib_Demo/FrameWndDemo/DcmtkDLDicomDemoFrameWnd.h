@@ -59,6 +59,7 @@ public:
 	virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	virtual LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
+	void OnPACSPopupMenu(TNotifyUI& msg);
 	void OnSelChanged(CControlUI* pSender);
 	void OnOpenPatientIDListFile();
 	void OnOpenDownloadPath();
@@ -67,12 +68,15 @@ public:
 	void DoSearchSeriesTest();
 
 	void DoDownloadTest();	
+	void DoDownloadOneSeires(int select_list_item_tag);
+	void OnDownloadSelected();
 
 	int GetPatienCount();
 	int GetStudyCount();
 	int GetSeriesCount();
+	int GetSeriesSuccessCount();
 
-	void UpdateDownloadStaticsText(int index);
+	void UpdateDownloadStaticsText();
 	void UpdateDownloadListProAll();
 	void UpdateDownloadListProItem(int index, std::string status_text);
 	void OutputResultStaticsToFile(std::string path);

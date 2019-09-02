@@ -137,6 +137,7 @@
     <ClCompile Include="FrameWndDemo\main\controllers\log4cplus\guiappender.cpp" />
     <ClCompile Include="FrameWndDemo\main\controllers\pacscontroller.cpp" />
     <ClCompile Include="FrameWndDemo\OpencvDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\right_menu\pacs_download_right_menu\pacs_download_right_menu.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\EntryFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\FirstFrameWnd.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="FrameWndDemo\main\controllers\log4cplus\logdefines.h" />
     <ClInclude Include="FrameWndDemo\main\controllers\pacscontroller.h" />
     <ClInclude Include="FrameWndDemo\OpencvDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\right_menu\pacs_download_right_menu\pacs_download_right_menu.h" />
     <ClInclude Include="FrameWndDemo\VtkDicomViewDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\EntryFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h" />

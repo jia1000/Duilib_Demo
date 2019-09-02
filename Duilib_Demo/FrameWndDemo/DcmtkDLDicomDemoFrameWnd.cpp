@@ -11,6 +11,8 @@
 #include "main/controllers/dcmtk/dicomnetwork.h"
 #include "main/controllers/dcmtk/dicomnetclient.h"
 
+#include "right_menu/pacs_download_right_menu/pacs_download_right_menu.h"
+
 #include "utility_tool/string_converse.h"
 #include "utility_tool/common_utils.h"
 #include "controller/configcontroller.h"
@@ -90,9 +92,13 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 
 
 	m_listPro = static_cast<ListPro*>(m_pm.FindControl(L"list_download_result"));
+	if (m_listPro) {
+		//打开list控件的右键菜单功能
+		m_listPro->SetContextMenuUsed(true);
+	}
 
 #ifdef _DEBUG
-	m_pPatientIdEdit->SetText(L"1008621671,0170952,0003852666,1128010");// 1个ct
+	m_pPatientIdEdit->SetText(L"0074259,1008621671,0170952,0003852666,1128010");// 1个ct
 	if (m_pDownloadPathEdit) {
 		m_pDownloadPathEdit->SetText(L"G:\\temp1");
 		m_dicom_saved_path = "G:\\temp1";
@@ -143,7 +149,7 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 		m_pMOdalityiesInStudyEdit->SetText(ws.c_str());
 	}
 
-	UpdateDownloadStaticsText(0);
+	UpdateDownloadStaticsText();
 	UpdateDownloadListProAll();
 	ChangeButtonStatusInDownload(false);
 }
@@ -232,7 +238,10 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 		}    
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
 		OnSelChanged(msg.pSender);
+	} else if (msg.sType == DUI_MSGTYPE_MENU) {
+		OnPACSPopupMenu(msg);
 	} 
+	return WindowImplBase::Notify(msg);
 }
 
 void DcmtkDLDicomDemoFrameWnd::SaveFilterCondition()
@@ -295,7 +304,7 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, 
 	{
 	case WM_USER_UPDATE_DOWNLOAD_DICOM_FILE:
 		index = lParam;
-		UpdateDownloadStaticsText(index);
+		UpdateDownloadStaticsText();
 		break;
 	case WM_USER_UPDATE_DOWNLOAD_STATUS:
 		index = wParam;
@@ -307,6 +316,13 @@ LRESULT DcmtkDLDicomDemoFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, 
 	}
 	bHandled = FALSE;
 	return 0;
+}
+
+void DcmtkDLDicomDemoFrameWnd::OnPACSPopupMenu(TNotifyUI& msg) {
+	if (m_listPro && m_listPro->GetSelectItemCount() > 0) {
+		PacsDownloadRightMenu* pMenu = new PacsDownloadRightMenu(this, msg);
+		pMenu->ShowCustomMenu(msg.ptMouse.x, msg.ptMouse.y);
+	}
 }
 
 void DcmtkDLDicomDemoFrameWnd::OnSelChanged(CControlUI* pSender)
@@ -545,12 +561,13 @@ void DcmtkDLDicomDemoFrameWnd::DoSearchSeriesTest()
 		}
 	}
 
-	UpdateDownloadStaticsText(0);
+	UpdateDownloadStaticsText();
 	UpdateDownloadListProAll();
 }
 
-void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText(int index)
+void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText()
 {
+	int success_count  = GetSeriesSuccessCount();
 	m_pStatiscResultLabel = static_cast<CLabelUI*>(m_pm.FindControl(L"label_result_statics"));
 	if (m_pStatiscResultLabel) {
 		std::stringstream ss;
@@ -564,7 +581,7 @@ void DcmtkDLDicomDemoFrameWnd::UpdateDownloadStaticsText(int index)
 		ss << GetSeriesCount();
 		ss << " , ";
 		ss << "Success's Series ";
-		ss << index;
+		ss << success_count;//index;
 		ss << " ";
 		std::string s = ss.str();
 		std::wstring ws_result = toWString(s);
@@ -654,6 +671,19 @@ int DcmtkDLDicomDemoFrameWnd::GetSeriesCount()
 	return count;
 }
 
+int DcmtkDLDicomDemoFrameWnd::GetSeriesSuccessCount()
+{
+	int count = 0;
+	for (auto& patient_info : m_patient_infos1) {
+		for (auto& series_info : patient_info.sereis_infos) {
+			if (DOWNLOAD_STATUS_SUCCESS == series_info.download_status) {
+				++count;
+			}
+		}
+	}
+	return count;
+}
+
 bool DcmtkDLDicomDemoFrameWnd::CheckedMatchConditions(GIL::DICOM::DicomDataset& data)
 {
 	// 过滤时间 ：放在了开始搜索时，进行过滤
@@ -692,7 +722,7 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 {
 	// 下载series计数器，清零
 	m_downloading_dicom_index = 0;
-	UpdateDownloadStaticsText(0);
+	UpdateDownloadStaticsText();
 
 	// 获取最新的控件值，主要是获取Dicom保存路径
 	GetAllControlValue();
@@ -749,6 +779,66 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	}
 	//保存下载结果到文件
 	OutputResultStaticsToFile(m_dicom_saved_path);
+	ChangeButtonStatusInDownload(false);
+}
+
+void DcmtkDLDicomDemoFrameWnd::OnDownloadSelected()
+{
+	int selected = 0;
+	if (m_listPro) {
+		selected = m_listPro->GetCurSel();
+		m_is_stoped = false;
+		ChangeButtonStatusInDownload(true);			
+		// 开启下载dicom线程
+		std::thread th(&DcmtkDLDicomDemoFrameWnd::DoDownloadOneSeires, this, selected);
+		th.detach();
+	}
+	
+}
+void DcmtkDLDicomDemoFrameWnd::DoDownloadOneSeires(int select_list_item_tag)
+{
+	int index = 0;
+	for (auto& patient_info : m_patient_infos1) {
+		for (auto& series_info : patient_info.sereis_infos) {
+			if (index != select_list_item_tag) {
+				index++;
+				continue;
+			}
+			
+			select_list_item_tag;
+			GIL::DICOM::DicomDataset base;
+			GIL::DICOM::PACSController::Instance()->InitFindQueryWrapper(base);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_QueryRetrieveLevel, "SERIES");
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_StudyInstanceUID, patient_info.study_id);
+			// 部分PACS，下载Series时，不能携带Patientid tag
+			//GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_PatientID, patient_info.patiend_id);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_SeriesInstanceUID, series_info.series_id);
+			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_Modality, series_info.modality);
+
+			std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
+			std::string study_path = patient_path + patient_info.study_id + "\\";
+			std::string series_path = study_path + series_info.series_id + "\\" ;
+			// 创建seriesid的文件夹			
+			TryCreateDir(series_path);
+			//更新list控件中，对应的series的状态为downloading
+			SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, index, (LPARAM)DOWNLOAD_STATUS_DOWNLOADING);
+
+			if (GIL::DICOM::PACSController::Instance()->DownloadDicomFilesBySeries(this, base, series_path)) {
+				series_info.download_status = DOWNLOAD_STATUS_SUCCESS;
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_DICOM_FILE, 0, index + 1);
+				//更新list控件中，对应的series的状态为success
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, index, (LPARAM)DOWNLOAD_STATUS_SUCCESS);
+			}
+			else
+			{
+				series_info.download_status = DOWNLOAD_STATUS_FAILURE;
+				//更新list控件中，对应的series的状态为failure
+				SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, index, (LPARAM)DOWNLOAD_STATUS_FAILURE);
+			}
+			ChangeButtonStatusInDownload(false);
+			return;
+		}
+	}
 	ChangeButtonStatusInDownload(false);
 }
 
