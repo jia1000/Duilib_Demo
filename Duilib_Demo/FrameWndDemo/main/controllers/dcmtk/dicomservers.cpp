@@ -21,6 +21,7 @@
 //#include <main/controllers/controladorpermisos.h>
 //#include <main/entorno.h>
 #include <api/globals.h>
+#include "controller/configcontroller.h"
 
 //WLConfig::WLConfig()
 //{
@@ -116,7 +117,7 @@ DicomServer::DicomServer() :
 	ID(""),
 	AET(""),
 	HostName(""),
-	Port(11112),
+	//Port(11112),
 	PDU(16384),
 	Lossy(0),
 	isDefault(false),
@@ -132,6 +133,7 @@ DicomServer::DicomServer() :
 	privateKey(""),
 	defaultCharset("ISO_IR 100")
 {
+	Port = ConfigController::Instance()->GetLocalPort();
 }
 
 DicomServer::DicomServer( const DicomServer& o) {

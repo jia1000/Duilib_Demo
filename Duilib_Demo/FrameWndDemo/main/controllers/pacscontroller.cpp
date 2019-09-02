@@ -133,7 +133,7 @@ namespace GIL {
 				NetClient<MoveAssociation> a(connectionKey, "C-MOVE");
 				a.SetRole(Association::RT_AcceptorRequestor);
 				//int port_temp = a.GetAcceptorPort();
-				a.SetAcceptorPort(11112);
+				//a.SetAcceptorPort(11112);
 				a.SetPath(series_path);
 				a.SetNumeroImagene(0);
 				if (!a.QueryServer(&query, server, m_localAET, CT_MoveSerie)) {

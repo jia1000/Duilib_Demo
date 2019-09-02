@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Window caption="0,0,0,40" size="366,340" mininfo="366,414" sizebox="0,0,0,0" textrenderinghint="0" showshadow="true" shadowimage="main/shadow.png" shadowsize="6" shadowcorner="8,8,8,8">
+<Window caption="0,0,0,40" size="366,460" mininfo="366,414" sizebox="0,0,0,0" textrenderinghint="0" showshadow="true" shadowimage="main/shadow.png" shadowsize="6" shadowcorner="8,8,8,8">
   <Font id="1" name="PingFangSC-Regular" size="14" bold="false" />
   <Font id="2" name="PingFangSC-Regular" size="12" bold="false" default="true"/>
   
@@ -69,6 +69,14 @@
 		<Label text="本地 AET" textcolor="#FFABBCDC" font="2" width="64" autocalcwidth="false"/>
 		<control width="15" />
 		<Edit name="dicom_node_local_name" font="2"  style="edit_style_dicom" numberonly="false" />	
+		<control width="15"/>
+	</HorizontalLayout>
+	<control height="10" />
+	<HorizontalLayout width="364" height="38" bkcolor="#FF11172D" childvalign="vcenter" padding="1,1,1,0">
+		<control width="15"/>
+		<Label text="本地 端口" textcolor="#FFABBCDC" font="2" width="64" autocalcwidth="false"/>
+		<control width="15" />
+		<Edit name="dicom_node_local_port" font="2"  style="edit_style_dicom" numberonly="true" />	
 		<control width="15"/>
 	</HorizontalLayout>
 

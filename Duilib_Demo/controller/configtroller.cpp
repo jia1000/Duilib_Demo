@@ -114,6 +114,13 @@ void  ConfigController::SetAETRetriveWay(const std::wstring& retive_way)
 		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "RetriveWay", s);
 	}
 }
+void  ConfigController::SetLocalPort(const std::wstring& port)
+{
+	if (m_ini_file) {
+		std::string s = toString(port);
+		m_ini_file->SetStringValue(SECTION_PACS_SERVICE, "LocalPort", s);
+	}
+}
 std::wstring ConfigController::GetAETNumber()
 {
 	if (m_ini_file) {
@@ -172,12 +179,28 @@ int ConfigController::GetLogLevel()
 		return value;
 	}
 }
+int ConfigController::GetLocalPort()
+{
+	if (m_ini_file) {
+		int port = 0;;
+		m_ini_file->GetIntValueOrDefault(SECTION_DEBUG_INFO, "LocalPort", &port, 11112);
+		return port;
+	}
+}
 std::wstring ConfigController::GetAETLocalName()
 {
 	if (m_ini_file) {
 		std::string name;
 		m_ini_file->GetStringValue(SECTION_PACS_SERVICE, "Local", &name);
 		return toWString(name);
+	}
+}
+std::wstring ConfigController::GetLocalPortText()
+{
+	if (m_ini_file) {
+		std::string port;
+		m_ini_file->GetStringValueOrDefault(SECTION_PACS_SERVICE, "LocalPort", &port, "11112");
+		return toWString(port);
 	}
 }
 std::string ConfigController::GetAETNumberStr()

@@ -16,7 +16,7 @@
 #include <main/controllers/controladorlog.h>
 #include "dicomassociation.h"
 #include "dicomnetwork.h"
-
+#include "controller/configcontroller.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -95,13 +95,14 @@ presId(0),
 msgId(0),
 Net(NULL),
 Role(RT_Requestor),
-AcceptorPort(11112),//0),
+//AcceptorPort(11112),//0),
 m_TLS(false),
 m_UseUserPass(false),
 m_Validate(false)
 {
     sopClass[0] = 0;
     sopInstance[0] = 0;
+	AcceptorPort = ConfigController::Instance()->GetLocalPort();
 }
 
 Association::~Association() {

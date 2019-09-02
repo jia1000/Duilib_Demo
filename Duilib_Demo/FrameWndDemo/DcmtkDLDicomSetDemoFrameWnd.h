@@ -33,6 +33,7 @@ private:
 	CEditUI* m_pDicomPdutEdit;
 	CEditUI* m_pRetriveWayeEdit;
 	CEditUI* m_pLocalNameEdit;
+	CEditUI* m_pLocalPortEdit;
 
 	//CSpinnerUI* m_pPduSpinner;
 	CComboUI* m_pSerchMethodCmb;
