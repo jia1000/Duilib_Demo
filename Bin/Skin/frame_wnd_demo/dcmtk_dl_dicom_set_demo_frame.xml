@@ -66,9 +66,9 @@
 	<control height="10" />
 	<HorizontalLayout width="364" height="38" bkcolor="#FF11172D" childvalign="vcenter" padding="1,1,1,0">
 		<control width="15"/>
-		<Label text="本地" textcolor="#FFABBCDC" font="2" width="64" autocalcwidth="false"/>
+		<Label text="本地 AET" textcolor="#FFABBCDC" font="2" width="64" autocalcwidth="false"/>
 		<control width="15" />
-		<Edit name="dicom_node_local_name" font="2"  style="edit_style_dicom" numberonly="true" />	
+		<Edit name="dicom_node_local_name" font="2"  style="edit_style_dicom" numberonly="false" />	
 		<control width="15"/>
 	</HorizontalLayout>
 
