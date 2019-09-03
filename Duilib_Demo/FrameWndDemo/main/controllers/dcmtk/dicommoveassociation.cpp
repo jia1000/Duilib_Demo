@@ -1402,8 +1402,8 @@ OFCondition	MoveAssociation::subOpSCP(T_ASC_Association **subAssoc)
 			break;
 		default:
 			cond = DIMSE_BADCOMMANDTYPE;
-			//OFLOG_ERROR(movescuLogger, "cannot handle command: 0x"
-			//	<< STD_NAMESPACE hex << OFstatic_cast(unsigned, msg.CommandField));
+			LOG_ERROR("movescuLogger", "cannot handle command: 0x"
+				<< STD_NAMESPACE hex << OFstatic_cast(unsigned, msg.CommandField));
 			break;
 		}
 	}
@@ -1421,7 +1421,7 @@ OFCondition	MoveAssociation::subOpSCP(T_ASC_Association **subAssoc)
 	else if (cond != EC_Normal)
 	{
 		OFString temp_str;
-		//OFLOG_ERROR(movescuLogger, "DIMSE failure (aborting sub-association): " << DimseCondition::dump(temp_str, cond));
+		LOG_ERROR("movescuLogger", "DIMSE failure (aborting sub-association): " << DimseCondition::dump(temp_str, cond));
 		/* some kind of error so abort the association */
 		cond = ASC_abortAssociation(*subAssoc);
 	}
@@ -1754,7 +1754,7 @@ void MoveAssociation::storeSCPCallback(
 
     if ((opt_abortDuringStore && progress->state != DIMSE_StoreBegin) ||
         (opt_abortAfterStore && progress->state == DIMSE_StoreEnd)) {
-        //OFLOG_INFO(movescuLogger, "ABORT initiated (due to command line options)");
+        LOG_INFO("movescuLogger", "ABORT initiated (due to command line options)");
         ASC_abortAssociation(OFstatic_cast(StoreCallbackData*, callbackData)->assoc);
         rsp->DimseStatus = STATUS_STORE_Refused_OutOfResources;
         return;
@@ -1809,7 +1809,7 @@ void MoveAssociation::storeSCPCallback(
          OFStandard::combineDirAndFilename(ofname, opt_outputDirectory, cbdata->imageFileName, OFTrue /* allowEmptyDirName */);
          if (OFStandard::fileExists(ofname))
          {
-           //OFLOG_WARN(movescuLogger, "DICOM file already exists, overwriting: " << ofname);
+           LOG_WARN("movescuLogger", "DICOM file already exists, overwriting: " << ofname);
          }
 		 E_TransferSyntax  opt_writeTransferSyntax = EXS_Unknown;//by jia
          E_TransferSyntax xfer = opt_writeTransferSyntax;
@@ -1827,7 +1827,7 @@ void MoveAssociation::storeSCPCallback(
            (opt_useMetaheader) ? EWM_fileformat : EWM_dataset);
          if (cond.bad())
          {
-           //OFLOG_ERROR(movescuLogger, "cannot write DICOM file: " << ofname);
+           LOG_ERROR("movescuLogger", "cannot write DICOM file: " << ofname);
            rsp->DimseStatus = STATUS_STORE_Refused_OutOfResources;
 
            // delete incomplete file
@@ -1844,7 +1844,7 @@ void MoveAssociation::storeSCPCallback(
 			OFBool            opt_correctUIDPadding = OFFalse;//by jia
           if (!DU_findSOPClassAndInstanceInDataSet(*imageDataSet, sopClass, sopInstance, opt_correctUIDPadding))
           {
-             //OFLOG_FATAL(movescuLogger, "bad DICOM file: " << imageFileName);
+             LOG_FATAL("movescuLogger", "bad DICOM file: " << imageFileName);
              rsp->DimseStatus = STATUS_STORE_Error_CannotUnderstand;
           }
           else if (strcmp(sopClass, req->AffectedSOPClassUID) != 0)
@@ -1884,8 +1884,8 @@ OFCondition MoveAssociation::acceptSubAssoc(T_ASC_Network *aNet, T_ASC_Associati
 
     if (cond.good())
     {
-      //OFLOG_INFO(movescuLogger, "Sub-Association Received");
-      //OFLOG_DEBUG(movescuLogger, "Parameters:" << OFendl << ASC_dumpParameters(temp_str, (*assoc)->params, ASC_ASSOC_RQ));
+      LOG_INFO("movescuLogger", "Sub-Association Received");
+      LOG_DEBUG("movescuLogger", "Parameters:" << OFendl << ASC_dumpParameters(temp_str, (*assoc)->params, ASC_ASSOC_RQ));
 
       switch (opt_in_networkTransferSyntax)
       {
@@ -2134,15 +2134,15 @@ OFCondition MoveAssociation::acceptSubAssoc(T_ASC_Network *aNet, T_ASC_Associati
         cond = ASC_acknowledgeAssociation(*assoc);
     if (cond.good())
     {
-        //OFLOG_INFO(movescuLogger, "Sub-Association Acknowledged (Max Send PDV: " << (*assoc)->sendPDVLength << ")");
+        LOG_INFO("movescuLogger", "Sub-Association Acknowledged (Max Send PDV: " << (*assoc)->sendPDVLength << ")");
         if (ASC_countAcceptedPresentationContexts((*assoc)->params) == 0)
 		{
-            //OFLOG_INFO(movescuLogger, "    (but no valid presentation contexts)");
+            LOG_INFO("movescuLogger", "    (but no valid presentation contexts)");
 		}
         /* dump the presentation contexts which have been accepted/refused */
-        //OFLOG_DEBUG(movescuLogger, ASC_dumpParameters(temp_str, (*assoc)->params, ASC_ASSOC_AC));
+        LOG_DEBUG("movescuLogger", ASC_dumpParameters(temp_str, (*assoc)->params, ASC_ASSOC_AC));
     } else {
-        //OFLOG_ERROR(movescuLogger, DimseCondition::dump(temp_str, cond));
+        LOG_ERROR("movescuLogger", DimseCondition::dump(temp_str, cond));
         ASC_dropAssociation(*assoc);
         ASC_destroyAssociation(assoc);
     }

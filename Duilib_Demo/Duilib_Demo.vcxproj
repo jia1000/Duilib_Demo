@@ -119,6 +119,7 @@
     <ClCompile Include="FrameWndDemo\api\dicom\idicomconformance.cpp" />
     <ClCompile Include="FrameWndDemo\api\iexception.cpp" />
     <ClCompile Include="FrameWndDemo\api\ilock.cpp" />
+    <ClCompile Include="FrameWndDemo\api\internationalization\internationalization.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDemoFrameWnd.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="FrameWndDemo\api\globals.h" />
     <ClInclude Include="FrameWndDemo\api\iexception.h" />
     <ClInclude Include="FrameWndDemo\api\ilock.h" />
+    <ClInclude Include="FrameWndDemo\api\internationalization\internationalization.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDemoFrameWnd.h" />

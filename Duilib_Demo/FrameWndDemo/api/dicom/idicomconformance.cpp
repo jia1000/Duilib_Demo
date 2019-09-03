@@ -82,11 +82,11 @@ void GIL::DICOM::SOPClassMap::AddTransferSyntaxForSOP(const std::string& scRef, 
 			sop.tsUIDs.push_back(tsUID);
 		}
 		else {
-			//LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Unable to add supported transfer syntax ") << tsRef << _Std(" to SOP Class ") << scRef <<_Std(" . Transfer Syntax does not exists in model: Add it first."));			
+			LOG_ERROR("GIL/DICOM/Conformance", "Unable to add supported transfer syntax " << tsRef << " to SOP Class " << scRef << " . Transfer Syntax does not exists in model: Add it first.");			
 		}
 	}
 	else {
-		//LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Unable to add supported transfer syntax ") << tsRef << _Std(" to SOP Class ") << scRef <<_Std(" . SOP Class does not exists in model: Add it first."));
+		LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Unable to add supported transfer syntax ") << tsRef << _Std(" to SOP Class ") << scRef <<_Std(" . SOP Class does not exists in model: Add it first."));
 	}
 }
 

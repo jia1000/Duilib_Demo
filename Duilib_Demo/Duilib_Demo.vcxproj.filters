@@ -70,6 +70,9 @@
     <Filter Include="tinyxml">
       <UniqueIdentifier>{109e8fa4-e209-4076-afc0-5f68f5490aa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWndDemo\api\internationalization">
+      <UniqueIdentifier>{2c437b9c-c8b5-4158-9af1-360f80a15476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -296,6 +299,9 @@
     </ClCompile>
     <ClCompile Include="tinyxml2\tinyxml2.cpp">
       <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWndDemo\api\internationalization\internationalization.cpp">
+      <Filter>FrameWndDemo\api\internationalization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -538,6 +544,9 @@
     </ClInclude>
     <ClInclude Include="tinyxml2\tinyxml2.h">
       <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\api\internationalization\internationalization.h">
+      <Filter>FrameWndDemo\api\internationalization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
