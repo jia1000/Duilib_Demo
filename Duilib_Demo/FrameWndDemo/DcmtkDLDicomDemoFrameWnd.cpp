@@ -730,17 +730,6 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 	// 获取最新的控件值，主要是获取Dicom保存路径
 	GetAllControlValue();
 
-	for (auto patient_info : m_patient_infos1) {
-		for (auto sereis_info : patient_info.sereis_infos) {
-			// 创建seriesid的文件夹
-			std::string series_path = "";
-			series_path += m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
-			series_path += patient_info.study_id + "\\";
-			series_path += sereis_info.series_id + "\\" ;
-			TryCreateDir(series_path);
-		}
-	}
-
 	for (auto& patient_info : m_patient_infos1) {
 		for (auto& series_info : patient_info.sereis_infos) {
 			if (m_is_stoped) {
@@ -759,9 +748,12 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_SeriesInstanceUID, series_info.series_id);
 			GIL::DICOM::PACSController::Instance()->SetWrapper(base, GKDCM_Modality, series_info.modality);
 
+			// 创建seriesid的文件夹
 			std::string patient_path = m_dicom_saved_path + "\\" + patient_info.patiend_id + "\\";
 			std::string study_path = patient_path + patient_info.study_id + "\\";
 			std::string series_path = study_path + series_info.series_id + "\\" ;
+			TryCreateDir(series_path);
+
 			//更新list控件中，对应的series的状态为downloading
 			SendMessage(WM_USER_UPDATE_DOWNLOAD_STATUS, m_downloading_dicom_index, (LPARAM)DOWNLOAD_STATUS_DOWNLOADING);
 
