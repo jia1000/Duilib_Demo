@@ -55,9 +55,9 @@
 							<Control width="5"/>
 							<DateTime name="filter_range_to" width="120" enabled="true" bordersize="1" textcolor="#FFABBCDC" bkcolor="#FF11172D" bordercolor="#FF979797" textpadding="3"/>
 							<Control  />
-							<Button name="btn_filter_save"  text="保存条件" width="100" tooltip="保存所有筛选条件" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
+							<Button name="btn_filter_save"  text="保存条件" width="80" tooltip="保存所有筛选条件" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
 							<Control width="5"/>
-							<Button name="btn_filter_clear" text="清空条件" width="100" tooltip="清空所有筛选条件" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
+							<Button name="btn_filter_clear" text="清空条件" width="80" tooltip="清空所有筛选条件" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
 						</HorizontalLayout>
 						<HorizontalLayout height="25" bkcolor="#FF11172D"> 
 							<Option name="op_device_part" text="部位     (0018|0015)" width="160" userdata="CR" style="pacs_cb_style" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" />
@@ -88,6 +88,8 @@
 							<Button name="btn_download_path" text="选择路径" width="80" tooltip="下载建立" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
 							<Control width="5"/>
 							<Edit name="edit_download_path" inset="5,0,5,0" wordbreak="true" tipvalue="下载路径..." textpadding="5,0,0,0" style="edit_style_dicom"/>
+							<Control width="5"/>
+							<Button name="btn_export_xls" text="导出表格" width="80" tooltip="导出当前表格到文件" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />
 							<Control width="5"/>
 							<Button name="btn_download_stop" text="停止下载" width="80"  tooltip="停止下载" textcolor="#FFABBCDC" hottextcolor="#FFFFFFFF" bkcolor="#FF2C356A" hotbkcolor="#FF626FFF" />												
 						</HorizontalLayout>

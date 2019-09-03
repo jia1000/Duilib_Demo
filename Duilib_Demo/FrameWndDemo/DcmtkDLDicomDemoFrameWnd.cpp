@@ -238,6 +238,8 @@ void    DcmtkDLDicomDemoFrameWnd::Notify(TNotifyUI& msg)
 			SaveFilterCondition(); 
 		} else if (_tcscmp(pszCtrlName, _T("btn_filter_clear")) == 0) {
 			ClearFilterCondition(); 
+		} else if (_tcscmp(pszCtrlName, _T("btn_export_xls")) == 0) {
+			OnSaveListDataToFile();
 		}    
 	} else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0) {
 		OnSelChanged(msg.pSender);
@@ -292,6 +294,27 @@ void DcmtkDLDicomDemoFrameWnd::ClearFilterCondition()
 	ConfigController::Instance()->SetFilterModality(filter_condition);
 
 	ConfigController::Instance()->SaveFile();
+}
+
+void DcmtkDLDicomDemoFrameWnd::OnSaveListDataToFile()
+{
+	std::wstring def_path = L"";
+	OPENFILENAME ofn = { 0 };  
+	TCHAR str_filename[MAX_PATH] = { 0 };
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = m_hWnd;
+	ofn.lpstrFilter = TEXT("CSV Flies(*.csv)\0*.csv\0All Files(*.*)\0*.*\0\0");
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFile = str_filename;
+	ofn.nMaxFile = sizeof(str_filename);
+	ofn.lpstrInitialDir = def_path.c_str();
+	ofn.lpstrTitle = NULL;
+	ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY;
+	if (GetOpenFileName(&ofn)){
+		std::wstring ws_file_name = str_filename;
+		std::string file_name = toString(ws_file_name);
+		OutputResultStaticsToFile(file_name);
+	}
 }
 
 LRESULT DcmtkDLDicomDemoFrameWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -773,7 +796,9 @@ void DcmtkDLDicomDemoFrameWnd::DoDownloadTest()
 		}
 	}
 	//保存下载结果到文件
-	OutputResultStaticsToFile(m_dicom_saved_path);
+	TryCreateDir(m_dicom_saved_path);
+	std::string saved_file_name = GenerateOutputFileName();
+	OutputResultStaticsToFile(saved_file_name);
 	ChangeButtonStatusInDownload(false);
 }
 
@@ -842,7 +867,7 @@ void DcmtkDLDicomDemoFrameWnd::SetDownloadStop(bool is_stopped)
 	m_is_stoped = is_stopped;
 }
 
-void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
+std::string DcmtkDLDicomDemoFrameWnd::GenerateOutputFileName()
 {
 	// 格式化结果文件名
 	SYSTEMTIME st;
@@ -860,10 +885,14 @@ void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
 	filename << std::setw(2) << std::setfill('0') << st.wSecond;
 	filename << ".csv";
 
-	TryCreateDir(m_dicom_saved_path);
+	std::string file_name = filename.str();
+	return file_name;
+}
 
+void DcmtkDLDicomDemoFrameWnd::OutputResultStaticsToFile(std::string path)
+{	
 	std::ofstream os_file;
-	os_file.open(filename.str(), ios::out);
+	os_file.open(path, ios::out);
 
 	//  插入表头
 	os_file << "patiend_id" << ',' ;

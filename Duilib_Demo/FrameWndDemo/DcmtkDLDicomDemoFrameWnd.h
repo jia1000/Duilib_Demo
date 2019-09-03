@@ -63,6 +63,7 @@ public:
 	void OnSelChanged(CControlUI* pSender);
 	void OnOpenPatientIDListFile();
 	void OnOpenDownloadPath();
+	void OnSaveListDataToFile();
 
 	void DoSearchStudyTest();
 	void DoSearchSeriesTest();
@@ -80,7 +81,7 @@ public:
 	void UpdateDownloadListProAll();
 	void UpdateDownloadListProItem(int index, std::string status_text);
 	void OutputResultStaticsToFile(std::string path);
-
+	std::string GenerateOutputFileName();
 	bool CheckedMatchConditions(GIL::DICOM::DicomDataset& data);
 	DcmElement* CrearElementoConValor(const char* s);
 	std::vector<std::string> testSplit(std::string srcStr, const std::string& delim);
