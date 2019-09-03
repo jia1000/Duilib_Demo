@@ -50,7 +50,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Bin</OutDir>
     <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo\FrameWndDemo;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(SolutionDir)3rdparty\rapidjson\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\VTK-5.10.1\bin\Release;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\VTK-5.10.1\bin\Release;$(SolutionDir)Lib;$(LibraryPath)</LibraryPath>
     <TargetName>Dr. Wise Pacs Download</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -80,7 +80,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USED_CHROME_69_3497;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\Utilities;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)3rdparty\libcef_dll_69_3497\libcef_dll;$(SolutionDir)Bin;D:\dcmtk-3.6.0\include;D:\dcmtk-3.6.0\dcmjpeg\include;D:\dcmtk-3.6.0\dcmdata\include;D:\dcmtk-3.6.0\ofstd\include;D:\dcmtk-3.6.0\oflog\include;D:\dcmtk-3.6.0\dcmimgle\include;D:\dcmtk-3.6.0\dcmnet\include;D:\dcmtk-3.6.0\dcmimage\include;D:\dcmtk-3.6.0\dcmsr\include;D:\dcmtk-3.6.0\dcmtls\include;D:\dcmtk-3.6.0\dcmpstat\include;D:\dcmtk-3.6.0\dcmjpls\include;D:\opencv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;D:\VTK-5.10.1;D:\VTK-5.10.1\Common;D:\VTK-5.10.1\Filtering;D:\VTK-5.10.1\Graphics;D:\VTK-5.10.1\Hybrid;D:\VTK-5.10.1\IO;D:\VTK-5.10.1\Imaging;D:\VTK-5.10.1\Rendering;D:\VTK-5.10.1\Utilities;D:\VTK-5.10.1\VolumeRendering;D:\VTK-5.10.1\Widgets;$(SolutionDir)Bin\release;$(SolutionDir)Bin;D:\dcmtk-3.6.0\include;D:\dcmtk-3.6.0\dcmjpeg\include;D:\dcmtk-3.6.0\dcmdata\include;D:\dcmtk-3.6.0\ofstd\include;D:\dcmtk-3.6.0\oflog\include;D:\dcmtk-3.6.0\dcmimgle\include;D:\dcmtk-3.6.0\dcmnet\include;D:\dcmtk-3.6.0\dcmimage\include;D:\dcmtk-3.6.0\dcmsr\include;D:\dcmtk-3.6.0\dcmtls\include;D:\dcmtk-3.6.0\dcmpstat\include;D:\dcmtk-3.6.0\dcmjpls\include;D:\opencv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -89,12 +89,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>D:\VTK-5.10.1\bin\Release;D:\dcmtk-3.6.0\ReleaseWin32Lib;D:\opencv\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;opengl32.lib;glu32.lib;Wldap32.lib;Ws2_32.lib;vtkCommon.lib;vtkDICOMParser.lib;vtkRendering.lib;vtkexpat.lib;vtkFiltering.lib;vtkfreetype.lib;vtkftgl.lib;vtkGenericFiltering.lib;vtkGraphics.lib;vtkHybrid.lib;vtkImaging.lib;vtkIO.lib;vtkjpeg.lib;vtklibxml2.lib;vtkmetaio.lib;vtkNetCDF.lib;vtkpng.lib;vtktiff.lib;vtksys.lib;vtkzlib.lib;vtkVolumeRendering.lib;vtkWidgets.lib;netapi32.lib;ofstd.lib;oflog.lib;dcmdata.lib;dcmnet.lib;dcmtls.lib;dcmimage.lib;dcmimgle.lib;dcmjpeg.lib;dcmsr.lib;dcmpstat.lib;ijg8.lib;ijg12.lib;ijg16.lib;charls.lib;IlmImf.lib;libjasper.lib;libjpeg.lib;libpng.lib;libtiff.lib;libwebp.lib;opencv_calib3d320.lib;opencv_core320.lib;opencv_features2d320.lib;opencv_flann320.lib;opencv_highgui320.lib;opencv_imgcodecs320.lib;opencv_imgproc320.lib;opencv_ml320.lib;opencv_objdetect320.lib;opencv_photo320.lib;opencv_shape320.lib;opencv_stitching320.lib;opencv_superres320.lib;opencv_ts320.lib;opencv_video320.lib;opencv_videoio320.lib;opencv_videostab320.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;Wldap32.lib;Ws2_32.lib;vtkCommon.lib;vtkDICOMParser.lib;vtkRendering.lib;vtkexpat.lib;vtkFiltering.lib;vtkfreetype.lib;vtkftgl.lib;vtkGenericFiltering.lib;vtkGraphics.lib;vtkHybrid.lib;vtkImaging.lib;vtkIO.lib;vtkjpeg.lib;vtklibxml2.lib;vtkmetaio.lib;vtkNetCDF.lib;vtkpng.lib;vtktiff.lib;vtksys.lib;vtkzlib.lib;vtkVolumeRendering.lib;vtkWidgets.lib;netapi32.lib;ofstd.lib;oflog.lib;dcmdata.lib;dcmnet.lib;dcmtls.lib;dcmimage.lib;dcmimgle.lib;dcmjpeg.lib;dcmsr.lib;dcmpstat.lib;ijg8.lib;ijg12.lib;ijg16.lib;charls.lib;IlmImf.lib;libjasper.lib;libjpeg.lib;libpng.lib;libtiff.lib;libwebp.lib;opencv_calib3d320.lib;opencv_core320.lib;opencv_features2d320.lib;opencv_flann320.lib;opencv_highgui320.lib;opencv_imgcodecs320.lib;opencv_imgproc320.lib;opencv_ml320.lib;opencv_objdetect320.lib;opencv_photo320.lib;opencv_shape320.lib;opencv_stitching320.lib;opencv_superres320.lib;opencv_ts320.lib;opencv_video320.lib;opencv_videoio320.lib;opencv_videostab320.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cef_simple\simple_app.cpp" />
-    <ClCompile Include="cef_simple\simple_handler.cpp" />
     <ClCompile Include="controller\configtroller.cpp" />
     <ClCompile Include="extended_control\list_pro_ui.cpp" />
     <ClCompile Include="extended_control\tile_layout_extended.cpp" />
@@ -120,8 +118,6 @@
     <ClCompile Include="FrameWndDemo\api\iexception.cpp" />
     <ClCompile Include="FrameWndDemo\api\ilock.cpp" />
     <ClCompile Include="FrameWndDemo\api\internationalization\internationalization.cpp" />
-    <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
-    <ClCompile Include="FrameWndDemo\CefBrowserSimpleFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.cpp" />
@@ -171,8 +167,6 @@
     <ClCompile Include="vtk_function_demo\VtkFunctionDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cef_simple\simple_app.h" />
-    <ClInclude Include="cef_simple\simple_handler.h" />
     <ClInclude Include="controller\configcontroller.h" />
     <ClInclude Include="extended_control\list_pro_ui.h" />
     <ClInclude Include="extended_control\tile_layout_extended.h" />
@@ -201,8 +195,6 @@
     <ClInclude Include="FrameWndDemo\api\iexception.h" />
     <ClInclude Include="FrameWndDemo\api\ilock.h" />
     <ClInclude Include="FrameWndDemo\api\internationalization\internationalization.h" />
-    <ClInclude Include="FrameWndDemo\CefBrowserClientFrameWnd.h" />
-    <ClInclude Include="FrameWndDemo\CefBrowserSimpleFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\DcmtkDLDicomSetDemoFrameWnd.h" />

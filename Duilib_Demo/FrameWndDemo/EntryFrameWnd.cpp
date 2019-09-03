@@ -1,11 +1,15 @@
 #include "EntryFrameWnd.h"
 
+#define UES_LIBCEF_MY   0
 #include "FrameWndDemo/FirstFrameWnd.h"
 #include "FrameWndDemo/SecondFrameWnd.h"
 #include "FrameWndDemo/CefBrowserSimpleFrameWnd.h"
 #include "FrameWndDemo/ListControSimplelFrameWnd.h"
 #include "FrameWndDemo/ListControlVirtualContainerFrameWnd.h"
+#if UES_LIBCEF_MY
 #include "FrameWndDemo/CefBrowserClientFrameWnd.h"
+#include "FrameWndDemo/CefBrowserSimpleFrameWnd.h"
+#endif
 #include "FrameWndDemo/DuilibFrameDemoWnd.h"
 #include "FrameWndDemo/ImageDemoFrameWnd.h"
 #include "FrameWndDemo/VtkDemoFrameWnd.h"
@@ -98,10 +102,12 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button3")) == 0) {
+#if UES_LIBCEF_MY
 			CCefBrowserSimpleFrameWnd* duiFrame = new CCefBrowserSimpleFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
+#endif
 		} else if (_tcscmp(pszCtrlName, _T("Button4")) == 0) {
 			CListControlSimpleFrameWnd* duiFrame = new CListControlSimpleFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
@@ -113,10 +119,12 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button6")) == 0) {
+#if UES_LIBCEF_MY
 			CCefBrowserClientFrameWnd* duiFrame = new CCefBrowserClientFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();
+#endif
 		} else if (_tcscmp(pszCtrlName, _T("Button7")) == 0) {
 			COpencvDemoFrameWnd* duiFrame = new COpencvDemoFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
