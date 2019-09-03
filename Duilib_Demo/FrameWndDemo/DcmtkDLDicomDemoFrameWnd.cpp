@@ -4,7 +4,8 @@
 #include "main/controllers/pacscontroller.h"
 
 #include "api/dicom/dcmdictionary.h"
-#include "api/dicom/dicomdataset.h"GetConnection
+#include "api/dicom/dicomdataset.h"
+#include "api/dicom/idicomconformance.h"
 
 #include "main/controllers/dcmtk/dicomfindassociation.h"
 #include "main/controllers/dcmtk/dicomgetassociation.h"
@@ -148,6 +149,8 @@ void DcmtkDLDicomDemoFrameWnd::InitWindow()
 		std::wstring ws = toWString(filter_condition.condition_text);
 		m_pMOdalityiesInStudyEdit->SetText(ws.c_str());
 	}
+
+	GIL::DICOM::Conformance::Load();
 
 	UpdateDownloadStaticsText();
 	UpdateDownloadListProAll();

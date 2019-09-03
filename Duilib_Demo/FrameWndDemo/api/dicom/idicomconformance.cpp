@@ -16,17 +16,20 @@
 
 #include "idicomconformance.h"
 #include <api/globals.h>
-//#include <api/internationalization/internationalization.h>
+#include <api/internationalization/internationalization.h>
 //#include <api/ientorno.h>
-//#include <api/controllers/icontroladorlog.h>
+#include <api/controllers/icontroladorlog.h>
 //#include <main/controllers/configurationcontroller.h>
 
-#include <wx/xml/xml.h>
-#include <wx/file.h>
-#include <wx/sstream.h>
-#include <wx/msgdlg.h>
-#include <wx/tokenzr.h>
-#include <wx/filename.h>
+#include "tinyxml2/tinyxml2.h"
+using namespace tinyxml2;
+
+//#include <wx/xml/xml.h>
+//#include <wx/file.h>
+//#include <wx/sstream.h>
+//#include <wx/msgdlg.h>
+//#include <wx/tokenzr.h>
+//#include <wx/filename.h>
 //#include <wx/msw/stdpaths.h>
 //#include <wx/stdpaths.h>
 
@@ -200,13 +203,13 @@ GIL::DICOM::SOPClassMap GIL::DICOM::Conformance::m_ScpSOPClasses;
 GIL::DICOM::ModalityMap GIL::DICOM::Conformance::m_Modalities;
 bool GIL::DICOM::Conformance::m_Loaded = false;
 
-#define CONFORMANCE_FILE wxT("conformance.xml")
-#define CONFORMANCE_ROOT_TAG wxT("dicom-conformance")
+#define CONFORMANCE_FILE "conformance.xml"
+#define CONFORMANCE_ROOT_TAG "dicom-conformance"
 
-wxString GetResourceDir()
-{
+//wxString GetResourceDir()
+//{
 	//wxString pluginsDir;
-	wxString resourcesDir;
+	//wxString resourcesDir;
 	//wxString langDir;
 
 	//wxFileName executable_path = wxStandardPaths::Get().GetExecutablePath();
@@ -230,154 +233,153 @@ wxString GetResourceDir()
 //	langDir = wxStandardPaths::Get().GetResourcesDir() + wxFileName::GetPathSeparator() + wxT("lang");
 //	resourcesDir = wxStandardPaths::Get().GetResourcesDir();
 //#endif
-	return resourcesDir;
-}
+	//return resourcesDir;
+//}
 
 void GIL::DICOM::Conformance::Load() {
 	
 	m_Loaded = true;
 	
-	wxString resouce_dir = "F:\\dev_study\\duilib_study\\Duilib_Demo\\Debug";//GetResourceDir();
+	//wxString resouce_dir = "F:\\dev_study\\duilib_study\\Duilib_Demo\\Debug";//GetResourceDir();
 	//wxFileName cpath = FROMPATH(GNC::GCS::IEntorno::Instance()->GetGinkgoResourcesDir()) + wxFileName::GetPathSeparator() + CONFORMANCE_FILE;
-	wxFileName cpath = FROMPATH(resouce_dir) + wxFileName::GetPathSeparator() + CONFORMANCE_FILE;
+	//wxFileName cpath = FROMPATH(resouce_dir) + wxFileName::GetPathSeparator() + CONFORMANCE_FILE;
 
+	std::string cpath = "G:\\";
+	cpath += CONFORMANCE_FILE;
 
-	wxXmlDocument xmldoc;
-	xmldoc.Load(cpath.GetFullPath());
-	if (!xmldoc.IsOk()) {
+	//wxXmlDocument xmldoc;
+	//xmldoc.Load(cpath.GetFullPath());
+	//if (!xmldoc.IsOk()) {
+	//	LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Error loading DICOM Conformance file" ));
+	//	m_Loaded = false;
+	//	return;
+	//}
+
+	XMLDocument xmldoc;
+	XMLError errXml = xmldoc.LoadFile(cpath.c_str());
+	if (XML_SUCCESS != errXml) {
 		//LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Error loading DICOM Conformance file" ));
-		m_Loaded = false;
-		return;
-	}
-	wxXmlNode* pRoot = xmldoc.GetRoot();
-	if (pRoot->GetName().CmpNoCase(CONFORMANCE_ROOT_TAG) != 0) {
-		//LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Invalid DICOM Conformance file" ));
+		LOG_ERROR("GIL/DICOM/Conformance", "Error loading DICOM Conformance file");
 		m_Loaded = false;
 		return;
 	}
 
-	for (wxXmlNode* entry = pRoot->GetChildren(); entry != NULL; entry = entry->GetNext())
-	{
-		
-		if (entry->GetName().CmpNoCase(wxT("transfer-syntaxes")) == 0) {
-			// Loading Transfer Syntaxes
-			wxString wxTS_RefId;
-			wxString wxTS_UID;
-			for (wxXmlNode* tsentry = entry->GetChildren(); tsentry != NULL; tsentry = tsentry->GetNext()) {
-				
-				if ((tsentry->GetName().CmpNoCase(wxT("transfer-syntax")) == 0) && tsentry->GetAttribute(wxT("ref-id"), &wxTS_RefId) && tsentry->GetAttribute(wxT("uid"), &wxTS_UID)) {
-					m_TransferSyntaxes.AddTransferSyntax(std::string(wxTS_RefId.ToUTF8()), std::string(wxTS_UID.ToUTF8()));
-				}
+	//wxXmlNode* pRoot = xmldoc.GetRoot();
+	//if (pRoot->GetName().CmpNoCase(CONFORMANCE_ROOT_TAG) != 0) {
+	//	LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Invalid DICOM Conformance file" ));
+	//	m_Loaded = false;
+	//	return;
+	//}
+
+	XMLElement* pRoot = xmldoc.RootElement();
+	if (!pRoot) {
+		return ;
+	}
+
+	XMLElement* sub_xml = pRoot->FirstChildElement("transfer-syntaxes");
+	if (sub_xml) {
+		// Loading Transfer Syntaxes
+		const char * ccc = sub_xml->Value();
+		XMLElement* ele_transfer = sub_xml->FirstChildElement();
+		for ( ; ele_transfer != NULL; ele_transfer = ele_transfer->NextSiblingElement()) {
+			const char* ref_id = ele_transfer->Attribute("ref-id");
+			const char* uid = ele_transfer->Attribute("uid");	
+			if (ref_id && uid) {
+				m_TransferSyntaxes.AddTransferSyntax(ref_id, uid);
 			}
 		}
-		
-		else if (entry->GetName().CmpNoCase(wxT("storage-sop-classes")) == 0) {
-			// Loading Storage SOP Classes
-			wxString wxSC_RefId;
-			wxString wxSC_UID;
-			wxString wxTS_Ref;
+	}
 
-			std::string sc_RefId;
-
-			for (wxXmlNode* scentry = entry->GetChildren(); scentry != NULL; scentry = scentry->GetNext()) {
-				
-				if ( (scentry->GetName().CmpNoCase(wxT("sop-class")) == 0) && scentry->GetAttribute(wxT("ref-id"), &wxSC_RefId) && scentry->GetAttribute(wxT("uid"), &wxSC_UID)) {
-					
-					sc_RefId = std::string(wxSC_RefId.ToUTF8());
-					m_StorageSOPClasses.AddSOPClass( sc_RefId, std::string(wxSC_UID.ToUTF8()) );
-
-					for (wxXmlNode* tsentry = scentry->GetChildren(); tsentry != NULL; tsentry = tsentry->GetNext()) {
-
-						if ((tsentry->GetName().CmpNoCase(wxT("allowed-transfer-syntax")) == 0) && tsentry->GetAttribute(wxT("ref"), &wxTS_Ref)) {
-							m_StorageSOPClasses.AddTransferSyntaxForSOP( sc_RefId, std::string(wxTS_Ref.ToUTF8()) );
-						}
-					}
-				}
-			}
-		}
-		else if (entry->GetName().CmpNoCase(wxT("scu-sop-classes")) == 0) {
-			// Loading SCU SOP Classes
-			wxString wxSC_RefId;
-			wxString wxSC_UID;
-			wxString wxTS_Ref;
-
-			std::string sc_RefId;
-
-			for (wxXmlNode* scentry = entry->GetChildren(); scentry != NULL; scentry = scentry->GetNext()) {
-				
-				if ( (scentry->GetName().CmpNoCase(wxT("sop-class")) == 0) && scentry->GetAttribute(wxT("ref-id"), &wxSC_RefId) && scentry->GetAttribute(wxT("uid"), &wxSC_UID)) {
-					
-					sc_RefId = std::string(wxSC_RefId.ToUTF8());
-					m_ScuSOPClasses.AddSOPClass( sc_RefId, std::string(wxSC_UID.ToUTF8()) );
-
-					for (wxXmlNode* tsentry = scentry->GetChildren(); tsentry != NULL; tsentry = tsentry->GetNext()) {
-
-						if ((tsentry->GetName().CmpNoCase(wxT("allowed-transfer-syntax")) == 0) && tsentry->GetAttribute(wxT("ref"), &wxTS_Ref)) {
-							m_ScuSOPClasses.AddTransferSyntaxForSOP( sc_RefId, std::string(wxTS_Ref.ToUTF8()) );
-						}
-					}
-				}
-				else if (scentry->GetName().CmpNoCase(wxT("include-storage-sop-classes")) == 0) {
-					for (SOPClassMap::iterator it = m_StorageSOPClasses.begin(); it != m_StorageSOPClasses.end(); ++it) {
-						const std::string& storageSOPRef = (*it).first;
-						SOPClassTuple& storageSOPTuple = (*it).second;
-						m_ScuSOPClasses[storageSOPRef] = storageSOPTuple;
+	sub_xml = pRoot->FirstChildElement("storage-sop-classes");
+	if (sub_xml) {
+		// Loading Storage SOP Classes
+		XMLElement* ele_1 = sub_xml->FirstChildElement();
+		for ( ; ele_1 != NULL; ele_1 = ele_1->NextSiblingElement()) {
+			const char* ref_id	= ele_1->Attribute("ref-id");
+			const char* uid		= ele_1->Attribute("uid");	
+			if (ref_id && uid) {
+				m_StorageSOPClasses.AddSOPClass(ref_id, uid);
+				XMLElement* ele_2 = ele_1->FirstChildElement();
+				for ( ; ele_2 != NULL; ele_2 = ele_2->NextSiblingElement()) {
+					const char* ref	= ele_2->Attribute("ref");
+					if (ref) {
+						m_StorageSOPClasses.AddTransferSyntaxForSOP(ref_id, ref);
 					}
 				}
 			}
 		}
-		else if (entry->GetName().CmpNoCase(wxT("scp-sop-classes")) == 0) {
-			// Loading SCP SOP Classes
-			wxString wxSC_RefId;
-			wxString wxSC_UID;
-			wxString wxTS_Ref;
+	}
 
-			std::string sc_RefId;
-
-			for (wxXmlNode* scentry = entry->GetChildren(); scentry != NULL; scentry = scentry->GetNext()) {
-				
-				if ( (scentry->GetName().CmpNoCase(wxT("sop-class")) == 0) && scentry->GetAttribute(wxT("ref-id"), &wxSC_RefId) && scentry->GetAttribute(wxT("uid"), &wxSC_UID)) {
-					
-					sc_RefId = std::string(wxSC_RefId.ToUTF8());
-					m_ScpSOPClasses.AddSOPClass( sc_RefId, std::string(wxSC_UID.ToUTF8()) );
-
-					for (wxXmlNode* tsentry = scentry->GetChildren(); tsentry != NULL; tsentry = tsentry->GetNext()) {
-
-						if ((tsentry->GetName().CmpNoCase(wxT("allowed-transfer-syntax")) == 0) && tsentry->GetAttribute(wxT("ref"), &wxTS_Ref)) {
-							m_ScpSOPClasses.AddTransferSyntaxForSOP( sc_RefId, std::string(wxTS_Ref.ToUTF8()) );
+	sub_xml = pRoot->FirstChildElement("scu-sop-classes");
+	if (sub_xml) {
+		// Loading SCU SOP Classes
+		XMLElement* ele_1 = sub_xml->FirstChildElement();
+		for ( ; ele_1 != NULL; ele_1 = ele_1->NextSiblingElement()) {
+			if (0 == strcmp("sop-class", ele_1->Value())) {
+				const char* ref_id	= ele_1->Attribute("ref-id");
+				const char* uid		= ele_1->Attribute("uid");	
+				if (ref_id && uid) {
+					m_ScuSOPClasses.AddSOPClass(ref_id, uid);
+					XMLElement* ele_2 = ele_1->FirstChildElement();
+					for ( ; ele_2 != NULL; ele_2 = ele_2->NextSiblingElement()) {
+						const char* ref	= ele_2->Attribute("ref");
+						if (ref) {
+							m_ScuSOPClasses.AddTransferSyntaxForSOP(ref_id, ref);
 						}
 					}
 				}
-				else if (scentry->GetName().CmpNoCase(wxT("include-storage-sop-classes")) == 0) {
-					for (SOPClassMap::iterator it = m_StorageSOPClasses.begin(); it != m_StorageSOPClasses.end(); ++it) {
-						const std::string& storageSOPRef = (*it).first;
-						SOPClassTuple& storageSOPTuple = (*it).second;
-						m_ScpSOPClasses[storageSOPRef] = storageSOPTuple;
-					}
+			} else if(0 == strcmp("include-storage-sop-classes", ele_1->Value())){
+				for (SOPClassMap::iterator it = m_StorageSOPClasses.begin(); it != m_StorageSOPClasses.end(); ++it) {
+					const std::string& storageSOPRef = (*it).first;
+					SOPClassTuple& storageSOPTuple = (*it).second;
+					m_ScuSOPClasses[storageSOPRef] = storageSOPTuple;
 				}
 			}
 		}
-		else if (entry->GetName().CmpNoCase(wxT("modalities-map")) == 0) {
-			// Loading Modalities
-			wxString wxM_RefId;
-			wxString wxM_Descr;
-			wxString wxSC_Ref;
+	}
 
-			std::string m_RefId;
-
-			for (wxXmlNode* mentry = entry->GetChildren(); mentry != NULL; mentry = mentry->GetNext()) {
-				
-				if ( (mentry->GetName().CmpNoCase(wxT("modality")) == 0) && mentry->GetAttribute(wxT("ref-id"), &wxM_RefId)) {
-					mentry->GetAttribute(wxT("descr"), &wxM_Descr);
-					
-					m_RefId = std::string(wxM_RefId.ToUTF8());
-					m_Modalities.AddModality( m_RefId, std::string(wxM_Descr.ToUTF8()) );
-
-					for (wxXmlNode* scentry = mentry->GetChildren(); scentry != NULL; scentry = scentry->GetNext()) {
-
-						if ((scentry->GetName().CmpNoCase(wxT("allowed-sop-class")) == 0) && scentry->GetAttribute(wxT("ref"), &wxSC_Ref)) {
-							m_Modalities.AddSOPClassForModality( m_RefId, std::string(wxSC_Ref.ToUTF8()) );
+	sub_xml = pRoot->FirstChildElement("scp-sop-classes");
+	if (sub_xml) {
+		// Loading SCP SOP Classes
+		XMLElement* ele_1 = sub_xml->FirstChildElement();
+		for ( ; ele_1 != NULL; ele_1 = ele_1->NextSiblingElement()) {
+			if (0 == strcmp("sop-class", ele_1->Value())) {
+				const char* ref_id	= ele_1->Attribute("ref-id");
+				const char* uid		= ele_1->Attribute("uid");	
+				if (ref_id && uid) {
+					m_ScpSOPClasses.AddSOPClass(ref_id, uid);
+					XMLElement* ele_2 = ele_1->FirstChildElement();
+					for ( ; ele_2 != NULL; ele_2 = ele_2->NextSiblingElement()) {
+						const char* ref	= ele_2->Attribute("ref");
+						if (ref) {
+							m_ScpSOPClasses.AddTransferSyntaxForSOP(ref_id, ref);
 						}
+					}
+				}
+			} else if(0 == strcmp("include-storage-sop-classes", ele_1->Value())){
+				for (SOPClassMap::iterator it = m_StorageSOPClasses.begin(); it != m_StorageSOPClasses.end(); ++it) {
+					const std::string& storageSOPRef = (*it).first;
+					SOPClassTuple& storageSOPTuple = (*it).second;
+					m_ScpSOPClasses[storageSOPRef] = storageSOPTuple;
+				}
+			}
+		}
+	}
+
+	sub_xml = pRoot->FirstChildElement("modalities-map");
+	if (sub_xml) {
+		// Loading Modalities
+		XMLElement* ele_1 = sub_xml->FirstChildElement();
+		for ( ; ele_1 != NULL; ele_1 = ele_1->NextSiblingElement()) {
+			const char* ref_id	= ele_1->Attribute("ref-id");
+			const char* descr		= ele_1->Attribute("descr");	
+			if (ref_id && descr) {
+				m_Modalities.AddModality(ref_id, descr);
+				XMLElement* ele_2 = ele_1->FirstChildElement();
+				for ( ; ele_2 != NULL; ele_2 = ele_2->NextSiblingElement()) {
+					const char* ref	= ele_2->Attribute("ref");
+					if (ref) {
+						m_Modalities.AddSOPClassForModality(ref_id, ref);
 					}
 				}
 			}

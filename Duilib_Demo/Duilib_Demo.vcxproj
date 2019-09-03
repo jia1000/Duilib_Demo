@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo\FrameWndDemo;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty\DuiLib;$(SolutionDir)3rdparty\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Duilib_Demo\FourViews;$(SolutionDir)3rdparty\libcef_wrapper_wrapper;$(SolutionDir)Duilib_Demo\FrameWndDemo;$(SolutionDir)Duilib_Demo;$(SolutionDir)3rdparty;$(SolutionDir)3rdparty\DuiLib;$(SolutionDir)3rdparty\rapidjson\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\VTK-5.10.1\bin\Debug;$(SolutionDir)Lib\libcef_dll_wrapper_69_3497;$(SolutionDir)Lib;$(SolutionDir)Lib\libcef_69_3497;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
@@ -116,6 +116,7 @@
     <ClCompile Include="FrameWndDemo\api\controllers\icontroladorlog.cpp" />
     <ClCompile Include="FrameWndDemo\api\dicom\dicomdataset.cpp" />
     <ClCompile Include="FrameWndDemo\api\dicom\idicom.cpp" />
+    <ClCompile Include="FrameWndDemo\api\dicom\idicomconformance.cpp" />
     <ClCompile Include="FrameWndDemo\api\iexception.cpp" />
     <ClCompile Include="FrameWndDemo\api\ilock.cpp" />
     <ClCompile Include="FrameWndDemo\CefBrowserClientFrameWnd.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="FrameWndDemo\VtkFunctionDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="utility_tool\common_utils.cpp" />
     <ClCompile Include="utility_tool\inifile.cpp" />
     <ClCompile Include="utility_tool\string_converse.cpp" />
@@ -192,6 +194,7 @@
     <ClInclude Include="FrameWndDemo\api\controllers\icontroladorlog.h" />
     <ClInclude Include="FrameWndDemo\api\dicom\dicomdataset.h" />
     <ClInclude Include="FrameWndDemo\api\dicom\idicom.h" />
+    <ClInclude Include="FrameWndDemo\api\dicom\idicomconformance.h" />
     <ClInclude Include="FrameWndDemo\api\dicom\idicommanager.h" />
     <ClInclude Include="FrameWndDemo\api\globals.h" />
     <ClInclude Include="FrameWndDemo\api\iexception.h" />
@@ -230,6 +233,7 @@
     <ClInclude Include="FrameWndDemo\VtkFunctionDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h" />
     <ClInclude Include="global_include.h" />
+    <ClInclude Include="tinyxml2\tinyxml2.h" />
     <ClInclude Include="utility_tool\common_utils.h" />
     <ClInclude Include="utility_tool\inifile.h" />
     <ClInclude Include="utility_tool\string_converse.h" />

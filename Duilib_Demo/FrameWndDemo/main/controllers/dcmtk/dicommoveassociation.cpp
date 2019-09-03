@@ -14,6 +14,8 @@
  */
 #define LOGGER "C-MOVE"
 
+#include "api/dicom/idicomconformance.h"
+
 //#include <api/controllers/icontroladorlog.h>
 #include <main/controllers/controladorlog.h>
 //#include <api/dicom/imodelodicom.h>
@@ -2115,10 +2117,17 @@ OFCondition MoveAssociation::acceptSubAssoc(T_ASC_Network *aNet, T_ASC_Associati
         if (cond.good())//by jia
         {
 			//dicomservice.cpp 文件中GetSupportedTransferSyntaxUIDs的调用，随后需要添加进来。
-			cond = ASC_acceptContextsWithPreferredTransferSyntaxes(
-				(*assoc)->params,
-				sopclass_my, number_sopclass_MY,
-				transfersyntaxes_MY, number_transfersyntaxes_MY);			
+			//cond = ASC_acceptContextsWithPreferredTransferSyntaxes(
+			//	(*assoc)->params,
+			//	sopclass_my, number_sopclass_MY,
+			//	transfersyntaxes_MY, number_transfersyntaxes_MY);	
+			const GIL::DICOM::SOPClassMap& scps = GIL::DICOM::Conformance::GetScpSOPClasses();
+			for (GIL::DICOM::SOPClassMap::const_iterator it = scps.begin(); cond.good() && it != scps.end(); ++it) {
+				GIL::DICOM::ArrayHelper transfersyntaxes(scps.GetSupportedTransferSyntaxUIDs((*it).first));
+				const char* scuid = (*it).second.scUID.c_str();
+				cond = ASC_acceptContextsWithPreferredTransferSyntaxes((*assoc)->params, &scuid, 1, transfersyntaxes.array, transfersyntaxes.size); 
+				transfersyntaxes.free();
+			}
         }
     }
     if (cond.good())
