@@ -244,7 +244,7 @@ void GIL::DICOM::Conformance::Load() {
 	//wxFileName cpath = FROMPATH(GNC::GCS::IEntorno::Instance()->GetGinkgoResourcesDir()) + wxFileName::GetPathSeparator() + CONFORMANCE_FILE;
 	//wxFileName cpath = FROMPATH(resouce_dir) + wxFileName::GetPathSeparator() + CONFORMANCE_FILE;
 
-	std::string cpath = "G:\\";
+	std::string cpath = ".\\";
 	cpath += CONFORMANCE_FILE;
 
 	//wxXmlDocument xmldoc;
@@ -259,7 +259,7 @@ void GIL::DICOM::Conformance::Load() {
 	XMLError errXml = xmldoc.LoadFile(cpath.c_str());
 	if (XML_SUCCESS != errXml) {
 		//LOG_ERROR(_Std("GIL/DICOM/Conformance"), _Std("Error loading DICOM Conformance file" ));
-		LOG_ERROR("GIL/DICOM/Conformance", "Error loading DICOM Conformance file");
+		LOG_ERROR("GIL/DICOM/Conformance", "Error loading DICOM Conformance file" << cpath);
 		m_Loaded = false;
 		return;
 	}

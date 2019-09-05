@@ -53,6 +53,7 @@ Source: "..\Bin\icudtl.dat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\deepwise_pacs_download_config.ini"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\Bin\cef_sandbox.lib"; DestDir: "{app}"; Flags: ignoreversion
 
+Source: "..\Bin\conformance.xml"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\Bin\cef.pak"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\Bin\cef_100_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\Bin\cef_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
