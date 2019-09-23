@@ -155,3 +155,55 @@ void CVtkFunctionDemo::Function2(int WidgetType)
 		bidimensionalWidget->On();
 	}
 }
+
+void CVtkFunctionDemo::Function_for_cta()
+{
+	vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
+	points->InsertNextPoint(0.0, 0.0, 0.0);
+	points->InsertNextPoint(1.0, 0.0, 0.0);
+	points->InsertNextPoint(1.0, 1.0, 0.0);
+	points->InsertNextPoint(0.0, 1.0, 0.0);
+	points->InsertNextPoint(2.0, 0.0, 0.0);
+
+	vtkSmartPointer<vtkPolygon> polygon = vtkSmartPointer<vtkPolygon>::New();
+	polygon->GetPointIds()->SetNumberOfIds(4);
+	polygon->GetPointIds()->SetId(0, 0);
+	polygon->GetPointIds()->SetId(1, 1);
+	polygon->GetPointIds()->SetId(2, 2);
+	polygon->GetPointIds()->SetId(3, 3);
+
+	vtkSmartPointer<vtkTriangle> triangle = vtkSmartPointer<vtkTriangle>::New();
+	triangle->GetPointIds()->SetId(0, 1);
+	triangle->GetPointIds()->SetId(1, 2);
+	triangle->GetPointIds()->SetId(2, 4);
+
+	vtkSmartPointer<vtkCellArray> cellsArray = vtkSmartPointer<vtkCellArray>::New();
+	cellsArray->InsertNextCell(polygon);
+	cellsArray->InsertNextCell(triangle);
+
+	
+	vtkSmartPointer<vtkPolyData> polyData = vtkSmartPointer<vtkPolyData>::New();
+	polyData->SetPoints(points);
+	polyData->SetPolys(cellsArray);
+	polyData->Update();
+
+	vtkSmartPointer<vtkPolyDataMapper> mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+	mapper->SetInput(polyData);
+
+	vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+	actor->SetMapper(mapper);
+
+	vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
+	renderer->AddActor(actor);
+	
+	vtkSmartPointer<vtkRenderWindow> renderwindow = vtkSmartPointer<vtkRenderWindow>::New();
+	renderwindow->AddRenderer(renderer);
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderwindowinteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	renderwindowinteractor->SetRenderWindow(renderwindow);
+
+	renderwindow->Render();
+	renderwindowinteractor->Start();
+
+
+}

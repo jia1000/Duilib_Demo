@@ -12,6 +12,7 @@ public:
 	void Function1();
 	void Function2(int WidgetType);
 
+	void Function_for_cta();
 	void InitVtk();
 
 private:

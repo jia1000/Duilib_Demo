@@ -110,4 +110,7 @@
 #include <vtkOutlineFilter.h>
 #include <vtkImageMapper3D.h>
 #include <vtkCamera.h>
+
+#include <vtkPolygon.h>
+#include <vtkTriangle.h>
 // TODO: 在此处引用程序需要的其他头文件

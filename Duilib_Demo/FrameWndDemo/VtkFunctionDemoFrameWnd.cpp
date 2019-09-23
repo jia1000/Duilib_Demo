@@ -117,6 +117,9 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 				if (item_name.CompareNoCase(L"function_1") == 0) {
 					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
 					m_vtk_function_demo->Function1();
+				} else if (item_name.CompareNoCase(L"function_15") == 0) {
+					m_vtk_function_demo = new CVtkFunctionDemo(this->m_hWnd, rc);
+					m_vtk_function_demo->Function_for_cta();
 				} else if (item_name.CompareNoCase(L"function_2") == 0) {
 					CDicomSplitView* split_view = new CDicomSplitView(this->m_hWnd, rc);
 				} else if (item_name.CompareNoCase(L"function_3") == 0) {
@@ -176,9 +179,9 @@ void    CVtkFunctionDemoFrameWnd::Notify(TNotifyUI& msg)
 						pControl->SetText(_T("Please wait..."));
 					}
 					box_widgets->ShowWidgets_Test();
-				} else if (item_name.CompareNoCase(L"function_15") == 0) {
+				} else if (item_name.CompareNoCase(L"function_16") == 0) {
 					if (pControl) {
-						pControl->SetText(_T("btn 4 click."));
+						pControl->SetText(_T("btn 16 click."));
 					}
 				}else if (item_name.CompareNoCase(L"function_3d_01") == 0) {
 					box_widgets = new MultiSlicesImageDemo(this->m_hWnd, rc);
