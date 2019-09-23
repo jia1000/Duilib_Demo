@@ -12,7 +12,10 @@ public:
 	void Function1();
 	void Function2(int WidgetType);
 
+	// for cta
+	vtkSmartPointer<vtkPoints> GetPoints(std::string file_name);
 	void Function_for_cta();
+
 	void InitVtk();
 
 private:
