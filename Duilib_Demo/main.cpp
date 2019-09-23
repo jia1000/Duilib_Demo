@@ -114,6 +114,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 		CefRegisterSchemeHandlerFactory("http", HANDLER_DOMAIN_NAME, new ClientSchemeHandlerFactory);
 	};
 #endif
+
+#if _DEBUG
+	AllocConsole();
+	freopen("CONOUT$", "w+t", stdout);
+	printf("test console\n");
+#endif
 	//CFirstFrameWnd duiFrame;
 	//CSecondFrameWnd duiFrame;
 	//CCefBrowserFrameWnd duiFrame;
