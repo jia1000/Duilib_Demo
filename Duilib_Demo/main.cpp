@@ -117,8 +117,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	//CFirstFrameWnd duiFrame;
 	//CSecondFrameWnd duiFrame;
 	//CCefBrowserFrameWnd duiFrame;
-	//CEntryFrameWnd duiFrame;
-	DcmtkDLDicomDemoFrameWnd duiFrame;
+	CEntryFrameWnd duiFrame;
+	//DcmtkDLDicomDemoFrameWnd duiFrame;
 	duiFrame.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 	duiFrame.CenterWindow();
 	duiFrame.ShowModal();
