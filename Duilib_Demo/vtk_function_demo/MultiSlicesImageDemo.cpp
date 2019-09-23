@@ -146,6 +146,8 @@ void MultiSlicesImageDemo::ShowWidgets_Mip_Cornal()
 	coronal->SetDisplayExtent(m_data_extent[0],m_data_extent[1], m_cur_cornal, coronal_mip_max, m_data_extent[4],m_data_extent[5]);
 	m_renderWindow->Render();
 }
+#define TEST_CTA_RAW  1  // 用于测CTA项目重建崩溃时，验证vtk的PloyData的正确性
+
 void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> renderer, 
                                               vtkSmartPointer<vtkRenderWindow> renderWindow, 
                                               vtkSmartPointer<vtkRenderWindowInteractor> interactor)
@@ -159,7 +161,12 @@ void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> rende
 	//m_v16->Update();
 
 	m_v16 = vtkSmartPointer<vtkMetaImageReader>::New();
+#if TEST_CTA_RAW
 	m_v16->SetFileName("F:\\dev_study\\duilib_study\\Duilib_Demo\\Duilib_Demo\\data\\FullHead.mhd");
+#else
+	m_v16->SetFileName("F:\\dev_study\\duilib_study\\Duilib_Demo\\Duilib_Demo\\data\\FullHead.mhd");
+#endif
+	
 	m_v16->Update();
 
 	int *data_extent;
@@ -194,13 +201,15 @@ void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> rende
 	m_satLut->Build();
 
 	SetSkinActor(m_v16);
+#if TEST_CTA_RAW
+#else
 	SetBoneActor(m_v16);
 	SetOutlineActor(m_v16);
 	// 这是3个轴面的slice显示
 	SetSagittalActor(m_v16, m_bwLut);
 	SetAxialActor(m_v16, m_hueLut);
 	SetCoronalActor(m_v16, m_satLut);
-
+#endif
 	vtkSmartPointer<vtkCamera> aCamera =
 		vtkSmartPointer<vtkCamera>::New();
 	aCamera->SetViewUp (0, 0, -1);
@@ -210,13 +219,16 @@ void MultiSlicesImageDemo::StartWidgetsRender(vtkSmartPointer<vtkRenderer> rende
 	aCamera->Azimuth(30.0);
 	aCamera->Elevation(30.0);
 
+#if TEST_CTA_RAW
+#else
 	renderer->AddActor(outline);
 	renderer->AddActor(sagittal);
 	renderer->AddActor(axial);
-	renderer->AddActor(coronal);
-	renderer->AddActor(skin);
+	renderer->AddActor(coronal);	
 	renderer->AddActor(bone);
+#endif	
 	
+	renderer->AddActor(skin);
 	// Turn off bone for this example.
 	//bone->VisibilityOff();
 
@@ -264,20 +276,20 @@ void MultiSlicesImageDemo::SetSkinActor(vtkSmartPointer<vtkMetaImageReader> v16)
 		vtkSmartPointer<vtkContourFilter>::New();
 	skinExtractor->SetInputConnection( v16->GetOutputPort());
 	skinExtractor->SetValue(0, 500);
-	skinExtractor->Update();
+	//skinExtractor->Update();
 
 	// Poly Data 多边形数据
 	vtkSmartPointer<vtkPolyDataNormals> skinNormals =
 		vtkSmartPointer<vtkPolyDataNormals>::New();
 	skinNormals->SetInputConnection(skinExtractor->GetOutputPort());
 	skinNormals->SetFeatureAngle(60.0);
-	skinNormals->Update();
+	//skinNormals->Update();
 
 	// stripper 剥离器
 	vtkSmartPointer<vtkStripper> skinStripper =
 		vtkSmartPointer<vtkStripper>::New();
 	skinStripper->SetInputConnection(skinNormals->GetOutputPort());
-	skinStripper->Update();
+	//skinStripper->Update();
 
 	vtkSmartPointer<vtkPolyDataMapper> skinMapper =
 		vtkSmartPointer<vtkPolyDataMapper>::New();
