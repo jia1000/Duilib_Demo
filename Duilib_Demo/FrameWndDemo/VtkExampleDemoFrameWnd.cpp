@@ -10,6 +10,7 @@
 #include "vtk_function_demo/ImagePlaneWidgetsDemo.h"
 #include "vtk_function_demo/Rib3DView.h"
 #include "vtk_function_demo/MultiSlicesImageDemo.h"
+#include "vtk_example_demo/StructuredGrid_BlankPoint_Demo.h"
 
 CVtkExampleDemoFrameWnd::CVtkExampleDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -110,12 +111,14 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 				// 如果是二级菜单
 				RECT rc;
 				CButtonUI* pVtkShowBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("Button_vtk_function_show")));
-				if (pVtkShowBtn) {
-					rc = pVtkShowBtn->GetClientPos();
+				if (!pVtkShowBtn) {
+					return;
 				}
-				
+				rc = pVtkShowBtn->GetClientPos();
 				if (item_name.CompareNoCase(L"StructuredGrid_1") == 0) {
-					
+					StructuredGrid_BlankPoint_Demo* demo = new StructuredGrid_BlankPoint_Demo(this->m_hWnd, pVtkShowBtn);
+					demo->InitVtkExampleDemo();
+					demo->ShowVtkExampleDemo();
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {
 					if (pVtkShowBtn) {
 						pVtkShowBtn->SetText(_T("Please wait..."));

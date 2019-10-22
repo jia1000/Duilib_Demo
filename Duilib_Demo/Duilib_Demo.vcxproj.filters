@@ -55,6 +55,9 @@
     <Filter Include="controller">
       <UniqueIdentifier>{bb72a01c-b038-4e6d-992a-d5c66546adac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vtk_example_demo">
+      <UniqueIdentifier>{b221a972-a6df-4518-a688-5656176d83c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -260,6 +263,12 @@
     </ClCompile>
     <ClCompile Include="FrameWndDemo\VtkExampleDemoFrameWnd.cpp">
       <Filter>FrameWndDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="vtk_example_demo\StructuredGrid_BlankPoint_Demo.cpp">
+      <Filter>vtk_example_demo</Filter>
+    </ClCompile>
+    <ClCompile Include="vtk_example_demo\vtkExampleBase.cpp">
+      <Filter>vtk_example_demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +487,12 @@
     </ClInclude>
     <ClInclude Include="FrameWndDemo\VtkExampleDemoFrameWnd.h">
       <Filter>FrameWndDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_example_demo\StructuredGrid_BlankPoint_Demo.h">
+      <Filter>vtk_example_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_example_demo\vtkExampleBase.h">
+      <Filter>vtk_example_demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

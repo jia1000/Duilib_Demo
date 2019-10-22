@@ -152,6 +152,8 @@
     <ClCompile Include="vtk\vtk_window.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
+    <ClCompile Include="vtk_example_demo\StructuredGrid_BlankPoint_Demo.cpp" />
+    <ClCompile Include="vtk_example_demo\vtkExampleBase.cpp" />
     <ClCompile Include="vtk_function_demo\BoxWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\CaptionWidgetsDemo.cpp" />
     <ClCompile Include="vtk_function_demo\ContourWidgetsDemo.cpp" />
@@ -226,6 +228,8 @@
     <ClInclude Include="vtk\vtk_window.h" />
     <ClInclude Include="vtk_dicom_demo\DicomSplitView.h" />
     <ClInclude Include="vtk_dicom_demo\DicomView.h" />
+    <ClInclude Include="vtk_example_demo\StructuredGrid_BlankPoint_Demo.h" />
+    <ClInclude Include="vtk_example_demo\vtkExampleBase.h" />
     <ClInclude Include="vtk_function_demo\BoxWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\CaptionWidgetsDemo.h" />
     <ClInclude Include="vtk_function_demo\ContourWidgetsDemo.h" />
