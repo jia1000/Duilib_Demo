@@ -16,6 +16,7 @@
 #include "FrameWndDemo/OpencvDemoFrameWnd.h"
 #include "FrameWndDemo/JsonParseDemoFrameWnd.h"
 #include "FrameWndDemo/DcmtkDLDicomDemoFrameWnd.h"
+#include "FrameWndDemo/VtkExampleDemoFrameWnd.h"
 
 CEntryFrameWnd::CEntryFrameWnd(void)
 {
@@ -164,6 +165,11 @@ void    CEntryFrameWnd::Notify(TNotifyUI& msg)
 			duiFrame->ShowWindow();
 		} else if (_tcscmp(pszCtrlName, _T("Button16")) == 0) {
 			DcmtkDLDicomDemoFrameWnd* duiFrame = new DcmtkDLDicomDemoFrameWnd();
+			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
+			duiFrame->CenterWindow();
+			duiFrame->ShowWindow();
+		} else if (_tcscmp(pszCtrlName, _T("Button17")) == 0) {
+			CVtkExampleDemoFrameWnd* duiFrame = new CVtkExampleDemoFrameWnd();
 			duiFrame->Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, 0L);
 			duiFrame->CenterWindow();
 			duiFrame->ShowWindow();

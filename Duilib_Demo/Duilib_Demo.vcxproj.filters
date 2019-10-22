@@ -258,6 +258,9 @@
     <ClCompile Include="controller\configtroller.cpp">
       <Filter>controller</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWndDemo\VtkExampleDemoFrameWnd.cpp">
+      <Filter>FrameWndDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -472,6 +475,9 @@
     </ClInclude>
     <ClInclude Include="controller\configcontroller.h">
       <Filter>controller</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWndDemo\VtkExampleDemoFrameWnd.h">
+      <Filter>FrameWndDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

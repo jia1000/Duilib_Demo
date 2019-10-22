@@ -10,27 +10,28 @@
 			<Button name="btn_sysclose" virtualwnd="mainpage" tooltip="关闭" width="48" height="32" hotbkcolor="#FF2C356A" pushedbkcolor="#FF2C356A" normalimage="file='window_title/close_nor.png' dest='16,8,32,24'" hotimage="file='window_title/close_hov.png' dest='16,8,32,24'" pushedimage="file='window_title/close_push.png' dest='16,8,32,24'" />
 		</HorizontalLayout>
 		
+		<Button name="Button1"  text="from vtk_demo in github" 	height="30"  bkcolor="#FFE6E7E8" />
 		<!-- 主窗口 -->
-		<TileLayout bkcolor="#FFE6E7E8" columns="4" inset="8,8,8,8" childpadding="8" >			
-			<Button name="Button1"  text="FirstFrameWnd" 	 			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button2"  text="SecondFrameWnd" 	 			height="60"  bkcolor="#FFFFF0D0" />				
-			<Button name="Button3"  text="CefBrowser_Simple_FrameWnd" 	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button4"  text="ListControlSimple"  			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button5"  text="ListControlVirtualContainer" 	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button6"  text="CefBrowser_Clilent_FrameWnd"    height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button7"  text="opencv test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button8"  text="Duilib Frame Demo"        	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button9"  text="Image test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button10" text="VTK n * n"        				height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button11" text="VTK Function Test"        	height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button12" text="VTK Dicom Demo"        		height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button13" text="VTK MPR"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button14" text="DCMTK Read Dicom"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button15" text="Json Test"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button15" text="Button测试16"        			height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button16" text="DCMTK Download"        		height="60"  bkcolor="#FFFFF0D0" />
-			<Button name="Button17" text="VTK Example Test"        		height="60"  bkcolor="#FFFFF0D0" />
-			
-		</TileLayout>
+		<Control height="2" bkcolor="#FF35B09C" />	
+		<HorizontalLayout  bkcolor="#FF1C2136" >   
+			<Control width="10" />
+			<TreeView width="140" itemtextcolor="#FFABBCDC" itemhottextcolor="#FFC8C6CB" selitemtextcolor="FFC8C6CB" itemhotbkcolor="#FF2C356A" itemselectedbkcolor="#FF2C356A" bordercolor="#FF10162A" bordersize="1"	>
+				<TreeNode name="Vtk_Example_StructuredGrid" text="StructuredGrid"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
+					<TreeNode name="StructuredGrid_1" 	text="BlankPoint"  	height="32"/>
+					
+				</TreeNode>
+				<TreeNode name="Vtk_Example_End" text="Vtk_Example_End"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
+					<TreeNode name="End_01" 	text="End_01"  	height="32"/>
+					
+				</TreeNode>
+				<!--  <TreeNode name="vtk_function_help" text="功能帮助"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;"  >
+					<TreeNode name="chrome_core_about" text="帮助1"  height="32"/> 	
+				</TreeNode> -->				
+			</TreeView>
+			<Control width="2" bkcolor="#FF35B09C" />
+			<Button name="Button_vtk_function_show"  text="vtk  single view"   bkcolor="#FFE6E7E8" />
+			<Control width="2" bkcolor="#FF35B09C" />	
+		</HorizontalLayout>
+		<Control height="2" bkcolor="#FF35B09C" />	
 	</VerticalLayout>
 </Window>

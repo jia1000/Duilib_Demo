@@ -141,6 +141,7 @@
     <ClCompile Include="FrameWndDemo\DuilibFrameDemoWnd.cpp" />
     <ClCompile Include="FrameWndDemo\ImageDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkDemoFrameWnd.cpp" />
+    <ClCompile Include="FrameWndDemo\VtkExampleDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkFunctionDemoFrameWnd.cpp" />
     <ClCompile Include="FrameWndDemo\VtkMprDemoFrameWnd.cpp" />
     <ClCompile Include="main.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="FrameWndDemo\DuilibFrameDemoWnd.h" />
     <ClInclude Include="FrameWndDemo\ImageDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkDemoFrameWnd.h" />
+    <ClInclude Include="FrameWndDemo\VtkExampleDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkFunctionDemoFrameWnd.h" />
     <ClInclude Include="FrameWndDemo\VtkMprDemoFrameWnd.h" />
     <ClInclude Include="global_include.h" />
