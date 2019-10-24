@@ -12,6 +12,7 @@
 #include "vtk_function_demo/MultiSlicesImageDemo.h"
 #include "vtk_example_demo/StructuredGrid_BlankPoint_Demo.h"
 #include "vtk_example_demo/red_book_volume_of_Interest_demo.h"
+#include "vtk_example_demo/reslice_demo.h"
 
 CVtkExampleDemoFrameWnd::CVtkExampleDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -122,6 +123,10 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 					demo->ShowVtkExampleDemo();
 				} else if (item_name.CompareNoCase(L"Red_Book_VolumeOfInterest") == 0) {
 					Red_Book_VolumeOfInterest_Demo* demo = new Red_Book_VolumeOfInterest_Demo(this->m_hWnd, pVtkShowBtn);
+					demo->InitVtkExampleDemo();
+					demo->ShowVtkExampleDemo();					
+				} else if (item_name.CompareNoCase(L"Red_Book_Reslice") == 0) {
+					Reslice_Demo* demo = new Reslice_Demo(this->m_hWnd, pVtkShowBtn);
 					demo->InitVtkExampleDemo();
 					demo->ShowVtkExampleDemo();					
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {

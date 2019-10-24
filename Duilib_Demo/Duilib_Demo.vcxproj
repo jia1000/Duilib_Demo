@@ -152,6 +152,7 @@
     <ClCompile Include="vtk\vtk_window.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomSplitView.cpp" />
     <ClCompile Include="vtk_dicom_demo\DicomView.cpp" />
+    <ClCompile Include="vtk_example_demo\reslice_demo.cpp" />
     <ClCompile Include="vtk_example_demo\red_book_volume_of_Interest_demo.cpp" />
     <ClCompile Include="vtk_example_demo\StructuredGrid_BlankPoint_Demo.cpp" />
     <ClCompile Include="vtk_example_demo\vtkExampleBase.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="vtk\vtk_window.h" />
     <ClInclude Include="vtk_dicom_demo\DicomSplitView.h" />
     <ClInclude Include="vtk_dicom_demo\DicomView.h" />
+    <ClInclude Include="vtk_example_demo\reslice_demo.h" />
     <ClInclude Include="vtk_example_demo\red_book_volume_of_Interest_demo.h" />
     <ClInclude Include="vtk_example_demo\StructuredGrid_BlankPoint_Demo.h" />
     <ClInclude Include="vtk_example_demo\vtkExampleBase.h" />
