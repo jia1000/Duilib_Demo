@@ -76,10 +76,10 @@ void Red_Book_VolumeOfInterest_Demo::ShowVtkExampleDemo()
 	voiActor->SetInput(extractVOI->GetOutput());
 	
 	//--------------------------------renderer--------------------------------
-	double originalViewport[4] = {0.0, 0.0, 0.25, 1.0};
-	double canvasViewport[4] = {0.25, 0.0, 0.5, 1.0};
-	double blendViewport[4] = {0.5, 0.0, 0.75, 1.0};
-	double voiviewport[4] = {0.75, 0.0, 1.0, 1.0};
+	double originalViewport[4] = {0.0, 0.5, 0.5, 1.0};
+	double canvasViewport[4] = {0.5, 0.5, 1.0, 1.0};
+	double blendViewport[4] = {0.0, 0.0, 0.5, 0.5};
+	double voiviewport[4] = {0.5, 0.0, 1.0, 0.5};
 
 	// 原始的Renderer
 	vtkSmartPointer<vtkRenderer> originalRenderer =	vtkSmartPointer<vtkRenderer>::New();
@@ -111,12 +111,10 @@ void Red_Book_VolumeOfInterest_Demo::ShowVtkExampleDemo()
 
 	//-------------------------renderwindos-------------------------------
 	// renderWindow窗口
-	m_renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
 	m_renderWindow->AddRenderer(originalRenderer);
 	m_renderWindow->AddRenderer(canvasRenderer);
 	m_renderWindow->AddRenderer(blendRenderer);
 	m_renderWindow->AddRenderer(shiftscaleRenderer);
-	m_renderWindow->SetSize(900, 300);
 	m_renderWindow->Render();
 	m_renderWindow->SetWindowName("ExtractVOIExample");
 
