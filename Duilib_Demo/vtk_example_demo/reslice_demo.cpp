@@ -43,6 +43,7 @@ void Reslice_Demo::ShowVtkExampleDemo()
 	center[1] = origin[1] + spacing[1] * 0.5 * (extent[2] + extent[3]);
 	center[2] = origin[2] + spacing[2] * 0.5 * (extent[4] + extent[5]);
 
+	// 定义切面的变换矩阵  前3列，分别表示X Y Z的方向矢量  第4列是切面坐标系原点
 	static double axialElements[16] = {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -58,9 +59,9 @@ void Reslice_Demo::ShowVtkExampleDemo()
 
 	vtkSmartPointer<vtkImageReslice> reslice = vtkSmartPointer<vtkImageReslice>::New();
 	reslice->SetInputConnection(reader->GetOutputPort());
-	reslice->SetOutputDimensionality(2);
-	reslice->SetResliceAxes(resliceAxes);
-	reslice->SetInterpolationModeToLinear();
+	reslice->SetOutputDimensionality(2);		// 指定输出的图像为二维图像
+	reslice->SetResliceAxes(resliceAxes);		// 设置变换矩阵
+	reslice->SetInterpolationModeToLinear();	// 指定切面提取中的插值方式为线性插值，还有其它插值方式
 
 	vtkSmartPointer<vtkLookupTable> colorTable = vtkSmartPointer<vtkLookupTable>::New();
 	colorTable->SetRange(0, 1000); 
