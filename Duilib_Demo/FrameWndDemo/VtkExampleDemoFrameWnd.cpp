@@ -11,6 +11,7 @@
 #include "vtk_function_demo/Rib3DView.h"
 #include "vtk_function_demo/MultiSlicesImageDemo.h"
 #include "vtk_example_demo/StructuredGrid_BlankPoint_Demo.h"
+#include "vtk_example_demo/red_book_volume_of_Interest_demo.h"
 
 CVtkExampleDemoFrameWnd::CVtkExampleDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -119,6 +120,10 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 					StructuredGrid_BlankPoint_Demo* demo = new StructuredGrid_BlankPoint_Demo(this->m_hWnd, pVtkShowBtn);
 					demo->InitVtkExampleDemo();
 					demo->ShowVtkExampleDemo();
+				} else if (item_name.CompareNoCase(L"Red_Book_VolumeOfInterest") == 0) {
+					Red_Book_VolumeOfInterest_Demo* demo = new Red_Book_VolumeOfInterest_Demo(this->m_hWnd, pVtkShowBtn);
+					demo->InitVtkExampleDemo();
+					demo->ShowVtkExampleDemo();					
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {
 					if (pVtkShowBtn) {
 						pVtkShowBtn->SetText(_T("Please wait..."));

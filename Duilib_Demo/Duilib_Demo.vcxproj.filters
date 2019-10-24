@@ -270,6 +270,9 @@
     <ClCompile Include="vtk_example_demo\vtkExampleBase.cpp">
       <Filter>vtk_example_demo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_example_demo\red_book_volume_of_Interest_demo.cpp">
+      <Filter>vtk_example_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -492,6 +495,9 @@
       <Filter>vtk_example_demo</Filter>
     </ClInclude>
     <ClInclude Include="vtk_example_demo\vtkExampleBase.h">
+      <Filter>vtk_example_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_example_demo\red_book_volume_of_Interest_demo.h">
       <Filter>vtk_example_demo</Filter>
     </ClInclude>
   </ItemGroup>
