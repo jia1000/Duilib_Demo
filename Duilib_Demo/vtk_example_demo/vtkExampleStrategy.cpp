@@ -198,3 +198,98 @@ void vtkMathematicsStrategy::AlgrithmInterface()
 	renderWindowInteractor->Start();
 }
 //////////////////////////////////////////////////////////////////////////
+vtkMathLogicStrategy::vtkMathLogicStrategy()
+{}
+
+vtkMathLogicStrategy::~vtkMathLogicStrategy()
+{}
+
+void vtkMathLogicStrategy::AlgrithmInterface()
+{
+	vtkSmartPointer<vtkImageCanvasSource2D> imageSource1 =
+		vtkSmartPointer<vtkImageCanvasSource2D>::New();
+	imageSource1->SetScalarTypeToUnsignedChar();
+	imageSource1->SetNumberOfScalarComponents(1);
+	imageSource1->SetExtent(0, 100, 0, 100, 0, 0);
+	imageSource1->SetDrawColor(0.0);
+	imageSource1->FillBox(0,100,0,100);
+	imageSource1->SetDrawColor(255);
+	imageSource1->FillBox(20,60,20,60);
+	imageSource1->Update();
+
+	vtkSmartPointer<vtkImageCanvasSource2D> imageSource2 = 
+		vtkSmartPointer<vtkImageCanvasSource2D>::New();
+	imageSource2->SetNumberOfScalarComponents(1);
+	imageSource2->SetScalarTypeToUnsignedChar();
+	imageSource2->SetExtent(0, 100, 0, 100, 0, 0);
+	imageSource2->SetDrawColor(0.0);
+	imageSource2->FillBox(0,100,0,100);
+	imageSource2->SetDrawColor(255.0);
+	imageSource2->FillBox(40,80,40,80);
+	imageSource2->Update();
+
+	vtkSmartPointer<vtkImageLogic> imageLogic = 
+		vtkSmartPointer<vtkImageLogic>::New();
+	imageLogic->SetInput1(imageSource1->GetOutput());
+	imageLogic->SetInput2(imageSource2->GetOutput());
+	imageLogic->SetOperationToXor();		// 设置异或操作
+	imageLogic->SetOutputTrueValue(50);		// 设置异或操作为true时 的像素值。即，2个图像的像素不同时，显示为50
+	imageLogic->Update();
+
+	vtkSmartPointer<vtkImageActor> originalActor1 =
+		vtkSmartPointer<vtkImageActor>::New();
+	originalActor1->SetInput(imageSource1->GetOutput());
+
+	vtkSmartPointer<vtkImageActor> originalActor2 =
+		vtkSmartPointer<vtkImageActor>::New();
+	originalActor2->SetInput(imageSource2->GetOutput());
+
+	vtkSmartPointer<vtkImageActor> logicActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	logicActor->SetInput(imageLogic->GetOutput());
+
+	double leftViewport[4] = {0.0, 0.0, 0.33, 1.0};
+	double midViewport[4] = {0.33, 0.0, 0.66, 1.0};
+	double rightViewport[4] = {0.66, 0.0, 1.0, 1.0};
+
+	vtkSmartPointer<vtkRenderer> originalRenderer1 =
+		vtkSmartPointer<vtkRenderer>::New();
+	originalRenderer1->SetViewport(leftViewport);
+	originalRenderer1->AddActor(originalActor1);
+	originalRenderer1->ResetCamera();
+	originalRenderer1->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderer> originalRenderer2 =
+		vtkSmartPointer<vtkRenderer>::New();
+	originalRenderer2->SetViewport(midViewport);
+	originalRenderer2->AddActor(originalActor2);
+	originalRenderer2->ResetCamera();
+	originalRenderer2->SetBackground(1.0, 1.0, 1.0);//(0.8, 0.8, 0.8);
+
+	vtkSmartPointer<vtkRenderer> logicRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	logicRenderer->SetViewport(rightViewport);
+	logicRenderer->AddActor(logicActor);
+	logicRenderer->ResetCamera();
+	logicRenderer->SetBackground(1.0, 1.0, 1.0);//(0.6, 0.6, 0.6);
+
+	vtkSmartPointer<vtkRenderWindow> renderWindow =
+		vtkSmartPointer<vtkRenderWindow>::New();
+	renderWindow->AddRenderer(originalRenderer1);
+	renderWindow->AddRenderer(originalRenderer2);
+	renderWindow->AddRenderer(logicRenderer);
+	renderWindow->SetSize(640, 320);
+	renderWindow->Render();
+	renderWindow->SetWindowName("ImageLogicExample");
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer<vtkInteractorStyleImage> style =
+		vtkSmartPointer<vtkInteractorStyleImage>::New();
+
+	renderWindowInteractor->SetInteractorStyle(style);
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	renderWindowInteractor->Initialize();
+	renderWindowInteractor->Start();
+}
+//////////////////////////////////////////////////////////////////////////
