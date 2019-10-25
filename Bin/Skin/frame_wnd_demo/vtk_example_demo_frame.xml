@@ -26,6 +26,7 @@
 					<TreeNode name="Red_Book_Shrink_Magnify" 	text="重采样"  	height="32"/>
 					<TreeNode name="Red_Book_Mathematics" 	text="数学运算*2"  	height="32"/>
 					<TreeNode name="Red_Book_MathLogic" 	text="逻辑运算-异或"  	height="32"/>
+					<TreeNode name="Red_Book_Threhold" 		text="图像二值化"  	height="32"/>
 					
 				</TreeNode>
 				<TreeNode name="Vtk_Example_End" text="Vtk_Example_End"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >

@@ -48,5 +48,15 @@ protected:
 private:
 };
 //////////////////////////////////////////////////////////////////////////
+class vtkImageThreholdStrategy : public vtkExampleStrategyBase
+{
+public:
+	vtkImageThreholdStrategy();
+	~vtkImageThreholdStrategy();
+	virtual void AlgrithmInterface();
+protected:
+private:
+};
+//////////////////////////////////////////////////////////////////////////
 
 #endif

@@ -293,3 +293,66 @@ void vtkMathLogicStrategy::AlgrithmInterface()
 	renderWindowInteractor->Start();
 }
 //////////////////////////////////////////////////////////////////////////
+vtkImageThreholdStrategy::vtkImageThreholdStrategy()
+{}
+
+vtkImageThreholdStrategy::~vtkImageThreholdStrategy()
+{}
+
+void vtkImageThreholdStrategy::AlgrithmInterface()
+{
+	vtkSmartPointer<vtkDICOMImageReader> reader = vtkSmartPointer<vtkDICOMImageReader>::New();
+	reader->SetFileName ("..\\Bin\\Skin\\data\\slices1\\2");
+	reader->Update();
+
+	vtkSmartPointer<vtkImageThreshold> thresholdFilter =
+		vtkSmartPointer<vtkImageThreshold>::New();
+	thresholdFilter->SetInputConnection(reader->GetOutputPort());
+	thresholdFilter->ThresholdByUpper(100); // 设置大于门限值100的区域，为有效区域
+	thresholdFilter->SetInValue(255);		// 在有效区域内的像素内，设置为255
+	thresholdFilter->SetOutValue(0);		// 在有效区域内的像素外，设置为0
+
+	vtkSmartPointer<vtkImageActor> originalActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	originalActor->SetInput(reader->GetOutput());
+
+	vtkSmartPointer<vtkImageActor> binaryActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	binaryActor->SetInput(thresholdFilter->GetOutput());
+
+	double originalViewport[4] = {0.0, 0.0, 0.5, 1.0};
+	double binaryviewport[4] = {0.5, 0.0, 1.0, 1.0};
+
+	vtkSmartPointer<vtkRenderer> originalRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	originalRenderer->SetViewport(originalViewport);
+	originalRenderer->AddActor(originalActor);
+	originalRenderer->ResetCamera();
+	originalRenderer->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderer> binaryRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	binaryRenderer->SetViewport(binaryviewport);
+	binaryRenderer->AddActor(binaryActor);
+	binaryRenderer->ResetCamera();
+	binaryRenderer->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderWindow> renderWindow =
+		vtkSmartPointer<vtkRenderWindow>::New();
+	renderWindow->AddRenderer(originalRenderer);
+	renderWindow->AddRenderer(binaryRenderer);
+	renderWindow->SetSize(640, 320);
+	renderWindow->Render();
+	renderWindow->SetWindowName("ImageBinaryExample");
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer<vtkInteractorStyleImage> style =
+		vtkSmartPointer<vtkInteractorStyleImage>::New();
+
+	renderWindowInteractor->SetInteractorStyle(style);
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	renderWindowInteractor->Initialize();
+	renderWindowInteractor->Start();
+}
+//////////////////////////////////////////////////////////////////////////
