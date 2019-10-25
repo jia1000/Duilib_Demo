@@ -143,6 +143,12 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"Red_Book_Threhold") == 0) {
 					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageThreholdStrategy);
 					demo->DoAction();					
+				} else if (item_name.CompareNoCase(L"Red_Book_Gradient") == 0) {
+					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageGradientStrategy);
+					demo->DoAction(); 				
+				} else if (item_name.CompareNoCase(L"Red_Book_MeanFilter") == 0) {
+					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageMeanFilterStrategy);
+					demo->DoAction();					
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {
 					if (pVtkShowBtn) {
 						pVtkShowBtn->SetText(_T("Please wait..."));

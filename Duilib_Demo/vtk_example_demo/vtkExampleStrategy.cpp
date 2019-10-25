@@ -356,3 +356,167 @@ void vtkImageThreholdStrategy::AlgrithmInterface()
 	renderWindowInteractor->Start();
 }
 //////////////////////////////////////////////////////////////////////////
+vtkImageGradientStrategy::vtkImageGradientStrategy()
+{}
+
+vtkImageGradientStrategy::~vtkImageGradientStrategy()
+{}
+
+void vtkImageGradientStrategy::AlgrithmInterface()
+{
+	// 本例子，采用梯度算子，计算边缘问题。
+	// 还有索贝尔sobel、Canny算子、拉普拉斯算子等算法。可以参看红宝书
+	vtkSmartPointer<vtkDICOMImageReader> reader = vtkSmartPointer<vtkDICOMImageReader>::New();
+	reader->SetFileName ("..\\Bin\\Skin\\data\\slices1\\2");
+	reader->Update();
+
+	vtkSmartPointer<vtkImageGradient> gradientFilter =
+		vtkSmartPointer<vtkImageGradient>::New();
+	gradientFilter->SetInputConnection(reader->GetOutputPort());
+	gradientFilter->SetDimensionality(2);
+
+	vtkSmartPointer<vtkImageMagnitude> magnitudeFilter =
+		vtkSmartPointer<vtkImageMagnitude>::New();
+	magnitudeFilter->SetInputConnection(gradientFilter->GetOutputPort());
+	magnitudeFilter->Update();
+
+	double range[2];
+	magnitudeFilter->GetOutput()->GetScalarRange(range);
+
+	vtkSmartPointer<vtkImageShiftScale> ShiftScale =
+		vtkSmartPointer<vtkImageShiftScale>::New();
+	ShiftScale->SetOutputScalarTypeToUnsignedChar();
+	ShiftScale->SetScale( 255 / range[1] );
+	ShiftScale->SetInputConnection(magnitudeFilter->GetOutputPort());
+	ShiftScale->Update();
+
+	vtkSmartPointer<vtkImageActor> originalActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	originalActor->SetInput(reader->GetOutput());
+
+	vtkSmartPointer<vtkImageActor> gradActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	gradActor->SetInput(ShiftScale->GetOutput());
+
+	double originalViewport[4] = {0.0, 0.0, 0.5, 1.0};
+	double gradviewport[4] = {0.5, 0.0, 1.0, 1.0};
+
+	vtkSmartPointer<vtkRenderer> originalRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	originalRenderer->SetViewport(originalViewport);
+	originalRenderer->AddActor(originalActor);
+	originalRenderer->ResetCamera();
+	originalRenderer->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderer> gradRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	gradRenderer->SetViewport(gradviewport);
+	gradRenderer->AddActor(gradActor);
+	gradRenderer->ResetCamera();
+	gradRenderer->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderWindow> renderWindow =
+		vtkSmartPointer<vtkRenderWindow>::New();
+	renderWindow->AddRenderer(originalRenderer);
+	renderWindow->AddRenderer(gradRenderer);
+	renderWindow->SetSize( 640, 320 );
+	renderWindow->Render();
+	renderWindow->SetWindowName("ImageGradientExample");
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer<vtkInteractorStyleImage> style =
+		vtkSmartPointer<vtkInteractorStyleImage>::New();
+
+	renderWindowInteractor->SetInteractorStyle(style);
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	renderWindowInteractor->Initialize();
+	renderWindowInteractor->Start();
+}
+//////////////////////////////////////////////////////////////////////////
+
+vtkImageMeanFilterStrategy::vtkImageMeanFilterStrategy()
+{}
+
+vtkImageMeanFilterStrategy::~vtkImageMeanFilterStrategy()
+{}
+
+void vtkImageMeanFilterStrategy::AlgrithmInterface()
+{
+	// 本示例为使用了均值滤波的图像平滑处理。
+	// 图像平滑处理后，再进行梯度计算，可以减少噪声对梯度的影响。
+	vtkSmartPointer<vtkDICOMImageReader> reader = vtkSmartPointer<vtkDICOMImageReader>::New();
+	reader->SetFileName ("..\\Bin\\Skin\\data\\slices1\\2");
+	reader->Update();
+
+	// 下面的卷积处理，要求数值为浮点型，所以，需要将图像的值，进行转换
+	vtkSmartPointer<vtkImageCast> originalCastFilter =
+		vtkSmartPointer<vtkImageCast>::New();
+	originalCastFilter->SetInputConnection(reader->GetOutputPort());
+	originalCastFilter->SetOutputScalarTypeToFloat();  // 这里转换
+	originalCastFilter->Update();
+
+	// 设置卷积模板
+	vtkSmartPointer<vtkImageConvolve> convolveFilter =
+		vtkSmartPointer<vtkImageConvolve>::New();
+	convolveFilter->SetInputConnection(originalCastFilter->GetOutputPort());
+
+	double kernel[25] = {0.04,0.04,0.04,0.04,0.04,
+		0.04,0.04,0.04,0.04,0.04,
+		0.04,0.04,0.04,0.04,0.04,
+		0.04,0.04,0.04,0.04,0.04,
+		0.04,0.04,0.04,0.04,0.04 };
+	convolveFilter->SetKernel5x5(kernel);
+	convolveFilter->Update();
+
+	// 卷积完成后，为了图像显示，需要将数值转换为unsigned char类型。
+	vtkSmartPointer<vtkImageCast> convCastFilter = 
+		vtkSmartPointer<vtkImageCast>::New();
+	convCastFilter->SetInput(convolveFilter->GetOutput());
+	convCastFilter->SetOutputScalarTypeToUnsignedChar();  // 这里转换
+	convCastFilter->Update();
+
+	vtkSmartPointer<vtkImageActor> originalActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	originalActor->SetInput(reader->GetOutput());
+
+	vtkSmartPointer<vtkImageActor> convolvedActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	convolvedActor->SetInput(convCastFilter->GetOutput());
+
+	double leftViewport[4] = {0.0, 0.0, 0.5, 1.0};
+	double rightViewport[4] = {0.5, 0.0, 1.0, 1.0};
+
+	vtkSmartPointer<vtkRenderer> originalRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	originalRenderer->SetViewport(leftViewport);
+	originalRenderer->AddActor(originalActor);
+	originalRenderer->SetBackground(1.0, 1.0, 1.0);
+	originalRenderer->ResetCamera();
+
+	vtkSmartPointer<vtkRenderer> convolvedRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	convolvedRenderer->SetViewport(rightViewport);
+	convolvedRenderer->AddActor(convolvedActor);
+	convolvedRenderer->SetBackground(1.0, 1.0, 1.0);
+	convolvedRenderer->ResetCamera();
+
+	vtkSmartPointer<vtkRenderWindow> renderWindow =
+		vtkSmartPointer<vtkRenderWindow>::New();;
+	renderWindow->AddRenderer(originalRenderer);
+	renderWindow->AddRenderer(convolvedRenderer);
+	renderWindow->SetSize(640, 320);
+	renderWindow->Render();
+	renderWindow->SetWindowName("MeanFilterExample");
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer<vtkInteractorStyleImage> style =
+		vtkSmartPointer<vtkInteractorStyleImage>::New();
+
+	renderWindowInteractor->SetInteractorStyle(style);
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	renderWindowInteractor->Initialize();
+	renderWindowInteractor->Start();
+}
+//////////////////////////////////////////////////////////////////////////

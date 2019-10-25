@@ -58,5 +58,26 @@ protected:
 private:
 };
 //////////////////////////////////////////////////////////////////////////
+class vtkImageGradientStrategy : public vtkExampleStrategyBase
+{
+public:
+	vtkImageGradientStrategy();
+	~vtkImageGradientStrategy();
+	virtual void AlgrithmInterface();
+protected:
+private:
+};
+//////////////////////////////////////////////////////////////////////////
+// Í¼ÏñÆ½»¬---¾ùÖµÂË²¨
+class vtkImageMeanFilterStrategy : public vtkExampleStrategyBase
+{
+public:
+	vtkImageMeanFilterStrategy();
+	~vtkImageMeanFilterStrategy();
+	virtual void AlgrithmInterface();
+protected:
+private:
+};
+//////////////////////////////////////////////////////////////////////////
 
 #endif

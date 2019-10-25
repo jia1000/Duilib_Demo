@@ -122,4 +122,10 @@
 #include <vtkImageMathematics.h>
 #include <vtkImageLogic.h>
 #include <vtkImageThreshold.h>
+#include <vtkImageGradient.h>
+#include <vtkImageMagnitude.h>
+#include <vtkImageShiftScale.h>
+
+#include <vtkImageCast.h>
+#include <vtkImageConvolve.h>
 // TODO: 在此处引用程序需要的其他头文件
