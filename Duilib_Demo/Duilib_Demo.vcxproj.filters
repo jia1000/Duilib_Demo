@@ -276,6 +276,12 @@
     <ClCompile Include="vtk_example_demo\reslice_demo.cpp">
       <Filter>vtk_example_demo</Filter>
     </ClCompile>
+    <ClCompile Include="vtk_example_demo\vtkExamplesContext.cpp">
+      <Filter>vtk_example_demo</Filter>
+    </ClCompile>
+    <ClCompile Include="vtk_example_demo\vtkExampleStrategy.cpp">
+      <Filter>vtk_example_demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWndDemo\FirstFrameWnd.h">
@@ -504,6 +510,12 @@
       <Filter>vtk_example_demo</Filter>
     </ClInclude>
     <ClInclude Include="vtk_example_demo\reslice_demo.h">
+      <Filter>vtk_example_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_example_demo\vtkExamplesContext.h">
+      <Filter>vtk_example_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="vtk_example_demo\vtkExampleStrategy.h">
       <Filter>vtk_example_demo</Filter>
     </ClInclude>
   </ItemGroup>

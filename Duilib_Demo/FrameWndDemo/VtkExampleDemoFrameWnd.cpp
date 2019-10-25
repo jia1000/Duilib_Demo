@@ -13,6 +13,8 @@
 #include "vtk_example_demo/StructuredGrid_BlankPoint_Demo.h"
 #include "vtk_example_demo/red_book_volume_of_Interest_demo.h"
 #include "vtk_example_demo/reslice_demo.h"
+#include "vtk_example_demo/vtkExamplesContext.h"
+#include "vtk_example_demo/vtkExampleStrategy.h"
 
 CVtkExampleDemoFrameWnd::CVtkExampleDemoFrameWnd(void)
 	: m_vtk_function_demo(NULL)
@@ -129,6 +131,9 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 					Reslice_Demo* demo = new Reslice_Demo(this->m_hWnd, pVtkShowBtn);
 					demo->InitVtkExampleDemo();
 					demo->ShowVtkExampleDemo();					
+				} else if (item_name.CompareNoCase(L"Red_Book_Shrink_Magnify") == 0) {
+					vtkExamplesContext* demo = new vtkExamplesContext(new vtkShrinkAndMaginifyStrategy);
+					demo->DoAction();					
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {
 					if (pVtkShowBtn) {
 						pVtkShowBtn->SetText(_T("Please wait..."));
