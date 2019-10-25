@@ -134,6 +134,9 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"Red_Book_Shrink_Magnify") == 0) {
 					vtkExamplesContext* demo = new vtkExamplesContext(new vtkShrinkAndMaginifyStrategy);
 					demo->DoAction();					
+				} else if (item_name.CompareNoCase(L"Red_Book_Mathematics") == 0) {
+					vtkExamplesContext* demo = new vtkExamplesContext(new vtkMathematicsStrategy);
+					demo->DoAction();					
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {
 					if (pVtkShowBtn) {
 						pVtkShowBtn->SetText(_T("Please wait..."));

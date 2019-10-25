@@ -119,4 +119,5 @@
 #include <vtkExtractVOI.h>
 #include <vtkImageBlend.h>
 #include <vtkImageMagnify.h>
+#include <vtkImageMathematics.h>
 // TODO: 在此处引用程序需要的其他头文件

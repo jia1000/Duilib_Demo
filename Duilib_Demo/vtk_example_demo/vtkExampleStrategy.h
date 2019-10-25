@@ -28,5 +28,15 @@ protected:
 private:
 };
 //////////////////////////////////////////////////////////////////////////
+class vtkMathematicsStrategy : public vtkExampleStrategyBase
+{
+public:
+	vtkMathematicsStrategy();
+	~vtkMathematicsStrategy();
+	virtual void AlgrithmInterface();
+protected:
+private:
+};
+//////////////////////////////////////////////////////////////////////////
 
 #endif

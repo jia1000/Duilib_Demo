@@ -129,3 +129,72 @@ void vtkShrinkAndMaginifyStrategy::AlgrithmInterface()
 	renderWindowInteractor->Start();
 }
 //////////////////////////////////////////////////////////////////////////
+vtkMathematicsStrategy::vtkMathematicsStrategy()
+{}
+
+vtkMathematicsStrategy::~vtkMathematicsStrategy()
+{}
+
+void vtkMathematicsStrategy::AlgrithmInterface()
+{
+	vtkSmartPointer<vtkImageCanvasSource2D> imageSource = 
+		vtkSmartPointer<vtkImageCanvasSource2D>::New();
+	imageSource->SetNumberOfScalarComponents(3);
+	imageSource->SetScalarTypeToUnsignedChar();
+	imageSource->SetExtent(0, 4, 0, 4, 0, 0);
+	imageSource->SetDrawColor(100.0, 0, 0);
+	imageSource->FillBox(0, 4, 0, 4);
+	imageSource->Update();
+
+	vtkSmartPointer<vtkImageMathematics> imageMath = 
+		vtkSmartPointer<vtkImageMathematics>::New();
+	imageMath->SetOperationToMultiplyByK();		// 设置使用数学操作为：所有图像值，乘以常数K. 下面会设置为2.
+	imageMath->SetConstantK(2.0);
+	imageMath->SetInputConnection(imageSource->GetOutputPort());
+	imageMath->Update();
+
+	vtkSmartPointer<vtkImageActor> originalActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	originalActor->SetInput(
+		imageSource->GetOutput());
+
+	vtkSmartPointer<vtkImageActor> mathActor =
+		vtkSmartPointer<vtkImageActor>::New();
+	mathActor->SetInput(imageMath->GetOutput());
+
+	double leftViewport[4] = {0.0, 0.0, 0.5, 1.0};
+	double rightViewport[4] = {0.5, 0.0, 1.0, 1.0};
+
+	vtkSmartPointer<vtkRenderer> originalRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	originalRenderer->SetViewport(leftViewport);
+	originalRenderer->AddActor(originalActor);
+	originalRenderer->ResetCamera();
+	originalRenderer->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderer> gradientMagnitudeRenderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	gradientMagnitudeRenderer->SetViewport(rightViewport);
+	gradientMagnitudeRenderer->AddActor(mathActor);
+	gradientMagnitudeRenderer->ResetCamera();
+	gradientMagnitudeRenderer->SetBackground(1.0, 1.0, 1.0);
+
+	vtkSmartPointer<vtkRenderWindow> renderWindow =
+		vtkSmartPointer<vtkRenderWindow>::New();
+	renderWindow->AddRenderer(originalRenderer);
+	renderWindow->AddRenderer(gradientMagnitudeRenderer);
+	renderWindow->SetSize(640, 480);
+	renderWindow->Render();
+	renderWindow->SetWindowName("ImageMathematicsExample");
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer<vtkInteractorStyleImage> style =
+		vtkSmartPointer<vtkInteractorStyleImage>::New();
+
+	renderWindowInteractor->SetInteractorStyle(style);
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	renderWindowInteractor->Initialize();
+	renderWindowInteractor->Start();
+}
+//////////////////////////////////////////////////////////////////////////
