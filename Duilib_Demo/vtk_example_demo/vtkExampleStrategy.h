@@ -79,5 +79,16 @@ protected:
 private:
 };
 //////////////////////////////////////////////////////////////////////////
+// ÕºœÒ∆µ”Ú---FFT∫ÕRFFT
+class vtkImageFftAndRfftStrategy : public vtkExampleStrategyBase
+{
+public:
+	vtkImageFftAndRfftStrategy();
+	~vtkImageFftAndRfftStrategy();
+	virtual void AlgrithmInterface();
+protected:
+private:
+};
+//////////////////////////////////////////////////////////////////////////
 
 #endif
