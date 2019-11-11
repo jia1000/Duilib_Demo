@@ -152,6 +152,9 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"Red_Book_FFT_RFFT") == 0) {
 					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageFftAndRfftStrategy);
 					demo->DoAction();					
+				} else if (item_name.CompareNoCase(L"Red_Book_MULTI_MASK") == 0) {
+					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageMultiMaskStrategy);
+					demo->DoAction();					
 				} else if (item_name.CompareNoCase(L"Red_Book_PolyDataSource") == 0) {
 					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageFftAndRfftStrategy);
 					demo->DoAction();					

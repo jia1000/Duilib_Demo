@@ -30,6 +30,7 @@
 					<TreeNode name="Red_Book_Gradient" 		text="边缘检测-梯度算子"  	height="32"/>
 					<TreeNode name="Red_Book_MeanFilter" 	text="图像平滑-均值滤波"  	height="32"/>
 					<TreeNode name="Red_Book_FFT_RFFT" 		text="图像频域-FFT"  	height="32"/>
+					<TreeNode name="Red_Book_MULTI_MASK" 	text="多Mask"  	height="32"/>
 					
 				</TreeNode>
 				<TreeNode name="Vtk_Example_Red_Book2" text="红宝书-图形处理"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >

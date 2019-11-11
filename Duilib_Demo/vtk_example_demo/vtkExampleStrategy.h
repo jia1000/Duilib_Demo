@@ -90,5 +90,16 @@ protected:
 private:
 };
 //////////////////////////////////////////////////////////////////////////
+// ¶à¸ö Mask
+class vtkImageMultiMaskStrategy : public vtkExampleStrategyBase
+{
+public:
+	vtkImageMultiMaskStrategy();
+	~vtkImageMultiMaskStrategy();
+	virtual void AlgrithmInterface();
+protected:
+private:
+};
+//////////////////////////////////////////////////////////////////////////
 
 #endif
