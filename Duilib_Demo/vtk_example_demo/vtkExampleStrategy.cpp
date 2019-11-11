@@ -651,59 +651,80 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	source->Update();
 
 	// Create a rectanglular mask
-	vtkSmartPointer<vtkImageCanvasSource2D> maskSource = 
+	vtkSmartPointer<vtkImageCanvasSource2D> maskSource1 = 
 		vtkSmartPointer<vtkImageCanvasSource2D>::New();
-	maskSource->SetScalarTypeToUnsignedChar();
-	maskSource->SetNumberOfScalarComponents(1);
-	maskSource->SetExtent(0, 200, 0, 200, 0, 0);
+	maskSource1->SetScalarTypeToUnsignedChar();
+	maskSource1->SetNumberOfScalarComponents(1);
+	maskSource1->SetExtent(0, 200, 0, 200, 0, 0);
 
 	// Initialize the mask to black
-	maskSource->SetDrawColor(0,0,0);
-	maskSource->FillBox(0,200,0,200);
+	maskSource1->SetDrawColor(255,255,255);
+	maskSource1->FillBox(0,200,0,200);
 
 	// Create a square
-	maskSource->SetDrawColor(255,255,255); //anything non-zero means "make the output pixel equal the input pixel." If the mask is zero, the output pixel is set to MaskedValue
-	maskSource->FillBox(100,120,100,120);
-	maskSource->Update();
+	maskSource1->SetDrawColor(0,255,0); //anything non-zero means "make the output pixel equal the input pixel." If the mask is zero, the output pixel is set to MaskedValue
+	maskSource1->FillBox(100,120,100,120);
+	maskSource1->Update();
 
-	vtkSmartPointer<vtkImageMask> maskFilter = 
-		vtkSmartPointer<vtkImageMask>::New();
-	maskFilter->SetInputConnection(0, source->GetOutputPort());
-	maskFilter->SetInputConnection(1, maskSource->GetOutputPort());
-	maskFilter->SetMaskedOutputValue(0,1,0);
-	maskFilter->Update();
+	vtkSmartPointer<vtkImageCanvasSource2D> maskSource2 = 
+		vtkSmartPointer<vtkImageCanvasSource2D>::New();
+	maskSource2->SetScalarTypeToUnsignedChar();
+	maskSource2->SetNumberOfScalarComponents(1);
+	maskSource2->SetExtent(0, 200, 0, 200, 0, 0);
 
-	vtkSmartPointer<vtkImageMask> inverseMaskFilter =
+	// Initialize the mask to black
+	maskSource2->SetDrawColor(255,255,255);
+	maskSource2->FillBox(0,200,0,200);
+
+	// Create a square
+	maskSource2->SetDrawColor(0,0,255); //anything non-zero means "make the output pixel equal the input pixel." If the mask is zero, the output pixel is set to MaskedValue
+	maskSource2->FillBox(10,30,10,30);
+	maskSource2->Update();
+
+	vtkSmartPointer<vtkImageMask> maskFilter1 = 
 		vtkSmartPointer<vtkImageMask>::New();
-	inverseMaskFilter->SetInputConnection(0, source->GetOutputPort());
-	inverseMaskFilter->SetInputConnection(1, maskSource->GetOutputPort());
-	inverseMaskFilter->SetMaskedOutputValue(0,1,0);
-	inverseMaskFilter->NotMaskOn();
-	inverseMaskFilter->Update();
+	maskFilter1->SetInputConnection(0, source->GetOutputPort());
+	maskFilter1->SetInputConnection(1, maskSource1->GetOutputPort());
+	maskFilter1->SetMaskedOutputValue(0.5,0.5,0.5);
+	maskFilter1->Update();
+
+	vtkSmartPointer<vtkImageMask> maskFilter2 = 
+		vtkSmartPointer<vtkImageMask>::New();
+	maskFilter2->SetInputConnection(0, source->GetOutputPort());
+	maskFilter2->SetInputConnection(1, maskSource2->GetOutputPort());
+	maskFilter2->SetMaskedOutputValue(0.5,0.5,0.5);
+	maskFilter2->Update();
+
+	vtkSmartPointer<vtkImageLogic> imageLogic = 
+		vtkSmartPointer<vtkImageLogic>::New();
+	imageLogic->SetInput1(maskSource1->GetOutput());
+	imageLogic->SetInput2(maskSource2->GetOutput());
+	imageLogic->SetOperationToXor();		// 设置或操作
+	imageLogic->SetOutputTrueValue(50);	// 设置或操作为true时 的像素值。
+	imageLogic->Update();
 
 	// Create actors
 	vtkSmartPointer<vtkImageActor> originalActor =
 		vtkSmartPointer<vtkImageActor>::New();
 	originalActor->GetMapper()->SetInputConnection(source->GetOutputPort());
 
-	vtkSmartPointer<vtkImageActor> maskActor =
+	vtkSmartPointer<vtkImageActor> maskedActor1 =
 		vtkSmartPointer<vtkImageActor>::New();
-	maskActor->GetMapper()->SetInputConnection(maskSource->GetOutputPort());
+	maskedActor1->GetMapper()->SetInputConnection(maskFilter1->GetOutputPort());
 
-	vtkSmartPointer<vtkImageActor> maskedActor =
+	vtkSmartPointer<vtkImageActor> maskedActor2 =
 		vtkSmartPointer<vtkImageActor>::New();
-	maskedActor->GetMapper()->SetInputConnection(maskFilter->GetOutputPort());
+	maskedActor2->GetMapper()->SetInputConnection(maskFilter2->GetOutputPort());
 
-	vtkSmartPointer<vtkImageActor> inverseMaskedActor =
-		vtkSmartPointer<vtkImageActor>::New();
-	inverseMaskedActor->GetMapper()->SetInputConnection(inverseMaskFilter->GetOutputPort());
+	vtkSmartPointer<vtkImageActor> logicActor =	vtkSmartPointer<vtkImageActor>::New();
+	logicActor->SetInput(imageLogic->GetOutput());
 
 	// Define viewport ranges
 	// (xmin, ymin, xmax, ymax)
 	double originalViewport[4] = {0.0, 0.0, 0.25, 1.0};
-	double maskViewport[4] = {0.25, 0.0, 0.5, 1.0};
-	double maskedViewport[4] = {0.5, 0.0, 0.75, 1.0};
-	double inverseMaskedViewport[4] = {0.75, 0.0, 1.0, 1.0};
+	double maskedViewport1[4] = {0.25, 0.0, 0.5, 1.0};
+	double maskedViewport2[4] = {0.5, 0.0, 0.75, 1.0};
+	double maskedViewportLogic[4] = {0.75, 0.0, 1.0, 1.0};
 
 	// Setup renderers
 	vtkSmartPointer<vtkRenderer> originalRenderer =
@@ -713,39 +734,38 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	originalRenderer->ResetCamera();
 	originalRenderer->SetBackground(.4, .5, .6);
 
-	vtkSmartPointer<vtkRenderer> maskRenderer =
+	vtkSmartPointer<vtkRenderer> maskedRenderer1 =
 		vtkSmartPointer<vtkRenderer>::New();
-	maskRenderer->SetViewport(maskViewport);
-	maskRenderer->AddActor(maskActor);
-	maskRenderer->ResetCamera();
-	maskRenderer->SetBackground(.4, .5, .6);
+	maskedRenderer1->SetViewport(maskedViewport1);
+	maskedRenderer1->AddActor(maskedActor1);
+	maskedRenderer1->ResetCamera();
+	maskedRenderer1->SetBackground(.4, .5, .6);
 
-	vtkSmartPointer<vtkRenderer> maskedRenderer =
+	vtkSmartPointer<vtkRenderer> maskedRenderer2 =
 		vtkSmartPointer<vtkRenderer>::New();
-	maskedRenderer->SetViewport(maskedViewport);
-	maskedRenderer->AddActor(maskedActor);
-	maskedRenderer->ResetCamera();
-	maskedRenderer->SetBackground(.4, .5, .6);
+	maskedRenderer2->SetViewport(maskedViewport2);
+	maskedRenderer2->AddActor(maskedActor2);
+	maskedRenderer2->ResetCamera();
+	maskedRenderer2->SetBackground(.4, .5, .6);
 
-	vtkSmartPointer<vtkRenderer> inverseMaskedRenderer =
+	vtkSmartPointer<vtkRenderer> maskedRendererLogic =
 		vtkSmartPointer<vtkRenderer>::New();
-	inverseMaskedRenderer->SetViewport(inverseMaskedViewport);
-	inverseMaskedRenderer->AddActor(inverseMaskedActor);
-	inverseMaskedRenderer->ResetCamera();
-	inverseMaskedRenderer->SetBackground(.4, .5, .7);
-
+	maskedRendererLogic->SetViewport(maskedViewportLogic);
+	maskedRendererLogic->AddActor(logicActor);
+	maskedRendererLogic->ResetCamera();
+	maskedRendererLogic->SetBackground(.4, .5, .6);
+	
 	vtkSmartPointer<vtkRenderWindow> renderWindow =
 		vtkSmartPointer<vtkRenderWindow>::New();
 	renderWindow->SetSize(1000, 250);
 	renderWindow->AddRenderer(originalRenderer);
-	renderWindow->AddRenderer(maskRenderer);
-	renderWindow->AddRenderer(maskedRenderer);
-	renderWindow->AddRenderer(inverseMaskedRenderer);
+	renderWindow->AddRenderer(maskedRenderer1);
+	renderWindow->AddRenderer(maskedRenderer2);
+	renderWindow->AddRenderer(maskedRendererLogic);
 
 	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
 		vtkSmartPointer<vtkRenderWindowInteractor>::New();
-	vtkSmartPointer<vtkInteractorStyleImage> style =
-		vtkSmartPointer<vtkInteractorStyleImage>::New();
+	vtkSmartPointer<vtkInteractorStyleImage> style = vtkSmartPointer<vtkInteractorStyleImage>::New();
 
 	renderWindowInteractor->SetInteractorStyle(style);
 
