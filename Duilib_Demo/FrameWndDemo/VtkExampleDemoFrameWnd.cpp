@@ -152,6 +152,9 @@ void    CVtkExampleDemoFrameWnd::Notify(TNotifyUI& msg)
 				} else if (item_name.CompareNoCase(L"Red_Book_FFT_RFFT") == 0) {
 					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageFftAndRfftStrategy);
 					demo->DoAction();					
+				} else if (item_name.CompareNoCase(L"Red_Book_PolyDataSource") == 0) {
+					vtkExamplesContext* demo = new vtkExamplesContext(new vtkImageFftAndRfftStrategy);
+					demo->DoAction();					
 				} else if (item_name.CompareNoCase(L"End_01") == 0) {
 					if (pVtkShowBtn) {
 						pVtkShowBtn->SetText(_T("Please wait..."));

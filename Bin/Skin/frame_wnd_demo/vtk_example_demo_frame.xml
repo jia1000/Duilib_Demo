@@ -20,7 +20,7 @@
 					<TreeNode name="StructuredGrid_1" 	text="BlankPoint"  	height="32"/>
 					
 				</TreeNode>
-				<TreeNode name="Vtk_Example_Red_Book" text="红宝书"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
+				<TreeNode name="Vtk_Example_Red_Book1" text="红宝书-图像处理"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
 					<TreeNode name="Red_Book_VolumeOfInterest" 	text="VolumeOfInterest"  	height="32"/>
 					<TreeNode name="Red_Book_Reslice" 	text="ResliceImage"  	height="32"/>
 					<TreeNode name="Red_Book_Shrink_Magnify" 	text="重采样"  	height="32"/>
@@ -32,6 +32,10 @@
 					<TreeNode name="Red_Book_FFT_RFFT" 		text="图像频域-FFT"  	height="32"/>
 					
 				</TreeNode>
+				<TreeNode name="Vtk_Example_Red_Book2" text="红宝书-图形处理"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
+					<TreeNode name="Red_Book_PolyDataSource" 	text="PolyDataSource"  	height="32"/>
+				
+				</TreeNode>				
 				<TreeNode name="Vtk_Example_End" text="Vtk_Example_End"  height="32" folderattr="padding=&quot;5,10,10,10&quot; width=&quot;12&quot; height=&quot;12&quot; normalimage=&quot;file='common_icon/down_nor.png' source='0,0,12,12' &quot; selectedimage=&quot;file='common_icon/up_nor.png' source='0,0,12,12' &quot;" >
 					<TreeNode name="End_01" 	text="End_01"  	height="32"/>
 					
