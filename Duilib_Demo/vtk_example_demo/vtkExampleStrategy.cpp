@@ -629,6 +629,74 @@ void vtkImageFftAndRfftStrategy::AlgrithmInterface()
 	renderWindowInteractor->Start();
 }
 //////////////////////////////////////////////////////////////////////////
+class opacityVtkInteractorStyleImage: public vtkInteractorStyleImage
+{
+public:
+	static opacityVtkInteractorStyleImage* New();
+	vtkTypeMacro(opacityVtkInteractorStyleImage, vtkInteractorStyleImage);
+	void SetRendererWindow(vtkSmartPointer<vtkRenderWindow> renderer_window)
+	{
+		m_rendererWindow = renderer_window;
+	}
+	void SetActors(vtkSmartPointer<vtkImageActor> actor1, vtkSmartPointer<vtkImageActor> actor2)
+	{
+		m_actor1 = actor1;
+		m_actor2 = actor2;
+		m_opacity1 = 1.0f;
+		m_opacity2 = 1.0f;
+	}
+	virtual void OnKeyDown()
+	{
+		std::string key = this->GetInteractor()->GetKeySym();
+		if (key.compare("Up") == 0) {
+			m_opacity1 += 0.2;
+			if (m_opacity1 > 1.0) {
+				m_opacity1 = 0;
+			}
+			m_actor1->SetOpacity(m_opacity1);
+			printf("m_opacity1 = %.2f\n", m_opacity1);
+		}
+		else if (key.compare("Down")==0)
+		{
+			m_opacity1 -= 0.2;
+			if (m_opacity1 < 0) {
+				m_opacity1 = 1.0;
+			}
+			m_actor1->SetOpacity(m_opacity1);
+			printf("m_opacity1 = %.2f\n", m_opacity1);
+		}
+		else if (key.compare("Left") == 0) {
+			m_opacity2 -= 0.2;
+			if (m_opacity2 < 0) {
+				m_opacity2 = 1.0;
+			}
+			m_actor2->SetOpacity(m_opacity2);
+			printf("                     m_opacity2 = %.2f\n", m_opacity2);
+		}
+		else if (key.compare("Right")==0)
+		{
+			m_opacity2 += 0.2;
+			if (m_opacity2 > 1.0) {
+				m_opacity2 = 0;
+			}
+			m_actor2->SetOpacity(m_opacity2);
+			printf("                     m_opacity2 = %.2f\n", m_opacity2);
+		}
+
+		m_rendererWindow->Render();
+
+		vtkInteractorStyleImage::OnKeyDown();
+	}
+
+private:
+	vtkSmartPointer<vtkImageActor> m_actor1;
+	vtkSmartPointer<vtkImageActor> m_actor2;
+	vtkSmartPointer<vtkRenderWindow> m_rendererWindow;
+	double m_opacity1;
+	double m_opacity2;
+};
+vtkStandardNewMacro(opacityVtkInteractorStyleImage);
+//////////////////////////////////////////////////////////////////////////
 vtkImageMultiMaskStrategy::vtkImageMultiMaskStrategy()
 {}
 
@@ -677,7 +745,7 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	maskSource2->FillBox(0,200,0,200);
 
 	// Create a square
-	maskSource2->SetDrawColor(0,0,255); //anything non-zero means "make the output pixel equal the input pixel." If the mask is zero, the output pixel is set to MaskedValue
+	maskSource2->SetDrawColor(0,255,0); //anything non-zero means "make the output pixel equal the input pixel." If the mask is zero, the output pixel is set to MaskedValue
 	maskSource2->FillBox(10,30,10,30);
 	maskSource2->Update();
 
@@ -685,14 +753,16 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 		vtkSmartPointer<vtkImageMask>::New();
 	maskFilter1->SetInputConnection(0, source->GetOutputPort());
 	maskFilter1->SetInputConnection(1, maskSource1->GetOutputPort());
-	maskFilter1->SetMaskedOutputValue(0.5,0.5,0.5);
+	maskFilter1->SetMaskedOutputValue(0,1,0);
+	maskFilter1->SetNotMask(1);
 	maskFilter1->Update();
 
 	vtkSmartPointer<vtkImageMask> maskFilter2 = 
 		vtkSmartPointer<vtkImageMask>::New();
 	maskFilter2->SetInputConnection(0, source->GetOutputPort());
 	maskFilter2->SetInputConnection(1, maskSource2->GetOutputPort());
-	maskFilter2->SetMaskedOutputValue(0.5,0.5,0.5);
+	maskFilter2->SetMaskedOutputValue(0,1,0);
+	maskFilter2->SetNotMask(1);
 	maskFilter2->Update();
 
 	vtkSmartPointer<vtkImageLogic> imageLogic = 
@@ -711,12 +781,12 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	vtkSmartPointer<vtkImageActor> maskedActor1 =
 		vtkSmartPointer<vtkImageActor>::New();
 	maskedActor1->GetMapper()->SetInputConnection(maskFilter1->GetOutputPort());
-	maskedActor1->SetOpacity(0.4);
+	//maskedActor1->SetOpacity(0.4);
 
 	vtkSmartPointer<vtkImageActor> maskedActor2 =
 		vtkSmartPointer<vtkImageActor>::New();
 	maskedActor2->GetMapper()->SetInputConnection(maskFilter2->GetOutputPort());
-	maskedActor2->SetOpacity(0.4);
+	//maskedActor2->SetOpacity(0.4);
 
 	vtkSmartPointer<vtkImageActor> logicActor =	vtkSmartPointer<vtkImageActor>::New();
 	logicActor->SetInput(imageLogic->GetOutput());
@@ -778,8 +848,9 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 
 	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
 		vtkSmartPointer<vtkRenderWindowInteractor>::New();
-	vtkSmartPointer<vtkInteractorStyleImage> style = vtkSmartPointer<vtkInteractorStyleImage>::New();
-
+	vtkSmartPointer<opacityVtkInteractorStyleImage> style = vtkSmartPointer<opacityVtkInteractorStyleImage>::New();
+	style->SetRendererWindow(renderWindow);
+	style->SetActors(maskedActor1, maskedActor2);
 	renderWindowInteractor->SetInteractorStyle(style);
 
 	renderWindowInteractor->SetRenderWindow(renderWindow);
