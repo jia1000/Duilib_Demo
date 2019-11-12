@@ -711,20 +711,24 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	vtkSmartPointer<vtkImageActor> maskedActor1 =
 		vtkSmartPointer<vtkImageActor>::New();
 	maskedActor1->GetMapper()->SetInputConnection(maskFilter1->GetOutputPort());
+	maskedActor1->SetOpacity(0.4);
 
 	vtkSmartPointer<vtkImageActor> maskedActor2 =
 		vtkSmartPointer<vtkImageActor>::New();
 	maskedActor2->GetMapper()->SetInputConnection(maskFilter2->GetOutputPort());
+	maskedActor2->SetOpacity(0.4);
 
 	vtkSmartPointer<vtkImageActor> logicActor =	vtkSmartPointer<vtkImageActor>::New();
 	logicActor->SetInput(imageLogic->GetOutput());
 
 	// Define viewport ranges
 	// (xmin, ymin, xmax, ymax)
-	double originalViewport[4] = {0.0, 0.0, 0.25, 1.0};
-	double maskedViewport1[4] = {0.25, 0.0, 0.5, 1.0};
-	double maskedViewport2[4] = {0.5, 0.0, 0.75, 1.0};
-	double maskedViewportLogic[4] = {0.75, 0.0, 1.0, 1.0};
+	double originalViewport[4] = {0.0, 0.0, 0.2, 1.0};
+	double maskedViewport1[4] = {0.2, 0.0, 0.4, 1.0};
+	double maskedViewport2[4] = {0.4, 0.0, 0.6, 1.0};
+	double maskedViewportLogic[4] = {0.6, 0.0, 0.8, 1.0};
+	double maskedViewportBlend[4] = {0.8, 0.0, 1.0, 1.0};
+
 
 	// Setup renderers
 	vtkSmartPointer<vtkRenderer> originalRenderer =
@@ -754,6 +758,14 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	maskedRendererLogic->AddActor(logicActor);
 	maskedRendererLogic->ResetCamera();
 	maskedRendererLogic->SetBackground(.4, .5, .6);
+
+	vtkSmartPointer<vtkRenderer> maskedRendererBlend =
+		vtkSmartPointer<vtkRenderer>::New();
+	maskedRendererBlend->SetViewport(maskedViewportBlend);
+	maskedRendererBlend->AddActor(maskedActor1);
+	maskedRendererBlend->AddActor(maskedActor2);
+	maskedRendererBlend->ResetCamera();
+	maskedRendererBlend->SetBackground(.4, .5, .6);
 	
 	vtkSmartPointer<vtkRenderWindow> renderWindow =
 		vtkSmartPointer<vtkRenderWindow>::New();
@@ -762,6 +774,7 @@ void vtkImageMultiMaskStrategy::AlgrithmInterface()
 	renderWindow->AddRenderer(maskedRenderer1);
 	renderWindow->AddRenderer(maskedRenderer2);
 	renderWindow->AddRenderer(maskedRendererLogic);
+	renderWindow->AddRenderer(maskedRendererBlend);
 
 	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
 		vtkSmartPointer<vtkRenderWindowInteractor>::New();
